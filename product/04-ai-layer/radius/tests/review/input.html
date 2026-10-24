@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workspace settings</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  :root { --ds-shape-control: 6px; }
+  body { margin: 0; }
+  main { display: grid; gap: var(--ds-space-stack-2xl); padding-block: var(--ds-space-inset-2xl); }
+  main > *, .row > * { min-width: 0; }
+  h1, h2, h3, p { margin: 0; }
+  .row { display: flex; flex-wrap: wrap; gap: var(--ds-space-stack-xl) var(--ds-space-inline-xl); align-items: flex-start; }
+  .btn { display: inline-flex; align-items: center; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: var(--ds-border-width-default) solid var(--ds-color-action-secondary-border); border-radius: var(--ds-shape-control); background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); font: inherit; }
+  .btn:focus-visible { border-radius: var(--ds-shape-pill); }
+  .btn-upgrade { border-radius: 999px; background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); border-color: transparent; max-inline-size: 100%; }
+  .card { padding: var(--ds-space-inset-xs); border: var(--ds-border-width-default) solid var(--ds-color-border-subtle); border-radius: 10px; background: var(--ds-color-bg-surface); max-inline-size: 22rem; }
+  .card .panel { padding: var(--ds-space-inset-md); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-brand-subtle); }
+  .profile { border: var(--ds-border-width-default) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); max-inline-size: 22rem; }
+  .profile-head { padding: var(--ds-space-inset-md); background: var(--ds-color-bg-brand); color: var(--ds-color-action-primary-fg); }
+  .profile-body { padding: var(--ds-space-inset-lg); }
+  .media-card { display: grid; border: var(--ds-border-width-default) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); overflow: hidden; background: var(--ds-color-bg-surface); max-inline-size: 22rem; }
+  .media-card a { display: block; padding: var(--ds-space-inset-md); background: var(--ds-color-bg-surface-sunken); color: var(--ds-color-fg-link); }
+  .tile { padding: var(--ds-space-inset-lg); border-radius: var(--ds-radius-6); background: var(--ds-color-bg-surface); }
+  .seg { display: flex; }
+  .seg .btn + .btn { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+  .seg .btn:not(:last-child) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+  .agree input { appearance: none; inline-size: 1rem; block-size: 1rem; margin: 0; border: var(--ds-border-width-input) solid var(--ds-color-border-input); border-radius: var(--ds-shape-control); }
+  .agree input:checked { background: var(--ds-color-action-primary-bg); }
+  .agree { display: inline-flex; align-items: center; gap: var(--ds-space-inline-sm); min-height: var(--ds-size-target-min); }
+  .chip { position: relative; display: inline-flex; padding: var(--ds-space-inset-xs) var(--ds-space-inset-sm); border-radius: var(--ds-shape-control); background: var(--ds-color-bg-surface-sunken); color: var(--ds-color-fg-default); border: 0; font: inherit; }
+  .chip:focus-visible { outline: none; }
+  .chip:focus-visible::after { content: ""; position: absolute; inset: -4px; border: var(--ds-border-width-strong) solid var(--ds-color-border-focus); border-radius: var(--ds-shape-control); }
+  .tag { padding: var(--ds-space-inset-xs) var(--ds-space-inset-sm); border-radius: var(--ds-shape-tag); background: var(--ds-color-bg-success-subtle); color: var(--ds-color-fg-success); }
+  .dialog { display: grid; gap: var(--ds-space-stack-lg); padding: var(--ds-space-inset-xl); border: var(--ds-border-width-default) solid var(--ds-elevation-4-border); border-radius: var(--ds-shape-control); background: var(--ds-elevation-4-surface); box-shadow: var(--ds-elevation-4-shadow); max-inline-size: 26rem; }
+  .menu { list-style: none; margin: 0; padding: var(--ds-space-inset-xs); border: var(--ds-border-width-default) solid var(--ds-elevation-3-border); border-radius: var(--ds-shape-surface); background: var(--ds-elevation-3-surface); }
+  .menu a { display: block; padding: var(--ds-space-inset-sm); border-radius: max(0px, var(--ds-shape-surface) - var(--ds-space-inset-xs)); color: var(--ds-color-fg-default); text-decoration: none; }
+  .toggle { display: inline-block; inline-size: 2.5rem; block-size: 1.5rem; border-radius: var(--ds-shape-control); background: var(--ds-color-action-primary-bg); }
+</style>
+</head>
+<body>
+<main class="ds-page">
+  <h1 class="ds-type-heading-lg">Workspace settings</h1>
+  <div class="row">
+    <section class="card" aria-labelledby="h-plan"><div class="panel"><h2 id="h-plan" class="ds-type-title-md">Free plan</h2><p class="ds-type-body-sm">3 of 3 projects used.</p></div></section>
+    <button class="btn btn-upgrade ds-type-label-md" type="button">Upgrade to the team plan</button>
+  </div>
+  <div class="row">
+    <article class="profile" aria-labelledby="h-me"><div class="profile-head"><h2 id="h-me" class="ds-type-title-md">Sikandar Ali</h2></div><div class="profile-body"><p class="ds-type-body-md">Owner since 2024</p></div></article>
+    <article class="media-card" aria-labelledby="h-guide"><a href="#guide" class="ds-type-label-md">Read the setup guide</a><div style="padding: var(--ds-space-inset-lg)"><h2 id="h-guide" class="ds-type-title-md">Getting started</h2></div></article>
+    <div class="tile"><p class="ds-type-body-md">Storage: 4 GB</p></div>
+  </div>
+  <div class="row">
+    <div class="seg" role="group" aria-label="Theme"><button class="btn ds-type-label-md" type="button" aria-pressed="true">Light</button><button class="btn ds-type-label-md" type="button" aria-pressed="false">Dark</button><button class="btn ds-type-label-md" type="button" aria-pressed="false">System</button></div>
+    <label class="agree ds-type-body-md"><input type="checkbox" checked> I agree to the terms</label>
+    <button class="chip ds-type-label-md" type="button">Design</button>
+    <span class="tag ds-type-label-sm">Verified</span>
+    <span class="toggle" role="img" aria-label="Notifications on"></span>
+  </div>
+  <div class="row">
+    <div class="dialog" role="group" aria-labelledby="h-leave"><h2 id="h-leave" class="ds-type-title-lg">Leave workspace?</h2><p class="ds-type-body-md">You lose access to its projects.</p><div><button class="btn ds-type-label-md" type="button">Leave</button></div></div>
+    <ul class="menu ds-type-label-md" aria-label="Workspace"><li><a href="#members">Members</a></li><li><a href="#billing">Billing</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

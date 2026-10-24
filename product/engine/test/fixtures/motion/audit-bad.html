@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Motion audit — planted problems</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    /* Planted for the motion audit: every block below breaks a rule the audit must catch in a browser. */
+    body { margin: 0; padding: 24px; }
+    html { scroll-behavior: smooth; }
+    .card { display: block; width: 240px; padding: 16px; border: var(--ds-border-width-line) solid var(--ds-color-border-default); transition: transform 400ms ease; }
+    .card:hover { transform: translateY(-40px); }
+    @keyframes blink { to { opacity: 0.1; } }
+    .blinker { display: inline-block; padding: 8px; background: var(--ds-color-bg-danger); color: var(--ds-color-fg-on-danger); animation: blink 120ms infinite alternate; }
+    @keyframes spin { to { rotate: 1turn; } }
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid currentColor; border-top-color: transparent; border-radius: 50%; animation: spin 600ms linear infinite; }
+    .field:focus-visible { transition: outline-offset 200ms ease-out; }
+    .menu[popover], .menu[popover]:popover-open { transition: opacity 500ms ease-in-out, translate 500ms ease-in-out; }
+    .hero { height: 900px; overflow: hidden; }
+    .hero img, .hero .layer { display: block; width: 100%; height: 300px; background: var(--ds-color-bg-brand-subtle); }
+  </style>
+</head>
+<body>
+  <a class="card" href="#">Project Atlas</a>
+  <p><span class="blinker">Live</span> <span class="spinner" aria-hidden="true"></span></p>
+  <label>Name <input class="field"></label>
+  <button popovertarget="m">More</button>
+  <div class="ds-floating menu" popover id="m" role="menu"><button role="menuitem">Rename</button></div>
+  <video autoplay muted loop src="data:video/mp4;base64,"></video>
+  <section class="hero"><div class="layer" id="parallax">Hero</div></section>
+  <script>
+    addEventListener('scroll', () => { document.getElementById('parallax').style.transform = `translateY(${scrollY * 0.4}px)`; });
+  </script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+{ "name": "gutter", "spacing": { "tokens": [
+  { "name": "space.gutter.table", "base": "4", "description": "Gap between table columns" }
+] } }

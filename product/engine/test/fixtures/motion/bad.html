@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" data-motion="full">
+<head>
+  <meta charset="utf-8">
+  <title>Motion — bad</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    :root { --ds-motion-change-duration: 400ms; }
+    html { scroll-behavior: smooth; }
+    .btn { transition: background-color 200ms ease-in-out; }
+    .chip { transition: all var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing); }
+    .link { transition: color var(--ds-motion-duration-200) var(--ds-motion-feedback-easing); }
+    .field:focus-visible { transition: outline-offset var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing); }
+    .card { transition: translate var(--ds-motion-change-duration) var(--ds-motion-change-easing); }
+    .card:hover { transform: scale(1.04); }
+    .sheet { translate: 0 100vh; transition: translate var(--ds-motion-modal-duration) var(--ds-motion-modal-easing); }
+    .accordion { transition: height var(--ds-motion-change-duration) var(--ds-motion-change-easing); }
+    @keyframes slide-in { from { transform: translateX(-40px); } }
+    .banner { animation: slide-in var(--ds-motion-change-duration) var(--ds-motion-change-easing); }
+    @media (prefers-reduced-motion: reduce) { .promo { animation: slide-in var(--ds-motion-change-duration) var(--ds-motion-change-easing); } }
+    dialog { transition: opacity var(--ds-motion-modal-duration) var(--ds-motion-modal-easing); }
+    @keyframes breathe { 50% { opacity: 0.4; } }
+    .dots { animation: breathe var(--ds-motion-loading-duration) var(--ds-motion-loading-easing) infinite; }
+    @keyframes dim { 50% { opacity: 0.2; } }
+    .live { animation: dim 250ms 4; }
+    @keyframes shake { 25% { translate: -6px 0; } 75% { translate: 6px 0; } }
+    .field[aria-invalid="true"] { animation: shake var(--ds-motion-change-duration) var(--ds-motion-change-easing); }
+  </style>
+</head>
+<body>
+  <marquee>Sale ends soon</marquee>
+  <video src="intro.mp4" autoplay muted loop></video>
+  <button class="btn">Save</button>
+</body>
+</html>

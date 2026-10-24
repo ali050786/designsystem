@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<!-- ds-lint-ignore: TR-06 — this page is a specimen and shows every display style on purpose. -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ds type demo</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Every piece of text on this page uses a ds text style (or the defaults tokens.css gives body and headings).
+     There are no font sizes, line heights or letter-spacings in this file. Layout uses ds spacing, radius and colour. */
+  body { margin: 0; }
+  .top { z-index: var(--ds-layer-sticky); display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-md) var(--ds-space-inline-xl);
+    padding: var(--ds-space-inset-md) var(--ds-layout-margin); background: var(--ds-elevation-sticky-surface); border-bottom: var(--ds-border-width-line) solid var(--ds-color-border-subtle); box-shadow: var(--ds-elevation-sticky-shadow); }
+  .top .name { margin-right: auto; }
+  .bp { color: var(--ds-color-fg-muted); }
+  @media (min-height: 30em) { .top { position: sticky; top: 0; } } /* sticky only where there is room (layout: the header and scrolling) */
+  main { box-sizing: border-box; max-width: calc(var(--ds-layout-container-max) + 2 * var(--ds-layout-margin)); margin: 0 auto; padding: var(--ds-space-inset-2xl) var(--ds-layout-margin); display: grid; gap: var(--ds-space-stack-2xl); }
+  main > *, .grid > *, .form > * { min-width: 0; } /* let wide tables scroll inside their card instead of widening the page */
+  section > h2 { margin: 0 0 var(--ds-space-stack-sm); }
+  section > .intro { margin: 0 0 var(--ds-space-stack-xl); color: var(--ds-color-fg-muted); max-width: var(--ds-layout-measure-reading); }
+  .card { background: var(--ds-elevation-raised-surface); border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); padding: var(--ds-space-inset-lg); box-shadow: var(--ds-elevation-raised-shadow); }
+  .grid { display: grid; gap: var(--ds-space-stack-lg); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ds-layout-tile-min)), 1fr)); }
+  .stack > * + * { margin-top: var(--ds-space-stack-sm); }
+  p { margin: 0; }
+  p + p { margin-top: var(--ds-space-stack-lg); }
+
+  /* Reader settings: radio groups shown as segmented controls */
+  .settings { display: flex; flex-wrap: wrap; gap: var(--ds-space-inline-lg); border: 0; margin: 0; padding: 0; }
+  .seg { display: inline-flex; align-items: center; gap: var(--ds-space-inline-sm); border: 0; margin: 0; padding: 0; }
+  .seg legend { float: left; margin-right: var(--ds-space-inline-sm); color: var(--ds-color-fg-muted); }
+  .seg .opts { display: inline-flex; flex-wrap: wrap; max-width: 100%; box-sizing: border-box; padding: var(--ds-space-inset-xs); gap: var(--ds-space-inline-xs); border: var(--ds-border-width-control) solid var(--ds-color-border-strong); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .seg label { position: relative; padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs)); color: var(--ds-color-fg-muted); cursor: pointer; }
+  .seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .seg label:has(input:checked) { background: var(--ds-color-bg-selected); color: var(--ds-color-fg-default); font-weight: var(--ds-font-weight-semibold); }
+  .seg label:has(input:focus-visible) { outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color); outline-offset: var(--ds-focus-ring-offset); }
+
+  /* Specimen table */
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; vertical-align: middle; padding: var(--ds-space-inset-md) var(--ds-space-inset-lg); border-bottom: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+  thead th { background: var(--ds-color-bg-surface-sunken); color: var(--ds-color-fg-muted); }
+  td.num, th.num { text-align: right; white-space: nowrap; }
+  .sample { display: inline-block; max-width: 100%; }
+  .use { color: var(--ds-color-fg-muted); min-width: 16ch; }
+
+  /* Article */
+  .article { max-width: var(--ds-layout-measure-reading); }
+  .article .lead { color: var(--ds-color-fg-muted); margin: var(--ds-space-stack-sm) 0 var(--ds-space-stack-xl); }
+  .article h3 { margin: var(--ds-space-stack-2xl) 0 var(--ds-space-stack-sm); }
+  .article ul { padding-left: var(--ds-space-inset-xl); margin: var(--ds-space-stack-md) 0; }
+  .article li + li { margin-top: var(--ds-space-stack-xs); }
+  pre { margin: var(--ds-space-stack-md) 0; padding: var(--ds-space-inset-md); background: var(--ds-color-bg-surface-sunken); border-radius: var(--ds-shape-control); overflow-x: auto; }
+  :not(pre) > code { background: var(--ds-color-bg-surface-sunken); border-radius: var(--ds-shape-mark); padding: 0 var(--ds-space-inset-xs); }
+  .meta { color: var(--ds-color-fg-subtle); margin-top: var(--ds-space-stack-xl); }
+
+  /* Form */
+  .form { display: grid; gap: var(--ds-space-stack-xl); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ds-layout-tile-min)), 1fr)); align-items: start; }
+  .field { display: grid; gap: var(--ds-space-stack-xs); }
+  .field > * { min-width: 0; } /* at 200% text an input's own width would push the page sideways */
+  .field input, .field select { background: var(--ds-color-bg-surface); color: var(--ds-color-fg-default); border: var(--ds-border-width-control) solid var(--ds-color-border-input);
+    border-radius: var(--ds-shape-control); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); min-height: var(--ds-size-control-height); box-sizing: border-box; width: 100%; }
+  .field input::placeholder { color: var(--ds-color-fg-subtle); }
+  .field input[aria-invalid="true"] { border-color: var(--ds-color-border-danger); border-width: var(--ds-border-width-state); padding-inline: calc(var(--ds-space-inset-md) - (var(--ds-border-width-state) - var(--ds-border-width-control))); }
+  .help { color: var(--ds-color-fg-muted); }
+  .error { color: var(--ds-color-fg-danger); }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--ds-space-inline-md); margin-top: var(--ds-space-stack-xl); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md);
+    border-radius: var(--ds-shape-control); border: var(--ds-border-width-control) solid transparent; cursor: pointer; }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-primary:hover { background: var(--ds-color-action-primary-bg-hover); }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-secondary:hover { background: var(--ds-color-action-secondary-bg-hover); }
+
+  /* Numbers */
+  .metric { display: grid; gap: var(--ds-space-stack-xs); }
+  .metric .name { color: var(--ds-color-fg-muted); }
+  .good { color: var(--ds-color-fg-positive); }
+  .bad { color: var(--ds-color-fg-negative); }
+  .flat { color: var(--ds-color-fg-muted); }
+
+  /* Cards with long titles: they wrap, they are never cut off */
+  .project h3 { margin: 0; }
+  .project .who { color: var(--ds-color-fg-muted); }
+  .badge { display: inline-block; padding: var(--ds-space-inset-xs) var(--ds-space-inset-sm); border-radius: var(--ds-shape-pill); background: var(--ds-color-bg-brand-subtle); color: var(--ds-color-fg-brand); }
+
+  footer { text-align: center; color: var(--ds-color-fg-subtle); padding-bottom: var(--ds-space-inset-2xl); }
+</style>
+</head>
+<body>
+  <header class="top">
+    <span class="name ds-type-title-md">ds · type demo</span>
+    <span class="bp ds-type-caption-md">Breakpoint <output id="bp" class="ds-type-label-sm">–</output> · resize the window: headings move, text stays</span>
+    <div class="settings" role="group" aria-label="Reader settings">
+      <fieldset class="seg ds-type-label-md">
+        <legend>Text size</legend>
+        <span class="opts">
+          <label><input type="radio" name="size" value="100" checked> 100%</label>
+          <label><input type="radio" name="size" value="200"> 200%</label>
+        </span>
+      </fieldset>
+      <fieldset class="seg ds-type-label-md">
+        <legend>Text spacing</legend>
+        <span class="opts">
+          <label><input type="radio" name="spacing" value="off" checked> As designed</label>
+          <label><input type="radio" name="spacing" value="wcag"> WCAG override</label>
+        </span>
+      </fieldset>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h1>Typography</h1>
+      <p class="ds-type-body-lg intro">Every style in the system, at the size this window gives it right now. Try the reader settings above: at 200% text and with the WCAG spacing override, nothing on this page is cut off.</p>
+    </section>
+
+    <section aria-labelledby="styles-h">
+      <h2 id="styles-h">Every style</h2>
+      <p class="intro">The size column is measured from the page (size / line height in px), so it changes as you resize the window or switch the text size.</p>
+      <div class="card scroll" tabindex="0" role="region" aria-labelledby="styles-h">
+      <table>
+        <thead><tr><th scope="col" class="ds-type-label-sm">Style</th><th scope="col" class="ds-type-label-sm">Sample</th><th scope="col" class="ds-type-label-sm num">Now</th><th scope="col" class="ds-type-label-sm">Use</th></tr></thead>
+        <tbody>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/display/lg</code></th>
+          <td><span class="ds-type-display-lg sample">Plan less. Ship more.</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-display-lg">–</output></td>
+          <td class="ds-type-body-sm use">The one big statement on a landing, welcome or empty page</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/display/md</code></th>
+          <td><span class="ds-type-display-md sample">Plan less. Ship more.</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-display-md">–</output></td>
+          <td class="ds-type-body-sm use">Hero heading on a marketing or onboarding page</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/display/sm</code></th>
+          <td><span class="ds-type-display-sm sample">Plan less. Ship more.</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-display-sm">–</output></td>
+          <td class="ds-type-body-sm use">A large statement inside a page, such as a welcome banner</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/heading/lg</code></th>
+          <td><span class="ds-type-heading-lg sample">Notifications</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-heading-lg">–</output></td>
+          <td class="ds-type-body-sm use">Page title — the h1 of a screen</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/heading/md</code></th>
+          <td><span class="ds-type-heading-md sample">Notifications</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-heading-md">–</output></td>
+          <td class="ds-type-body-sm use">Section heading inside a page</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/heading/sm</code></th>
+          <td><span class="ds-type-heading-sm sample">Notifications</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-heading-sm">–</output></td>
+          <td class="ds-type-body-sm use">Subsection heading</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/title/lg</code></th>
+          <td><span class="ds-type-title-lg sample">Website redesign</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-title-lg">–</output></td>
+          <td class="ds-type-body-sm use">Dialog and side-panel titles</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/title/md</code></th>
+          <td><span class="ds-type-title-md sample">Website redesign</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-title-md">–</output></td>
+          <td class="ds-type-body-sm use">Card and panel titles</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/title/sm</code></th>
+          <td><span class="ds-type-title-sm sample">Website redesign</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-title-sm">–</output></td>
+          <td class="ds-type-body-sm use">Titles in dense lists, menus and table groups</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/body/lg</code></th>
+          <td><span class="ds-type-body-lg sample">People read this line by line, so it gets room to breathe.</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-body-lg">–</output></td>
+          <td class="ds-type-body-sm use">Lead paragraph at the top of a page or section</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/body/md</code></th>
+          <td><span class="ds-type-body-md sample">People read this line by line, so it gets room to breathe.</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-body-md">–</output></td>
+          <td class="ds-type-body-sm use">Default paragraphs and descriptions</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/body/sm</code></th>
+          <td><span class="ds-type-body-sm sample">People read this line by line, so it gets room to breathe.</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-body-sm">–</output></td>
+          <td class="ds-type-body-sm use">Secondary paragraphs, dense screens, text in table cells</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/label/lg</code></th>
+          <td><span class="ds-type-label-lg sample">Save changes</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-label-lg">–</output></td>
+          <td class="ds-type-body-sm use">Buttons and controls in comfortable density</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/label/md</code></th>
+          <td><span class="ds-type-label-md sample">Save changes</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-label-md">–</output></td>
+          <td class="ds-type-body-sm use">Buttons, form labels, tabs, menu items</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/label/sm</code></th>
+          <td><span class="ds-type-label-sm sample">Save changes</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-label-sm">–</output></td>
+          <td class="ds-type-body-sm use">Compact controls, badges and chips</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/caption/md</code></th>
+          <td><span class="ds-type-caption-md sample">Updated 2 hours ago</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-caption-md">–</output></td>
+          <td class="ds-type-body-sm use">Help text, timestamps, footnotes, chart labels</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/code/md</code></th>
+          <td><code class="ds-type-code-md sample">ds share --team</code></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-code-md">–</output></td>
+          <td class="ds-type-body-sm use">Code blocks, and inline code in body text</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/code/sm</code></th>
+          <td><code class="ds-type-code-sm sample">ds share --team</code></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-code-sm">–</output></td>
+          <td class="ds-type-body-sm use">Inline code in small text; IDs and keys in tables</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/numeric/lg</code></th>
+          <td><span class="ds-type-numeric-lg sample">12,480.50</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-numeric-lg">–</output></td>
+          <td class="ds-type-body-sm use">Headline figures in metric cards</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/numeric/md</code></th>
+          <td><span class="ds-type-numeric-md sample">12,480.50</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-numeric-md">–</output></td>
+          <td class="ds-type-body-sm use">Numbers in tables, forms and running text</td>
+        </tr>
+        <tr>
+          <th scope="row"><code class="ds-type-code-sm">type/numeric/sm</code></th>
+          <td><span class="ds-type-numeric-sm sample">12,480.50</span></td>
+          <td class="num"><output class="ds-type-numeric-sm size" data-for="ds-type-numeric-sm">–</output></td>
+          <td class="ds-type-body-sm use">Numbers in compact tables</td>
+        </tr>        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="article-h">
+      <h2 id="article-h">Reading text</h2>
+      <p class="intro">An article at the reading width: about 70 characters a line, 1.5 line height, paragraphs spaced, code one step smaller.</p>
+      <article class="card article">
+        <h3 class="ds-type-heading-sm">Sharing a project</h3>
+        <p class="ds-type-body-lg lead">Invite people by email, or share a link that only your team can open.</p>
+        <p>Open the project, choose Share, then copy the link. Anyone in your workspace can open it; people outside need an invitation. To limit the link to one team, run <code class="ds-type-code-md">ds share --team design</code> before you send it.</p>
+        <p>Links stop working when you remove someone from the project, so you never have to chase old copies. You can see who opened a link, and when, under <em>Activity</em>.</p>
+        <ul>
+          <li>Invitations expire after 14 days.</li>
+          <li>Guests can comment but can't change settings.</li>
+          <li><strong>Owners</strong> can move a project to another workspace.</li>
+        </ul>
+        <pre class="ds-type-code-md" tabindex="0" aria-label="Code sample"><code>ds share --team design --expires 14d</code></pre>
+        <p class="ds-type-caption-md meta">Last updated 12 October · 3 minute read</p>
+      </article>
+    </section>
+
+    <section aria-labelledby="form-h">
+      <h2 id="form-h">Labels and help text</h2>
+      <p class="intro">Field labels in label/md, values in body/md, help and errors in caption/md.</p>
+      <form class="card" onsubmit="return false">
+        <div class="form">
+          <div class="field">
+            <label for="name" class="ds-type-label-md">Project name</label>
+            <input id="name" class="ds-type-body-md" placeholder="e.g. Spring launch" aria-describedby="name-help">
+            <span id="name-help" class="ds-type-caption-md help">Up to 60 characters.</span>
+          </div>
+          <div class="field">
+            <label for="due" class="ds-type-label-md">Due date</label>
+            <input id="due" class="ds-type-body-md" value="31/02/2027" aria-invalid="true" aria-describedby="due-err">
+            <span id="due-err" class="ds-type-caption-md error">✕ That date doesn't exist. Use DD/MM/YYYY.</span>
+          </div>
+          <div class="field">
+            <label for="vis" class="ds-type-label-md">Visibility</label>
+            <select id="vis" class="ds-type-body-md"><option>Team members</option><option>Everyone in the workspace</option></select>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-primary ds-type-label-md" type="submit">Save changes</button>
+          <button class="btn btn-secondary ds-type-label-md" type="button">Cancel</button>
+        </div>
+      </form>
+    </section>
+
+    <section aria-labelledby="numbers-h">
+      <h2 id="numbers-h">Numbers that line up</h2>
+      <p class="intro">Tables get tabular numerals from tokens.css; metric figures use numeric/lg. Every change carries an arrow, coloured by good or bad.</p>
+      <div class="grid">
+        <div class="card metric"><span class="ds-type-label-md name">Active users</span><span class="ds-type-numeric-lg">12,480</span><span class="ds-type-caption-md good">▲ 2.4% this week</span></div>
+        <div class="card metric"><span class="ds-type-label-md name">Error rate</span><span class="ds-type-numeric-lg">0.8%</span><span class="ds-type-caption-md good">▼ 0.9% this week</span></div>
+        <div class="card metric"><span class="ds-type-label-md name">Load time</span><span class="ds-type-numeric-lg">1.9 s</span><span class="ds-type-caption-md bad">▲ 0.4 s this week</span></div>
+      </div>
+      <div class="card scroll" style="margin-top: var(--ds-space-stack-lg)" tabindex="0" role="region" aria-label="Hours and budget per project">
+        <table>
+          <caption class="ds-type-caption-md help" style="caption-side: bottom; text-align: left; padding-top: var(--ds-space-inset-sm)">Hours and budget per project, this quarter.</caption>
+          <thead><tr><th scope="col" class="ds-type-label-sm">Project</th><th scope="col" class="ds-type-label-sm num">Hours</th><th scope="col" class="ds-type-label-sm num">Budget (€)</th><th scope="col" class="ds-type-label-sm num">Change</th></tr></thead>
+          <tbody class="ds-type-body-sm">
+            <tr><td>Website redesign</td><td class="num">1,248</td><td class="num">12,500.00</td><td class="num good">▲ +4.1%</td></tr>
+            <tr><td>Mobile app</td><td class="num">911</td><td class="num">8,111.00</td><td class="num bad">▼ −2.0%</td></tr>
+            <tr><td>Onboarding flow</td><td class="num">74</td><td class="num">1,900.50</td><td class="num flat">– 0.0%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="cards-h">
+      <h2 id="cards-h">Titles that wrap</h2>
+      <p class="intro">Long titles take another line instead of being cut off — try 200% text.</p>
+      <div class="grid">
+        <div class="card project stack"><h3 class="ds-type-title-md">Website redesign</h3><p class="ds-type-caption-md who">Marketing · 12 tasks</p><p class="ds-type-body-sm">New pages, a faster checkout and a clearer price table.</p><span class="badge ds-type-label-sm">Beta</span></div>
+        <div class="card project stack"><h3 class="ds-type-title-md">Customer onboarding flow for the enterprise plan</h3><p class="ds-type-caption-md who">Product · 31 tasks</p><p class="ds-type-body-sm">Sign-up, single sign-on and the first-week checklist.</p></div>
+        <div class="card project stack"><h3 class="ds-type-title-md">Help centre</h3><p class="ds-type-caption-md who">Support · 7 tasks</p><p class="ds-type-body-sm">Search that understands typos, and articles in five languages.</p></div>
+      </div>
+    </section>
+  </main>
+  <footer class="ds-type-caption-md">Built only from tokens.css — there are no font sizes in this file.</footer>
+
+<script>
+  // Simulates two settings readers use. Text size: the browser's default text size doubled (rem-based text grows).
+  // Text spacing: the WCAG 1.4.12 override (line height 1.5, paragraph spacing 2em, letter 0.12em, word 0.16em).
+  const SPACING = '* { line-height: 1.5 !important; letter-spacing: 0.12em !important; word-spacing: 0.16em !important; } p { margin-bottom: 2em !important; }';
+  const spacingSheet = document.createElement('style');
+  document.head.append(spacingSheet);
+  const root = document.documentElement;
+  function measure() {
+    for (const out of document.querySelectorAll('output.size')) {
+      const el = document.querySelector('.' + out.dataset.for + '.sample');
+      const cs = getComputedStyle(el);
+      out.textContent = Math.round(parseFloat(cs.fontSize)) + ' / ' + Math.round(parseFloat(cs.lineHeight));
+    }
+    const w = window.innerWidth;
+    document.getElementById('bp').textContent = w >= 1440 ? 'xl' : w >= 1024 ? 'lg' : w >= 600 ? 'md' : 'sm';
+  }
+  for (const input of document.querySelectorAll('input[name="size"]')) input.addEventListener('change', () => { root.style.fontSize = input.value === '200' ? '200%' : ''; measure(); });
+  for (const input of document.querySelectorAll('input[name="spacing"]')) input.addEventListener('change', () => { spacingSheet.textContent = input.value === 'wcag' ? SPACING : ''; measure(); });
+  window.addEventListener('resize', measure);
+  document.fonts.ready.then(measure);
+  measure();
+</script>
+<script>
+  // The settings bar sticks only in windows at least 30em tall, and can wrap onto a second row on small screens, so the
+  // scroll padding comes from its real height (the layout handoff's measured header): focus never lands under it.
+  (() => {
+    const bar = document.querySelector('.top'), tall = matchMedia('(min-height: 30em)');
+    // Clear the bar and the focus ring above a focused item (its offset + width).
+    const ringReach = () => { const cs = getComputedStyle(document.documentElement); return parseFloat(cs.getPropertyValue('--ds-focus-ring-offset')) + parseFloat(cs.getPropertyValue('--ds-focus-ring-width')); };
+    const set = () => { document.documentElement.style.scrollPaddingTop = tall.matches ? `${bar.getBoundingClientRect().height + ringReach()}px` : ''; };
+    new ResizeObserver(set).observe(bar, { box: "border-box" }); tall.addEventListener('change', set); set();
+  })();
+</script>
+</body>
+</html>

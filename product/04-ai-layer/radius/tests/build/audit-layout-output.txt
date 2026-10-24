@@ -1,0 +1,11 @@
+ 320px  fits · grids — · longest line — characters · sticky —
+ 600px  fits · grids — · longest line — characters · sticky —
+1024px  fits · grids — · longest line — characters · sticky —
+1440px  fits · grids — · longest line — characters · sticky —
+1920px  fits · grids — · longest line — characters · sticky —
+400% zoom (320 × 256): sticky bars comfortable 0px · default 0px · compact 0px
+focus desktop  160 tab stops, both directions · scroll-padding-top 60px · hidden 0 · partly 0
+focus phone    160 tab stops, both directions · scroll-padding-top 60px · hidden 0 · partly 0
+focus zoom400  160 tab stops, both directions · scroll-padding-top 68px · hidden 0 · partly 0
+focus text200  160 tab stops, both directions · scroll-padding-top 132px · hidden 0 · partly 0
+200% text (browser setting): phone fits (4 columns) · 1280px fits (8 columns: the breakpoints are in em, so it gets the layout of a 640px window)

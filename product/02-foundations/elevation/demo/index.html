@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en" data-theme="light" data-preview="normal">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ds elevation demo</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Every level on this page is a ds elevation class or its tokens: no shadow by hand, no z-index numbers, no glass.
+     Menus are popovers and the dialog is a <dialog> opened with showModal(), so they sit in the browser's top layer.
+     Spacing, type, radius, borders and colour are ds tokens too. Switch the theme and the forced-colours preview at the top. */
+  body { margin: 0; }
+  .top { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-lg); padding: var(--ds-space-inset-md) var(--ds-layout-margin); position: static; }
+  @media (min-height: 30em) { .top { position: sticky; } } /* sticky only where there is room (layout: the header and scrolling) */
+  .top .name { margin: 0; margin-inline-end: auto; }
+  .settings { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-lg); }
+  main { display: grid; gap: var(--ds-space-stack-2xl); padding-block: var(--ds-space-inset-2xl); }
+  main > *, .row > * { min-width: 0; }
+  section > h2 { margin: 0 0 var(--ds-space-stack-xs); }
+  section > .intro { margin: 0 0 var(--ds-space-stack-lg); color: var(--ds-color-fg-muted); max-inline-size: var(--ds-layout-measure-reading); }
+  h3, p { margin: 0; }
+  .row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--ds-space-stack-xl) var(--ds-space-inline-xl); }
+  .muted { color: var(--ds-color-fg-muted); }
+
+  /* Switches: radio groups drawn as segmented controls; the checked option is bold as well as filled */
+  .seg { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-inline-sm); border: 0; margin: 0; padding: 0; min-inline-size: 0; }
+  .seg legend { float: inline-start; padding: 0; color: var(--ds-color-fg-muted); }
+  .seg .opts { display: inline-flex; flex-wrap: wrap; max-width: 100%; box-sizing: border-box; padding: var(--ds-space-inset-xs); gap: var(--ds-space-inline-xs); border: var(--ds-border-width-control) solid var(--ds-color-border-input); border-radius: var(--ds-shape-container); }
+  .seg label { position: relative; display: inline-flex; align-items: center; min-height: var(--ds-size-target-min); padding: 0 var(--ds-space-inset-sm); border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs)); cursor: pointer; }
+  .seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .seg label:has(input:checked) { background: var(--ds-color-bg-selected); color: var(--ds-color-fg-default); font-weight: var(--ds-font-weight-semibold); }
+  .seg label:has(input:focus-visible) { outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color); outline-offset: var(--ds-focus-ring-offset); }
+
+  /* Controls */
+  .btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md);
+    border-radius: var(--ds-shape-control); border: var(--ds-border-width-control) solid transparent; font: inherit; cursor: pointer; }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-danger { background: var(--ds-color-action-danger-bg); color: var(--ds-color-action-danger-fg); }
+  .btn-ghost { background: var(--ds-color-action-ghost-bg); color: var(--ds-color-action-ghost-fg); }
+  .btn-ghost:hover { background: var(--ds-color-action-ghost-bg-hover); }
+  .field { display: grid; gap: var(--ds-space-stack-xs); }
+  .field label { font-weight: var(--ds-font-weight-semibold); }
+  .field select, .field input { box-sizing: border-box; inline-size: 100%; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); font: inherit;
+    background: var(--ds-color-bg-surface); color: var(--ds-color-fg-default); border: var(--ds-border-width-control) solid var(--ds-color-border-input); border-radius: var(--ds-shape-control); }
+
+  /* The levels, side by side: each specimen is the level's own class */
+  .levels { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr)); gap: var(--ds-space-stack-2xl) var(--ds-space-inline-xl); /* room for the larger shadows: an edge right beside another level's shadow reads fainter */ padding: var(--ds-space-inset-xl); background: var(--ds-elevation-page-surface); border: var(--ds-border-width-line) dashed var(--ds-color-border-default); border-radius: var(--ds-shape-surface); }
+  .spec { min-height: 6rem; padding: var(--ds-space-inset-md); border-radius: var(--ds-shape-container); display: grid; align-content: start; gap: var(--ds-space-stack-xs); }
+  .spec.ds-sticky { position: static; }
+  .spec.ds-floating, .spec.ds-modal, .spec.ds-dragging { position: static; z-index: auto; }
+  .spec.ds-dragging { background: var(--ds-elevation-raised-surface); cursor: default; }
+  .spec.flat { border: var(--ds-border-width-line) dashed var(--ds-color-border-default); }
+
+  /* Project cards: raised, in the flow; a card that is a link shows hover by its fill as well as its shadow */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--ds-layout-tile-min)), 1fr)); gap: var(--ds-space-stack-lg) var(--ds-space-inline-lg); list-style: none; margin: 0; padding: 0; }
+  .card { position: relative; display: grid; gap: var(--ds-space-stack-sm); padding: var(--ds-space-inset-lg); border-radius: var(--ds-shape-container); }
+  .card a { color: var(--ds-color-fg-default); }
+  .card a::after { content: ""; position: absolute; inset: 0; } /* the whole card is the link's target */
+  .card:has(a:hover) { background: var(--ds-color-bg-surface-hover); box-shadow: var(--ds-elevation-sticky-shadow); }
+  .card:has(a:active) { background: var(--ds-color-bg-surface-pressed); box-shadow: var(--ds-elevation-raised-shadow); }
+  .card .more { position: relative; z-index: 1; justify-self: end; margin-block-start: calc(-1 * var(--ds-space-stack-sm)); } /* above the card's link layer, inside the card */
+  .card .meta { color: var(--ds-color-fg-muted); }
+
+  /* Menus: popovers in the top layer, so the card's overflow: hidden can't clip them */
+  .menu { margin: 0; padding: var(--ds-space-inset-xs); min-inline-size: 12rem; border-radius: var(--ds-shape-container); }
+  .menu:popover-open { position: fixed; inset: auto; }
+  .menu ul { list-style: none; margin: 0; padding: 0; display: grid; }
+  .menu button { display: flex; inline-size: 100%; min-height: var(--ds-size-control-height); align-items: center; padding: 0 var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs)); background: transparent; color: var(--ds-color-fg-default); font: inherit; text-align: start; cursor: pointer; }
+  .menu button:hover { background: var(--ds-color-bg-item-hover); }
+  .menu button.danger { color: var(--ds-color-fg-danger); }
+
+  /* The dialog: .ds-modal on a <dialog> opened with showModal() — top layer, scrim, inert page, Escape */
+  dialog.ds-modal { box-sizing: border-box; inline-size: min(28rem, 100% - 2 * var(--ds-layout-margin)); max-block-size: calc(100dvh - 2 * var(--ds-layout-margin)); overflow: auto; padding: var(--ds-space-inset-xl); border-radius: var(--ds-shape-surface); }
+  dialog .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--ds-space-inline-sm); margin-block-start: var(--ds-space-stack-lg); }
+  dialog .body { display: grid; gap: var(--ds-space-stack-md); }
+
+  /* Toast: floating, in the toast layer, opened as popover="manual" after any dialog */
+  .toast { margin: 0; inset: auto var(--ds-layout-margin) var(--ds-layout-margin) auto; padding: var(--ds-space-inset-md) var(--ds-space-inset-lg); border-radius: var(--ds-shape-container); max-inline-size: calc(100% - 2 * var(--ds-layout-margin)); box-sizing: border-box; }
+
+  /* Reorder: drag with a pointer, or use the move buttons */
+  .order { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--ds-space-stack-sm); max-inline-size: 28rem; }
+  .order li { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-inline-sm); padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); border-radius: var(--ds-shape-container); border: var(--ds-border-width-line) solid var(--ds-color-border-default); touch-action: none; }
+  .order li.ds-dragging { border-color: var(--ds-elevation-dragging-border); }
+  .order .grip { cursor: grab; color: var(--ds-color-fg-muted); }
+  .order .label { margin-inline-end: auto; min-width: 0; overflow-wrap: anywhere; }
+
+  /* Readout */
+  .readout { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: var(--ds-space-stack-sm) var(--ds-space-inline-md); margin: 0; }
+  .readout div { padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .readout dt { color: var(--ds-color-fg-muted); }
+  .readout dd { margin: 0; }
+  .sr { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  /* Forced-colours preview: an imitation of a Windows contrast theme for people without one. It does what the browser
+     does — fills to the page colour, text and every border to the text colour, shadows removed. The elevation audit
+     checks the real thing (Chromium's forced colours). */
+  [data-preview="forced"] body, [data-preview="forced"] body * { background-color: Canvas !important; background-image: none !important; color: CanvasText !important; border-color: CanvasText !important; box-shadow: none !important; }
+  [data-preview="forced"] body a { color: LinkText !important; }
+  [data-preview="forced"] :focus-visible, [data-preview="forced"] .seg label:has(input:focus-visible) { outline: var(--ds-focus-ring-width) solid Highlight; outline-offset: var(--ds-focus-ring-offset); }
+  [data-preview="forced"] .seg label:has(input:checked) { outline: var(--ds-border-width-state) solid SelectedItem; outline-offset: calc(-1 * var(--ds-border-width-state)); }
+</style>
+</head>
+<body>
+<header class="top ds-sticky">
+  <h1 class="name ds-type-title-lg">ds · elevation demo</h1>
+  <div class="settings">
+    <fieldset class="seg"><legend>Theme</legend><span class="opts">
+      <label><input type="radio" name="theme" value="light" checked>light</label>
+      <label><input type="radio" name="theme" value="dark">dark</label></span></fieldset>
+    <fieldset class="seg"><legend>Colours</legend><span class="opts">
+      <label><input type="radio" name="preview" value="normal" checked>normal</label>
+      <label><input type="radio" name="preview" value="forced">forced (preview)</label></span></fieldset>
+    <button class="btn btn-secondary" type="button" id="account" popovertarget="account-menu">Account</button>
+  </div>
+</header>
+<div class="menu ds-floating" id="account-menu" popover aria-label="Account">
+  <ul><li><button type="button">Profile</button></li><li><button type="button">Sign out</button></li></ul>
+</div>
+
+<main class="ds-page">
+  <section aria-labelledby="h-levels">
+    <h2 id="h-levels">Levels by job</h2>
+    <p class="intro">Each specimen is its level's class. In Light the surfaces are white and the shadow and edge show height; switch to Dark and the surfaces get lighter as they rise. Switch on the forced-colours preview: the shadows go, the edges stay.</p>
+    <div class="levels">
+      <div class="spec flat"><strong>page</strong><span class="muted">no shadow</span></div>
+      <div class="spec ds-raised"><strong>raised</strong><span class="muted">cards</span></div>
+      <div class="spec ds-sticky"><strong>sticky</strong><span class="muted">headers, toolbars</span></div>
+      <div class="spec ds-floating"><strong>floating</strong><span class="muted">menus, toasts</span></div>
+      <div class="spec ds-modal"><strong>modal</strong><span class="muted">dialogs</span></div>
+      <div class="spec ds-dragging"><strong>dragging</strong><span class="muted">while held</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-projects">
+    <h2 id="h-projects">Projects</h2>
+    <p class="intro">Cards are raised. Hover one: the fill changes as well as the shadow. Each card's menu is a popover: it sits in the browser's top layer, so a card or a table that clips its content (<code class="ds-type-code-sm">overflow: hidden</code>) can never cut it off, and it is above the sticky header without a z-index.</p>
+    <ul class="cards">
+      <li class="card ds-raised"><a href="#h-projects"><h3 class="ds-type-title-md">Atlas</h3></a><p class="meta">12 open tasks · updated today</p>
+        <button class="btn btn-ghost more" type="button" id="more-atlas" popovertarget="menu-atlas" aria-label="More actions for Atlas">⋯</button></li>
+      <li class="card ds-raised"><a href="#h-projects"><h3 class="ds-type-title-md">Beacon</h3></a><p class="meta">4 open tasks · updated Monday</p>
+        <button class="btn btn-ghost more" type="button" id="more-beacon" popovertarget="menu-beacon" aria-label="More actions for Beacon">⋯</button></li>
+      <li class="card ds-raised"><a href="#h-projects"><h3 class="ds-type-title-md">Compass</h3></a><p class="meta">No open tasks · updated in June</p>
+        <button class="btn btn-ghost more" type="button" id="more-compass" popovertarget="menu-compass" aria-label="More actions for Compass">⋯</button></li>
+    </ul>
+    <div class="menu ds-floating" id="menu-atlas" popover aria-label="Atlas"><ul><li><button type="button">Rename</button></li><li><button type="button" class="danger" data-delete="Atlas">Delete project…</button></li></ul></div>
+    <div class="menu ds-floating" id="menu-beacon" popover aria-label="Beacon"><ul><li><button type="button">Rename</button></li><li><button type="button" class="danger" data-delete="Beacon">Delete project…</button></li></ul></div>
+    <div class="menu ds-floating" id="menu-compass" popover aria-label="Compass"><ul><li><button type="button">Rename</button></li><li><button type="button" class="danger" data-delete="Compass">Delete project…</button></li></ul></div>
+  </section>
+
+  <section aria-labelledby="h-dialog">
+    <h2 id="h-dialog">A dialog</h2>
+    <p class="intro">A <code class="ds-type-code-sm">&lt;dialog&gt;</code> opened with <code class="ds-type-code-sm">showModal()</code>: the scrim, the edge and the top layer come with <code class="ds-type-code-sm">.ds-modal</code>; the page behind is inert, Escape closes it and focus goes back to the button. The menu inside the dialog is a popover too, so it opens above the dialog.</p>
+    <button class="btn btn-danger" type="button" id="open-delete" data-delete="Atlas">Delete Atlas…</button>
+  </section>
+
+  <section aria-labelledby="h-order">
+    <h2 id="h-order">Reorder</h2>
+    <p class="intro">Drag an item by its grip: while it is held it takes <code class="ds-type-code-sm">.ds-dragging</code>, above everything, and goes back when dropped. Dragging is never the only way: the move buttons do the same with a click or the keyboard.</p>
+    <ol class="order" id="order">
+      <li><span class="grip" aria-hidden="true">⠿</span><span class="label">Design review</span><button class="btn btn-secondary" type="button" data-move="-1" aria-label="Move Design review up">↑</button><button class="btn btn-secondary" type="button" data-move="1" aria-label="Move Design review down">↓</button></li>
+      <li><span class="grip" aria-hidden="true">⠿</span><span class="label">Accessibility audit</span><button class="btn btn-secondary" type="button" data-move="-1" aria-label="Move Accessibility audit up">↑</button><button class="btn btn-secondary" type="button" data-move="1" aria-label="Move Accessibility audit down">↓</button></li>
+      <li><span class="grip" aria-hidden="true">⠿</span><span class="label">Release notes</span><button class="btn btn-secondary" type="button" data-move="-1" aria-label="Move Release notes up">↑</button><button class="btn btn-secondary" type="button" data-move="1" aria-label="Move Release notes down">↓</button></li>
+    </ol>
+    <p class="sr" aria-live="polite" id="moved"></p>
+  </section>
+
+  <section aria-labelledby="h-readout">
+    <h2 id="h-readout">What the page is using now</h2>
+    <p class="intro">Read live from the page in the current theme: each level's shadow and surface, how much lighter the surface is than the page, and the stacking order.</p>
+    <dl class="readout" id="readout"></dl>
+  </section>
+</main>
+
+<dialog class="ds-modal" id="delete" aria-labelledby="delete-title" aria-describedby="delete-desc">
+  <form method="dialog" class="body">
+    <h2 id="delete-title" class="ds-type-title-lg">Delete <span id="delete-name">Atlas</span>?</h2>
+    <p id="delete-desc" class="muted">Its tasks and files are deleted too. People in the project lose access.</p>
+    <div class="field">
+      <label for="handover">Move open tasks to</label>
+      <button class="btn btn-secondary" type="button" id="handover" popovertarget="handover-menu" aria-haspopup="true"><span id="handover-value">Beacon</span>&nbsp;▾</button>
+    </div>
+    <div class="actions">
+      <button class="btn btn-secondary" value="cancel" type="submit">Cancel</button>
+      <button class="btn btn-danger" value="delete" type="submit" id="confirm">Delete project</button>
+    </div>
+  </form>
+  <div class="menu ds-floating" id="handover-menu" popover aria-label="Move open tasks to"><ul><li><button type="button" data-pick="Beacon">Beacon</button></li><li><button type="button" data-pick="Compass">Compass</button></li><li><button type="button" data-pick="Nowhere (delete them)">Nowhere (delete them)</button></li></ul></div>
+</dialog>
+
+<div class="toast ds-floating" data-layer="toast" id="toast" popover="manual" role="status"></div>
+
+<script>
+  const root = document.documentElement;
+  const bar = document.querySelector('.top');
+  const tall = matchMedia('(min-height: 30em)');
+  const v = (name) => getComputedStyle(root).getPropertyValue(name).trim();
+  const ringReach = () => parseFloat(v('--ds-focus-ring-offset')) + parseFloat(v('--ds-focus-ring-width'));
+  const pad = () => { root.style.scrollPaddingTop = tall.matches ? `${bar.getBoundingClientRect().height + ringReach()}px` : ''; };
+
+  // Popover menus open next to the button that opened them (the top layer has no layout of its own).
+  for (const m of document.querySelectorAll('.menu[popover]')) {
+    m.addEventListener('toggle', (e) => {
+      if (e.newState !== 'open') return;
+      const b = document.querySelector(`[popovertarget="${m.id}"]`), r = b.getBoundingClientRect(), w = m.offsetWidth, h = m.offsetHeight;
+      const left = Math.max(8, Math.min(r.right - w, innerWidth - w - 8)), below = r.bottom + 4;
+      m.style.left = `${left}px`; m.style.top = `${below + h > innerHeight - 8 ? Math.max(8, r.top - h - 4) : below}px`;
+      m.querySelector('button')?.focus();
+    });
+    m.addEventListener('keydown', (e) => { // arrow keys move through the items
+      const items = [...m.querySelectorAll('button')], i = items.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); items[(i + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length].focus(); }
+    });
+  }
+
+  // The dialog: showModal() from whichever button asked, focus back to it on close.
+  const dlg = document.getElementById('delete');
+  let opener = null;
+  for (const b of document.querySelectorAll('[data-delete]')) b.addEventListener('click', () => {
+    opener = b.closest('[popover]') ? document.querySelector(`[popovertarget="${b.closest('[popover]').id}"]`) : b;
+    b.closest('[popover]')?.hidePopover();
+    document.getElementById('delete-name').textContent = b.dataset.delete;
+    dlg.showModal();
+  });
+  for (const b of document.querySelectorAll('[data-pick]')) b.addEventListener('click', () => { document.getElementById('handover-value').textContent = b.dataset.pick; b.closest('[popover]').hidePopover(); document.getElementById('handover').focus(); });
+  dlg.addEventListener('close', () => {
+    opener?.focus();
+    if (dlg.returnValue === 'delete') toast(`${document.getElementById('delete-name').textContent} deleted.`);
+  });
+
+  // Toast: shown after any dialog (top layer: the most recent is on top), hidden after a while; it needs no action.
+  const t = document.getElementById('toast');
+  let timer;
+  function toast(msg) { t.textContent = msg; if (!t.matches(':popover-open')) t.showPopover(); clearTimeout(timer); timer = setTimeout(() => t.hidePopover(), 6000); }
+
+  // Reorder: pointer drag with .ds-dragging while held; move buttons for everyone else.
+  const list = document.getElementById('order'), said = document.getElementById('moved');
+  const announce = (li) => { said.textContent = `${li.querySelector('.label').textContent} moved to position ${[...list.children].indexOf(li) + 1} of ${list.children.length}.`; };
+  for (const b of list.querySelectorAll('[data-move]')) b.addEventListener('click', () => {
+    const li = b.closest('li'), d = +b.dataset.move, to = d < 0 ? li.previousElementSibling : li.nextElementSibling?.nextElementSibling;
+    if (d < 0 && !to) return; if (d > 0 && !li.nextElementSibling) return;
+    list.insertBefore(li, to ?? null); b.focus(); announce(li);
+  });
+  for (const g of list.querySelectorAll('.grip')) g.addEventListener('pointerdown', (e) => {
+    const li = g.closest('li'); li.classList.add('ds-dragging'); li.setPointerCapture(e.pointerId);
+    const move = (ev) => { const over = [...list.children].find((x) => x !== li && ev.clientY < x.getBoundingClientRect().top + x.offsetHeight / 2); list.insertBefore(li, over ?? null); };
+    const up = () => { li.classList.remove('ds-dragging'); li.removeEventListener('pointermove', move); announce(li); };
+    li.addEventListener('pointermove', move); li.addEventListener('pointerup', up, { once: true }); li.addEventListener('pointercancel', up, { once: true });
+  });
+
+  // Readout: what the browser computed for each level in the current theme.
+  const lum = (c) => { const [r, g, b] = c.match(/\d+(\.\d+)?/g).slice(0, 3).map(Number).map((x) => { x /= 255; return x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4; }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+  const ratio = (a, b) => { const x = lum(a), y = lum(b); return ((Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05)).toFixed(2); };
+  function readout() {
+    const page = getComputedStyle(root).backgroundColor;
+    const items = [...document.querySelectorAll('.spec')].map((s) => {
+      const cs = getComputedStyle(s), job = s.querySelector('strong').textContent;
+      const sh = cs.boxShadow === 'none' ? 'no shadow' : cs.boxShadow.replace(/rgba?\([^)]*\)\s*/, '').trim();
+      return [job, `${sh} · ${job === 'page' ? 'the page' : `${ratio(cs.backgroundColor, page)}:1 over the page`}`];
+    });
+    items.push(['stacking order', ['sticky', 'floating', 'modal', 'toast', 'dragging'].map((l) => `${l} ${v(`--ds-layer-${l}`)}`).join(' · ')]);
+    document.getElementById('readout').innerHTML = items.map(([k, val]) => `<div><dt>${k}</dt><dd class="ds-type-code-md">${val}</dd></div>`).join('');
+  }
+  for (const r of document.querySelectorAll('input[name="theme"]')) r.addEventListener('change', () => { root.setAttribute('data-theme', r.value); readout(); });
+  for (const r of document.querySelectorAll('input[name="preview"]')) r.addEventListener('change', () => { root.setAttribute('data-preview', r.value); readout(); });
+  // Start in the reader's own theme.
+  if (matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'dark');
+  document.querySelector(`input[name="theme"][value="${root.getAttribute('data-theme')}"]`).checked = true;
+  tall.addEventListener('change', pad); new ResizeObserver(pad).observe(bar, { box: "border-box" });
+  pad(); readout();
+</script>
+</body>
+</html>

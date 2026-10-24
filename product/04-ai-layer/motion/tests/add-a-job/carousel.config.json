@@ -1,0 +1,3 @@
+{ "motion": { "jobs": [
+  { "name": "motion.carousel", "kind": "in-place", "distance": "space.6", "description": "Slides of a carousel the reader steps through with its buttons" }
+] } }

@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ds motion demo</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Every motion on this page is a ds motion job: durations, curves and distances are tokens, menus, the toast and the
+     dialog animate through tokens.css (nothing of their own), the loading indicator is .ds-loading and the highlight
+     .ds-highlight. Switch reduced motion at the top: nothing moves, everything fades. Spacing, type, radius, borders,
+     elevation and colour are ds tokens too. */
+  body { margin: 0; }
+  .top { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-lg); padding: var(--ds-space-inset-md) var(--ds-layout-margin); position: static; }
+  @media (min-height: 30em) { .top { position: sticky; } } /* sticky only where there is room (layout: the header and scrolling) */
+  .top .name { margin: 0; margin-inline-end: auto; }
+  .settings { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-lg); }
+  main { display: grid; gap: var(--ds-space-stack-2xl); padding-block: var(--ds-space-inset-2xl); }
+  main > *, .row > * { min-width: 0; }
+  section > h2 { margin: 0 0 var(--ds-space-stack-xs); }
+  section > .intro { margin: 0 0 var(--ds-space-stack-lg); color: var(--ds-color-fg-muted); max-inline-size: var(--ds-layout-measure-reading); }
+  h3, p { margin: 0; }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-md) var(--ds-space-inline-md); }
+  .muted { color: var(--ds-color-fg-muted); }
+  .stack { display: grid; gap: var(--ds-space-stack-md); align-content: start; }
+
+  /* Switches: radio groups drawn as segmented controls; the checked option is bold as well as filled */
+  .seg { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-inline-sm); border: 0; margin: 0; padding: 0; min-inline-size: 0; }
+  .seg legend { float: inline-start; padding: 0; color: var(--ds-color-fg-muted); }
+  .seg .opts { display: inline-flex; flex-wrap: wrap; max-width: 100%; box-sizing: border-box; padding: var(--ds-space-inset-xs); gap: var(--ds-space-inline-xs); border: var(--ds-border-width-control) solid var(--ds-color-border-input); border-radius: var(--ds-shape-container); }
+  .seg label { position: relative; display: inline-flex; align-items: center; min-height: var(--ds-size-target-min); padding: 0 var(--ds-space-inset-sm); border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs)); cursor: pointer;
+    transition: background-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing), color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing); }
+  .seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .seg label:has(input:checked) { background: var(--ds-color-bg-selected); color: var(--ds-color-fg-default); font-weight: var(--ds-font-weight-semibold); }
+  .seg label:has(input:focus-visible) { outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color); outline-offset: var(--ds-focus-ring-offset); }
+
+  /* Feedback: the thing you touched answers — colour, fill and border, never movement */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--ds-size-control-icon-gap); box-sizing: border-box; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md);
+    border-radius: var(--ds-shape-control); border: var(--ds-border-width-control) solid transparent; font: inherit; cursor: pointer;
+    transition: background-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing), border-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing), color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing); }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-primary:hover { background: var(--ds-color-action-primary-bg-hover); }
+  .btn-primary:active { background: var(--ds-color-action-primary-bg-pressed); }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-secondary:hover { background: var(--ds-color-action-secondary-bg-hover); }
+  .btn-secondary:active { background: var(--ds-color-action-secondary-bg-pressed); }
+  .btn-danger { background: var(--ds-color-action-danger-bg); color: var(--ds-color-action-danger-fg); }
+  .btn-danger:hover { background: var(--ds-color-action-danger-bg-hover); }
+  .btn-ghost { background: var(--ds-color-action-ghost-bg); color: var(--ds-color-action-ghost-fg); }
+  .btn-ghost:hover { background: var(--ds-color-action-ghost-bg-hover); }
+  .btn[disabled] { background: var(--ds-color-action-disabled-bg); color: var(--ds-color-action-disabled-fg); border-color: var(--ds-color-action-disabled-border); cursor: default; }
+  .rows { list-style: none; margin: 0; padding: 0; display: grid; max-inline-size: 28rem; border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .rows li + li { border-top: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+  .rows label { display: flex; align-items: center; gap: var(--ds-space-inline-sm); min-height: var(--ds-size-control-height); padding: 0 var(--ds-space-inset-md); cursor: pointer;
+    transition: background-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing); }
+  .rows label:hover { background: var(--ds-color-bg-item-hover); }
+  .rows label:has(input:checked) { background: var(--ds-color-bg-selected); }
+  /* Flush rows share the list's corners (radius: nested shapes), so a filled row never pokes out of them */
+  .rows li:first-child label { border-start-start-radius: max(0px, var(--ds-shape-container) - var(--ds-border-width-line)); border-start-end-radius: max(0px, var(--ds-shape-container) - var(--ds-border-width-line)); }
+  .rows li:last-child label { border-end-start-radius: max(0px, var(--ds-shape-container) - var(--ds-border-width-line)); border-end-end-radius: max(0px, var(--ds-shape-container) - var(--ds-border-width-line)); }
+
+  /* Change: content changing where it is. The size changes at once; the content arrives by the change job's distance. */
+  @keyframes ds-demo-arrive { from { opacity: 0; translate: 0 calc(-1 * var(--ds-motion-change-distance)); } }
+  @keyframes ds-demo-leave { to { opacity: 0; translate: 0 calc(-1 * var(--ds-motion-change-distance)); } }
+  .accordion { display: grid; max-inline-size: 34rem; border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .accordion h3 + h3, .accordion .panel-body + h3 { border-top: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+  .accordion button { display: flex; inline-size: 100%; justify-content: space-between; align-items: center; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: 0; background: transparent; color: var(--ds-color-fg-default); font: inherit; font-weight: var(--ds-font-weight-semibold); text-align: start; cursor: pointer;
+    transition: background-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing); }
+  .accordion button:hover { background: var(--ds-color-bg-item-hover); }
+  .accordion button .sign::after { content: "+"; }
+  .accordion button[aria-expanded="true"] .sign::after { content: "−"; }
+  .panel-body { padding: 0 var(--ds-space-inset-md) var(--ds-space-inset-md); }
+  .panel-body:not([hidden]), [role="tabpanel"]:not([hidden]) { animation: ds-demo-arrive var(--ds-motion-change-duration) var(--ds-motion-change-easing); }
+  .tabs { display: grid; gap: var(--ds-space-stack-md); max-inline-size: 34rem; }
+  [role="tablist"] { display: flex; flex-wrap: wrap; gap: var(--ds-space-inline-xs); border-bottom: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+  [role="tab"] { position: relative; min-height: var(--ds-size-control-height); padding: 0 var(--ds-space-inset-md); border: 0; background: transparent; color: var(--ds-color-fg-muted); font: inherit; cursor: pointer;
+    transition: color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing); }
+  [role="tab"]:hover { color: var(--ds-color-fg-default); }
+  [role="tab"][aria-selected="true"] { color: var(--ds-color-fg-default); font-weight: var(--ds-font-weight-semibold); }
+  [role="tab"][aria-selected="true"]::after { content: ""; position: absolute; inset-inline: 0; inset-block-end: calc(-1 * var(--ds-border-width-line)); border-block-end: var(--ds-border-width-indicator) solid var(--ds-color-border-selected); } /* the bar only on the current tab */
+  .tasks { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--ds-space-stack-sm); max-inline-size: 28rem; }
+  .tasks li { display: flex; align-items: center; gap: var(--ds-space-inline-sm); padding: var(--ds-space-inset-xs) var(--ds-space-inset-xs) var(--ds-space-inset-xs) var(--ds-space-inset-md); border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .tasks li .label { margin-inline-end: auto; min-width: 0; overflow-wrap: anywhere; }
+  .tasks li.leaving { animation: ds-demo-leave var(--ds-motion-change-duration) var(--ds-motion-change-easing) forwards; }
+
+  /* Floating and modal: menus, the toast and the dialog open and close through tokens.css — nothing of their own here */
+  .menu { margin: 0; padding: var(--ds-space-inset-xs); min-inline-size: 12rem; border-radius: var(--ds-shape-container); }
+  .menu:popover-open { position: fixed; inset: auto; }
+  .menu ul { list-style: none; margin: 0; padding: 0; display: grid; }
+  .menu button { display: flex; inline-size: 100%; min-height: var(--ds-size-control-height); align-items: center; padding: 0 var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs)); background: transparent; color: var(--ds-color-fg-default); font: inherit; text-align: start; cursor: pointer;
+    transition: background-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing); }
+  .menu button:hover { background: var(--ds-color-bg-item-hover); }
+  .menu button.danger { color: var(--ds-color-fg-danger); }
+  dialog.ds-modal { box-sizing: border-box; inline-size: min(28rem, 100% - 2 * var(--ds-layout-margin)); max-block-size: calc(100dvh - 2 * var(--ds-layout-margin)); overflow: auto; padding: var(--ds-space-inset-xl); border-radius: var(--ds-shape-surface); }
+  dialog .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--ds-space-inline-sm); margin-block-start: var(--ds-space-stack-lg); }
+  dialog .body { display: grid; gap: var(--ds-space-stack-md); }
+  .field { display: grid; gap: var(--ds-space-stack-xs); }
+  .field label { font-weight: var(--ds-font-weight-semibold); }
+  .toast { margin: 0; inset: auto var(--ds-layout-margin) var(--ds-layout-margin) auto; padding: var(--ds-space-inset-md) var(--ds-space-inset-lg); border-radius: var(--ds-shape-container); max-inline-size: calc(100% - 2 * var(--ds-layout-margin)); box-sizing: border-box; }
+
+  /* Highlight and loading */
+  .stat { display: inline-grid; gap: var(--ds-space-stack-xs); padding: var(--ds-space-inset-md) var(--ds-space-inset-lg); border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .stat output { justify-self: start; padding: 0 var(--ds-space-inset-xs); border-radius: var(--ds-shape-mark); }
+  .status { display: inline-flex; align-items: center; gap: var(--ds-space-inline-sm); min-height: var(--ds-size-control-height); margin: 0; }
+  .status svg { color: var(--ds-color-fg-icon); flex: none; }
+  .status[hidden] { display: none; }
+
+  /* Readouts */
+  .readout { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); gap: var(--ds-space-stack-sm) var(--ds-space-inline-md); margin: 0; }
+  .readout div { padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .readout dt { color: var(--ds-color-fg-muted); }
+  .readout dd { margin: 0; }
+  .last { padding: var(--ds-space-inset-md); border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface-sunken); }
+</style>
+</head>
+<body>
+<header class="top ds-sticky">
+  <h1 class="name ds-type-title-lg">ds · motion demo</h1>
+  <div class="settings">
+    <fieldset class="seg"><legend>Motion</legend><span class="opts">
+      <label><input type="radio" name="motion" value="" checked>my device</label>
+      <label><input type="radio" name="motion" value="reduced">reduced</label>
+      <label><input type="radio" name="motion" value="full">full</label></span></fieldset>
+    <fieldset class="seg"><legend>Speed</legend><span class="opts">
+      <label><input type="radio" name="speed" value="1" checked>normal</label>
+      <label><input type="radio" name="speed" value="0.2">a fifth</label></span></fieldset>
+  </div>
+</header>
+
+<main class="ds-page">
+  <section aria-labelledby="h-jobs">
+    <h2 id="h-jobs">The jobs, as this page uses them now</h2>
+    <p class="intro">Read live from the page: switch the motion setting at the top and the reduced values take over — no distance, short fades, a slow pulse for loading. Watch any example at a fifth of the speed to see the curves.</p>
+    <dl class="readout" id="jobs"></dl>
+    <p class="last" id="last" aria-live="off">Nothing has moved yet. Hover a button or open a menu.</p>
+  </section>
+
+  <section aria-labelledby="h-feedback">
+    <h2 id="h-feedback">Feedback</h2>
+    <p class="intro">Hover and press: the fill answers in <span data-ms="feedback.duration"></span>. Nothing moves, so it is the same with reduced motion.</p>
+    <div class="row">
+      <button class="btn btn-primary" type="button">Save</button>
+      <button class="btn btn-secondary" type="button">Preview</button>
+      <button class="btn btn-ghost" type="button">Cancel</button>
+    </div>
+    <ul class="rows" aria-label="Notify me about" style="margin-block-start: var(--ds-space-stack-lg)">
+      <li><label><input type="checkbox" checked> Comments on my tasks</label></li>
+      <li><label><input type="checkbox"> New members</label></li>
+      <li><label><input type="checkbox"> Weekly summary</label></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-change">
+    <h2 id="h-change">Change</h2>
+    <p class="intro">Content changing where it is. The panel takes its new size at once and its content arrives <span data-px="change.distance"></span> down in <span data-ms="change.duration"></span>; with reduced motion it only fades.</p>
+    <div class="row" style="align-items: flex-start">
+      <div class="accordion">
+        <h3><button type="button" aria-expanded="false" aria-controls="p1" id="b1">Who can see this project <span class="sign" aria-hidden="true"></span></button></h3>
+        <div class="panel-body" id="p1" role="region" aria-labelledby="b1" hidden><p>Everyone in the workspace can see it; only members can change it.</p></div>
+        <h3><button type="button" aria-expanded="false" aria-controls="p2" id="b2">Where files are kept <span class="sign" aria-hidden="true"></span></button></h3>
+        <div class="panel-body" id="p2" role="region" aria-labelledby="b2" hidden><p>Files stay in the project until it is deleted. Archived projects keep their files for 90 days.</p></div>
+      </div>
+      <div class="tabs">
+        <div role="tablist" aria-label="Project">
+          <button role="tab" type="button" id="t1" aria-selected="true" aria-controls="tp1">Overview</button>
+          <button role="tab" type="button" id="t2" aria-selected="false" aria-controls="tp2" tabindex="-1">Members</button>
+          <button role="tab" type="button" id="t3" aria-selected="false" aria-controls="tp3" tabindex="-1">Files</button>
+        </div>
+        <div role="tabpanel" id="tp1" aria-labelledby="t1" tabindex="0"><p>12 open tasks, 3 due this week.</p></div>
+        <div role="tabpanel" id="tp2" aria-labelledby="t2" tabindex="0" hidden><p>Meera Iyer, Daniel Okafor and 7 others.</p></div>
+        <div role="tabpanel" id="tp3" aria-labelledby="t3" tabindex="0" hidden><p>48 GB in 312 files.</p></div>
+      </div>
+    </div>
+    <ul class="tasks" id="tasks" aria-label="Tasks" style="margin-block-start: var(--ds-space-stack-lg)">
+      <li><span class="label">Review the sign-up screens</span><button class="btn btn-ghost" type="button" data-remove>Done</button></li>
+      <li><span class="label">Write the release notes</span><button class="btn btn-ghost" type="button" data-remove>Done</button></li>
+      <li><span class="label">Check the new icons in Dark</span><button class="btn btn-ghost" type="button" data-remove>Done</button></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-floating">
+    <h2 id="h-floating">Opening and closing: floating</h2>
+    <p class="intro">Menus drop <span data-px="floating.distance"></span> into place from their button in <span data-ms="floating.duration"></span> and leave in <span data-ms="floating.exit-duration"></span>; the toast comes up from the bottom. tokens.css does it — the page adds nothing.</p>
+    <div class="row">
+      <button class="btn btn-secondary" type="button" id="more" popovertarget="more-menu">More actions ▾</button>
+      <button class="btn btn-primary" type="button" id="save-draft">Save draft</button>
+    </div>
+    <div class="menu ds-floating" id="more-menu" popover aria-label="More actions"><ul><li><button type="button">Duplicate</button></li><li><button type="button">Move to…</button></li><li><button type="button" class="danger" data-delete>Delete project…</button></li></ul></div>
+  </section>
+
+  <section aria-labelledby="h-modal">
+    <h2 id="h-modal">Opening and closing: modal</h2>
+    <p class="intro">The dialog rises <span data-px="modal.distance"></span> in <span data-ms="modal.duration"></span> while the scrim fades in; it leaves in <span data-ms="modal.exit-duration"></span>. The menu inside it is a popover: it opens above the dialog, with the floating job.</p>
+    <button class="btn btn-danger" type="button" id="open-delete" data-delete>Delete project…</button>
+  </section>
+
+  <section aria-labelledby="h-highlight">
+    <h2 id="h-highlight">Highlight</h2>
+    <p class="intro">When a value changes on its own, its tint fades once over <span data-ms="highlight.duration"></span> — never a blink. Complete a task (or tick one off above) and watch the count.</p>
+    <div class="row">
+      <p class="stat"><span class="muted">Open tasks</span><output id="count" class="ds-type-numeric-lg">12</output></p>
+      <button class="btn btn-secondary" type="button" id="complete">Complete a task</button>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-loading">
+    <h2 id="h-loading">Loading</h2>
+    <p class="intro">The indicator turns once a second while the export runs and stops when it ends; with reduced motion it pulses slowly instead, never below 3:1. An export that takes longer than five seconds says how far it got.</p>
+    <div class="row">
+      <button class="btn btn-secondary" type="button" id="export">Export report</button>
+      <p class="status" id="export-status" role="status"><span id="export-indicator" hidden><svg class="ds-loading" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="26 12" stroke-linecap="round"/></svg></span><span id="export-text"></span></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-still">
+    <h2 id="h-still">What never moves</h2>
+    <p class="intro">Tab through this page: focus rings appear at once. Nothing moves while you scroll, nothing plays by itself, and the only loop is the loading indicator while it is needed. The navigation drawer is in the layout demo (app.html, at a narrow width): it comes in from its own side with the floating job.</p>
+  </section>
+</main>
+
+<dialog class="ds-modal" id="delete" aria-labelledby="delete-title" aria-describedby="delete-desc">
+  <form method="dialog" class="body">
+    <h2 id="delete-title" class="ds-type-title-lg">Delete this project?</h2>
+    <p id="delete-desc" class="muted">Its tasks and files are deleted too.</p>
+    <div class="field">
+      <label for="handover">Move open tasks to</label>
+      <button class="btn btn-secondary" type="button" id="handover" popovertarget="handover-menu" aria-haspopup="true"><span id="handover-value">Beacon</span>&nbsp;▾</button>
+    </div>
+    <div class="actions">
+      <button class="btn btn-secondary" value="cancel" type="submit">Cancel</button>
+      <button class="btn btn-danger" value="delete" type="submit" id="confirm">Delete project</button>
+    </div>
+  </form>
+  <div class="menu ds-floating" id="handover-menu" popover aria-label="Move open tasks to"><ul><li><button type="button" data-pick="Beacon">Beacon</button></li><li><button type="button" data-pick="Compass">Compass</button></li></ul></div>
+</dialog>
+
+<div class="toast ds-floating" data-layer="toast" id="toast" popover="manual" role="status"></div>
+
+<script>
+  const root = document.documentElement;
+  const bar = document.querySelector('.top');
+  const tall = matchMedia('(min-height: 30em)');
+  const v = (name) => getComputedStyle(root).getPropertyValue(name).trim();
+  const ringReach = () => parseFloat(v('--ds-focus-ring-offset')) + parseFloat(v('--ds-focus-ring-width'));
+  const pad = () => { root.style.scrollPaddingTop = tall.matches ? `${bar.getBoundingClientRect().height + ringReach()}px` : ''; };
+
+  // The jobs as the page resolves them now: a probe turns each token into ms and a curve.
+  const JOBS = ['feedback', 'change', 'floating', 'modal', 'highlight', 'loading'];
+  const probe = document.createElement('div'); probe.hidden = true; document.body.append(probe);
+  const ms = (x) => { probe.style.transitionDuration = x; const d = getComputedStyle(probe).transitionDuration; return d.endsWith('ms') ? parseFloat(d) : parseFloat(d) * 1000; };
+  const job = (j) => ({ duration: ms(v(`--ds-motion-${j}-duration`)), easing: v(`--ds-motion-${j}-easing`), distance: parseFloat(v(`--ds-motion-${j}-distance`)) || 0,
+    exit: v(`--ds-motion-${j}-exit-duration`) ? ms(v(`--ds-motion-${j}-exit-duration`)) : null });
+  const motionNow = () => (root.dataset.motion ? `${root.dataset.motion} (your choice)` : matchMedia('(prefers-reduced-motion: reduce)').matches ? 'reduced (your device)' : 'full (your device)');
+  function readJobs() {
+    const items = JOBS.map((j) => { const x = job(j); return [j, `${x.duration}ms${x.exit != null ? `, leaves in ${x.exit}ms` : ''}${x.distance ? ` · moves ${x.distance}px` : ''} · ${x.easing}`]; });
+    items.unshift(['motion', motionNow()]);
+    document.getElementById('jobs').innerHTML = items.map(([k, val]) => `<div><dt>${k}</dt><dd class="ds-type-code-md">${val}</dd></div>`).join('');
+    for (const s of document.querySelectorAll('[data-ms]')) { const [j, part] = s.dataset.ms.split('.'); s.textContent = `${ms(v(`--ds-motion-${j}-${part}`))}ms`; }
+    for (const s of document.querySelectorAll('[data-px]')) { const [j] = s.dataset.px.split('.'); s.textContent = `${parseFloat(v(`--ds-motion-${j}-distance`)) || 0}px`; }
+  }
+
+  // The last thing that moved: which job it took, and (at a fifth of the speed, if chosen) slowed down to watch.
+  let speed = 1;
+  const last = document.getElementById('last');
+  const describe = (e) => {
+    const a = e.target.getAnimations?.().find((x) => x.transitionProperty === e.propertyName || x.animationName === e.animationName);
+    if (!a) return;
+    if (speed !== 1) a.playbackRate = speed;
+    const t = a.effect.getTiming(), d = Math.round(t.duration);
+    const match = JOBS.find((j) => { const x = job(j); return x.duration === d || x.exit === d; }) ?? 'none — not a job';
+    const who = e.target.id ? `#${e.target.id}` : e.target.className ? `.${String(e.target.className).split(' ')[0]}` : e.target.tagName.toLowerCase();
+    last.textContent = `Last: ${who}${e.pseudoElement ?? ''} — ${e.propertyName ?? `@keyframes ${e.animationName}`} · ${d}ms · job: ${match}`;
+  };
+  document.addEventListener('transitionrun', describe, true);
+  document.addEventListener('animationstart', describe, true);
+
+  // Accordion and tabs (change).
+  for (const b of document.querySelectorAll('.accordion button')) b.addEventListener('click', () => { const open = b.getAttribute('aria-expanded') !== 'true'; b.setAttribute('aria-expanded', String(open)); document.getElementById(b.getAttribute('aria-controls')).hidden = !open; });
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  const pick = (t) => { for (const x of tabs) { const on = x === t; x.setAttribute('aria-selected', String(on)); x.tabIndex = on ? 0 : -1; document.getElementById(x.getAttribute('aria-controls')).hidden = !on; } t.focus(); };
+  for (const t of tabs) { t.addEventListener('click', () => pick(t)); t.addEventListener('keydown', (e) => { const i = tabs.indexOf(t); if (e.key === 'ArrowRight') pick(tabs[(i + 1) % tabs.length]); if (e.key === 'ArrowLeft') pick(tabs[(i + tabs.length - 1) % tabs.length]); }); }
+
+  // Highlight (once per change).
+  const count = document.getElementById('count');
+  const highlight = (el) => { el.classList.remove('ds-highlight'); requestAnimationFrame(() => el.classList.add('ds-highlight')); };
+  const setCount = (n) => { count.textContent = String(n); highlight(count); };
+  document.getElementById('complete').addEventListener('click', () => setCount(Math.max(0, +count.textContent - 1)));
+
+  // Removing a task: it fades (and moves the change distance) out, then the list closes the gap at once.
+  const list = document.getElementById('tasks');
+  for (const b of list.querySelectorAll('[data-remove]')) b.addEventListener('click', () => {
+    const li = b.closest('li'), next = li.nextElementSibling?.querySelector('button') ?? li.previousElementSibling?.querySelector('button') ?? document.getElementById('complete');
+    li.classList.add('leaving');
+    li.addEventListener('animationend', () => { li.remove(); next.focus(); setCount(Math.max(0, +count.textContent - 1)); }, { once: true });
+  });
+
+  // Popover menus open next to the button that opened them (the top layer has no layout of its own).
+  for (const m of document.querySelectorAll('.menu[popover]')) {
+    m.addEventListener('toggle', (e) => {
+      if (e.newState !== 'open') return;
+      const b = document.querySelector(`[popovertarget="${m.id}"]`), r = b.getBoundingClientRect(), w = m.offsetWidth, h = m.offsetHeight;
+      const left = Math.max(8, Math.min(r.left, innerWidth - w - 8)), below = r.bottom + 4;
+      m.style.left = `${left}px`; m.style.top = `${below + h > innerHeight - 8 ? Math.max(8, r.top - h - 4) : below}px`;
+      m.querySelector('button')?.focus();
+    });
+    m.addEventListener('keydown', (e) => {
+      const items = [...m.querySelectorAll('button')], i = items.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); items[(i + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length].focus(); }
+    });
+  }
+
+  // The dialog, from the button or the menu; focus back to whichever opened it.
+  const dlg = document.getElementById('delete');
+  let opener = null;
+  for (const b of document.querySelectorAll('[data-delete]')) b.addEventListener('click', () => {
+    opener = b.closest('[popover]') ? document.querySelector(`[popovertarget="${b.closest('[popover]').id}"]`) : b;
+    b.closest('[popover]')?.hidePopover();
+    dlg.showModal();
+  });
+  for (const b of document.querySelectorAll('[data-pick]')) b.addEventListener('click', () => { document.getElementById('handover-value').textContent = b.dataset.pick; b.closest('[popover]').hidePopover(); document.getElementById('handover').focus(); });
+  dlg.addEventListener('close', () => { opener?.focus(); if (dlg.returnValue === 'delete') toast('Project deleted.'); });
+
+  // Toast: shown after any dialog, hidden after a while; it needs no action.
+  const t = document.getElementById('toast');
+  let timer;
+  function toast(msg) { t.textContent = msg; if (!t.matches(':popover-open')) t.showPopover(); clearTimeout(timer); timer = setTimeout(() => t.hidePopover(), 6000); }
+  document.getElementById('save-draft').addEventListener('click', () => toast('Draft saved.'));
+
+  // Loading: the indicator runs only while the export runs; after five seconds the status says how far it got.
+  const ex = document.getElementById('export'), ind = document.getElementById('export-indicator'), txt = document.getElementById('export-text');
+  ex.addEventListener('click', () => {
+    ex.disabled = true; ind.hidden = false; txt.textContent = 'Exporting…';
+    const started = Date.now();
+    const tick = setInterval(() => { if (Date.now() - started >= 5000) txt.textContent = `Exporting… sheet ${Math.min(5, Math.floor((Date.now() - started) / 1500))} of 5`; }, 500);
+    setTimeout(() => { clearInterval(tick); ind.hidden = true; txt.textContent = 'Report ready.'; highlight(txt); ex.disabled = false; ex.focus(); }, 7000);
+  });
+
+  // Settings: the reader's motion choice on <html> (none = the device decides), and the watching speed.
+  const saved = (() => { try { return localStorage.getItem('ds-demo-motion') ?? ''; } catch { return ''; } })();
+  const apply = (val) => { if (val) root.dataset.motion = val; else delete root.dataset.motion; try { localStorage.setItem('ds-demo-motion', val); } catch {} readJobs(); };
+  for (const r of document.querySelectorAll('input[name="motion"]')) { r.checked = r.value === saved; r.addEventListener('change', () => apply(r.value)); }
+  for (const r of document.querySelectorAll('input[name="speed"]')) r.addEventListener('change', () => { speed = +r.value; });
+  matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', readJobs);
+  tall.addEventListener('change', pad); new ResizeObserver(pad).observe(bar, { box: "border-box" });
+  apply(saved); pad();
+</script>
+</body>
+</html>

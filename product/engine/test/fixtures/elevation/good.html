@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  .card { background: var(--ds-elevation-raised-surface); box-shadow: var(--ds-elevation-raised-shadow); border-radius: var(--ds-shape-container); }
+  a.card:hover { background: var(--ds-color-bg-surface-hover); box-shadow: var(--ds-elevation-sticky-shadow); }
+  a.card:active { box-shadow: var(--ds-elevation-raised-shadow); background: var(--ds-color-bg-surface-pressed); }
+  .toolbar { position: sticky; top: 0; z-index: var(--ds-layer-sticky); background: var(--ds-elevation-sticky-surface); box-shadow: var(--ds-elevation-sticky-shadow); border-block-end: var(--ds-border-width-line) solid var(--ds-elevation-sticky-border); }
+  .menu { background: var(--ds-elevation-floating-surface); box-shadow: var(--ds-elevation-floating-shadow); border: var(--ds-border-width-line) solid var(--ds-elevation-floating-border); }
+  .join > :focus-visible { position: relative; z-index: 2; }
+  .tab { box-shadow: 0 0 0 2px var(--ds-color-border-focus); }
+  dialog::backdrop { background: var(--ds-elevation-modal-scrim); }
+</style>
+</head>
+<body>
+  <header class="ds-sticky">…</header>
+  <button popovertarget="more">More</button>
+  <div id="more" class="ds-floating" popover>…</div>
+  <dialog class="ds-modal" aria-labelledby="t"><h2 id="t">Delete?</h2></dialog>
+  <div class="ds-floating" data-layer="toast" popover="manual" role="status">Saved</div>
+  <script>document.querySelector('dialog').showModal();</script>
+</body>
+</html>

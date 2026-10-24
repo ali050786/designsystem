@@ -1,0 +1,28 @@
+== audit:page
+light  text 30/30 pass (lowest 7.25 : 1, button#more-1)  ·  controls 0/0  ·  focus ring 6/6
+dark  text 30/30 pass (lowest 6.23 : 1, button#more-1)  ·  controls 0/0  ·  focus ring 6/6
+== audit:border
+forcedStates   0 checked, 0 invisible
+forced/320     11 controls, 0 lost
+focus normal   11 tab stops, 0 without a ring
+focus forced   22 tab stops, 0 without a ring
+== audit:radius
+round    1280px/100%: 0 poke, 0 nested, 0 text · 320px/100%: 0 poke, 0 nested, 0 text · 1280px/200%: 0 poke, 0 nested, 0 text · 320px/200%: 0 poke, 0 nested, 0 text
+focus default 1280   11 tab stops, 11 rings sampled on four sides
+focus default 320    11 tab stops, 11 rings sampled on four sides
+focus round 1280     11 tab stops, 11 rings sampled on four sides
+== audit:space
+comfortable 11 targets (+0 links in sentences) · smallest 47.3px (button.btn.btn-secondary "Move Invoice download st") · control height 48px · phone fits 320px
+default     11 targets (+0 links in sentences) · smallest 39.3px (button.btn.btn-secondary "Move Invoice download st") · control height 40px · phone fits 320px
+compact     11 targets (+0 links in sentences) · smallest 31.3px (button.btn.btn-secondary "Move Invoice download st") · control height 32px · phone fits 320px
+spacing that doesn't follow density: 0 element(s)
+== audit:layout
+focus phone    160 tab stops, both directions · scroll-padding-top 117px · hidden 0 · partly 0
+focus zoom400  160 tab stops, both directions · scroll-padding-top 68px · hidden 0 · partly 0
+focus text200  160 tab stops, both directions · scroll-padding-top 99px · hidden 0 · partly 0
+200% text (browser setting): phone fits (4 columns) · 1280px fits (8 columns: the breakpoints are in em, so it gets the layout of a 640px window)
+== audit:type
+desktop: 27 text elements · smallest 16px · reading text 0 (lowest line height —)
+phone: 27 text elements · page fits 320px
+tabular figures: no tabular text on the page
+cut off as designed: 0 · readers' settings: text-spacing override cuts off 0 more · 200% text cuts off 0 more · text not growing 0

@@ -1,0 +1,36 @@
+{
+  "name": "ds-engine",
+  "version": "0.6.0",
+  "description": "Generates a complete, linked, accessible design system foundation set from one config.",
+  "type": "module",
+  "bin": {
+    "ds-engine": "src/cli.js"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node src/cli.js \"\" out/default",
+    "build:samples": "for s in green navy orange; do node src/cli.js config/samples/$s.json out/$s || exit 1; done",
+    "build:all": "npm run build && npm run build:samples",
+    "test": "node --test",
+    "lint:color": "node src/lint/color-lint.js",
+    "audit:page": "node tools/audit-page.mjs",
+    "publish": "node scripts/publish.mjs",
+    "lint:type": "node src/lint/type-lint.js",
+    "audit:type": "node tools/audit-type.mjs",
+    "lint:space": "node src/lint/space-lint.js",
+    "audit:space": "node tools/audit-space.mjs",
+    "lint:layout": "node src/lint/layout-lint.js",
+    "audit:layout": "node tools/audit-layout.mjs",
+    "lint:radius": "node src/lint/radius-lint.js",
+    "audit:radius": "node tools/audit-radius.mjs",
+    "lint:border": "node src/lint/border-lint.js",
+    "audit:border": "node tools/audit-border.mjs",
+    "lint:elevation": "node src/lint/elevation-lint.js",
+    "audit:elevation": "node tools/audit-elevation.mjs",
+    "lint:motion": "node src/lint/motion-lint.js",
+    "audit:motion": "node tools/audit-motion.mjs"
+  },
+  "license": "UNLICENSED"
+}

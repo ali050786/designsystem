@@ -1,0 +1,5 @@
+$ npm run audit:motion -- orders.html --open "#filter" --open "#sync" --open "#o-1042" --open "#o-1042 then [data-cancel='1042']" --open "#o-1042 then [data-cancel='1042'] then #confirm"
+motion audit · orders.html · full and reduced motion at 1280 and 320px · nothing moves in reduced motion · ≤ 32px · flashes ≤ 3 a second
+animations recorded: full/1280 27 · full/320 27 · reduced/1280 26 · reduced/320 26
+
+no problems

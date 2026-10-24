@@ -1,0 +1,19 @@
+pass  C1  374/374 pass Text contrast ≥ 4.5:1 on every allowed background
+pass  C3  202/202 pass Borders, focus rings and chart marks ≥ 3:1 against their backgrounds
+pass  C4  176/176 pass Icons ≥ 3:1 against every background they are allowed on
+pass  C6  12/12 pass   Body text against AAA 7:1 (report only)
+pass  C5  58/58 pass   Positive/negative change (≥ 0.1) and chart colours (≥ 0.07) stay distinct for protanopia, deuteranopia, tritanopia (OKLab distance)
+pass  T3  84/84 pass   Smallest text size ≥ 12px
+pass  T2  24/24 pass   Reading text line height ≥ 1.5
+info  T4  23 large, 61 normal Large / normal text class per breakpoint (sets the contrast each role needs)
+pass  T5  4/4 pass     Numeric roles use tabular numerals
+pass  S1  6/6 pass     Pointer targets ≥ 24×24px in every density
+pass  S2  1/1 pass     Comfortable density controls ≥ 44px
+pass  L1  2/2 pass     Reflow at 320px: content width ≥ 272px and largest heading ≤ 40px
+pass  F2  2/2 pass     Focus ring ≥ 2px thick with an offset (colour checked in C3)
+pass  E1  3/3 pass     Overlays have an outline (and dialogs a scrim), not shadow alone
+pass  M1  8/8 pass     Reduced motion: no movement, durations ≤ 100ms
+pass  M2  1/1 pass     Value-update highlight lasts ≥ 334ms (≤ 3 flashes a second)
+pass  X1  12/12 pass   Every alias resolves; foundations are linked, not copied
+
+ds: 408 tokens → out/drop-target/  ·  PASS

@@ -1,0 +1,3 @@
+$ node src/cli.js phone-pane.config.json out/phone-pane
+✕ Config refused — layout.panes → layout.pane.activity: "from" must be md, lg or xl — the breakpoint where it goes inline. On a phone nothing fits beside the main region; below it, the pane sits below the main content
+exit code 2

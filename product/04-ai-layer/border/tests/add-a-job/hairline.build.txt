@@ -1,0 +1,1 @@
+✕ Config refused — border.roles → border.width.divider: 0.5px is a hairline: Chrome and Edge round it up to 1px, Safari and Firefox can draw one device pixel, so it looks different in every browser. Use 1 and a quieter colour (color.border.subtle)

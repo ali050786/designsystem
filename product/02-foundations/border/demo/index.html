@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en" data-density="default" data-preview="normal">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ds border demo</title>
+<link rel="stylesheet" href="tokens.css" id="tokens">
+<style>
+  /* Every line on this page is a ds border job with one of its colours: no px, no primitives, no box-shadow lines.
+     Spacing, type, radius and colour are ds tokens too. Switch the control width and the colours at the top. */
+  body { margin: 0; }
+  .top { z-index: var(--ds-layer-sticky); display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-lg);
+    padding: var(--ds-space-inset-md) var(--ds-layout-margin); background: var(--ds-elevation-sticky-surface); border-block-end: var(--ds-border-width-line) solid var(--ds-color-border-subtle); box-shadow: var(--ds-elevation-sticky-shadow); }
+  .top .name { margin: 0; margin-inline-end: auto; }
+  .settings { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-lg); }
+  @media (min-height: 30em) { .top { position: sticky; top: 0; } } /* sticky only where there is room (layout: the header and scrolling) */
+  main { display: grid; gap: var(--ds-space-stack-2xl); padding-block: var(--ds-space-inset-2xl); }
+  main > *, .row > * { min-width: 0; }
+  section > h2 { margin: 0 0 var(--ds-space-stack-xs); }
+  section > .intro { margin: 0 0 var(--ds-space-stack-lg); color: var(--ds-color-fg-muted); }
+  h3, p { margin: 0; }
+  .row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--ds-space-stack-xl) var(--ds-space-inline-xl); }
+  .stack { display: grid; gap: var(--ds-space-stack-sm); justify-items: start; }
+  .muted { color: var(--ds-color-fg-muted); }
+  .job { display: inline-block; padding: 0 var(--ds-space-inset-xs); border-radius: var(--ds-shape-mark); background: var(--ds-color-bg-brand-subtle); color: var(--ds-color-fg-brand); }
+
+  /* Switches: radio groups drawn as segmented controls; the checked option is bold as well as filled */
+  .seg { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-inline-sm); border: 0; margin: 0; padding: 0; min-inline-size: 0; }
+  .seg legend { float: inline-start; padding: 0; color: var(--ds-color-fg-muted); }
+  .seg .opts { display: inline-flex; flex-wrap: wrap; max-width: 100%; box-sizing: border-box; padding: var(--ds-space-inset-xs); gap: var(--ds-space-inline-xs); border: var(--ds-border-width-control) solid var(--ds-color-border-strong); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .seg label { position: relative; display: inline-flex; align-items: center; min-height: var(--ds-size-target-min); padding: 0 var(--ds-space-inset-sm); border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs)); color: var(--ds-color-fg-muted); cursor: pointer; }
+  .seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .seg label:has(input:checked) { background: var(--ds-color-bg-selected); color: var(--ds-color-fg-default); font-weight: var(--ds-font-weight-semibold); }
+  .seg label:has(input:focus-visible) { outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color); outline-offset: var(--ds-focus-ring-offset); }
+
+  /* Controls */
+  .btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md);
+    border-radius: var(--ds-shape-control); border: var(--ds-border-width-control) solid transparent; font: inherit; cursor: pointer; }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-secondary[aria-pressed="true"] { background: var(--ds-color-bg-selected); color: var(--ds-color-fg-default); font-weight: var(--ds-font-weight-semibold); }
+  .field { display: grid; gap: var(--ds-space-stack-xs); justify-items: stretch; max-inline-size: 22rem; inline-size: 100%; }
+  .field label { font-weight: var(--ds-font-weight-semibold); }
+  .field input, .input { box-sizing: border-box; inline-size: 100%; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); font: inherit;
+    background: var(--ds-color-bg-surface); color: var(--ds-color-fg-default); border: var(--ds-border-width-control) solid var(--ds-color-border-input); border-radius: var(--ds-shape-control); }
+  .field input[aria-invalid="true"] { border-width: var(--ds-border-width-state); border-color: var(--ds-color-border-danger);
+    padding-inline: calc(var(--ds-space-inset-md) - (var(--ds-border-width-state) - var(--ds-border-width-control))); }
+  .field .error { display: flex; gap: var(--ds-space-inline-xs); align-items: baseline; color: var(--ds-color-fg-danger); }
+  .field .error > * { min-width: 0; overflow-wrap: anywhere; } /* "name@company.com" can't break otherwise: at 200% text it is wider than a phone */
+  .field .help { color: var(--ds-color-fg-muted); }
+
+  /* Structure: a card outline, rows separated by dividers */
+  .card { box-sizing: border-box; inline-size: 100%; max-inline-size: var(--ds-layout-pane-aside); padding: var(--ds-space-inset-lg); background: var(--ds-elevation-raised-surface); border: var(--ds-border-width-line) solid var(--ds-color-border-default); border-radius: var(--ds-shape-container); }
+  .card h3 { margin-block-end: var(--ds-space-stack-sm); }
+  .rows { list-style: none; margin: 0; padding: 0; }
+  .rows li { display: flex; justify-content: space-between; gap: var(--ds-space-inline-md); padding-block: var(--ds-space-inset-sm); }
+  .rows li + li { border-block-start: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+
+  /* Choice cards: a radio in a label; the checked card's outline widens to the state width, and its padding gives way */
+  .plans { flex: 1 1 24rem; display: grid; gap: var(--ds-space-stack-md) var(--ds-space-inline-md); grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); border: 0; margin: 0; padding: 0; min-inline-size: 0; max-inline-size: 44rem; }
+  .plans legend { padding: 0; margin-block-end: var(--ds-space-stack-sm); font-weight: var(--ds-font-weight-semibold); }
+  .plan { position: relative; display: grid; gap: var(--ds-space-stack-xs); padding: var(--ds-space-inset-lg); border: var(--ds-border-width-line) solid var(--ds-color-border-strong); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); cursor: pointer; }
+  .plan input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .plan .tick { visibility: hidden; color: var(--ds-color-fg-brand); }
+  .plan:has(input:checked) { border-width: var(--ds-border-width-state); border-color: var(--ds-color-border-selected); background: var(--ds-color-bg-selected);
+    padding: calc(var(--ds-space-inset-lg) - (var(--ds-border-width-state) - var(--ds-border-width-line))); }
+  .plan:has(input:checked) .tick { visibility: visible; }
+  .plan:has(input:focus-visible) { outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color); outline-offset: var(--ds-focus-ring-offset); }
+
+  /* The current item: a bar on one side, drawn only on the current one */
+  .tabs { display: flex; flex-wrap: wrap; gap: var(--ds-space-inline-xs); border-block-end: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+  .tabs [role="tab"] { position: relative; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; border-radius: var(--ds-shape-control) var(--ds-shape-control) 0 0;
+    background: none; color: var(--ds-color-fg-muted); font: inherit; cursor: pointer; }
+  .tabs [role="tab"]:hover { background: var(--ds-color-bg-state-hover); }
+  .tabs [role="tab"][aria-selected="true"] { color: var(--ds-color-fg-default); font-weight: var(--ds-font-weight-semibold); }
+  .tabs [role="tab"][aria-selected="true"]::after { content: ""; position: absolute; inset-inline: 0; inset-block-end: calc(-1 * var(--ds-border-width-control)); border-block-end: var(--ds-border-width-indicator) solid var(--ds-color-border-selected); }
+  .tabs [role="tab"]:focus-visible { z-index: 1; }
+  .nav { display: grid; inline-size: 14rem; max-inline-size: 100%; padding: var(--ds-space-inset-xs); border: var(--ds-border-width-line) solid var(--ds-color-border-default); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .nav a { display: block; padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs)); color: var(--ds-color-fg-default); text-decoration: none; }
+  .nav a:hover { background: var(--ds-color-bg-item-hover); }
+  .nav a[aria-current="page"] { border-inline-start: var(--ds-border-width-indicator) solid var(--ds-color-border-selected);
+    padding-inline-start: calc(var(--ds-space-inset-md) - var(--ds-border-width-indicator)); background: var(--ds-color-bg-selected); font-weight: var(--ds-font-weight-semibold); }
+
+  /* Focus: a full-width row draws its ring inside */
+  .list { list-style: none; margin: 0; padding: 0; inline-size: 100%; max-inline-size: var(--ds-layout-pane-aside); border: var(--ds-border-width-line) solid var(--ds-color-border-default); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .list li + li { border-block-start: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+  .list a { display: block; padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); color: var(--ds-color-fg-default); text-decoration: none; }
+  /* The underline is removed only on navigation links and full-width list rows, whose role is obvious (the colour checker notes it). */
+  /* Rows are flush with the list's edge, inside its 1px line: they share its corners, less the line (nested radius, padding = the line) */
+  .list li:first-child, .list li:first-child a { border-start-start-radius: calc(var(--ds-shape-container) - var(--ds-border-width-line)); border-start-end-radius: calc(var(--ds-shape-container) - var(--ds-border-width-line)); }
+  .list li:last-child, .list li:last-child a { border-end-start-radius: calc(var(--ds-shape-container) - var(--ds-border-width-line)); border-end-end-radius: calc(var(--ds-shape-container) - var(--ds-border-width-line)); }
+  .list a:hover { background: var(--ds-color-bg-surface-hover); }
+  .list a:focus-visible { outline-offset: calc(-1 * var(--ds-focus-ring-width)); }
+
+  /* Readout */
+  .readout { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr)); gap: var(--ds-space-stack-sm) var(--ds-space-inline-md); margin: 0; }
+  .readout div { padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .readout dt { color: var(--ds-color-fg-muted); }
+  .readout dd { margin: 0; }
+  .note { max-inline-size: var(--ds-layout-measure-reading); }
+
+  /* Forced-colours preview: an imitation of a Windows contrast theme for people without one. It does what the browser
+     does — fills to the page colour, text and every border (transparent ones too) to the text colour, shadows removed —
+     and then tokens.css's own forced-colours rules. The border audit checks the real thing (Chromium's forced colours). */
+  [data-preview="forced"] body, [data-preview="forced"] body * { background-color: Canvas !important; background-image: none !important; color: CanvasText !important; border-color: CanvasText !important; box-shadow: none !important; text-decoration-color: currentColor !important; }
+  [data-preview="forced"] body a { color: LinkText !important; }
+  [data-preview="forced"] .plan .tick { color: CanvasText !important; }
+  [data-preview="forced"] :is([aria-selected="true"], [aria-current]:not([aria-current="false"]), [aria-pressed="true"], label:has(> input[type="radio"]:checked)) { outline: var(--ds-border-width-state) solid SelectedItem; outline-offset: calc(-1 * var(--ds-border-width-state)); }
+  [data-preview="forced"] :focus-visible, [data-preview="forced"] .seg label:has(input:focus-visible), [data-preview="forced"] .plan:has(input:focus-visible) { outline: var(--ds-focus-ring-width) solid Highlight; outline-offset: var(--ds-focus-ring-offset); }
+  [data-preview="forced"] .seg label:has(input:checked) { outline: var(--ds-border-width-state) solid SelectedItem; outline-offset: calc(-1 * var(--ds-border-width-state)); }
+  [data-preview="forced"] .tabs [role="tab"][aria-selected="true"]::after { border-color: CanvasText !important; }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1 class="name ds-type-title-lg">ds · border demo</h1>
+  <div class="settings">
+    <fieldset class="seg"><legend>Colours</legend><span class="opts">
+      <label><input type="radio" name="preview" value="normal" checked>normal</label>
+      <label><input type="radio" name="preview" value="forced">forced (preview)</label></span></fieldset>
+    <fieldset class="seg"><legend>Control width</legend><span class="opts">
+      <label><input type="radio" name="control" value="1" checked>1px</label>
+      <label><input type="radio" name="control" value="2">2px</label></span></fieldset>
+    <fieldset class="seg"><legend>Density</legend><span class="opts">
+      <label><input type="radio" name="density" value="comfortable">comfortable</label>
+      <label><input type="radio" name="density" value="default" checked>default</label>
+      <label><input type="radio" name="density" value="compact">compact</label></span></fieldset>
+  </div>
+</header>
+
+<main class="ds-page">
+  <section aria-labelledby="h-jobs">
+    <h2 id="h-jobs">Widths by job</h2>
+    <p class="intro note">Four jobs. Structure is <span class="job ds-type-code-sm">line</span>, a control's edge is <span class="job ds-type-code-sm">control</span>, a state is <span class="job ds-type-code-sm">state</span>, the current item is <span class="job ds-type-code-sm">indicator</span>. Switch the control width at the top: fields and buttons follow, dividers and cards don't, and states stay one pixel wider than controls.</p>
+    <div class="row">
+      <div class="card">
+        <h3 class="ds-type-title-md">Notifications</h3>
+        <ul class="rows">
+          <li><span>Comments</span><span class="muted">Email</span></li>
+          <li><span>Mentions</span><span class="muted">Email, push</span></li>
+          <li><span>Weekly digest</span><span class="muted">Off</span></li>
+        </ul>
+      </div>
+      <div class="stack">
+        <div class="field">
+          <label for="team">Team name</label>
+          <input id="team" value="Atlas" aria-describedby="team-help">
+          <p id="team-help" class="help">Shown on invoices.</p>
+        </div>
+        <div class="row">
+          <button class="btn btn-primary" type="button">Save</button>
+          <button class="btn btn-secondary" type="button">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-states">
+    <h2 id="h-states">State borders</h2>
+    <p class="intro note">A state border widens to the state width and comes with a second cue — an icon and a message, a check mark, bold text. The padding gives up the extra width, so nothing moves: pick another plan and watch the text stay still.</p>
+    <div class="row">
+      <div class="field">
+        <label for="email">Work email</label>
+        <input id="email" value="ali@" aria-invalid="true" aria-describedby="email-err">
+        <p id="email-err" class="error"><span aria-hidden="true">⚠</span><span>Enter the whole address, like name@company.com</span></p>
+      </div>
+      <fieldset class="plans">
+        <legend>Plan</legend>
+        <label class="plan"><input type="radio" name="plan" value="team"><span class="ds-type-title-md">Team</span><span class="muted">Up to 10 people</span><span class="tick" aria-hidden="true">✓ Selected</span></label>
+        <label class="plan"><input type="radio" name="plan" value="business" checked><span class="ds-type-title-md">Business</span><span class="muted">Up to 100 people</span><span class="tick" aria-hidden="true">✓ Selected</span></label>
+        <label class="plan"><input type="radio" name="plan" value="enterprise"><span class="ds-type-title-md">Enterprise</span><span class="muted">Unlimited</span><span class="tick" aria-hidden="true">✓ Selected</span></label>
+      </fieldset>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-current">
+    <h2 id="h-current">The current item</h2>
+    <p class="intro note">The bar is drawn only on the current item — a <code class="ds-type-code-sm">::after</code> along a tab's bottom edge, a border on the navigation link with its padding reduced by the bar's width. In forced colours a bar on every item would be drawn on every item.</p>
+    <div class="row">
+      <div class="stack">
+        <div class="tabs" role="tablist" aria-label="Report">
+          <button role="tab" type="button" aria-selected="true" id="t1">Overview</button>
+          <button role="tab" type="button" aria-selected="false" id="t2" tabindex="-1">Usage</button>
+          <button role="tab" type="button" aria-selected="false" id="t3" tabindex="-1">Billing</button>
+        </div>
+        <p class="muted" role="tabpanel" aria-labelledby="t1" id="panel">Overview: three projects, two reviews waiting.</p>
+      </div>
+      <nav class="nav" aria-label="Settings">
+        <a href="#h-current" aria-current="page">Profile</a>
+        <a href="#h-joined">Team</a>
+        <a href="#h-focus">Security</a>
+      </nav>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-joined">
+    <h2 id="h-joined">Joined parts</h2>
+    <p class="intro note">Parts that touch share one line: <code class="ds-type-code-sm">.ds-join</code> overlaps them by one control border and lifts the part that changes, so its whole border and its focus ring show.</p>
+    <div class="row">
+      <div class="ds-join" data-join="auto" role="group" aria-label="View">
+        <button class="btn btn-secondary" type="button" aria-pressed="true">List</button>
+        <button class="btn btn-secondary" type="button" aria-pressed="false">Board</button>
+        <button class="btn btn-secondary" type="button" aria-pressed="false">Calendar</button>
+      </div>
+      <div class="ds-join" role="group" aria-label="Invite">
+        <input class="input" id="invite" placeholder="name@example.com" aria-label="Invite by email">
+        <button class="btn btn-secondary" type="button">Invite</button>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-focus">
+    <h2 id="h-focus">Focus rings</h2>
+    <p class="intro note">Press Tab. The ring is an outline <span id="ring-reach"></span> outside the element — never a border, never a box-shadow. A full-width row has no room around it, so its ring is drawn inside with a negative offset: still an outline, so it survives forced colours.</p>
+    <ul class="list">
+      <li><a href="#h-focus">Two-step sign-in</a></li>
+      <li><a href="#h-focus">Sessions on other devices</a></li>
+      <li><a href="#h-focus">Recovery codes</a></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-readout">
+    <h2 id="h-readout">What the page is using now</h2>
+    <p class="intro note">Read live from the page: the widths of each job, and the padding a state gives up in the current density.</p>
+    <dl class="readout" id="readout"></dl>
+  </section>
+</main>
+
+<script>
+  const root = document.documentElement;
+  const bar = document.querySelector('.top');
+  const tall = matchMedia('(min-height: 30em)');
+  const tokens = document.getElementById('tokens');
+  const v = (name) => getComputedStyle(root).getPropertyValue(name).trim();
+  // Clear the bar and the focus ring above a focused item (its offset + width).
+  const ringReach = () => parseFloat(v('--ds-focus-ring-offset')) + parseFloat(v('--ds-focus-ring-width'));
+  const pad = () => { root.style.scrollPaddingTop = tall.matches ? `${bar.getBoundingClientRect().height + ringReach()}px` : ''; };
+  const css = (sel, prop) => { const el = document.querySelector(sel); return el ? getComputedStyle(el)[prop] : '—'; };
+  function readout() {
+    const items = [
+      ...['line', 'control', 'state', 'indicator'].map((j) => [`border.width.${j}`, v(`--ds-border-width-${j}`) ? (() => { const p = document.createElement('div'); p.style.borderTop = `var(--ds-border-width-${j}) solid`; document.body.append(p); const w = getComputedStyle(p).borderTopWidth; p.remove(); return w; })() : '—']),
+      ['focus ring', `${v('--ds-focus-ring-width')} wide · ${v('--ds-focus-ring-offset')} out`],
+      ['Field in error: padding', css('#email', 'paddingInlineStart')],
+      ['Selected plan: padding', css('.plan:has(input:checked)', 'paddingTop')],
+      ['Current link: padding', css('.nav a[aria-current="page"]', 'paddingInlineStart')],
+    ];
+    document.getElementById('readout').innerHTML = items.map(([k, val]) => `<div><dt>${k}</dt><dd class="ds-type-code-md">${val}</dd></div>`).join('');
+    document.getElementById('ring-reach').textContent = `${ringReach()}px`;
+  }
+  // The control width is a build choice (border.control): switching loads tokens.css built with "control": 2.
+  for (const r of document.querySelectorAll('input[name="control"]')) r.addEventListener('change', () => { tokens.href = r.value === '2' ? 'tokens-control-2.css' : 'tokens.css'; tokens.addEventListener('load', () => { pad(); readout(); }, { once: true }); });
+  for (const r of document.querySelectorAll('input[name="preview"]')) r.addEventListener('change', () => { root.setAttribute('data-preview', r.value); });
+  for (const r of document.querySelectorAll('input[name="density"]')) r.addEventListener('change', () => { root.setAttribute('data-density', r.value); pad(); readout(); });
+  for (const r of document.querySelectorAll('input[name="plan"]')) r.addEventListener('change', readout);
+  for (const b of document.querySelectorAll('[aria-label="View"] .btn')) b.addEventListener('click', () => { for (const o of b.parentElement.children) o.setAttribute('aria-pressed', String(o === b)); });
+  // Tabs: arrow keys move between tabs (one tab stop for the list), as tabs should.
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  const pick = (t) => { for (const o of tabs) { o.setAttribute('aria-selected', String(o === t)); o.tabIndex = o === t ? 0 : -1; } document.getElementById('panel').setAttribute('aria-labelledby', t.id); document.getElementById('panel').textContent = `${t.textContent}: ${{ Overview: 'three projects, two reviews waiting.', Usage: '62% of the storage you pay for.', Billing: 'next invoice on the 1st.' }[t.textContent]}`; };
+  for (const t of tabs) {
+    t.addEventListener('click', () => pick(t));
+    t.addEventListener('keydown', (e) => { const i = tabs.indexOf(t); const n = e.key === 'ArrowRight' ? tabs[(i + 1) % tabs.length] : e.key === 'ArrowLeft' ? tabs[(i + tabs.length - 1) % tabs.length] : null; if (n) { pick(n); n.focus(); } });
+  }
+  tall.addEventListener('change', pad); new ResizeObserver(pad).observe(bar, { box: "border-box" }); // the bar wraps: measure it whenever it changes
+  pad(); readout();
+</script>
+</body>
+</html>

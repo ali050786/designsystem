@@ -1,0 +1,11 @@
+pass  T1  63/63 pass   In code, sizes are rem, line heights unitless and letter-spacing em — text follows the reader's text size
+pass  T2  32/32 pass   Reading text line height ≥ 1.5 at every breakpoint
+pass  T3  84/84 pass   Smallest text size ≥ 12px
+info  T4  28 large, 56 normal Large / normal text class per breakpoint (sets the contrast each style needs)
+pass  T5  3/3 pass     Number styles use tabular numerals, so digits line up in columns
+pass  T6  84/84 pass   Every style's line height ≥ 1.15, so wrapped lines never touch
+pass  T7  64/64 pass   Hierarchy holds at every breakpoint: each role steps up, headings stay above titles, display above headings
+pass  T8  84/84 pass   Letter-spacing follows the size: no negative tracking below 24px, never tighter than −0.02em; capitals are spaced out
+pass  T9  2/2 pass     Running text width gives 45–75 characters a line at body sizes (estimate; the page audit measures real lines)
+pass  L1  2/2 pass     Reflow at 320px: content width ≥ 272px and largest heading ≤ 40px
+reading: 410 tokens → out/reading-18-fixed/  ·  PASS

@@ -1,0 +1,8 @@
+normal/1280    0 edges, 0 seams, 0 shadows
+normal/320     0 edges, 0 seams, 0 shadows
+states         4 state elements
+forced/1280    9 controls, 0 lost
+forcedStates   4 checked, 0 invisible
+forced/320     9 controls, 0 lost
+focus normal   12 tab stops, 0 without a ring
+focus forced   24 tab stops, 0 without a ring

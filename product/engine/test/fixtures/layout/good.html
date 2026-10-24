@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    .bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-md); padding-inline: var(--ds-layout-margin); }
+    .bar > * { min-width: 0; }
+    .span-all { grid-column: 1 / -1; }
+    .summary { grid-column: span 4; }
+    @media (min-width: 37.5em) { .summary { grid-column: span 4; } }
+    @media (min-width: 64em) { .summary { grid-column: span 6; } }
+    .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); column-gap: var(--ds-layout-gutter); }
+    .table-wrap { overflow-x: auto; }
+    table { min-width: 100%; }
+    .intro { max-width: var(--ds-layout-measure-reading); }
+    @media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
+  </style>
+</head>
+<body>
+  <div class="ds-shell">
+    <header data-shell="header" class="bar">
+      <button type="button" data-shell-toggle="nav" aria-expanded="false" aria-controls="nav">Menu</button>
+      <span>Projects</span>
+    </header>
+    <nav data-shell="nav" id="nav" aria-label="Sections"><a href="#all">All projects</a></nav>
+    <main data-shell="main">
+      <div class="ds-page">
+        <h1 id="all">Projects</h1>
+        <p class="intro ds-measure">Every project you can see, with its owner and storage.</p>
+        <div class="ds-tiles"><article>Storage</article><article>Members</article></div>
+        <div class="ds-grid"><section class="summary">Summary</section><section class="span-all">Activity</section></div>
+        <div class="table-wrap" tabindex="0" role="region" aria-label="Projects table"><table><tr><td>Atlas</td></tr></table></div>
+      </div>
+    </main>
+    <aside data-shell="aside" aria-label="Details"><p class="ds-measure">Details of the selected project.</p></aside>
+  </div>
+</body>
+</html>

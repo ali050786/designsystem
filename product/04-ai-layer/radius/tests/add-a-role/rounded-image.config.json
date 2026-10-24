@@ -1,0 +1,14 @@
+{
+  "radius": {
+    "style": "default",
+    "roles": [
+      {
+        "name": "shape.rounded-image",
+        "sharp": "1",
+        "default": "3",
+        "round": "4",
+        "description": "Images"
+      }
+    ]
+  }
+}

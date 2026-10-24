@@ -1,0 +1,9 @@
+! input.html:9  CR-04  Underline removed from links — they are then told apart by colour only.  → Keep links underlined (tokens.css does it); remove only for links whose role is obvious, like navigation and buttons.
+✕ input.html:11  CR-01  --ds-color-neutral-90 is a raw shade, not a role.  → Pick a role with the decision guide.
+✕ input.html:13  CR-01  Raw colour in color: #0a7d32  → Replace it with a colour role (var(--…-color-…)).
+✕ input.html:14  CR-01  --ds-color-brand-10 is a raw shade, not a role.  → Pick a role with the decision guide.
+✕ input.html:15  CR-03  color.fg.muted on color.bg.danger is not an approved pair (measured 1.58 : 1 Light, 3.37 : 1 Dark).  → Use color.fg.on-danger.
+✕ input.html:31  CR-09  Focus outline removed.  → Keep the built-in :focus-visible ring (border.focus, 2px, 2px offset).
+✕ input.html:32  CR-10  color.border.default is decorative; an input needs an outline people can see (3 : 1).  → Use color.border.input.
+
+1 file(s) · 6 error(s) · 1 warning(s)

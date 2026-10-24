@@ -1,0 +1,13 @@
+elevation audit · before.html · edges ≥ 1.5:1 · Dark surface step ≥ 1.1:1
+shadow just under the edge (measured): light/raised 1.12:1 · light/sticky 1.21:1 · light/floating 1.23:1 · light/modal 1.29:1 · light/dragging 1.3:1 · dark/raised 1.04:1 · dark/sticky 1.05:1 · dark/floating 1.06:1 · dark/modal 1.07:1 · dark/dragging 1.06:1
+✕ z-index   header.top "InvoicesExport": z-index 1000 is not a layer (sticky 100, floating 200, modal 300, toast 400, dragging 500) (ER-05) (numbers from the first)  [light/1280, light/320, dark/1280, dark/320]
+✕ z-index   th "Invoice": z-index 5 is not a layer (sticky 100, floating 200, modal 300, toast 400, dragging 500) (ER-05) (numbers from the first)  [light/1280, light/320, dark/1280, dark/320]
+✕ z-index   th "Customer": z-index 5 is not a layer (sticky 100, floating 200, modal 300, toast 400, dragging 500) (ER-05) (numbers from the first)  [light/1280, light/320, dark/1280, dark/320]
+✕ z-index   th "Amount": z-index 5 is not a layer (sticky 100, floating 200, modal 300, toast 400, dragging 500) (ER-05) (numbers from the first)  [light/1280, light/320, dark/1280, dark/320]
+✕ z-index   th "Actions": z-index 5 is not a layer (sticky 100, floating 200, modal 300, toast 400, dragging 500) (ER-05) (numbers from the first)  [light/1280, light/320, dark/1280, dark/320]
+✕ edge      div#menu-1042 "Download PDFVoid invoice": its edge measures 1.00:1 against what is outside it — under 1.5:1 (E3) (numbers from the first)  [light/1280+#more-1042, dark/1280+#more-1042]
+✕ clipped   div#menu-1042 "Download PDFVoid invoice": cut off 48px by div.table-wrap "InvoiceCustomerAmountAct" (overflow: auto) — open it as a popover: the top layer is never clipped (numbers from the first)  [light/1280+#more-1042, light/320+#more-1042, dark/1280+#more-1042, dark/320+#more-1042]
+✕ edge      div#toast "INV-1042 voided.": its edge measures 1.47:1 against what is outside it — under 1.5:1 (E3) (numbers from the first)  [light/1280+#more-1042→#void-1042→#void, light/320+#more-1042→#void-1042→#void, dark/1280+#more-1042→#void-1042→#void, dark/320+#more-1042→#void-1042→#void]
+✕ stack     div#toast "INV-1042 voided." (floating) is covered by div#overlay "Void INV-1042? The custo" — check the layers (E6, ER-05) (numbers from the first)  [light/1280+#more-1042→#void-1042→#void, light/320+#more-1042→#void-1042→#void, dark/1280+#more-1042→#void-1042→#void, dark/320+#more-1042→#void-1042→#void]
+
+9 problem(s)

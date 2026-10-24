@@ -1,0 +1,4 @@
+{ "name": "hero", "spacing": { "tokens": [
+  { "name": "space.stack.3xl", "base": "12", "description": "Sections of a long landing page" },
+  { "name": "space.inset.3xl", "base": "16", "description": "Padding of hero bands" }
+] } }

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project activity · Atlas</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Review test input: a page with layout problems planted for the "Review layout" prompt. Spacing, type and colour use
+     ds tokens, so the layout problems are the ones to find. */
+  :root { --ds-layout-margin: 24px; }
+  body { margin: 0; overflow-x: hidden; }
+  h1, h2, h3, p { margin: 0; }
+  .topbar { position: sticky; top: 0; z-index: 3; display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-md); height: 64px; padding: var(--ds-space-inset-sm) var(--ds-layout-margin); background: var(--ds-elevation-2-surface); border-bottom: var(--ds-border-width-default) solid var(--ds-color-border-subtle); }
+  .topbar input { min-height: var(--ds-size-control-height); padding: 0 var(--ds-space-inset-md); border: var(--ds-border-width-input) solid var(--ds-color-border-input); border-radius: var(--ds-shape-control); }
+  .tabs { position: sticky; top: 64px; z-index: 2; display: flex; gap: var(--ds-space-inline-sm); padding: var(--ds-space-inset-xs) var(--ds-layout-margin); background: var(--ds-color-bg-surface); border-bottom: var(--ds-border-width-default) solid var(--ds-color-border-subtle); }
+  .tabs a { display: inline-flex; align-items: center; min-height: var(--ds-size-control-height); padding: 0 var(--ds-space-inset-md); }
+  .wrapper { width: 1180px; margin: 0 auto; padding: 0 20px; }
+  .layout { display: grid; grid-template-columns: 280px 1fr 300px; gap: var(--ds-space-inline-xl); padding-block: var(--ds-space-inset-2xl); }
+  .filters { order: -1; display: grid; align-content: start; gap: var(--ds-space-stack-md); }
+  .content { display: grid; gap: var(--ds-space-stack-2xl); }
+  .intro { max-width: 720px; }
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--ds-space-inline-lg); }
+  .card { padding: var(--ds-space-inset-lg); background: var(--ds-elevation-1-surface); border: var(--ds-border-width-default) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); }
+  .notes { display: grid; gap: var(--ds-space-stack-lg); }
+  .table-scroll { overflow-x: auto; }
+  table { min-width: 760px; border-collapse: collapse; }
+  th, td { padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); border-top: var(--ds-border-width-default) solid var(--ds-color-border-subtle); text-align: start; }
+  .hero { width: 100vw; }
+  .edit-pane { display: grid; align-content: start; gap: var(--ds-space-stack-lg); padding: var(--ds-space-inset-lg); background: var(--ds-color-bg-surface-sunken); }
+  .edit-pane input { box-sizing: border-box; width: 100%; min-height: var(--ds-size-control-height); padding: 0 var(--ds-space-inset-md); border: var(--ds-border-width-input) solid var(--ds-color-border-input); border-radius: var(--ds-shape-control); }
+  .btn { display: inline-flex; align-items: center; min-height: var(--ds-size-control-height); padding: 0 var(--ds-space-inset-md); border: 0; border-radius: var(--ds-shape-control); background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .details { display: none; } }
+  @media (min-width: 1024px) { .content { gap: var(--ds-space-stack-2xl); } }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <strong>Atlas</strong>
+  <a href="#">Projects</a>
+  <a href="#">Members</a>
+  <a href="#">Storage</a>
+  <a href="#">Settings</a>
+  <label class="search"><span>Search</span> <input type="search"></label>
+</header>
+<div class="wrapper">
+  <div class="layout">
+    <main class="content">
+      <nav class="tabs" aria-label="Project">
+        <a href="#activity">Activity</a><a href="#files">Files</a><a href="#people">People</a>
+      </nav>
+      <div class="intro">
+        <h1>Onboarding redesign</h1>
+        <p>Everything that happened in this project over the last thirty days: who changed what, which files were added, and the reports that went out to the people who follow it.</p>
+      </div>
+      <img class="hero" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='2'/%3E" alt="">
+      <section aria-labelledby="numbers">
+        <h2 id="numbers">This month</h2>
+        <div class="cards">
+          <div class="card">Files added 1,284</div><div class="card">Comments 342</div><div class="card">Reviews 58</div><div class="card">Reports 4</div>
+        </div>
+      </section>
+      <section class="notes" aria-labelledby="notes">
+        <h2 id="notes">Notes from the team</h2>
+        <p>The first-run screens were rebuilt around the three things people try to do on day one, which meant removing the tour entirely and replacing it with a short checklist that stays on the dashboard until it is done, so returning visitors can pick it up where they left off.</p>
+        <p class="details">Detailed timings for each step are in the reports archive, along with the recordings from the five usability sessions held in the second week and the notes the team took while watching them.</p>
+      </section>
+      <section aria-labelledby="files">
+        <h2 id="files">Files</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>File</th><th>Added by</th><th>Size</th><th>Added</th><th>Project folder</th></tr></thead>
+            <tbody><tr><td>first-run-checklist-final-v3.fig</td><td>Meera Iyer</td><td>14 MB</td><td>20 Oct 2026</td><td>/onboarding/first-run/designs</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <aside class="filters" aria-label="Filters">
+      <h2>Show</h2>
+      <label><input type="checkbox" checked> Files</label>
+      <label><input type="checkbox" checked> Comments</label>
+    </aside>
+    <aside class="edit-pane" aria-label="Edit project">
+      <h2>Edit project</h2>
+      <label for="pname">Name</label>
+      <input id="pname" value="Onboarding redesign">
+      <button class="btn" type="button">Save</button>
+    </aside>
+  </div>
+</div>
+</body>
+</html>

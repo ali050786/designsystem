@@ -1,0 +1,15 @@
+✕ input.html:9  RR-10  --ds-shape-control is redefined in app code.  → Change radius.style or radius.roles in the engine config and build, so the change is checked; switch one region with data-radius.
+✕ input.html:16  RR-09  .btn:focus-visible changes the radius (var(--ds-shape-control) → var(--ds-shape-pill)).  → Keep the corners the same in every state; show the state with colour, the focus ring and text.
+! input.html:16  RR-04  .btn:focus-visible has round ends — when its label wraps (a long translation, 200% text) the first and last letters fall outside the shape.  → Use var(--ds-shape-control); keep the pill for labels that never wrap (badges, counters).
+✕ input.html:17  RR-01  border-radius: 999px is hard-coded (999px) — it doesn't follow the radius style.  → Round ends are var(--ds-shape-pill) (Tailwind rounded-pill).
+✕ input.html:18  RR-01  border-radius: 10px is hard-coded (10px) — it doesn't follow the radius style.  → Use a role: --ds-shape-none, --ds-shape-mark, --ds-shape-control, --ds-shape-container, --ds-shape-surface, --ds-shape-pill; inside a padded parent, max(0px, var(--ds-shape-<parent>) - var(--ds-space-inset-<size>)).
+! input.html:23  RR-08  .media-card is rounded and clips its content (overflow: hidden) — the focus ring of anything within the ring's reach of its edge is cut off.  → Give the flush child the container's radius on the corners it shares (nested radius) and remove the clipping; clip an image itself, not its card.
+✕ input.html:25  RR-02  border-radius: var(--ds-radius-6) uses a radius primitive.  → Pick the role by job: --ds-shape-none, --ds-shape-mark, --ds-shape-control, --ds-shape-container, --ds-shape-surface, --ds-shape-pill. Primitives don't change with the radius style.
+✕ input.html:27  RR-06  border-top-left-radius names a physical corner — it doesn't flip in right-to-left layouts.  → Use the logical corner (border-start-start-radius), or the .ds-join class for joined parts.
+✕ input.html:27  RR-06  border-bottom-left-radius names a physical corner — it doesn't flip in right-to-left layouts.  → Use the logical corner (border-end-start-radius), or the .ds-join class for joined parts.
+✕ input.html:28  RR-06  border-top-right-radius names a physical corner — it doesn't flip in right-to-left layouts.  → Use the logical corner (border-start-end-radius), or the .ds-join class for joined parts.
+✕ input.html:28  RR-06  border-bottom-right-radius names a physical corner — it doesn't flip in right-to-left layouts.  → Use the logical corner (border-end-end-radius), or the .ds-join class for joined parts.
+✕ input.html:34  RR-07  A focus ring drawn on ::after with the element's own radius — offset outwards, its corners pinch.  → Use var(--ds-shape-<role>-focus) (the role's radius + the ring offset), or draw the ring as an outline, which follows the radius by itself.
+✕ input.html:35  RR-04  tag is not a shape role in this system.  → Use --ds-shape-none, --ds-shape-mark, --ds-shape-control, --ds-shape-container, --ds-shape-surface, --ds-shape-pill — or add a role in the engine config (radius.roles).
+
+1 file(s) · 11 error(s) · 2 warning(s)

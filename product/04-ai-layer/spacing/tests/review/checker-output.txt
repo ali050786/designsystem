@@ -1,0 +1,15 @@
+$ npm run lint:space -- input.html
+✕ input.html:9  SR-08  --ds-space-stack-md is redefined in app code.  → Change spacing in the engine config and build, so the change is checked. To tighten a region, set data-density on it.
+✕ input.html:14  SR-02  space.inset.sm is inset (padding inside a container) but gap needs stack or inline.  → Use space.stack.sm — the same distance, the right direction.
+✕ input.html:16  SR-01  Hand-set padding: 20px.  → Use a spacing token (space.inset.*) — pick it with the decision guide.
+✕ input.html:20  SR-02  space.inline.xs is inline (horizontal gap between things side by side in a row) but margin-bottom needs stack.  → Use space.stack.xs — the same distance, the right direction.
+✕ input.html:23  SR-01  Hand-set gap: 0.75rem.  → Use a spacing token (space.stack.* or space.inline.*) — pick it with the decision guide.
+✕ input.html:24  SR-06  Fixed height on a control (36px) — at 200% text its label no longer fits.  → Use min-height: var(--…-size-control-height) so the control grows with its label (icon-only buttons too).
+✕ input.html:27  SR-05  width: 16px on .close — under the 24px target minimum.  → Use size.control.height (icon-only buttons: width and height), or give the mark a 24px hit area (size.target.min).
+✕ input.html:27  SR-05  height: 16px on .close — under the 24px target minimum.  → Use size.control.height (icon-only buttons: width and height), or give the mark a 24px hit area (size.target.min).
+! input.html:29  SR-04  Density by class name (.compact) sets its own spacing.  → Set data-density="compact|comfortable" on the container and keep the same tokens — they move together.
+! input.html:31  SR-07  --ds-space-6 is a primitive — it doesn't change with density.  → Use the semantic token for the job (space.inset.*, space.stack.*, space.inline.*).
+! input.html:62  SR-04  Density by class name ("compact").  → Use data-density="compact|comfortable" on the container; the tokens follow it.
+✕ input.html:53  SR-09  An empty element used as a spacer.  → Remove it and space its neighbours with a token (space.stack.* or space.inline.*), or a gap on the parent.
+
+1 file(s) · 9 error(s) · 3 warning(s)

@@ -1,0 +1,1 @@
+{ "name": "inspector", "layout": { "aside": 240, "panes": [ { "name": "layout.pane.inspector", "width": 272, "from": "xl", "side": "end", "description": "Properties of the selected shape beside the canvas" } ] } }

@@ -1,0 +1,21 @@
+normal/1280    1 edges, 2 seams, 1 shadows
+normal/320     1 edges, 2 seams, 1 shadows
+states         2 state elements
+forced/1280    8 controls, 0 lost
+forcedStates   2 checked, 0 invisible
+forced/320     8 controls, 0 lost
+focus normal   9 tab stops, 1 without a ring
+focus forced   18 tab stops, 8 without a ring
+✕ width     input#em "sam@": its 1px border doesn't follow the product's control width (border.control) — hard-coded? Use --ds-border-width-control (BR-01) (numbers from the first)  [normal; 1280, 320]
+✕ width     input#cn: its 1px border doesn't follow the product's control width (border.control) — hard-coded? Use --ds-border-width-control (BR-01) (numbers from the first)  [normal; 1280, 320]
+✕ edge      input#cp: its border is 1.58:1 against what is behind it (needs 3:1) — WCAG 1.4.11; use border.width.control with color.border.input (BR-07) (numbers from the first)  [normal; 1280, 320]
+✕ seam      button "Fewer" and input "Quantity" touch with a border each: a 2px seam — use .ds-join, which overlaps them to one line (BR-10) (numbers from the first)  [normal; 1280, 320]
+✕ seam      input "Quantity" and button "More" touch with a border each: a 2px seam — use .ds-join, which overlaps them to one line (BR-10) (numbers from the first)  [normal; 1280, 320]
+✕ focus     input#em "sam@": no focus ring in forced colours — a box-shadow ring or outline: none? (WCAG 2.4.7; BR-05) (numbers from the first)  [forced; 1280, 320]
+✕ focus     input#cp: no focus ring in forced colours — a box-shadow ring or outline: none? (WCAG 2.4.7; BR-05) (numbers from the first)  [forced; 1280, 320]
+✕ focus     input "on": no focus ring in forced colours — a box-shadow ring or outline: none? (WCAG 2.4.7; BR-05) (numbers from the first)  [forced; 1280, 320]
+✕ focus     input#cn: no focus ring in forced colours — a box-shadow ring or outline: none? (WCAG 2.4.7; BR-05) (numbers from the first)  [forced; 1280, 320]
+✕ focus     input "on": no focus ring (WCAG 2.4.7; BR-05)  [normal; 1280]
+! shadow    div.summary-row "Desk lamp€49": a line drawn with box-shadow and no border — forced colours remove it (BR-06) (numbers from the first)  [normal; 1280, 320]
+! colour    li "Shipping" [aria-current="step"]: only colours change with the state — widen the border to its job, add a check mark, icon or bold text (WCAG 1.4.1; BR-08)  [normal; 1280]
+! colour    label.opt.active "Standard · 3–5 days" [:checked]: only colours change with the state — widen the border to its job, add a check mark, icon or bold text (WCAG 1.4.1; BR-08)  [normal; 1280]

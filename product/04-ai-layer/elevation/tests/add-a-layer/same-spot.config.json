@@ -1,0 +1,4 @@
+{ "elevation": { "layers": [
+  { "name": "layer.banner", "above": "sticky", "description": "A site-wide banner that stays above sticky bars" },
+  { "name": "layer.help-panel", "above": "sticky", "description": "The help panel that slides in from the side" }
+] } }

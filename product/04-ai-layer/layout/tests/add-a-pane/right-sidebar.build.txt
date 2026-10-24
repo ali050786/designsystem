@@ -1,0 +1,3 @@
+$ node src/cli.js right-sidebar.config.json out/right-sidebar
+✕ Config refused — layout.panes → layout.pane.right: name it by its job, not its look or position: "right" says where or how big, and sides swap in right-to-left languages
+exit code 2

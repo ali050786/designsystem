@@ -1,0 +1,37 @@
+✕ input.html:9  MR-10  --ds-motion-floating-duration is redefined in app code.  → Add a product job in the engine config (motion.jobs) and build; durations and curves are computed.
+✕ input.html:10  MR-09  scroll-behavior: smooth for everyone — every jump glides the page, for people with reduced motion too.  → Put it inside @media (prefers-reduced-motion: no-preference), or leave it out.
+✕ input.html:16  MR-01  transition: all .25s ease — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ input.html:16  MR-01  transition: all .25s ease — a curve written by hand.  → var(--ds-motion-<job>-easing) (or -exit-easing).
+✕ input.html:16  MR-02  transition: all .25s ease — transitions everything that changes, the focus ring and layout too.  → Name the properties: background-color, border-color, color, opacity, translate.
+✕ input.html:20  MR-01  animation: pulse 900ms ease-in-out infinite — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ input.html:20  MR-01  animation: pulse 900ms ease-in-out infinite — a curve written by hand.  → var(--ds-motion-<job>-easing) (or -exit-easing).
+✕ input.html:20  MR-08  @keyframes pulse shakes, bounces or pulses to get attention.  → Say it in words (an error message, a status) and use .ds-highlight once.
+✕ input.html:20  MR-06  .badge runs forever (infinite) with no pause.  → The loading indicator is .ds-loading; anything else that runs on needs a pause control (then: ds-lint-ignore: MR-06) or must stop within 5 seconds.
+✕ input.html:25  MR-01  transition: transform 300ms cubic-bezier(.34, 1.56, .64, 1) — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ input.html:25  MR-01  transition: transform 300ms cubic-bezier(.34, 1.56, .64, 1) — a curve written by hand.  → var(--ds-motion-<job>-easing) (or -exit-easing).
+✕ input.html:24  MR-04  .card runs @keyframes rise, which moves, with no reduced path.  → Run it inside @media (prefers-reduced-motion: no-preference), move by var(--ds-motion-<job>-distance), or use .ds-loading for a loading indicator.
+! input.html:26  MR-01  animation-delay: 80ms — a delay adds waiting no job accounts for.  → Leave it out: bring things in together.
+! input.html:27  MR-01  animation-delay: 160ms — a delay adds waiting no job accounts for.  → Leave it out: bring things in together.
+✕ input.html:28  MR-03  .card:hover { transform: translateY(-6px) scale(1.02) } — grows, shrinks or turns.  → Move on one axis by var(--ds-motion-<job>-distance), or change colour (motion.feedback).
+✕ input.html:31  MR-01  animation: spin .7s linear infinite — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ input.html:31  MR-01  animation: spin .7s linear infinite — a curve written by hand.  → var(--ds-motion-<job>-easing) (or -exit-easing).
+✕ input.html:31  MR-04  .spinner runs @keyframes spin, which moves, with no reduced path.  → Run it inside @media (prefers-reduced-motion: no-preference), move by var(--ds-motion-<job>-distance), or use .ds-loading for a loading indicator.
+✕ input.html:31  MR-06  .spinner runs forever (infinite) with no pause.  → The loading indicator is .ds-loading; anything else that runs on needs a pause control (then: ds-lint-ignore: MR-06) or must stop within 5 seconds.
+✕ input.html:33  MR-03  .menu moves by translateY(-8px) — not a job's distance, so reduced motion can't stop it.  → translate by var(--ds-motion-<job>-distance) (or calc(-1 * …)).
+✕ input.html:33  MR-01  transition: opacity 200ms, transform 200ms — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ input.html:33  MR-05  .menu adds motion of its own to a popover or dialog.  → Remove it: tokens.css opens and closes .ds-floating popovers and dialog.ds-modal with motion.floating and motion.modal (and only fades them in reduced motion).
+✕ input.html:35  MR-01  animation: slide-up 400ms ease-out — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ input.html:35  MR-01  animation: slide-up 400ms ease-out — a curve written by hand.  → var(--ds-motion-<job>-easing) (or -exit-easing).
+✕ input.html:35  MR-05  dialog adds motion of its own to a popover or dialog.  → Remove it: tokens.css opens and closes .ds-floating popovers and dialog.ds-modal with motion.floating and motion.modal (and only fades them in reduced motion).
+✕ input.html:35  MR-04  dialog runs @keyframes slide-up, which moves, with no reduced path.  → Run it inside @media (prefers-reduced-motion: no-preference), move by var(--ds-motion-<job>-distance), or use .ds-loading for a loading indicator.
+✕ input.html:39  MR-01  transition: box-shadow .2s, outline-offset .2s — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ input.html:39  MR-02  .field input:focus-visible transitions box-shadow — the focus ring must appear at once.  → Take it out of the transition list.
+✕ input.html:39  MR-02  .field input:focus-visible transitions outline-offset — the focus ring must appear at once.  → Take it out of the transition list.
+✕ input.html:41  MR-01  animation: shake 400ms — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ input.html:41  MR-04  .field input[aria-invalid="true"] runs @keyframes shake, which moves, with no reduced path.  → Run it inside @media (prefers-reduced-motion: no-preference), move by var(--ds-motion-<job>-distance), or use .ds-loading for a loading indicator.
+✕ input.html:41  MR-08  @keyframes shake shakes, bounces or pulses to get attention.  → Say it in words (an error message, a status) and use .ds-highlight once.
+✕ input.html:87  MR-07  A class is toggled every 125ms — if it changes brightness, that is 4.0 flashes a second.  → Nothing blinks: when a value changes, .ds-highlight once.
+! input.html:82  MR-05  Focus moves only when the animation ends — keyboard and screen-reader users wait for a look.  → Move focus when it opens (showModal() and popovers do it at once); the animation is only how it looks.
+✕ input.html:89  MR-09  A scroll handler moves things (parallax or scroll-linked movement).  → Nothing moves with scrolling.
+
+1 file(s) · 32 error(s) · 3 warning(s)

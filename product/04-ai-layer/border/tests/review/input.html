@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout — for review</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  body { margin: 0; }
+  main { display: grid; gap: var(--ds-space-stack-xl); padding-block: var(--ds-space-inset-2xl); }
+  main > * { min-width: 0; }
+  h1, h2, p { margin: 0; }
+  section { padding: var(--ds-space-inset-lg); border: var(--ds-border-width-line) solid var(--ds-color-border-default); border-radius: var(--ds-shape-container); }
+  section h2 { padding-block-end: var(--ds-space-inset-sm); margin-block-end: var(--ds-space-stack-md); border-block-end: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+  .featured { border: var(--ds-border-width-state) solid var(--ds-color-border-strong); }
+  .field { display: grid; gap: var(--ds-space-stack-xs); max-inline-size: var(--ds-layout-measure-reading); }
+  .field input { min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); font: inherit; border: 1px solid var(--ds-color-border-input); border-radius: var(--ds-shape-control); background: var(--ds-color-bg-surface); }
+  .field input.coupon { border: var(--ds-border-width-control) solid var(--ds-color-border-default); }
+  .field input.is-error { border-color: var(--ds-color-border-danger); }
+  .field input:focus { outline: none; box-shadow: 0 0 0 3px var(--ds-color-border-focus); }
+  .hint { border-top: 0.5px solid var(--ds-color-border-subtle); padding-block-start: var(--ds-space-inset-xs); color: var(--ds-color-fg-muted); }
+  .ship { display: grid; gap: var(--ds-space-stack-sm); }
+  .ship .opt { display: flex; gap: var(--ds-space-inline-sm); padding: var(--ds-space-inset-md); border: var(--ds-border-width-line) solid var(--ds-color-border-strong); border-radius: var(--ds-shape-container); cursor: pointer; }
+  .ship .opt.active { background: var(--ds-color-bg-selected); }
+  .ship .opt input { position: absolute; opacity: 0; }
+  .qty { display: flex; }
+  .qty button, .qty input { min-height: var(--ds-size-control-height); min-width: var(--ds-size-control-height); text-align: center; font: inherit; border: var(--ds-border-width-control) solid var(--ds-color-border-input); background: var(--ds-color-bg-surface); }
+  .steps { display: flex; gap: var(--ds-space-inline-lg); list-style: none; margin: 0; padding: 0; }
+  .steps li { padding-block: var(--ds-space-inset-xs); border-bottom: var(--ds-border-width-indicator) solid transparent; }
+  .steps li[aria-current="step"] { border-bottom-color: var(--ds-color-border-selected); }
+  .pay { min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: none; border-radius: var(--ds-shape-control); background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); font: inherit; }
+  .card-num { border: 0.0625rem solid var(--ds-color-border-input); }
+  .summary-row { display: flex; justify-content: space-between; padding-block: var(--ds-space-inset-xs); box-shadow: inset 0 -1px 0 var(--ds-color-border-subtle); }
+  .remove { border: var(--ds-border-width-control) solid var(--ds-color-action-secondary-border); background: var(--ds-color-action-secondary-bg); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border-radius: var(--ds-shape-control); font: inherit; }
+  .remove:hover { border-width: var(--ds-border-width-state); }
+  :root { --ds-border-width-line: 2px; }
+</style>
+</head>
+<body>
+<main class="ds-page">
+  <h1 class="ds-type-heading-md">Checkout</h1>
+  <ol class="steps"><li>Cart</li><li aria-current="step">Shipping</li><li>Payment</li></ol>
+  <section class="featured">
+    <h2 class="ds-type-title-md">Your details</h2>
+    <div class="field"><label for="em">Email</label><input id="em" class="is-error" value="sam@"><p class="hint">We send the receipt here.</p></div>
+    <div class="field"><label for="cp">Coupon</label><input id="cp" class="coupon"></div>
+  </section>
+  <section>
+    <h2 class="ds-type-title-md">Delivery</h2>
+    <div class="ship">
+      <label class="opt active"><input type="radio" name="ship" checked> Standard · 3–5 days</label>
+      <label class="opt"><input type="radio" name="ship"> Express · next day</label>
+    </div>
+  </section>
+  <section>
+    <h2 class="ds-type-title-md">Items</h2>
+    <div class="summary-row"><span>Desk lamp</span><span>€49</span></div>
+    <div class="qty" role="group" aria-label="Quantity"><button aria-label="Fewer">−</button><input aria-label="Quantity" value="1" size="2"><button aria-label="More">+</button></div>
+    <button class="remove">Remove</button>
+    <div class="field"><label for="cn">Card number</label><input id="cn" class="card-num"></div>
+    <button class="pay">Pay €49</button>
+  </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  :root { --ds-space-inset-md: 10px; }
+  .card { padding: 16px; margin-bottom: 1.5rem; }
+  .row { display: flex; gap: var(--ds-space-inset-md); }
+  .field { margin-top: var(--ds-space-inline-sm); }
+  .panel { padding: var(--ds-space-4); }
+  .compact .card { padding: var(--ds-space-inset-sm); }
+  [data-density="compact"] .row { gap: var(--ds-space-inline-xs); }
+  .icon-button { width: 20px; height: 20px; }
+  .btn { height: var(--ds-size-control-height); padding: 0 var(--ds-space-inset-huge); }
+</style>
+</head>
+<body>
+  <div class="card">Title<br><br>Body</div>
+  <div class="spacer"></div>
+  <p>Name:&nbsp;&nbsp;&nbsp;Ali</p>
+  <section data-density="dense"><button class="btn">Save</button></section>
+</body>
+</html>

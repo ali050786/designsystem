@@ -1,0 +1,761 @@
+{
+  "$schema": "ds-layout-contract/1",
+  "system": "ds",
+  "prefix": "ds",
+  "standard": "WCAG 2.2 AA",
+  "breakpoints": [
+    {
+      "name": "sm",
+      "minPx": 0,
+      "em": 0,
+      "checkedAt": 320,
+      "columns": 4,
+      "gutter": 16,
+      "margin": 16
+    },
+    {
+      "name": "md",
+      "minPx": 600,
+      "em": 37.5,
+      "checkedAt": 600,
+      "columns": 8,
+      "gutter": 24,
+      "margin": 32
+    },
+    {
+      "name": "lg",
+      "minPx": 1024,
+      "em": 64,
+      "checkedAt": 1024,
+      "columns": 12,
+      "gutter": 24,
+      "margin": 40
+    },
+    {
+      "name": "xl",
+      "minPx": 1440,
+      "em": 90,
+      "checkedAt": 1440,
+      "columns": 12,
+      "gutter": 32,
+      "margin": 64
+    }
+  ],
+  "modeSwitching": {
+    "css": "Breakpoints: min-width media queries in em on :root (tokens.css); a grid inside a region (.ds-region or a shell region) follows the region's width. Density: data-density on <html> or any container.",
+    "figma": "Set the Responsive mode (sm, md, lg, xl) on a frame — on a page frame for the window, on a region frame for the region's own width; set the Density mode for the header height"
+  },
+  "containerPx": 1312,
+  "measure": {
+    "rem": 34,
+    "px": 544,
+    "charsAtBody": 71
+  },
+  "classes": [
+    {
+      "class": "ds-page",
+      "use": "Page content: capped at layout.container.max, padded with layout.margin, centred",
+      "tailwind": "— (use the class: it adds the margin to the cap; px-margin alone sets the padding)"
+    },
+    {
+      "class": "ds-grid",
+      "use": "The page grid: layout.columns columns of minmax(0, 1fr), layout.gutter between them; items can shrink; inside a region it takes the region's grid",
+      "tailwind": "— (use the class: utilities can't follow the region)"
+    },
+    {
+      "class": "ds-span-half, ds-span-third, ds-span-two-thirds, ds-span-quarter, ds-span-full",
+      "use": "A grid item's width as a fraction of the grid it is in, in whole columns (see Spans); follows the region like the grid does",
+      "tailwind": "— (use the classes)"
+    },
+    {
+      "class": "ds-measure",
+      "use": "Running text: no wider than layout.measure.reading",
+      "tailwind": "max-w-reading"
+    },
+    {
+      "class": "ds-tiles",
+      "use": "Cards that wrap: as many layout.tile.min columns as fit, one full-width tile on the smallest screens; gaps follow density",
+      "tailwind": "— (use the class)"
+    },
+    {
+      "class": "ds-region",
+      "use": "A size container: a grid inside takes the grid of the region's width (shell regions are regions already)",
+      "tailwind": "— (use the class; Tailwind's @container sizes are not the ds breakpoints)"
+    },
+    {
+      "class": "ds-shell",
+      "use": "The app shell: children data-shell=\"header\", the start panes, \"main\", the end panes; panes go inline at their breakpoint",
+      "tailwind": "— (use the class)"
+    }
+  ],
+  "spans": {
+    "sm": {
+      "full": 4,
+      "half": 4,
+      "third": 4,
+      "two-thirds": 4,
+      "quarter": 2
+    },
+    "md": {
+      "full": 8,
+      "half": 4,
+      "third": 3,
+      "two-thirds": 5,
+      "quarter": 2
+    },
+    "lg": {
+      "full": 12,
+      "half": 6,
+      "third": 4,
+      "two-thirds": 8,
+      "quarter": 3
+    },
+    "xl": {
+      "full": 12,
+      "half": 6,
+      "third": 4,
+      "two-thirds": 8,
+      "quarter": 3
+    }
+  },
+  "shell": {
+    "markup": "<div class=\"ds-shell\"> <header data-shell=\"header\"> <nav data-shell=\"nav\"> <main data-shell=\"main\"> <aside data-shell=\"aside\"> </div> — in this order",
+    "drawer": "Below its breakpoint a start pane is hidden until the app sets data-open on it (a button with aria-expanded and aria-controls toggles it; Escape closes it and focus returns to the button). [data-shell-toggle=\"<pane>\"] is hidden from the pane's breakpoint.",
+    "atBreakpoints": [
+      {
+        "breakpoint": "sm",
+        "checkedAt": 320,
+        "inline": [],
+        "mainPx": 320,
+        "mainContentPx": 288,
+        "regionGrid": "sm",
+        "columns": 4,
+        "columnPx": 60
+      },
+      {
+        "breakpoint": "md",
+        "checkedAt": 600,
+        "inline": [],
+        "mainPx": 600,
+        "mainContentPx": 536,
+        "regionGrid": "md",
+        "columns": 8,
+        "columnPx": 46
+      },
+      {
+        "breakpoint": "lg",
+        "checkedAt": 1024,
+        "inline": [
+          "layout.pane.nav"
+        ],
+        "mainPx": 768,
+        "mainContentPx": 688,
+        "regionGrid": "md",
+        "columns": 8,
+        "columnPx": 65
+      },
+      {
+        "breakpoint": "xl",
+        "checkedAt": 1440,
+        "inline": [
+          "layout.pane.nav",
+          "layout.pane.aside"
+        ],
+        "mainPx": 864,
+        "mainContentPx": 736,
+        "regionGrid": "md",
+        "columns": 8,
+        "columnPx": 71
+      }
+    ]
+  },
+  "panes": [
+    {
+      "name": "layout.pane.nav",
+      "width": 256,
+      "from": "lg",
+      "side": "start",
+      "below": "drawer",
+      "use": "Navigation between the product's sections; a drawer below its breakpoint",
+      "product": false
+    },
+    {
+      "name": "layout.pane.aside",
+      "width": 320,
+      "from": "xl",
+      "side": "end",
+      "below": "flow",
+      "use": "Supporting content beside the main region: details, filters, help; below the main content on narrower screens",
+      "product": false
+    }
+  ],
+  "limits": {
+    "reflowWidth": 320,
+    "reflowHeight": 256,
+    "minColumn": 40,
+    "maxGutterShare": 0.3333333333333333,
+    "headerRoom": 8,
+    "stickyShare": 0.25,
+    "stickyFromEm": 30,
+    "drawerStrip": 48,
+    "maxCharsPerLine": 80
+  },
+  "build": {
+    "ok": true,
+    "tokens": 14,
+    "checks": [
+      {
+        "id": "L1",
+        "title": "Reflow at 320px: content width ≥ 272px and largest heading ≤ 40px",
+        "status": "pass",
+        "summary": "2/2 pass"
+      },
+      {
+        "id": "L2",
+        "title": "The page grid fits every breakpoint: at its narrowest width each column is ≥ 40px and gutters take ≤ a third of the row",
+        "status": "pass",
+        "summary": "9/9 pass"
+      },
+      {
+        "id": "L3",
+        "title": "Panes add up: a pane goes inline only at a breakpoint where the main region still holds a full reading line (layout.measure.reading) and its own grid keeps columns ≥ 40px",
+        "status": "pass",
+        "summary": "5/5 pass"
+      },
+      {
+        "id": "L4",
+        "title": "A sticky header never hides focus: it holds its controls in every density, the scroll padding is its height, and it sticks only in windows ≥ 30em tall, where it takes ≤ 25% of the height",
+        "status": "pass",
+        "summary": "12/12 pass"
+      },
+      {
+        "id": "L5",
+        "title": "One set of breakpoints: rising from 0, shared by type and layout, and the same in tokens.css (em) and Tailwind (rem), so both follow the reader's text size",
+        "status": "pass",
+        "summary": "8/8 pass"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "id": "LR-01",
+      "rule": "Page edges are layout.margin: the side padding of the page content (or the main region's page) uses layout.margin — the .ds-page class or px-margin. Never a spacing inset token, px, rem or vw.",
+      "why": "The margin follows the breakpoint and is linked to the spacing scale; the reflow check counts on it (288px of content at 320px).",
+      "wcag": "1.4.10"
+    },
+    {
+      "id": "LR-02",
+      "rule": "No fixed widths on containers. Containers take max-width with a layout token (layout.container.max, layout.measure.reading, a pane width) or a fluid value; never width in px, rem or vw above the smallest screen, and never min-width that forces a wide layout.",
+      "why": "A 1200px box on a 320px screen scrolls 880px sideways; at 400% zoom every desktop becomes that screen.",
+      "wcag": "1.4.10"
+    },
+    {
+      "id": "LR-03",
+      "rule": "Running text stays within layout.measure.reading (the .ds-measure class, max-w-reading). Never a px max-width on text, and never a width that grows with the screen.",
+      "why": "Past about 75 characters readers lose the next line; a px width shrinks the line at 200% text and grows it on wide screens.",
+      "wcag": "1.4.8"
+    },
+    {
+      "id": "LR-04",
+      "rule": "A sticky or fixed header is layout.header.height tall (as min-height), sticks only in windows at least 30em tall (the .ds-shell header does both), and the page keeps scroll-padding-top: layout.scroll-padding.top (tokens.css sets it on <html>). Every other sticky bar adds its own height to the scroll padding. Never set scroll-padding-top to anything else.",
+      "why": "When the browser scrolls to a focused item or an anchor, it stops at the scroll padding — without it the item lands under the header. In short windows (400% zoom, 200% text on a laptop) a header that wraps would outgrow its padding, so there it scrolls away.",
+      "wcag": "2.4.11"
+    },
+    {
+      "id": "LR-05",
+      "rule": "Grid and flex items that hold content can shrink: grid tracks are minmax(0, 1fr) (never a bare 1fr or auto for content columns) and flex children that hold text or tables get min-width: 0.",
+      "why": "A 1fr track never gets narrower than its longest word, URL or table, so one long value pushes the whole page sideways.",
+      "wcag": "1.4.10"
+    },
+    {
+      "id": "LR-06",
+      "rule": "Layouts change only at the system breakpoints: min-width media queries at breakpoint.md, .lg and .xl in em (37.5em, 64em, 90em), or Tailwind md:, lg:, xl:. No other widths, no max-width (desktop-first) queries, no px breakpoints, no Tailwind sm: or 2xl:.",
+      "why": "Every breakpoint is designed and checked at its narrowest width; a 768px breakpoint creates a layout nobody checked, and px breakpoints don't move when readers enlarge text.",
+      "wcag": "1.4.4, 1.4.10"
+    },
+    {
+      "id": "LR-07",
+      "rule": "Visual order follows DOM order. Don't reorder content people read or tab through with order, row-reverse, column-reverse or grid placement; the shell keeps header, start panes, main, end panes.",
+      "why": "Keyboard and screen-reader users follow the DOM: a sidebar moved before the content visually but after it in the code sends focus somewhere they can't see.",
+      "wcag": "1.3.2, 2.4.3"
+    },
+    {
+      "id": "LR-08",
+      "rule": "The page never scrolls sideways. Use width: 100%, not 100vw (it includes the scrollbar); never hide overflow on <html> or <body> to mask it. A wide table scrolls inside its own container, which is focusable and named (tabindex=\"0\" and an accessible name).",
+      "why": "Hiding overflow cuts content off instead of reflowing it; a scrolling region keyboard users can't focus can't be scrolled.",
+      "wcag": "1.4.10, 2.1.1"
+    },
+    {
+      "id": "LR-09",
+      "rule": "Page columns come from layout.columns and layout.gutter (.ds-grid): span columns with the .ds-span-* classes, never fixed px tracks or spans set by window media queries. Cards that wrap use the tile grid (layout.tile.min); a pane uses its pane token. Inside a pane or region the grid follows the region — never add breakpoints for it.",
+      "why": "Fixed tracks don't fit the next breakpoint; a grid that keeps 12 columns next to an open pane gets columns too thin for content.",
+      "wcag": "1.4.10"
+    },
+    {
+      "id": "LR-10",
+      "rule": "Never redefine a layout token in app code (--ds-layout-*, --ds-breakpoint-*). Change the engine config (layout.nav, layout.aside, layout.tile, layout.panes) and build, so the change is checked.",
+      "why": "An overridden width skips the checks that prove panes and grids fit.",
+      "wcag": "—"
+    }
+  ],
+  "decisions": [
+    {
+      "what": "How wide content gets",
+      "question": "What is it?",
+      "answers": [
+        [
+          "Running text: paragraphs, articles, help, long descriptions",
+          "layout.measure.reading"
+        ],
+        [
+          "A form: one column of fields",
+          "layout.measure.reading"
+        ],
+        [
+          "The content of a page",
+          "layout.container.max (with layout.margin around it)"
+        ],
+        [
+          "Data people compare across: tables, boards, timelines",
+          "the full width of the region — a table wider than that scrolls inside its own container"
+        ],
+        [
+          "Cards of the same kind that wrap: a dashboard, a gallery",
+          "layout.tile.min (a tile grid)"
+        ],
+        [
+          "An image or video",
+          "the full width of its column, never more (max-width: 100%)"
+        ]
+      ]
+    },
+    {
+      "what": "Where something goes",
+      "question": "What job does it do?",
+      "answers": [
+        [
+          "The task the screen is for",
+          "the main region (data-shell=\"main\")"
+        ],
+        [
+          "Moving between the product's sections",
+          "layout.pane.nav — inline from its breakpoint, a drawer below it"
+        ],
+        [
+          "Supporting the task: details, filters, help, a preview",
+          "layout.pane.aside — inline from its breakpoint, below the main content below it"
+        ],
+        [
+          "Product name, search, account, global actions",
+          "the header (layout.header.height, sticky)"
+        ],
+        [
+          "A short task on top of the page: confirm, edit one thing",
+          "an overlay (a dialog or sheet — Elevation), not a pane"
+        ]
+      ]
+    },
+    {
+      "what": "How to divide space",
+      "question": "What are you lining up?",
+      "answers": [
+        [
+          "Parts of a page that must line up with each other",
+          "layout.columns and layout.gutter (the page grid): span columns, never set px widths"
+        ],
+        [
+          "Items of the same kind that should wrap",
+          "layout.tile.min (a tile grid)"
+        ],
+        [
+          "A few things side by side that may wrap",
+          "flex-wrap with space.inline.* and space.stack.* gaps (Spacing)"
+        ],
+        [
+          "Sections of a page, one under another",
+          "space.stack.2xl between them (Spacing)"
+        ]
+      ]
+    },
+    {
+      "what": "When the layout changes",
+      "question": "What changes it?",
+      "answers": [
+        [
+          "The window gets wider",
+          "breakpoint.md, breakpoint.lg, breakpoint.xl — min-width media queries in em (Tailwind md:, lg:, xl:); nothing for sm"
+        ],
+        [
+          "A pane opens beside the content",
+          "nothing: a grid inside a region follows the region's width"
+        ],
+        [
+          "The screen is dense (a table, an admin tool)",
+          "data-density=\"compact\" on the region (Spacing)"
+        ],
+        [
+          "The reader enlarges text",
+          "nothing: breakpoints are in em, so the layout of a narrower screen takes over"
+        ]
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "name": "breakpoint.sm",
+      "figma": "breakpoint/sm",
+      "cssVar": "--ds-breakpoint-sm",
+      "tailwind": [
+        "(no prefix)"
+      ],
+      "use": "Narrowest window width of sm (0em in media queries)",
+      "collection": "Primitives",
+      "chapter": "Breakpoints",
+      "product": false,
+      "varies": "none",
+      "px": 0,
+      "em": 0,
+      "media": "no query: the default"
+    },
+    {
+      "name": "breakpoint.md",
+      "figma": "breakpoint/md",
+      "cssVar": "--ds-breakpoint-md",
+      "tailwind": [
+        "md:"
+      ],
+      "use": "Narrowest window width of md (37.5em in media queries)",
+      "collection": "Primitives",
+      "chapter": "Breakpoints",
+      "product": false,
+      "varies": "none",
+      "px": 600,
+      "em": 37.5,
+      "media": "@media (min-width: 37.5em)"
+    },
+    {
+      "name": "breakpoint.lg",
+      "figma": "breakpoint/lg",
+      "cssVar": "--ds-breakpoint-lg",
+      "tailwind": [
+        "lg:"
+      ],
+      "use": "Narrowest window width of lg (64em in media queries)",
+      "collection": "Primitives",
+      "chapter": "Breakpoints",
+      "product": false,
+      "varies": "none",
+      "px": 1024,
+      "em": 64,
+      "media": "@media (min-width: 64em)"
+    },
+    {
+      "name": "breakpoint.xl",
+      "figma": "breakpoint/xl",
+      "cssVar": "--ds-breakpoint-xl",
+      "tailwind": [
+        "xl:"
+      ],
+      "use": "Narrowest window width of xl (90em in media queries)",
+      "collection": "Primitives",
+      "chapter": "Breakpoints",
+      "product": false,
+      "varies": "none",
+      "px": 1440,
+      "em": 90,
+      "media": "@media (min-width: 90em)"
+    },
+    {
+      "name": "layout.columns",
+      "figma": "layout/columns",
+      "cssVar": "--ds-layout-columns",
+      "tailwind": [],
+      "use": "Columns of the page grid",
+      "collection": "Responsive",
+      "chapter": "The page grid",
+      "product": false,
+      "varies": "breakpoint",
+      "breakpoints": {
+        "sm": {
+          "value": 4,
+          "primitive": null
+        },
+        "md": {
+          "value": 8,
+          "primitive": null
+        },
+        "lg": {
+          "value": 12,
+          "primitive": null
+        },
+        "xl": {
+          "value": 12,
+          "primitive": null
+        }
+      }
+    },
+    {
+      "name": "layout.gutter",
+      "figma": "layout/gutter",
+      "cssVar": "--ds-layout-gutter",
+      "tailwind": [
+        "gap-x-gutter"
+      ],
+      "use": "Gap between the columns of the page grid (linked to Spacing)",
+      "collection": "Responsive",
+      "chapter": "The page grid",
+      "product": false,
+      "varies": "breakpoint",
+      "breakpoints": {
+        "sm": {
+          "value": 16,
+          "primitive": "space.4"
+        },
+        "md": {
+          "value": 24,
+          "primitive": "space.6"
+        },
+        "lg": {
+          "value": 24,
+          "primitive": "space.6"
+        },
+        "xl": {
+          "value": 32,
+          "primitive": "space.8"
+        }
+      }
+    },
+    {
+      "name": "layout.margin",
+      "figma": "layout/margin",
+      "cssVar": "--ds-layout-margin",
+      "tailwind": [
+        "px-margin",
+        "mx-margin"
+      ],
+      "use": "Space between the screen edge and the page content; the main region's side padding (linked to Spacing)",
+      "collection": "Responsive",
+      "chapter": "The page grid",
+      "product": false,
+      "varies": "breakpoint",
+      "breakpoints": {
+        "sm": {
+          "value": 16,
+          "primitive": "space.4"
+        },
+        "md": {
+          "value": 32,
+          "primitive": "space.8"
+        },
+        "lg": {
+          "value": 40,
+          "primitive": "space.10"
+        },
+        "xl": {
+          "value": 64,
+          "primitive": "space.16"
+        }
+      }
+    },
+    {
+      "name": "layout.container.max",
+      "figma": "layout/container/max",
+      "cssVar": "--ds-layout-container-max",
+      "tailwind": [
+        "max-w-page"
+      ],
+      "use": "Widest the page content gets: 1440 − 2 × the xl margin, so it stops growing where xl begins and wider screens get wider margins",
+      "collection": "Layout",
+      "chapter": "Widths named by job",
+      "product": false,
+      "varies": "none",
+      "px": 1312
+    },
+    {
+      "name": "layout.measure.reading",
+      "figma": "layout/measure/reading",
+      "cssVar": "--ds-layout-measure-reading",
+      "tailwind": [
+        "max-w-reading"
+      ],
+      "use": "Widest running text gets: about 71 characters of type.body.md at any text size (34rem)",
+      "collection": "Layout",
+      "chapter": "Widths named by job",
+      "product": false,
+      "varies": "none",
+      "px": 544,
+      "rem": 34
+    },
+    {
+      "name": "layout.pane.nav",
+      "figma": "layout/pane/nav",
+      "cssVar": "--ds-layout-pane-nav",
+      "tailwind": [
+        "w-nav"
+      ],
+      "use": "Navigation between the product's sections; a drawer below its breakpoint. Inline from lg (≥ 1024px)",
+      "collection": "Layout",
+      "chapter": "Regions and panes",
+      "product": false,
+      "varies": "none",
+      "px": 256,
+      "from": "lg",
+      "side": "start",
+      "below": "drawer",
+      "inlineFromPx": 1024,
+      "dataShell": "nav"
+    },
+    {
+      "name": "layout.pane.aside",
+      "figma": "layout/pane/aside",
+      "cssVar": "--ds-layout-pane-aside",
+      "tailwind": [
+        "w-aside"
+      ],
+      "use": "Supporting content beside the main region: details, filters, help; below the main content on narrower screens. Inline from xl (≥ 1440px)",
+      "collection": "Layout",
+      "chapter": "Regions and panes",
+      "product": false,
+      "varies": "none",
+      "px": 320,
+      "from": "xl",
+      "side": "end",
+      "below": "flow",
+      "inlineFromPx": 1440,
+      "dataShell": "aside"
+    },
+    {
+      "name": "layout.tile.min",
+      "figma": "layout/tile/min",
+      "cssVar": "--ds-layout-tile-min",
+      "tailwind": [],
+      "use": "Narrowest a tile gets in a tile grid (cards on a dashboard); the grid fits as many as the row holds, and one full-width tile on the smallest screens",
+      "collection": "Layout",
+      "chapter": "Widths named by job",
+      "product": false,
+      "varies": "none",
+      "px": 256
+    },
+    {
+      "name": "layout.header.height",
+      "figma": "layout/header/height",
+      "cssVar": "--ds-layout-header-height",
+      "tailwind": [
+        "min-h-header",
+        "scroll-pt-header"
+      ],
+      "use": "Minimum height of the app header: a control plus room above and below, in every density",
+      "collection": "Density",
+      "chapter": "The header and scrolling",
+      "product": false,
+      "varies": "density",
+      "densities": {
+        "comfortable": {
+          "px": 64
+        },
+        "default": {
+          "px": 56
+        },
+        "compact": {
+          "px": 48
+        }
+      }
+    },
+    {
+      "name": "layout.scroll-padding.top",
+      "figma": "layout/scroll-padding/top",
+      "cssVar": "--ds-layout-scroll-padding-top",
+      "tailwind": [],
+      "use": "Space the browser keeps clear at the top when it scrolls to a focused element or an anchor: the sticky header's height, growing with the reader's text size (WCAG 2.4.11). tokens.css sets it on <html>",
+      "collection": "Density",
+      "chapter": "The header and scrolling",
+      "product": false,
+      "varies": "density",
+      "densities": {
+        "comfortable": {
+          "px": 64
+        },
+        "default": {
+          "px": 56
+        },
+        "compact": {
+          "px": 48
+        }
+      }
+    }
+  ],
+  "grids": [
+    {
+      "bp": "sm",
+      "width": 320,
+      "content": 288,
+      "column": 60,
+      "share": 0.167
+    },
+    {
+      "bp": "md",
+      "width": 600,
+      "content": 536,
+      "column": 46,
+      "share": 0.313
+    },
+    {
+      "bp": "lg",
+      "width": 1024,
+      "content": 944,
+      "column": 56.7,
+      "share": 0.28
+    },
+    {
+      "bp": "xl",
+      "width": 1440,
+      "content": 1312,
+      "column": 80,
+      "share": 0.268
+    }
+  ],
+  "mistakes": [
+    {
+      "mistake": "Reading width in px that grows with the screen (640px from lg)",
+      "measured": "about 83 characters a line of 16px text — past 75; at 200% text about 42",
+      "fix": "layout.measure.reading",
+      "fixValue": "34rem: about 71 characters at every breakpoint and every text size"
+    },
+    {
+      "mistake": "A container with width: 1200px",
+      "measured": "on a 320px screen (or 400% zoom) the page scrolls 880px sideways",
+      "fix": "layout.container.max",
+      "fixValue": "as max-width (.ds-page): 1312px at most, the screen width below that"
+    },
+    {
+      "mistake": "Twelve columns kept beside an open navigation pane",
+      "measured": "at 1024px the main region keeps 688px: 12 columns of 35.3px, gutters 38% of the row",
+      "fix": "layout.columns",
+      "fixValue": "in a region (.ds-grid inside the shell): the region is 768px, so it takes the md grid — 8 columns of 65px"
+    },
+    {
+      "mistake": "Navigation and supporting panes both inline at lg",
+      "measured": "1024 − 256 − 320 − 2 × 40 = 368px for the main content, under one reading line (544px)",
+      "fix": "layout.pane.aside",
+      "fixValue": "inline from xl (≥ 1440px); below the main content before that"
+    },
+    {
+      "mistake": "A sticky header without scroll padding",
+      "measured": "tabbing back up the page, each focused item scrolls to the top edge — under the 56px header",
+      "fix": "layout.scroll-padding.top",
+      "fixValue": "on <html> (tokens.css sets it): the browser stops that far below the top"
+    },
+    {
+      "mistake": "A breakpoint at 768px in px",
+      "measured": "a fifth layout, between md (600px) and lg (1024px) that no check covers; at 200% text it still switches at 768px",
+      "fix": "breakpoint.md / breakpoint.lg",
+      "fixValue": "37.5em / 64em (Tailwind md: / lg:)"
+    },
+    {
+      "mistake": "grid-template-columns: repeat(3, 1fr) with a long URL in one card",
+      "measured": "a 1fr track never shrinks below its longest word, so that column pushes the page sideways",
+      "fix": "minmax(0, 1fr)",
+      "fixValue": "the .ds-grid and .ds-tiles classes do it; flex children get min-width: 0"
+    }
+  ]
+}

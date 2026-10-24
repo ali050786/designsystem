@@ -1,0 +1,15 @@
+✕ input.html:11  TR-01  Hand-set font size: 26px (px ignores the reader's text size).  → Use a text style (class .…-type-<style> or text-<style>) — pick it with the decision guide.
+✕ input.html:12  TR-01  Hand-set font size: 13px (px ignores the reader's text size).  → Use a text style (class .…-type-<style> or text-<style>) — pick it with the decision guide.
+✕ input.html:12  TR-03  Reading text with line height 1.25 (1.25) — needs 1.5 or more.  → Use a reading style: type.body.*, type.caption.md or type.code.*.
+✕ input.html:13  TR-03  font-size 11px is 11px — below the 12px floor.  → Use type.caption.md or type.label.sm (12px) at the smallest.
+! input.html:15  TR-07  Fixed height with hidden overflow — text gets cut off when people enlarge it or increase spacing.  → Use min-height, or let the box grow with its text.
+! input.html:17  TR-12  Justified text leaves uneven gaps between words.  → Use text-align: start.
+✕ input.html:17  TR-13  Font family set in a component: Georgia, serif.  → Remove it (the style sets the family) or use var(--…-font-family-sans / -mono).
+! input.html:19  TR-07  Truncated text (ellipsis).  → Make sure the full text is available: a title/tooltip on hover and focus, an expand control, or a details view.
+✕ input.html:5  TR-09  Zoom is blocked (width=device-width, initial-scale=1, maximum-scale=1).  → Use content="width=device-width, initial-scale=1" — never user-scalable=no or maximum-scale.
+! input.html:1  TR-06  2 display styles in one view — they compete with each other.  → Keep one display style; use heading styles for the rest.
+! input.html:45  TR-05  Heading level skips from h1 to h4.  → Use h2 and give it the style you want — the tag follows the outline, the style the look.
+! input.html:47  TR-04  A compared number with proportional digits: "1,248".  → Use type.numeric.* (or add tabular-nums) so digits line up and don't jump when the value updates.
+! input.html:48  TR-04  A compared number with proportional digits: "8,111".  → Use type.numeric.* (or add tabular-nums) so digits line up and don't jump when the value updates.
+
+1 file(s) · 6 error(s) · 7 warning(s)

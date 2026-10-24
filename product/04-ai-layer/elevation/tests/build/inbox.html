@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support inbox</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Built with the "Build with elevation" prompt: every level is a ds class, menus are popovers, the confirmation is a
+     <dialog> opened with showModal(), the toast is shown after it. No shadow by hand, no z-index numbers. */
+  body { margin: 0; }
+  .bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-md); padding: var(--ds-space-inset-md) var(--ds-layout-margin); position: static; }
+  @media (min-height: 30em) { .bar { position: sticky; } }
+  .bar h1 { margin: 0; margin-inline-end: auto; }
+  main { display: grid; gap: var(--ds-space-stack-2xl); padding-block: var(--ds-space-inset-2xl); }
+  main > * { min-width: 0; }
+  h2, h3, p { margin: 0; }
+  section > h2 { margin-block-end: var(--ds-space-stack-md); }
+  .muted { color: var(--ds-color-fg-muted); }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md);
+    border-radius: var(--ds-shape-control); border: var(--ds-border-width-control) solid transparent; font: inherit; cursor: pointer; }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-ghost { background: var(--ds-color-action-ghost-bg); color: var(--ds-color-action-ghost-fg); }
+  .btn-ghost:hover { background: var(--ds-color-action-ghost-bg-hover); }
+
+  /* The conversation list: one raised panel; rows are separated by lines, not lifted one by one */
+  .panel { border-radius: var(--ds-shape-container); }
+  .panel ul { list-style: none; margin: 0; padding: 0; }
+  .conv { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-xs) var(--ds-space-inline-md); padding: var(--ds-space-inset-md) var(--ds-space-inset-lg); }
+  .conv + .conv { border-block-start: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+  .conv .who { flex: 1 1 12rem; min-width: 0; display: grid; gap: var(--ds-space-stack-xs); }
+  .conv .who p { overflow-wrap: anywhere; }
+
+  /* Menus: popovers in the top layer, placed next to the button that opened them */
+  .menu { margin: 0; padding: var(--ds-space-inset-xs); min-inline-size: 12rem; border-radius: var(--ds-shape-container); }
+  .menu:popover-open { position: fixed; inset: auto; }
+  .menu ul { list-style: none; margin: 0; padding: 0; display: grid; }
+  .menu button { display: flex; inline-size: 100%; min-height: var(--ds-size-control-height); align-items: center; padding: 0 var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent;
+    border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs)); background: transparent; color: var(--ds-color-fg-default); font: inherit; text-align: start; cursor: pointer; }
+  .menu button:hover { background: var(--ds-color-bg-item-hover); }
+  .menu button.danger { color: var(--ds-color-fg-danger); }
+
+  dialog.ds-modal { box-sizing: border-box; inline-size: min(28rem, 100% - 2 * var(--ds-layout-margin)); max-block-size: calc(100dvh - 2 * var(--ds-layout-margin)); overflow: auto; padding: var(--ds-space-inset-xl); border-radius: var(--ds-shape-surface); }
+  dialog form { display: grid; gap: var(--ds-space-stack-md); }
+  dialog .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--ds-space-inline-sm); margin-block-start: var(--ds-space-stack-sm); }
+
+  .toast { margin: 0; inset: auto var(--ds-layout-margin) var(--ds-layout-margin) auto; padding: var(--ds-space-inset-md) var(--ds-space-inset-lg); border-radius: var(--ds-shape-container); max-inline-size: calc(100% - 2 * var(--ds-layout-margin)); box-sizing: border-box; }
+
+  /* Saved replies: reorder by dragging the grip, or with the move buttons */
+  .replies { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--ds-space-stack-sm); max-inline-size: var(--ds-layout-measure-reading); }
+  .replies li { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-inline-sm); padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); border-radius: var(--ds-shape-container);
+    border: var(--ds-border-width-line) solid var(--ds-color-border-default); background: var(--ds-color-bg-surface); touch-action: none; }
+  .replies li.ds-dragging { border-color: var(--ds-elevation-dragging-border); }
+  .replies .grip { cursor: grab; color: var(--ds-color-fg-muted); }
+  .replies .label { margin-inline-end: auto; min-width: 0; overflow-wrap: anywhere; }
+  .sr { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+</style>
+</head>
+<body>
+<header class="bar ds-sticky">
+  <h1 class="ds-type-title-lg">Support inbox</h1>
+  <button class="btn btn-secondary" type="button" id="filter" popovertarget="filter-menu">Filter: open ▾</button>
+  <button class="btn btn-secondary" type="button" id="account" popovertarget="account-menu">Account</button>
+</header>
+<div class="menu ds-floating" id="filter-menu" popover aria-label="Filter">
+  <ul><li><button type="button" data-filter="open">Open</button></li><li><button type="button" data-filter="waiting">Waiting on customer</button></li><li><button type="button" data-filter="all">All</button></li></ul>
+</div>
+<div class="menu ds-floating" id="account-menu" popover aria-label="Account">
+  <ul><li><button type="button">Profile</button></li><li><button type="button">Sign out</button></li></ul>
+</div>
+
+<main class="ds-page">
+  <section aria-labelledby="h-conv">
+    <h2 id="h-conv">Conversations</h2>
+    <div class="panel ds-raised">
+      <ul>
+        <li class="conv"><div class="who"><h3 class="ds-type-title-md">Meera Iyer</h3><p class="muted">Can't download last month's invoice</p></div><span class="muted">2 min ago</span>
+          <button class="btn btn-ghost" type="button" id="more-1" popovertarget="menu-1" aria-label="More actions for Meera Iyer">⋯</button></li>
+        <li class="conv"><div class="who"><h3 class="ds-type-title-md">Tomás Rivera</h3><p class="muted">Two-factor codes arrive late</p></div><span class="muted">1 hour ago</span>
+          <button class="btn btn-ghost" type="button" id="more-2" popovertarget="menu-2" aria-label="More actions for Tomás Rivera">⋯</button></li>
+        <li class="conv"><div class="who"><h3 class="ds-type-title-md">Ana Kowalski</h3><p class="muted">Request to export all our data</p></div><span class="muted">Yesterday</span>
+          <button class="btn btn-ghost" type="button" id="more-3" popovertarget="menu-3" aria-label="More actions for Ana Kowalski">⋯</button></li>
+      </ul>
+    </div>
+    <div class="menu ds-floating" id="menu-1" popover aria-label="Meera Iyer"><ul><li><button type="button">Assign to me</button></li><li><button type="button" class="danger" data-archive="Meera Iyer">Archive…</button></li></ul></div>
+    <div class="menu ds-floating" id="menu-2" popover aria-label="Tomás Rivera"><ul><li><button type="button">Assign to me</button></li><li><button type="button" class="danger" data-archive="Tomás Rivera">Archive…</button></li></ul></div>
+    <div class="menu ds-floating" id="menu-3" popover aria-label="Ana Kowalski"><ul><li><button type="button">Assign to me</button></li><li><button type="button" class="danger" data-archive="Ana Kowalski">Archive…</button></li></ul></div>
+  </section>
+
+  <section aria-labelledby="h-replies">
+    <h2 id="h-replies">Saved replies</h2>
+    <p class="muted">Drag a reply by its grip to change the order, or use the move buttons.</p>
+    <ol class="replies" id="replies">
+      <li><span class="grip" aria-hidden="true">⠿</span><span class="label">Invoice download steps</span><button class="btn btn-secondary" type="button" data-move="-1" aria-label="Move Invoice download steps up">↑</button><button class="btn btn-secondary" type="button" data-move="1" aria-label="Move Invoice download steps down">↓</button></li>
+      <li><span class="grip" aria-hidden="true">⠿</span><span class="label">Resetting two-factor</span><button class="btn btn-secondary" type="button" data-move="-1" aria-label="Move Resetting two-factor up">↑</button><button class="btn btn-secondary" type="button" data-move="1" aria-label="Move Resetting two-factor down">↓</button></li>
+      <li><span class="grip" aria-hidden="true">⠿</span><span class="label">Data export request</span><button class="btn btn-secondary" type="button" data-move="-1" aria-label="Move Data export request up">↑</button><button class="btn btn-secondary" type="button" data-move="1" aria-label="Move Data export request down">↓</button></li>
+    </ol>
+    <p class="sr" aria-live="polite" id="moved"></p>
+  </section>
+</main>
+
+<dialog class="ds-modal" id="archive" aria-labelledby="archive-title" aria-describedby="archive-desc">
+  <form method="dialog">
+    <h2 id="archive-title" class="ds-type-title-lg">Archive the conversation with <span id="archive-name">Meera Iyer</span>?</h2>
+    <p id="archive-desc" class="muted">It leaves the inbox. A new message from them opens it again.</p>
+    <div class="actions">
+      <button class="btn btn-secondary" value="cancel" type="submit">Cancel</button>
+      <button class="btn btn-primary" value="archive" type="submit" id="confirm">Archive</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast ds-floating" data-layer="toast" id="toast" popover="manual" role="status"></div>
+
+<script>
+  const root = document.documentElement, bar = document.querySelector('.bar');
+  const tall = matchMedia('(min-height: 30em)');
+  const v = (n) => getComputedStyle(root).getPropertyValue(n).trim();
+  const pad = () => { root.style.scrollPaddingTop = tall.matches ? `${bar.getBoundingClientRect().height + parseFloat(v('--ds-focus-ring-offset')) + parseFloat(v('--ds-focus-ring-width'))}px` : ''; };
+  pad(); new ResizeObserver(pad).observe(bar); tall.addEventListener('change', pad); // the bar grows with bigger text: measure it whenever it changes size
+
+  // Menus open next to their button; arrow keys move through the items.
+  for (const m of document.querySelectorAll('.menu[popover]')) {
+    m.addEventListener('toggle', (e) => {
+      if (e.newState !== 'open') return;
+      const b = document.querySelector(`[popovertarget="${m.id}"]`), r = b.getBoundingClientRect(), w = m.offsetWidth, h = m.offsetHeight;
+      m.style.left = `${Math.max(8, Math.min(r.right - w, innerWidth - w - 8))}px`;
+      m.style.top = `${r.bottom + 4 + h > innerHeight - 8 ? Math.max(8, r.top - h - 4) : r.bottom + 4}px`;
+      m.querySelector('button')?.focus();
+    });
+    m.addEventListener('keydown', (e) => {
+      const items = [...m.querySelectorAll('button')], i = items.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); items[(i + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length].focus(); }
+    });
+  }
+  for (const b of document.querySelectorAll('[data-filter]')) b.addEventListener('click', () => { document.getElementById('filter').textContent = `Filter: ${b.textContent.toLowerCase()} ▾`; b.closest('[popover]').hidePopover(); document.getElementById('filter').focus(); });
+
+  // The confirmation: showModal(), focus back to the "more" button on close, then the toast.
+  const dlg = document.getElementById('archive');
+  let opener = null;
+  for (const b of document.querySelectorAll('[data-archive]')) b.addEventListener('click', () => {
+    const pop = b.closest('[popover]');
+    opener = document.querySelector(`[popovertarget="${pop.id}"]`); pop.hidePopover();
+    document.getElementById('archive-name').textContent = b.dataset.archive;
+    dlg.showModal();
+  });
+  dlg.addEventListener('close', () => { opener?.focus(); if (dlg.returnValue === 'archive') toast(`Conversation with ${document.getElementById('archive-name').textContent} archived.`); });
+  const t = document.getElementById('toast');
+  let timer;
+  function toast(msg) { t.textContent = msg; if (!t.matches(':popover-open')) t.showPopover(); clearTimeout(timer); timer = setTimeout(() => t.hidePopover(), 6000); }
+
+  // Reorder: .ds-dragging while held; move buttons for everyone; say what happened.
+  const list = document.getElementById('replies'), said = document.getElementById('moved');
+  const announce = (li) => { said.textContent = `${li.querySelector('.label').textContent} moved to position ${[...list.children].indexOf(li) + 1} of ${list.children.length}.`; };
+  for (const b of list.querySelectorAll('[data-move]')) b.addEventListener('click', () => {
+    const li = b.closest('li'), up = +b.dataset.move < 0;
+    if (up && li.previousElementSibling) list.insertBefore(li, li.previousElementSibling);
+    else if (!up && li.nextElementSibling) list.insertBefore(li.nextElementSibling, li);
+    else return;
+    b.focus(); announce(li);
+  });
+  for (const g of list.querySelectorAll('.grip')) g.addEventListener('pointerdown', (e) => {
+    const li = g.closest('li'); li.classList.add('ds-dragging'); li.setPointerCapture(e.pointerId);
+    const move = (ev) => { const over = [...list.children].find((x) => x !== li && ev.clientY < x.getBoundingClientRect().top + x.offsetHeight / 2); list.insertBefore(li, over ?? null); };
+    const up = () => { li.classList.remove('ds-dragging'); li.removeEventListener('pointermove', move); announce(li); };
+    li.addEventListener('pointermove', move); li.addEventListener('pointerup', up, { once: true }); li.addEventListener('pointercancel', up, { once: true });
+  });
+</script>
+</body>
+</html>

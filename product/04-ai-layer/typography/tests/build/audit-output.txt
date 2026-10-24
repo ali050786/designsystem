@@ -1,0 +1,4 @@
+desktop: 59 text elements · smallest 12px · reading text 5 (lowest line height 1.5)
+phone: 59 text elements · page fits 320px
+tabular figures: Inter ok, "JetBrains Mono" ok
+cut off as designed: 0 · readers' settings: text-spacing override cuts off 0 more · 200% text cuts off 0 more · text not growing 0

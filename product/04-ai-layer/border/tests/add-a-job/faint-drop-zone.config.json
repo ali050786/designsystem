@@ -1,0 +1,1 @@
+{ "border": { "control": 1, "roles": [ { "name": "border.width.drop-zone", "width": 2, "color": "color.border.subtle", "identifies": true, "style": "dashed", "description": "The edge of an area files can be dropped on" } ] } }

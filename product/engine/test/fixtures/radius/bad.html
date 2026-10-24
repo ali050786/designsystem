@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plans</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    :root { --ds-shape-container: 10px; }
+    body { margin: 0; padding: 24px; }
+    .card { border-radius: 12px; background: var(--ds-color-bg-surface); border: 1px solid var(--ds-color-border-subtle); padding: 8px; overflow: hidden; max-width: 360px; }
+    .card .panel { border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface-sunken); padding: 8px; }
+    .card .flush { background: var(--ds-color-bg-brand-subtle); padding: 12px; margin: -8px -8px 8px; }
+    .menu { border-radius: var(--ds-radius-4); background: var(--ds-color-bg-surface); padding: 4px; }
+    .tag { border-radius: var(--ds-shape-badge); }
+    .btn { border-radius: var(--ds-shape-control); padding: 8px 16px; border: 1px solid var(--ds-color-border-strong); background: var(--ds-color-bg-surface); }
+    .btn:hover { border-radius: var(--ds-shape-pill); }
+    .group .btn + .btn { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+    .group .btn:not(:last-child) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+    .group { display: flex; }
+    .chip:focus-visible::after { content: ""; position: absolute; inset: -4px; border: 2px solid var(--ds-color-border-focus); border-radius: var(--ds-shape-control); }
+    .chip { position: relative; border-radius: var(--ds-shape-control); }
+    .pricing { border-radius: var(--ds-shape-container-focus); }
+    input[type="checkbox"] { border-radius: var(--ds-shape-control); }
+    .cta { border-radius: var(--ds-shape-pill); }
+    .avatar { border-radius: 50%; }
+  </style>
+</head>
+<body>
+  <section class="card">
+    <div class="flush">Pro plan</div>
+    <div class="panel">Billed yearly <a href="#terms">terms</a></div>
+    <button class="btn" style="margin-top: 8px">Choose Pro</button>
+  </section>
+  <div class="group" role="group" aria-label="Billing period">
+    <button class="btn">Monthly</button><button class="btn">Yearly</button>
+  </div>
+  <ul class="menu"><li><a href="#a">Account</a></li></ul>
+  <span class="tag">New</span>
+  <div style="border-radius: 6px; overflow: hidden; padding: 0"><button class="btn">Inside</button></div>
+</body>
+</html>

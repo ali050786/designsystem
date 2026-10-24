@@ -1,0 +1,25 @@
+$ node src/cli.js wall-dashboard.config.json out/wall-dashboard
+pass  L1  2/2 pass     Reflow at 320px: content width ≥ 272px and largest heading ≤ 40px
+pass  L2  9/9 pass     The page grid fits every breakpoint: at its narrowest width each column is ≥ 40px and gutters take ≤ a third of the row
+pass  L3  5/5 pass     Panes add up: a pane goes inline only at a breakpoint where the main region still holds a full reading line (layout.measure.reading) and its own grid keeps columns ≥ 40px
+pass  L4  12/12 pass   A sticky header never hides focus: it holds its controls in every density, the scroll padding is its height, and it sticks only in windows ≥ 30em tall, where it takes ≤ 25% of the height
+pass  L5  8/8 pass     One set of breakpoints: rising from 0, shared by type and layout, and the same in tokens.css (em) and Tailwind (rem), so both follow the reader's text size
+wall-dashboard: 412 tokens → out/wall-dashboard/  ·  PASS
+exit code 0
+
+The shell, from out/wall-dashboard/ai/rules/layout.md:
+| Breakpoint | Checked at | Inline panes | Main region | Main content | Grid inside main |
+|---|---|---|---|---|---|
+| `sm` | 320px | — | 320px | 288px | sm: 4 columns of 60px |
+| `md` | 600px | — | 600px | 536px | md: 8 columns of 46px |
+| `lg` | 1024px | `layout.pane.nav` | 768px | 688px | md: 8 columns of 65px |
+| `xl` | 1440px | `layout.pane.nav` + `layout.pane.aside` | 864px | 736px | md: 8 columns of 71px |
+
+Tiles per row, from out/wall-dashboard/docs/layout/GUIDE.md:
+| Breakpoint | Page content | Tiles per row |
+|---|---|---|
+| `sm` | 288px | 1 |
+| `md` | 536px | 1 |
+| `lg` | 944px | 2 |
+| `xl` | 1312px | 3 |
+

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Team workspace</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  body { font-family: var(--ds-font-family-sans); margin: 0; }
+  a { text-decoration: none; }
+  .card { background: var(--ds-color-bg-surface); color: var(--ds-color-fg-default); border: 1px solid var(--ds-color-border-subtle); border-radius: 12px; padding: 24px; }
+  [data-theme="dark"] .card { background: var(--ds-color-neutral-90); }
+  .card .meta { color: var(--ds-color-fg-muted); }
+  .price { color: #0a7d32; font-weight: 600; }
+  .tag { background: var(--ds-color-brand-10); color: var(--ds-color-fg-brand); padding: 2px 8px; border-radius: 999px; }
+  .badge-error { background: var(--ds-color-bg-danger); color: var(--ds-color-fg-muted); padding: 2px 8px; }
+  .toast { background: var(--ds-color-bg-brand); padding: 12px 16px; border-radius: 8px; }
+  .toast p { color: var(--ds-color-fg-default); margin: 0; }
+  .presence .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
+  .presence .dot.ok { background: var(--ds-color-data-positive); }
+  .presence .dot.away { background: var(--ds-color-data-negative); }
+  .trend-down { color: var(--ds-color-fg-negative); }
+  .trend-up { color: var(--ds-color-fg-positive); }
+  .menu { background: var(--ds-color-bg-surface-overlay); border: 1px solid var(--ds-color-border-subtle); box-shadow: var(--ds-elevation-3-shadow); border-radius: 8px; padding: 6px; list-style: none; }
+  .menu li { color: var(--ds-color-fg-default); padding: 8px 12px; border-radius: 6px; }
+  .menu li:hover { background: var(--ds-color-bg-state-hover); }
+  .well { background: var(--ds-color-bg-surface-sunken); padding: 16px; border-radius: 8px; }
+  .btn { font: inherit; padding: 8px 16px; border-radius: 4px; border: 1px solid transparent; }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-ghost { background: var(--ds-color-action-ghost-bg); color: var(--ds-color-action-ghost-fg); }
+  button:focus { outline: 0; }
+  .field input { background: var(--ds-color-bg-surface); color: var(--ds-color-fg-default); border: 1px solid var(--ds-color-border-default); padding: 8px 12px; }
+  .field input:disabled { color: var(--ds-color-fg-disabled); background: var(--ds-color-bg-disabled); }
+  .dialog { background: var(--ds-color-bg-surface-overlay); color: var(--ds-color-fg-default); box-shadow: var(--ds-elevation-4-shadow); border-radius: 12px; padding: 24px; }
+  .upload-ok { background: var(--ds-color-bg-brand-subtle); color: var(--ds-color-fg-brand); padding: 12px 16px; border-radius: 8px; }
+</style>
+</head>
+<body>
+  <main style="padding: 24px; display: grid; gap: 24px; max-width: 880px;">
+    <section class="card">
+      <h2>Design team</h2>
+      <p class="meta">8 members · <a href="#">Manage members</a></p>
+      <p>Plan: <span class="price">$12 per seat</span> <span class="tag">Annual</span> <span class="badge-error">Overdue</span></p>
+      <ul class="presence">
+        <li><span class="dot ok"></span> Priya</li>
+        <li><span class="dot away"></span> Marco</li>
+      </ul>
+      <p>Average reply time <span class="trend-down">▼ −2 h this week</span> · Open requests <span class="trend-up">▲ +5 this week</span></p>
+      <div class="well">
+        <p>Invite people by link.</p>
+        <button class="btn btn-ghost" type="button">Copy invite link</button>
+      </div>
+    </section>
+
+    <div class="toast"><p>Settings saved.</p></div>
+
+    <ul class="menu" role="menu">
+      <li role="menuitem">Rename team</li>
+      <li role="menuitem">Leave team</li>
+    </ul>
+
+    <div class="field">
+      <label for="renew">Renewal date</label>
+      <input id="renew" disabled value="Your plan renews on 3 Jan — after that, billing stops">
+    </div>
+
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg">
+      <h2 id="dlg">Archive this team?</h2>
+      <p>Members keep their files, but the team space becomes read-only.</p>
+      <div class="field"><label for="reason">Reason (optional)</label> <input id="reason"></div>
+      <button class="btn btn-secondary" type="button">Keep team</button>
+      <button class="btn btn-primary" type="button">Archive</button>
+      <button class="btn btn-primary" type="button">Archive and notify members</button>
+    </div>
+
+    <div class="upload-ok">✓ File uploaded — design-brief.pdf is ready to share.</div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,4 @@
+elevation audit · after.html · edges ≥ 1.5:1 · Dark surface step ≥ 1.1:1
+shadow just under the edge (measured): light/raised 1.12:1 · light/sticky 1.21:1 · light/floating 1.23:1 · light/modal 1.29:1 · light/dragging 1.3:1 · dark/raised 1.04:1 · dark/sticky 1.05:1 · dark/floating 1.06:1 · dark/modal 1.07:1 · dark/dragging 1.06:1
+
+no problems

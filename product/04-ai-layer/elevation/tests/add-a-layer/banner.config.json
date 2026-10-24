@@ -1,0 +1,3 @@
+{ "elevation": { "layers": [
+  { "name": "layer.banner", "above": "sticky", "description": "A site-wide banner (a planned outage, a trial ending) that stays above sticky bars and below menus" }
+] } }

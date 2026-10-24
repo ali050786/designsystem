@@ -1,0 +1,1 @@
+✕ Config refused — border.roles → border.width.thick-card: name the line by its job (what it is for), not by how heavy or how big it looks

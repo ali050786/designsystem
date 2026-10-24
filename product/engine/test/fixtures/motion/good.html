@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Motion — good</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    .btn {
+      transition: background-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing),
+                  border-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing),
+                  color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing);
+    }
+    .btn:hover { background: var(--ds-color-action-secondary-bg-hover); }
+    /* A panel that opens: the size changes at once, the content arrives by the change job's distance. */
+    @keyframes arrive { from { opacity: 0; translate: 0 calc(-1 * var(--ds-motion-change-distance)); } }
+    .panel[data-open] .panel-body { animation: arrive var(--ds-motion-change-duration) var(--ds-motion-change-easing); }
+    .tab-panel { transition: opacity var(--ds-motion-change-duration) var(--ds-motion-change-easing); }
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
+    }
+  </style>
+</head>
+<body>
+  <button class="btn" popovertarget="menu">More</button>
+  <div class="ds-floating" popover id="menu" role="menu"><button role="menuitem">Rename</button></div>
+  <dialog class="ds-modal" aria-labelledby="t"><h2 id="t">Delete this project?</h2></dialog>
+  <div class="panel" data-open><div class="panel-body">Details</div></div>
+  <p role="status"><svg class="ds-loading" aria-hidden="true" width="16" height="16"></svg> Saving…</p>
+  <output class="ds-highlight">12 open tasks</output>
+  <video src="intro.mp4" controls></video>
+</body>
+</html>

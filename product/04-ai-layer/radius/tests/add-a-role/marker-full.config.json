@@ -1,0 +1,14 @@
+{
+  "radius": {
+    "style": "default",
+    "roles": [
+      {
+        "name": "shape.marker",
+        "sharp": "full",
+        "default": "full",
+        "round": "full",
+        "description": "Map markers"
+      }
+    ]
+  }
+}

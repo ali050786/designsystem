@@ -1,0 +1,9 @@
+{
+  "name": "kids",
+  "radius": {
+    "style": "round"
+  },
+  "density": {
+    "default": "comfortable"
+  }
+}

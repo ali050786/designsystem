@@ -1,0 +1,1 @@
+✕ Config refused — radius.roles → shape.marker: fully round ends are shape.pill — use it

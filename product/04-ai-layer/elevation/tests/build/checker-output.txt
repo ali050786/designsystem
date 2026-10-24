@@ -1,0 +1,7 @@
+color: 1 file(s) · 0 error(s) · 0 warning(s)
+type: 1 file(s) · 0 error(s) · 0 warning(s)
+space: 1 file(s) · 0 error(s) · 0 warning(s)
+layout: 1 file(s) · 0 error(s) · 0 warning(s)
+radius: 1 file(s) · 0 error(s) · 0 warning(s)
+border: 1 file(s) · 0 error(s) · 0 warning(s)
+elevation: 1 file(s) · 0 error(s) · 0 warning(s)

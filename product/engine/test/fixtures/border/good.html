@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Border — clean</title>
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    .card { padding: var(--ds-space-inset-lg); background: var(--ds-color-bg-surface); border: var(--ds-border-width-line) solid var(--ds-color-border-default); border-radius: var(--ds-shape-container); }
+    .card[aria-checked="true"] { border: var(--ds-border-width-state) solid var(--ds-color-border-selected); padding: calc(var(--ds-space-inset-lg) - (var(--ds-border-width-state) - var(--ds-border-width-line))); }
+    .list li + li { border-block-start: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+    .field input { min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: var(--ds-border-width-control) solid var(--ds-color-border-input); border-radius: var(--ds-shape-control); }
+    .field input[aria-invalid="true"] { border-width: var(--ds-border-width-state); border-color: var(--ds-color-border-danger); padding-inline: calc(var(--ds-space-inset-md) - (var(--ds-border-width-state) - var(--ds-border-width-control))); }
+    .btn { min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; border-radius: var(--ds-shape-control); background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+    .btn.secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+    .nav a { display: block; padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); }
+    .nav a[aria-current="page"] { border-inline-start: var(--ds-border-width-indicator) solid var(--ds-color-border-selected); padding-inline-start: calc(var(--ds-space-inset-md) - var(--ds-border-width-indicator)); font-weight: var(--ds-font-weight-semibold); }
+    .tabs [role="tab"] { position: relative; min-height: var(--ds-size-control-height); border: var(--ds-border-width-control) solid transparent; background: none; }
+    .tabs [role="tab"][aria-selected="true"] { font-weight: var(--ds-font-weight-semibold); }
+    .tabs [role="tab"][aria-selected="true"]::after { content: ""; position: absolute; inset-inline: 0; inset-block-end: 0; border-block-end: var(--ds-border-width-indicator) solid var(--ds-color-border-selected); }
+    .row:focus-visible { outline-offset: calc(-1 * var(--ds-focus-ring-width)); }
+  </style>
+</head>
+<body>
+  <div class="card" role="radio" aria-checked="true" tabindex="0">Plan</div>
+  <ul class="list"><li>One</li><li>Two</li></ul>
+  <div class="field"><label for="e">Email</label><input id="e" aria-invalid="true" aria-describedby="e-err"><p id="e-err">⚠ Enter an email address</p></div>
+  <div class="ds-join" role="group" aria-label="View"><button class="btn secondary" aria-pressed="true">List</button><button class="btn secondary" aria-pressed="false">Grid</button></div>
+  <nav class="nav"><a href="#" aria-current="page">Home</a><a href="#">Reports</a></nav>
+  <div class="tabs" role="tablist"><button role="tab" aria-selected="true">One</button><button role="tab" aria-selected="false">Two</button></div>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ds layout demo</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* The viewer: shows app.html in a frame you can set to any width and density, and reads back what the layout
+     resolved to inside it — breakpoint, grid, panes, the main region's own grid, header and scroll padding. */
+  body { margin: 0; }
+  h1, h2, p, dl, dd { margin: 0; }
+  .top { display: grid; gap: var(--ds-space-stack-md); padding-block: var(--ds-space-inset-xl) var(--ds-space-inset-lg); }
+  .top > * { min-width: 0; }
+  .muted { color: var(--ds-color-fg-muted); }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-md) var(--ds-space-inline-xl); }
+  .controls > * { min-width: 0; }
+
+  /* Switches: radio groups drawn as segmented controls */
+  .seg { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-inline-sm); border: 0; margin: 0; padding: 0; min-inline-size: 0; }
+  .seg legend { float: left; padding: 0; color: var(--ds-color-fg-muted); }
+  .seg .opts { display: inline-flex; flex-wrap: wrap; padding: var(--ds-space-inset-xs); gap: var(--ds-space-inline-xs); border: var(--ds-border-width-control) solid var(--ds-color-border-strong); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .seg label { position: relative; display: inline-flex; align-items: center; min-height: var(--ds-size-target-min); padding: 0 var(--ds-space-inset-sm); border-radius: var(--ds-shape-control); color: var(--ds-color-fg-muted); cursor: pointer; }
+  .seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .seg label:has(input:checked) { background: var(--ds-color-bg-selected); color: var(--ds-color-fg-default); font-weight: var(--ds-font-weight-semibold); }
+  .seg label:has(input:focus-visible) { outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color); outline-offset: var(--ds-focus-ring-offset); }
+  .range { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-inline-sm); }
+  .range input { min-height: var(--ds-size-target-min); }
+  .check { display: inline-flex; align-items: center; gap: var(--ds-space-inline-sm); min-height: var(--ds-size-target-min); }
+
+  /* The readout */
+  .readout { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--ds-layout-tile-min)), 1fr)); gap: var(--ds-space-stack-sm) var(--ds-space-inline-lg); padding: var(--ds-space-inset-md); background: var(--ds-color-bg-surface-sunken); border-radius: var(--ds-shape-container); }
+  .readout div { display: grid; gap: var(--ds-space-stack-xs); min-width: 0; }
+  .readout dt { color: var(--ds-color-fg-muted); }
+
+  /* The stage: the frame keeps the width you chose; when it is wider than the window, the stage scrolls, not the page */
+  .stage { overflow-x: auto; padding-block-end: var(--ds-space-inset-2xl); }
+  .stage iframe:focus { outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color); outline-offset: var(--ds-focus-ring-offset); }
+  .stage iframe { display: block; height: 47.5rem; margin-inline: auto; border: var(--ds-border-width-line) solid var(--ds-color-border-strong); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-canvas); }
+</style>
+</head>
+<body>
+<main>
+  <div class="ds-page top">
+    <h1>Layout</h1>
+    <p class="ds-measure muted">A product screen built only from the layout tokens, in a frame you can set to any width. Pick a width and a density and watch the panes, the grids and the header follow; the values below are read from inside the frame as it draws.</p>
+    <form class="controls" aria-label="Frame settings">
+      <fieldset class="seg">
+        <legend>Width</legend>
+        <span class="opts">
+          <label><input type="radio" name="w" value="320"> 320 · 400% zoom</label>
+          <label><input type="radio" name="w" value="600"> 600 · md</label>
+          <label><input type="radio" name="w" value="1024" checked> 1024 · lg</label>
+          <label><input type="radio" name="w" value="1440"> 1440 · xl</label>
+          <label><input type="radio" name="w" value="1920"> 1920</label>
+        </span>
+      </fieldset>
+      <label class="range"><span class="muted">Any width</span><input id="width" type="range" min="280" max="1920" step="8" value="1024" aria-describedby="width-out"><output id="width-out" class="ds-type-numeric-md">1024px</output></label>
+      <fieldset class="seg">
+        <legend>Density</legend>
+        <span class="opts">
+          <label><input type="radio" name="d" value="comfortable"> Comfortable</label>
+          <label><input type="radio" name="d" value="default" checked> Default</label>
+          <label><input type="radio" name="d" value="compact"> Compact</label>
+        </span>
+      </fieldset>
+      <label class="check"><input id="grid" type="checkbox"> Show the grid columns</label>
+    </form>
+    <dl class="readout">
+      <div><dt>Window</dt><dd id="r-window" class="ds-type-numeric-md">—</dd></div>
+      <div><dt>Page grid (the window's)</dt><dd id="r-grid" class="ds-type-numeric-md">—</dd></div>
+      <div><dt>Beside the content</dt><dd id="r-panes">—</dd></div>
+      <div><dt>Main region and its grid</dt><dd id="r-main" class="ds-type-numeric-md">—</dd></div>
+      <div><dt>Header</dt><dd id="r-header" class="ds-type-numeric-md">—</dd></div>
+      <div><dt>Reading width</dt><dd id="r-measure" class="ds-type-numeric-md">—</dd></div>
+    </dl>
+  </div>
+  <div class="stage" tabindex="0" role="region" aria-label="The demo screen at the chosen width">
+    <iframe id="frame" src="app.html" title="Projects screen at the chosen width"></iframe>
+  </div>
+</main>
+<script>
+  const frame = document.getElementById('frame');
+  const range = document.getElementById('width');
+  const out = document.getElementById('width-out');
+  const setWidth = (w) => {
+    frame.style.width = `${w}px`;
+    range.value = w; out.textContent = `${w}px`;
+    for (const r of document.querySelectorAll('input[name="w"]')) r.checked = +r.value === +w;
+  };
+  const send = (m) => frame.contentWindow?.postMessage({ ds: 'set', ...m }, '*');
+  for (const r of document.querySelectorAll('input[name="w"]')) r.addEventListener('change', () => setWidth(r.value));
+  range.addEventListener('input', () => setWidth(range.value));
+  for (const r of document.querySelectorAll('input[name="d"]')) r.addEventListener('change', () => send({ density: r.value }));
+  document.getElementById('grid').addEventListener('change', (e) => send({ grid: e.target.checked }));
+  frame.addEventListener('load', () => send({ density: document.querySelector('input[name="d"]:checked').value, grid: document.getElementById('grid').checked }));
+  const set = (id, text) => { document.getElementById(id).textContent = text; };
+  window.addEventListener('message', (e) => {
+    const m = e.data;
+    if (!m || m.ds !== 'layout' || e.source !== frame.contentWindow) return;
+    set('r-window', `${m.width}px · ${m.bp}`);
+    set('r-grid', `${m.columns} columns · gutter ${m.gutter} · margin ${m.margin}`);
+    set('r-panes', m.inline.length ? m.inline.map((p) => (p === 'nav' ? 'navigation' : 'supporting pane')).join(' and ') : 'none: navigation is a drawer');
+    set('r-main', `${m.main}px wide → ${m.gridColumns} columns of ${m.column}px`);
+    set('r-header', `${m.header}px · ${m.sticky === 'sticky' ? 'sticks' : 'scrolls away'} · scroll padding ${m.scrollPadding}`);
+    set('r-measure', `${m.measure}px · about ${Math.round(m.measure / (m.fontSize * 0.48))} characters`);
+  });
+  setWidth(1024);
+</script>
+</body>
+</html>

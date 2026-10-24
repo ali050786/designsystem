@@ -1,0 +1,1 @@
+✕ Config refused — motion.jobs → motion.sheet: 96px is too far: nothing travels more than 32px (space.8). For a bigger change, fade (distance "space.0") — movement across the screen is what reduced motion exists for

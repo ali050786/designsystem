@@ -1,0 +1,1 @@
+✕ Config refused — motion.jobs → motion.bounce-in: name the job by what moves ("carousel", "sheet"), not by how it looks or how fast ("fast", "bounce", "200ms")

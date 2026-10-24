@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Invoices</title>
+<link rel="stylesheet" href="../build/tokens.css">
+<style>
+  /* The "after" page: the same invoices page fixed with the fix-the-stacking prompt. The row menu is a popover (top
+     layer, so the scrolling table can't cut it off), the modal is a <dialog> opened with showModal(), the toast is shown
+     after it, the header is .ds-sticky. One raw z-index is left: 1, for the table's own sticky header row. */
+  body { margin: 0; }
+  .top { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-inline-md); padding: var(--ds-space-inset-md) var(--ds-layout-margin);
+    position: static; }
+  @media (min-height: 30em) { .top { position: sticky; } }
+  .top h1 { margin: 0; margin-inline-end: auto; }
+  main { display: grid; gap: var(--ds-space-stack-xl); padding-block: var(--ds-space-inset-2xl); }
+  main > * { min-width: 0; }
+  h2, p { margin: 0; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md);
+    border-radius: var(--ds-shape-control); border: var(--ds-border-width-control) solid transparent; font: inherit; cursor: pointer; }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-danger { background: var(--ds-color-action-danger-bg); color: var(--ds-color-action-danger-fg); }
+
+  .table-wrap { overflow: auto; border-radius: var(--ds-shape-container); background: var(--ds-elevation-raised-surface); box-shadow: var(--ds-elevation-raised-shadow); }
+  table { inline-size: 100%; border-collapse: collapse; }
+  th, td { text-align: start; padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); border-block-end: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+  thead th { position: sticky; top: 0; z-index: 1; background: var(--ds-color-bg-surface-sunken); }
+  td.actions { text-align: end; }
+  .row-menu { margin: 0; min-inline-size: 11rem; padding: var(--ds-space-inset-xs); border-radius: var(--ds-shape-container); text-align: start; }
+  .row-menu:popover-open { display: grid; position: fixed; inset: auto; }
+  .row-menu button { min-height: var(--ds-size-control-height); padding: 0 var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; background: transparent; color: var(--ds-color-fg-default); font: inherit; text-align: start; }
+
+  dialog.ds-modal { box-sizing: border-box; inline-size: min(28rem, 100% - 2 * var(--ds-layout-margin)); padding: var(--ds-space-inset-xl); border-radius: var(--ds-shape-surface); }
+  dialog form { display: grid; gap: var(--ds-space-stack-md); }
+  .modal .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--ds-space-inline-sm); }
+
+  .toast { margin: 0; inset: auto var(--ds-layout-margin) var(--ds-layout-margin) auto; padding: var(--ds-space-inset-md) var(--ds-space-inset-lg); border-radius: var(--ds-shape-container); }
+</style>
+</head>
+<body>
+<header class="top ds-sticky"><h1 class="ds-type-title-lg">Invoices</h1><button class="btn btn-secondary" type="button">Export</button></header>
+<main class="ds-page">
+  <section aria-labelledby="h-inv">
+    <h2 id="h-inv">This month</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">Invoice</th><th scope="col">Customer</th><th scope="col">Amount</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead>
+        <tbody>
+          <tr><td>INV-1042</td><td>Northwind</td><td>€1,200.00</td><td class="actions"><button class="btn btn-secondary" type="button" id="more-1042" popovertarget="menu-1042" aria-label="More actions for INV-1042">⋯</button>
+            <div class="row-menu ds-floating" id="menu-1042" popover aria-label="INV-1042"><button type="button">Download PDF</button><button type="button" id="void-1042">Void invoice…</button></div></td></tr>
+          <tr><td>INV-1043</td><td>Contoso</td><td>€640.00</td><td class="actions"></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<dialog class="modal ds-modal" id="void-dialog" aria-labelledby="void-title">
+  <form method="dialog">
+    <h2 id="void-title" class="ds-type-title-lg">Void INV-1042?</h2>
+    <p>The customer can no longer pay it. This can't be undone.</p>
+    <div class="actions"><button class="btn btn-secondary" type="submit" value="keep" id="keep">Keep it</button><button class="btn btn-danger" type="submit" value="void" id="void">Void invoice</button></div>
+  </form>
+</dialog>
+
+<div class="toast ds-floating" data-layer="toast" id="toast" popover="manual" role="status">INV-1042 voided.</div>
+
+<script>
+  const more = document.getElementById('more-1042'), menu = document.getElementById('menu-1042'), dlg = document.getElementById('void-dialog'), toast = document.getElementById('toast');
+  const bar = document.querySelector('.top'), tall = matchMedia('(min-height: 30em)'), v = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const pad = () => { document.documentElement.style.scrollPaddingTop = tall.matches ? `${bar.getBoundingClientRect().height + parseFloat(v('--ds-focus-ring-offset')) + parseFloat(v('--ds-focus-ring-width'))}px` : ''; };
+  pad(); new ResizeObserver(pad).observe(bar); tall.addEventListener('change', pad);
+  // The popover opens next to its button (the top layer has no layout of its own).
+  menu.addEventListener('toggle', (e) => {
+    if (e.newState !== 'open') return;
+    const r = more.getBoundingClientRect(), w = menu.offsetWidth, h = menu.offsetHeight;
+    menu.style.left = `${Math.max(8, Math.min(r.right - w, innerWidth - w - 8))}px`;
+    menu.style.top = `${r.bottom + 4 + h > innerHeight - 8 ? Math.max(8, r.top - h - 4) : r.bottom + 4}px`;
+    menu.querySelector('button').focus();
+  });
+  document.getElementById('void-1042').addEventListener('click', () => { menu.hidePopover(); dlg.showModal(); });
+  dlg.addEventListener('close', () => { more.focus(); if (dlg.returnValue === 'void') { toast.showPopover(); setTimeout(() => toast.hidePopover(), 6000); } });
+</script>
+</body>
+</html>

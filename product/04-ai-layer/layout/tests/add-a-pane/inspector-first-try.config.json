@@ -1,0 +1,1 @@
+{ "name": "inspector-first-try", "layout": { "panes": [ { "name": "layout.pane.inspector", "width": 320, "from": "lg", "side": "end", "description": "Properties of the selected shape beside the canvas" } ] } }

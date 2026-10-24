@@ -1,0 +1,154 @@
+{
+  "name": "ds",
+  "prefix": "ds",
+  "color": {
+    "brand": "#2D5BD7",
+    "neutralTint": 0.012,
+    "status": {
+      "success": 150,
+      "warning": 75,
+      "danger": 27,
+      "info": 245
+    },
+    "solidGrade": {
+      "success": 60,
+      "warning": 25,
+      "danger": 60,
+      "info": 60
+    },
+    "data": {
+      "positive": {
+        "light": 50,
+        "dark": 20
+      },
+      "negative": {
+        "light": 75,
+        "dark": 40
+      }
+    },
+    "chart": [
+      {
+        "light": {
+          "hue": 258,
+          "chroma": 0.176,
+          "grade": 65
+        },
+        "dark": {
+          "hue": 266,
+          "chroma": 0.139,
+          "grade": 30
+        }
+      },
+      {
+        "light": {
+          "hue": 66,
+          "chroma": 0.156,
+          "grade": 60
+        },
+        "dark": {
+          "hue": 68,
+          "chroma": 0.132,
+          "grade": 15
+        }
+      },
+      {
+        "light": {
+          "hue": 226,
+          "chroma": 0.176,
+          "grade": 45
+        },
+        "dark": {
+          "hue": 224,
+          "chroma": 0.137,
+          "grade": 15
+        }
+      },
+      {
+        "light": {
+          "hue": 323,
+          "chroma": 0.175,
+          "grade": 75
+        },
+        "dark": {
+          "hue": 337,
+          "chroma": 0.127,
+          "grade": 45
+        }
+      },
+      {
+        "light": {
+          "hue": 100,
+          "chroma": 0.127,
+          "grade": 45
+        },
+        "dark": {
+          "hue": 113,
+          "chroma": 0.2,
+          "grade": 25
+        }
+      },
+      {
+        "light": {
+          "hue": 291,
+          "chroma": 0.188,
+          "grade": 50
+        },
+        "dark": {
+          "hue": 296,
+          "chroma": 0.2,
+          "grade": 45
+        }
+      },
+      {
+        "light": {
+          "hue": 151,
+          "chroma": 0.065,
+          "grade": 75
+        },
+        "dark": {
+          "hue": 148,
+          "chroma": 0.198,
+          "grade": 45
+        }
+      },
+      {
+        "light": {
+          "hue": 4,
+          "chroma": 0.179,
+          "grade": 45
+        },
+        "dark": {
+          "hue": 6,
+          "chroma": 0.135,
+          "grade": 30
+        }
+      }
+    ]
+  },
+  "typography": {
+    "sans": "Inter, \"Segoe UI\", system-ui, -apple-system, sans-serif",
+    "mono": "\"JetBrains Mono\", \"SFMono-Regular\", Consolas, monospace",
+    "baseSize": 16,
+    "ratio": {
+      "sm": 1.125,
+      "md": 1.15,
+      "lg": 1.2,
+      "xl": 1.2
+    },
+    "charWidth": 0.48
+  },
+  "radius": {
+    "style": "default"
+  },
+  "border": {
+    "control": 1
+  },
+  "density": {
+    "default": "default"
+  },
+  "layout": {
+    "nav": 256,
+    "aside": 320,
+    "tile": 256
+  }
+}

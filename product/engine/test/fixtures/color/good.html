@@ -1,0 +1,31 @@
+<!doctype html>
+<html data-theme="light">
+<head>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  body { background: var(--ds-color-bg-canvas); color: var(--ds-color-fg-default); }
+  .card { background: var(--ds-color-bg-surface); border: 1px solid var(--ds-color-border-subtle); }
+  .card h2 { color: var(--ds-color-fg-default); }
+  .meta { color: var(--ds-color-fg-muted); background: var(--ds-color-bg-surface); }
+  .delta.up { color: var(--ds-color-fg-positive); }
+  .delta.down { color: var(--ds-color-fg-negative); }
+  .field input { background: var(--ds-color-bg-surface); border: 1px solid var(--ds-color-border-input); color: var(--ds-color-fg-default); }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-primary:hover { background: var(--ds-color-action-primary-bg-hover); }
+  .banner { background: var(--ds-color-bg-warning); color: var(--ds-color-fg-on-warning); }
+  .row:hover { background: var(--ds-color-bg-state-hover); }
+  :focus:not(:focus-visible) { outline: none; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h2>Active users</h2>
+    <p class="meta">This week</p>
+    <span class="delta up">▲ +2.4%</span>
+    <span class="delta down">▼ −0.8%</span>
+    <div class="field"><label>Project name <input></label></div>
+    <button class="btn-primary">Save</button>
+    <div class="banner">Storage almost full — 92% used.</div>
+  </div>
+</body>
+</html>

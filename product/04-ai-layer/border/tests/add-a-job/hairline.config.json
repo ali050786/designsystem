@@ -1,0 +1,1 @@
+{ "border": { "control": 1, "roles": [ { "name": "border.width.divider", "width": 0.5, "color": "color.border.subtle", "identifies": false, "description": "iOS-style dividers" } ] } }

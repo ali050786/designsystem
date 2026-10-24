@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Members · Atlas</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Built with the "Build with layout" prompt: the frame (shell regions), widths by job and grids by spans, all from
+     layout.md. Spacing, type and colour from their rulebooks. */
+  body { margin: 0; }
+  h1, h2, p { margin: 0; }
+  .skip { position: absolute; z-index: 5; inset-inline-start: var(--ds-layout-margin); top: var(--ds-space-inset-sm); padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); background: var(--ds-color-bg-surface); border-radius: var(--ds-shape-control); }
+  .skip:not(:focus) { clip-path: inset(50%); }
+
+  [data-shell="header"] { display: flex; align-items: center; gap: var(--ds-space-inline-md); padding: var(--ds-space-inset-xs) var(--ds-layout-margin); background: var(--ds-elevation-2-surface); border-bottom: var(--ds-border-width-default) solid var(--ds-color-border-subtle); }
+  [data-shell="header"] .product { margin-inline-end: auto; }
+  @media (min-width: 64em) { [data-shell="header"] { padding-inline: var(--ds-space-inset-xl); } }
+
+  [data-shell="nav"] { padding: var(--ds-space-inset-md); background: var(--ds-color-bg-surface); border-inline-end: var(--ds-border-width-default) solid var(--ds-color-border-subtle); }
+  [data-shell="nav"] ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--ds-space-stack-xs); }
+  [data-shell="nav"] a { display: flex; align-items: center; min-height: var(--ds-size-control-height); padding: 0 var(--ds-space-inset-md); border-radius: var(--ds-shape-control); color: var(--ds-color-fg-default); }
+  [data-shell="nav"] a[aria-current="page"] { background: var(--ds-color-bg-selected); }
+
+  [data-shell="aside"] { display: grid; align-content: start; gap: var(--ds-space-stack-lg); padding: var(--ds-space-inset-2xl) var(--ds-layout-margin); background: var(--ds-color-bg-surface-sunken); }
+  @media (min-width: 90em) { [data-shell="aside"] { padding-inline: var(--ds-space-inset-xl); } }
+
+  .ds-page { display: grid; gap: var(--ds-space-stack-2xl); padding-block: var(--ds-space-inset-2xl); }
+  .ds-page > *, .stack > * { min-width: 0; }
+  .stack { display: grid; gap: var(--ds-space-stack-md); }
+  .muted { color: var(--ds-color-fg-muted); }
+  .card { padding: var(--ds-space-inset-lg); background: var(--ds-elevation-1-surface); border: var(--ds-border-width-default) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); }
+  .tiles { list-style: none; margin: 0; padding: 0; }
+
+  .table-wrap { overflow-x: auto; border: var(--ds-border-width-default) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); }
+  table { width: 100%; border-collapse: collapse; }
+  caption { padding: var(--ds-space-inset-md); text-align: start; }
+  th, td { padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); border-top: var(--ds-border-width-default) solid var(--ds-color-border-subtle); text-align: start; white-space: nowrap; }
+  .num { text-align: end; }
+
+  form { display: grid; gap: var(--ds-space-stack-lg); }
+  .field { display: grid; gap: var(--ds-space-stack-xs); }
+  input[type="email"], select { box-sizing: border-box; width: 100%; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: var(--ds-border-width-input) solid var(--ds-color-border-input); border-radius: var(--ds-shape-control); background: var(--ds-color-bg-surface); color: var(--ds-color-fg-default); }
+  fieldset { margin: 0; padding: 0; border: 0; display: grid; gap: var(--ds-space-stack-sm); }
+  legend { padding: 0; margin-bottom: var(--ds-space-stack-xs); }
+  .choice { display: inline-flex; align-items: center; gap: var(--ds-space-inline-sm); min-height: var(--ds-size-target-min); }
+
+  .btn { box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: var(--ds-border-width-default) solid transparent; border-radius: var(--ds-shape-control); cursor: pointer; }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-primary:hover { background: var(--ds-color-action-primary-bg-hover); }
+  .btn-ghost { background: var(--ds-color-action-ghost-bg); color: var(--ds-color-action-ghost-fg); }
+  .btn-ghost:hover { background: var(--ds-color-action-ghost-bg-hover); }
+  .icon-btn { min-width: var(--ds-size-control-height); padding: 0; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <header data-shell="header">
+    <button type="button" class="btn btn-ghost icon-btn" data-shell-toggle="nav" aria-expanded="false" aria-controls="nav" aria-label="Sections"><span aria-hidden="true">☰</span></button>
+    <span class="product ds-type-title-md">Atlas</span>
+    <a class="btn btn-primary" href="#invite">Invite</a>
+  </header>
+  <nav data-shell="nav" id="nav" aria-label="Sections">
+    <ul>
+      <li><a href="#main">Projects</a></li>
+      <li><a href="#main" aria-current="page">Members</a></li>
+      <li><a href="#main">Storage</a></li>
+      <li><a href="#main">Settings</a></li>
+    </ul>
+  </nav>
+  <main data-shell="main" id="main" tabindex="-1">
+    <div class="ds-page">
+      <div class="stack">
+        <h1>Members</h1>
+        <p class="ds-measure muted">Everyone who can open projects in the Atlas workspace. Invite people by email, change what they can do, or remove them when they leave the team.</p>
+      </div>
+      <section class="stack" aria-labelledby="summary">
+        <h2 id="summary">Summary</h2>
+        <ul class="ds-tiles tiles">
+          <li class="card stack"><span class="muted">Members</span><span class="ds-type-numeric-lg">42</span></li>
+          <li class="card stack"><span class="muted">Admins</span><span class="ds-type-numeric-lg">3</span></li>
+          <li class="card stack"><span class="muted">Invites waiting</span><span class="ds-type-numeric-lg">5</span></li>
+        </ul>
+      </section>
+      <section class="stack" aria-labelledby="list">
+        <h2 id="list">Everyone</h2>
+        <div class="table-wrap" tabindex="0" role="region" aria-labelledby="list-caption">
+          <table>
+            <caption id="list-caption" class="muted">42 members, sorted by name</caption>
+            <thead><tr><th scope="col">Name</th><th scope="col">Email</th><th scope="col">Role</th><th scope="col" class="num">Projects</th><th scope="col">Last active</th></tr></thead>
+            <tbody>
+              <tr><td>Amara Nwosu</td><td>amara@example.com</td><td>Admin</td><td class="num">12</td><td>Today</td></tr>
+              <tr><td>Bao Tran</td><td>bao@example.com</td><td>Member</td><td class="num">4</td><td>Yesterday</td></tr>
+              <tr><td>Carmen Ruiz</td><td>carmen@example.com</td><td>Member</td><td class="num">7</td><td>3 days ago</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <section class="stack" aria-labelledby="invite">
+        <h2 id="invite">Invite someone</h2>
+        <form class="ds-measure" action="#invite">
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" autocomplete="email" aria-describedby="email-help">
+            <span id="email-help" class="ds-type-caption-md muted">They get a link that works for seven days.</span>
+          </div>
+          <fieldset>
+            <legend>Role</legend>
+            <label class="choice"><input type="radio" name="role" checked> Member — opens and edits projects</label>
+            <label class="choice"><input type="radio" name="role"> Admin — also manages members and billing</label>
+          </fieldset>
+          <div><button type="submit" class="btn btn-primary">Send invite</button></div>
+        </form>
+      </section>
+    </div>
+  </main>
+  <aside data-shell="aside" aria-label="Filters">
+    <h2 class="ds-type-title-lg">Filter the list</h2>
+    <form class="stack" action="#list">
+      <div class="field">
+        <label for="role-filter">Role</label>
+        <select id="role-filter"><option>Everyone</option><option>Admins</option><option>Members</option></select>
+      </div>
+      <fieldset>
+        <legend>Last active</legend>
+        <label class="choice"><input type="radio" name="when" checked> Any time</label>
+        <label class="choice"><input type="radio" name="when"> In the last 30 days</label>
+      </fieldset>
+    </form>
+  </aside>
+</div>
+<script>
+  const toggle = document.querySelector('[data-shell-toggle="nav"]');
+  const nav = document.getElementById('nav');
+  const setOpen = (open, returnFocus) => {
+    nav.toggleAttribute('data-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    if (open) nav.querySelector('a')?.focus();
+    else if (returnFocus) toggle.focus();
+  };
+  toggle.addEventListener('click', () => setOpen(!nav.hasAttribute('data-open'), false));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.hasAttribute('data-open')) setOpen(false, true); });
+</script>
+</body>
+</html>

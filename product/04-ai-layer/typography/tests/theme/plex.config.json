@@ -1,0 +1,4 @@
+{ "name": "plex", "typography": {
+  "sans": "\"IBM Plex Sans\", \"Helvetica Neue\", Arial, system-ui, sans-serif",
+  "mono": "\"IBM Plex Mono\", ui-monospace, monospace",
+  "charWidth": 0.45 } }

@@ -1,0 +1,18 @@
+desktop: 28 text elements · smallest 11px · reading text 2 (lowest line height 1.25)
+phone: 28 text elements · page scrolls sideways
+tabular figures: Inter ok
+cut off as designed: 4 · readers' settings: text-spacing override cuts off 0 more · 200% text cuts off 0 more · text not growing 3
+✕ desktop  leading   p.desc "Manage who can open your projects, what " reading text at line height 1.25 (13/16.25px; needs 1.5)
+✕ desktop  size      p.meta "Last changed 3 days ago by Marco" is 11px (smallest allowed 12px)
+✕ desktop  zoom      viewport blocks zoom (width=device-width, initial-scale=1, maximum-scale=1)
+✕ phone  leading   p.desc "Manage who can open your projects, what " reading text at line height 1.25 (13/16.25px; needs 1.5)
+✕ phone  size      p.meta "Last changed 3 days ago by Marco" is 11px (smallest allowed 12px)
+✕ phone    reflow    the page scrolls sideways at 320px (435px wide): th.ds-type-label-sm (right edge 349px), th.ds-type-label-sm (right edge 435px), td (right edge 349px), td (right edge 435px), td (right edge 349px), td (right edge 435px)
+✕ desktop  clipped   h4.card-title.ds-type-title-md "Usage by team across all projects this q" is cut off as designed (box 926×22, text 926×24)
+✕ phone  clipped   h4.card-title.ds-type-title-md "Usage by team across all projects this q" is cut off as designed (box 238×22, text 397×24)
+✕ desktop  text-size h1.page-title "Team settings" doesn't grow with the reader's text size (px-sized text)
+✕ desktop  text-size p.desc "Manage who can open your proje" doesn't grow with the reader's text size (px-sized text)
+✕ desktop  text-size p.meta "Last changed 3 days ago by Mar" doesn't grow with the reader's text size (px-sized text)
+! desktop  headings  h1 → h4 skips a level ("Usage by team across all projects this q")
+! desktop  truncated span.member-name "Priya Raman-Venkataraghavan" ends in an ellipsis — keep the full text available (title and an expand control or details view)
+! phone  truncated span.member-name "Priya Raman-Venkataraghavan" ends in an ellipsis — keep the full text available (title and an expand control or details view)

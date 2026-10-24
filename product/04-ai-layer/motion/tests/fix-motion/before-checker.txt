@@ -1,0 +1,34 @@
+✕ before.html:9  MR-09  scroll-behavior: smooth for everyone — every jump glides the page, for people with reduced motion too.  → Put it inside @media (prefers-reduced-motion: no-preference), or leave it out.
+✕ before.html:16  MR-01  animation: slide-in 800ms ease-out — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ before.html:16  MR-01  animation: slide-in 800ms ease-out — a curve written by hand.  → var(--ds-motion-<job>-easing) (or -exit-easing).
+✕ before.html:16  MR-04  .intro runs @keyframes slide-in, which moves, with no reduced path.  → Run it inside @media (prefers-reduced-motion: no-preference), move by var(--ds-motion-<job>-distance), or use .ds-loading for a loading indicator.
+✕ before.html:17  MR-01  transition: all 300ms ease-in-out — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ before.html:17  MR-01  transition: all 300ms ease-in-out — a curve written by hand.  → var(--ds-motion-<job>-easing) (or -exit-easing).
+✕ before.html:17  MR-02  transition: all 300ms ease-in-out — transitions everything that changes, the focus ring and layout too.  → Name the properties: background-color, border-color, color, opacity, translate.
+✕ before.html:19  MR-03  .btn-primary:hover moves by translateY(-2px) — not a job's distance, so reduced motion can't stop it.  → translate by var(--ds-motion-<job>-distance) (or calc(-1 * …)).
+✕ before.html:24  MR-01  animation: drop-in 200ms ease-out — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ before.html:24  MR-01  animation: drop-in 200ms ease-out — a curve written by hand.  → var(--ds-motion-<job>-easing) (or -exit-easing).
+✕ before.html:24  MR-05  .menu:popover-open adds motion of its own to a popover or dialog.  → Remove it: tokens.css opens and closes .ds-floating popovers and dialog.ds-modal with motion.floating and motion.modal (and only fades them in reduced motion).
+✕ before.html:24  MR-04  .menu:popover-open runs @keyframes drop-in, which moves, with no reduced path.  → Run it inside @media (prefers-reduced-motion: no-preference), move by var(--ds-motion-<job>-distance), or use .ds-loading for a loading indicator.
+✕ before.html:29  MR-01  animation: zoom-in 350ms cubic-bezier(.2, .9, .3, 1.4) — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ before.html:29  MR-01  animation: zoom-in 350ms cubic-bezier(.2, .9, .3, 1.4) — a curve written by hand.  → var(--ds-motion-<job>-easing) (or -exit-easing).
+✕ before.html:29  MR-05  dialog.ds-modal[open] adds motion of its own to a popover or dialog.  → Remove it: tokens.css opens and closes .ds-floating popovers and dialog.ds-modal with motion.floating and motion.modal (and only fades them in reduced motion).
+✕ before.html:29  MR-04  dialog.ds-modal[open] runs @keyframes zoom-in, which moves, with no reduced path.  → Run it inside @media (prefers-reduced-motion: no-preference), move by var(--ds-motion-<job>-distance), or use .ds-loading for a loading indicator.
+✕ before.html:31  MR-01  animation: fade 500ms — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ before.html:31  MR-05  dialog.ds-modal::backdrop adds motion of its own to a popover or dialog.  → Remove it: tokens.css opens and closes .ds-floating popovers and dialog.ds-modal with motion.floating and motion.modal (and only fades them in reduced motion).
+✕ before.html:35  MR-01  animation: from-right 400ms ease-out — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ before.html:35  MR-01  animation: from-right 400ms ease-out — a curve written by hand.  → var(--ds-motion-<job>-easing) (or -exit-easing).
+✕ before.html:35  MR-05  .toast:popover-open adds motion of its own to a popover or dialog.  → Remove it: tokens.css opens and closes .ds-floating popovers and dialog.ds-modal with motion.floating and motion.modal (and only fades them in reduced motion).
+✕ before.html:35  MR-04  .toast:popover-open runs @keyframes from-right, which moves, with no reduced path.  → Run it inside @media (prefers-reduced-motion: no-preference), move by var(--ds-motion-<job>-distance), or use .ds-loading for a loading indicator.
+✕ before.html:39  MR-01  transition: max-height 400ms ease — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ before.html:39  MR-01  transition: max-height 400ms ease — a curve written by hand.  → var(--ds-motion-<job>-easing) (or -exit-easing).
+✕ before.html:39  MR-03  transition: max-height 400ms ease animates layout (max-height) — everything after it moves, in reduced motion too.  → Change the size at once and move only the content: translate by var(--ds-motion-change-distance) with opacity.
+✕ before.html:42  MR-01  animation: spin 800ms linear infinite — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ before.html:42  MR-01  animation: spin 800ms linear infinite — a curve written by hand.  → var(--ds-motion-<job>-easing) (or -exit-easing).
+✕ before.html:42  MR-04  .spinner runs @keyframes spin, which moves, with no reduced path.  → Run it inside @media (prefers-reduced-motion: no-preference), move by var(--ds-motion-<job>-distance), or use .ds-loading for a loading indicator.
+✕ before.html:42  MR-06  .spinner runs forever (infinite) with no pause.  → The loading indicator is .ds-loading; anything else that runs on needs a pause control (then: ds-lint-ignore: MR-06) or must stop within 5 seconds.
+✕ before.html:45  MR-01  animation: shimmer 1.2s linear infinite — a duration written by hand belongs to no job (reduced motion can't shorten it).  → var(--ds-motion-<job>-duration) (feedback, change, floating, modal, highlight, loading).
+✕ before.html:45  MR-01  animation: shimmer 1.2s linear infinite — a curve written by hand.  → var(--ds-motion-<job>-easing) (or -exit-easing).
+✕ before.html:45  MR-06  .skeleton runs forever (infinite) with no pause.  → The loading indicator is .ds-loading; anything else that runs on needs a pause control (then: ds-lint-ignore: MR-06) or must stop within 5 seconds.
+
+1 file(s) · 32 error(s) · 0 warning(s)

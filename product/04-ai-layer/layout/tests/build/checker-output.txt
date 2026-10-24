@@ -1,0 +1,12 @@
+== lint:layout
+
+1 file(s) · 0 error(s) · 0 warning(s)
+== lint:space
+
+1 file(s) · 0 error(s) · 0 warning(s)
+== lint:type
+
+1 file(s) · 0 error(s) · 0 warning(s)
+== lint:color
+
+1 file(s) · 0 error(s) · 0 warning(s)

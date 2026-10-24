@@ -1,0 +1,3 @@
+{ "motion": { "jobs": [
+  { "name": "motion.recording", "kind": "loop", "distance": "space.0", "description": "The pulsing dot while a call is recorded" }
+] } }

@@ -1,0 +1,3 @@
+{ "motion": { "jobs": [
+  { "name": "motion.snackbar", "kind": "in-out", "distance": "space.2", "duration": 500, "description": "Snackbar at the bottom of the screen" }
+] } }

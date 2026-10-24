@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team dashboard · motion review</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  :root { --ds-motion-floating-duration: 400ms; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+  .top { display: flex; align-items: center; gap: var(--ds-space-inline-md); padding: var(--ds-space-inset-md) var(--ds-layout-margin); }
+  .top h1 { margin: 0; margin-inline-end: auto; }
+  main { display: grid; gap: var(--ds-space-stack-xl); padding-block: var(--ds-space-inset-2xl); }
+  h2, p { margin: 0; }
+  .btn { display: inline-flex; align-items: center; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; border-radius: var(--ds-shape-control); font: inherit; cursor: pointer; transition: all .25s ease; }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-primary:hover { background: var(--ds-color-action-primary-bg-hover); }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .badge { display: inline-block; padding: 0 var(--ds-space-inset-xs); border-radius: var(--ds-shape-pill); background: var(--ds-color-bg-danger); color: var(--ds-color-fg-on-danger); animation: pulse 900ms ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: 0.4; } }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--ds-layout-tile-min)), 1fr)); gap: var(--ds-space-stack-lg) var(--ds-space-inline-lg); list-style: none; margin: 0; padding: 0; }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
+  .card { padding: var(--ds-space-inset-lg); border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface);
+    animation: rise var(--ds-motion-change-duration) var(--ds-motion-change-easing) both; transition: transform 300ms cubic-bezier(.34, 1.56, .64, 1); }
+  .card:nth-child(2) { animation-delay: 80ms; }
+  .card:nth-child(3) { animation-delay: 160ms; }
+  .card:hover { transform: translateY(-6px) scale(1.02); }
+  .live { padding: var(--ds-space-inset-lg); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface-sunken); }
+  .live.flash { background: var(--ds-color-bg-warning); }
+  .spinner { display: inline-block; width: 16px; height: 16px; border: var(--ds-border-width-state) solid currentColor; border-top-color: transparent; border-radius: var(--ds-shape-pill); animation: spin .7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .menu { margin: 0; padding: var(--ds-space-inset-xs); border-radius: var(--ds-shape-container); transform: translateY(-8px); transition: opacity 200ms, transform 200ms; }
+  .menu:popover-open { position: fixed; inset: auto; transform: none; }
+  dialog { padding: var(--ds-space-inset-xl); border-radius: var(--ds-shape-surface); animation: slide-up 400ms ease-out; }
+  @keyframes slide-up { from { transform: translateY(100vh); } }
+  .field { display: grid; gap: var(--ds-space-stack-xs); max-inline-size: 24rem; }
+  .field input { min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: var(--ds-border-width-control) solid var(--ds-color-border-input); border-radius: var(--ds-shape-control); font: inherit; }
+  .field input:focus-visible { transition: box-shadow .2s, outline-offset .2s; }
+  @keyframes shake { 25% { translate: -6px 0; } 75% { translate: 6px 0; } }
+  .field input[aria-invalid="true"] { border-color: var(--ds-color-border-danger); animation: shake 400ms; }
+  .hero { block-size: 18rem; overflow: hidden; border-radius: var(--ds-shape-surface); background: var(--ds-color-bg-brand-subtle); }
+  .hero .layer { block-size: 100%; display: grid; place-items: center; }
+  .toast { margin: 0; inset: auto var(--ds-layout-margin) var(--ds-layout-margin) auto; padding: var(--ds-space-inset-md) var(--ds-space-inset-lg); border-radius: var(--ds-shape-container); }
+  @media (prefers-reduced-motion: reduce) { .toast { display: none; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1 class="ds-type-title-lg">Team</h1>
+  <span class="badge" aria-label="3 new">3</span>
+  <button class="btn btn-secondary" type="button" id="more" popovertarget="more-menu">More ▾</button>
+</header>
+<div class="menu ds-floating" id="more-menu" popover aria-label="More"><button class="btn btn-secondary" type="button" id="invite">Invite someone…</button></div>
+
+<main class="ds-page">
+  <section class="hero" aria-label="Welcome"><div class="layer" id="parallax"><p class="ds-type-title-lg">Welcome back</p></div></section>
+  <section aria-labelledby="h-live">
+    <h2 id="h-live" class="ds-type-title-md">Live</h2>
+    <p class="live" id="live">Tickets in queue: <strong id="queue">14</strong></p>
+  </section>
+  <ul class="cards" aria-label="Projects">
+    <li class="card"><h2 class="ds-type-title-md">Atlas</h2><p>12 open tasks</p></li>
+    <li class="card"><h2 class="ds-type-title-md">Beacon</h2><p>4 open tasks</p></li>
+    <li class="card"><h2 class="ds-type-title-md">Compass</h2><p>No open tasks</p></li>
+  </ul>
+  <form class="field" id="profile" novalidate>
+    <label for="email">Work email</label>
+    <input id="email" type="email" autocomplete="email" value="not-an-email">
+    <p><button class="btn btn-primary" type="submit" id="save">Save</button> <span class="spinner" id="saving" aria-hidden="true" hidden></span> <span id="saved" role="status"></span></p>
+  </form>
+</main>
+
+<dialog id="invite-dialog">
+  <form method="dialog"><h2 class="ds-type-title-lg">Invite someone</h2><p class="field"><label for="who">Email</label><input id="who" type="email"></p><p><button class="btn btn-primary" value="send" type="submit" id="send">Send invite</button></p></form>
+</dialog>
+<div class="toast ds-floating" data-layer="toast" id="toast" popover="manual" role="status">Invite sent.</div>
+
+<script>
+  document.getElementById('invite').addEventListener('click', () => { document.getElementById('more-menu').hidePopover(); document.getElementById('invite-dialog').showModal(); });
+  const dlg = document.getElementById('invite-dialog');
+  dlg.addEventListener('animationend', () => document.getElementById('who').focus());
+  dlg.addEventListener('close', () => { if (dlg.returnValue === 'send') { const t = document.getElementById('toast'); t.showPopover(); setTimeout(() => t.hidePopover(), 4000); } });
+  // Live queue: blink the panel every time the number changes.
+  const live = document.getElementById('live'), q = document.getElementById('queue');
+  setInterval(() => { q.textContent = String(+q.textContent + (Math.random() < 0.5 ? 1 : -1)); }, 2000);
+  setInterval(() => live.classList.toggle('flash'), 125);
+  // Hero parallax.
+  addEventListener('scroll', () => { document.getElementById('parallax').style.transform = `translateY(${scrollY * 0.3}px)`; });
+  // Saving: show the spinner, then "Saved".
+  document.getElementById('profile').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email');
+    if (!email.value.includes('@')) { email.setAttribute('aria-invalid', 'true'); setTimeout(() => email.removeAttribute('aria-invalid'), 400); return; }
+    document.getElementById('saving').hidden = false;
+    setTimeout(() => { document.getElementById('saved').textContent = 'Saved'; }, 1200);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+✕ before.html:12  ER-05  z-index: 1000 is a stray number — it races the layers (a dialog is 300).  → Use a layer: --ds-layer-sticky, --ds-layer-floating, --ds-layer-modal, --ds-layer-toast, --ds-layer-dragging. Raw -1, 0, 1, 2 only for order inside one component.
+✕ before.html:26  ER-05  z-index: 5 is a stray number.  → Use a layer: --ds-layer-sticky, --ds-layer-floating, --ds-layer-modal, --ds-layer-toast, --ds-layer-dragging. Raw -1, 0, 1, 2 only for order inside one component.
+✕ before.html:28  ER-05  z-index: 9999 is a stray number — it races the layers (a dialog is 300).  → Use a layer: --ds-layer-sticky, --ds-layer-floating, --ds-layer-modal, --ds-layer-toast, --ds-layer-dragging — or open it as a popover (top layer, never clipped). Raw -1, 0, 1, 2 only for order inside one component.
+✕ before.html:33  ER-05  z-index: 5000 is a stray number — it races the layers (a dialog is 300).  → Use a layer: --ds-layer-sticky, --ds-layer-floating, --ds-layer-modal, --ds-layer-toast, --ds-layer-dragging. Raw -1, 0, 1, 2 only for order inside one component.
+✕ before.html:39  ER-05  z-index: 100 is a stray number.  → Use a layer: --ds-layer-sticky, --ds-layer-floating, --ds-layer-modal, --ds-layer-toast, --ds-layer-dragging. Raw -1, 0, 1, 2 only for order inside one component.
+! before.html:63  ER-06  role="dialog" without aria-modal: if it blocks the page, screen readers aren't told.  → aria-modal="true" for a modal (with the scrim and inert page), or no dialog role for a non-blocking panel.
+
+1 file(s) · 5 error(s) · 1 warning(s)

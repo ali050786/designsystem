@@ -1,0 +1,60 @@
+===== audit:page
+light  text 22/22 pass (lowest 6.2 : 1, button.btn.btn-danger)  ·  controls 0/0  ·  focus ring 6/6
+light · after clicking #filter  text 25/25 pass (lowest 6.2 : 1, button.btn.btn-danger)  ·  controls 0/0
+light · after clicking #sync  text 21/21 pass (lowest 6.2 : 1, button.btn.btn-danger)  ·  controls 0/0
+light · after clicking #o-1042  text 22/22 pass (lowest 6.2 : 1, button.btn.btn-danger)  ·  controls 0/0
+dark  text 22/22 pass (lowest 6.2 : 1, button.btn.btn-danger)  ·  controls 0/0  ·  focus ring 6/6
+dark · after clicking #filter  text 25/25 pass (lowest 6.2 : 1, button.btn.btn-danger)  ·  controls 0/0
+dark · after clicking #sync  text 21/21 pass (lowest 6.2 : 1, button.btn.btn-danger)  ·  controls 0/0
+dark · after clicking #o-1042  text 22/22 pass (lowest 6.2 : 1, button.btn.btn-danger)  ·  controls 0/0
+
+===== audit:type
+desktop: 22 text elements · smallest 16px · reading text 0 (lowest line height —)
+phone: 22 text elements · page fits 320px
+tabular figures: Inter ok
+cut off as designed: 0 · readers' settings: text-spacing override cuts off 0 more · 200% text cuts off 0 more · text not growing 0
+
+===== audit:space
+comfortable 7 targets (+0 links in sentences) · smallest 48px (button#filter "Status: All ▾") · control height 48px · phone fits 320px
+default     7 targets (+0 links in sentences) · smallest 40px (button#filter "Status: All ▾") · control height 40px · phone fits 320px
+compact     7 targets (+0 links in sentences) · smallest 32px (button#filter "Status: All ▾") · control height 32px · phone fits 320px
+spacing that doesn't follow density: 0 element(s)
+
+===== audit:layout
+ 320px  fits · grids — · longest line — characters · sticky header.top.ds-sticky 51px
+ 600px  fits · grids — · longest line — characters · sticky header.top.ds-sticky 51px
+1024px  fits · grids — · longest line — characters · sticky header.top.ds-sticky 51px
+1440px  fits · grids — · longest line — characters · sticky header.top.ds-sticky 51px
+1920px  fits · grids — · longest line — characters · sticky header.top.ds-sticky 51px
+400% zoom (320 × 256): sticky bars comfortable 0px · default 0px · compact 0px
+focus desktop  160 tab stops, both directions · scroll-padding-top 55px · hidden 0 · partly 0
+focus phone    160 tab stops, both directions · scroll-padding-top 55px · hidden 0 · partly 0
+focus zoom400  160 tab stops, both directions · scroll-padding-top 68px · hidden 0 · partly 0
+focus text200  160 tab stops, both directions · scroll-padding-top 89px · hidden 0 · partly 0
+200% text (browser setting): phone fits (4 columns) · 1280px fits (8 columns: the breakpoints are in em, so it gets the layout of a 640px window)
+
+===== audit:radius
+product style: default
+sharp    1280px/100%: 0 poke, 0 nested, 0 text · 320px/100%: 0 poke, 0 nested, 0 text · 1280px/200%: 0 poke, 0 nested, 0 text · 320px/200%: 0 poke, 0 nested, 0 text
+default  1280px/100%: 0 poke, 0 nested, 0 text · 320px/100%: 0 poke, 0 nested, 0 text · 1280px/200%: 0 poke, 0 nested, 0 text · 320px/200%: 0 poke, 0 nested, 0 text
+round    1280px/100%: 0 poke, 0 nested, 0 text · 320px/100%: 0 poke, 0 nested, 0 text · 1280px/200%: 0 poke, 0 nested, 0 text · 320px/200%: 0 poke, 0 nested, 0 text
+focus default 1280   7 tab stops, 7 rings sampled on four sides
+focus default 320    7 tab stops, 7 rings sampled on four sides
+focus round 1280     7 tab stops, 7 rings sampled on four sides
+
+===== audit:border
+normal/1280    0 edges, 0 seams, 0 shadows
+normal/320     0 edges, 0 seams, 0 shadows
+states         0 state elements
+forced/1280    5 controls, 0 lost
+forcedStates   0 checked, 0 invisible
+forced/320     5 controls, 0 lost
+focus normal   7 tab stops, 0 without a ring
+focus forced   14 tab stops, 0 without a ring
+
+===== audit:elevation
+elevation audit · orders.html · edges ≥ 1.5:1 · Dark surface step ≥ 1.1:1
+shadow just under the edge (measured): light/raised 1.12:1 · light/sticky 1.21:1 · light/floating 1.23:1 · light/modal 1.29:1 · light/dragging 1.3:1 · dark/raised 1.04:1 · dark/sticky 1.05:1 · dark/floating 1.06:1 · dark/modal 1.07:1 · dark/dragging 1.06:1
+
+no problems
+

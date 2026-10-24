@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workspace settings</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Lines: line (structure), control (a control's edge), state (selected, invalid), indicator (the current tab).
+     Sections are separated by space, the page header by its surface — no line there. */
+  body { margin: 0; }
+  header.app { padding: var(--ds-space-inset-md) var(--ds-layout-margin); background: var(--ds-color-bg-surface-sunken); }
+  header.app h1 { margin: 0; }
+  main { display: grid; gap: var(--ds-space-stack-2xl); padding-block: var(--ds-space-inset-2xl); }
+  main > * { min-width: 0; }
+  h2, p { margin: 0; }
+  .muted { color: var(--ds-color-fg-muted); }
+
+  /* Tabs: the bar is drawn only on the selected tab */
+  .tabs { display: flex; flex-wrap: wrap; gap: var(--ds-space-inline-xs); border-block-end: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+  .tabs [role="tab"] { position: relative; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent;
+    border-radius: var(--ds-shape-control) var(--ds-shape-control) 0 0; background: none; color: var(--ds-color-fg-muted); font: inherit; cursor: pointer; }
+  .tabs [role="tab"]:hover { background: var(--ds-color-bg-state-hover); }
+  .tabs [role="tab"][aria-selected="true"] { color: var(--ds-color-fg-default); font-weight: var(--ds-font-weight-semibold); }
+  .tabs [role="tab"][aria-selected="true"]::after { content: ""; position: absolute; inset-inline: 0; inset-block-end: calc(-1 * var(--ds-border-width-control));
+    border-block-end: var(--ds-border-width-indicator) solid var(--ds-color-border-selected); }
+
+  /* Form */
+  .form { display: grid; gap: var(--ds-space-stack-lg); max-inline-size: var(--ds-layout-measure-reading); }
+  .field { display: grid; gap: var(--ds-space-stack-xs); }
+  .field label { font-weight: var(--ds-font-weight-semibold); }
+  .field input { box-sizing: border-box; inline-size: 100%; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); font: inherit;
+    background: var(--ds-color-bg-surface); color: var(--ds-color-fg-default); border: var(--ds-border-width-control) solid var(--ds-color-border-input); border-radius: var(--ds-shape-control); }
+  .field input[aria-invalid="true"] { border-width: var(--ds-border-width-state); border-color: var(--ds-color-border-danger);
+    padding-inline: calc(var(--ds-space-inset-md) - (var(--ds-border-width-state) - var(--ds-border-width-control))); }
+  .field .error { display: flex; gap: var(--ds-space-inline-xs); color: var(--ds-color-fg-danger); }
+  .field .error > * { min-width: 0; overflow-wrap: anywhere; }
+
+  /* Plan picker: choice cards around radios */
+  .plans { display: grid; gap: var(--ds-space-stack-md) var(--ds-space-inline-md); grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ds-layout-tile-min)), 1fr)); border: 0; margin: 0; padding: 0; min-inline-size: 0; }
+  .plans legend { padding: 0; margin-block-end: var(--ds-space-stack-sm); font-weight: var(--ds-font-weight-semibold); }
+  .plan { position: relative; display: grid; gap: var(--ds-space-stack-xs); padding: var(--ds-space-inset-lg); border: var(--ds-border-width-line) solid var(--ds-color-border-strong); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); cursor: pointer; }
+  .plan input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .plan .tick { visibility: hidden; color: var(--ds-color-fg-brand); }
+  .plan:has(input:checked) { border-width: var(--ds-border-width-state); border-color: var(--ds-color-border-selected); background: var(--ds-color-bg-selected);
+    padding: calc(var(--ds-space-inset-lg) - (var(--ds-border-width-state) - var(--ds-border-width-line))); }
+  .plan:has(input:checked) .tick { visibility: visible; }
+  .plan:has(input:focus-visible) { outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color); outline-offset: var(--ds-focus-ring-offset); }
+
+  /* Notifications: a card with dividers between rows */
+  .card { padding: var(--ds-space-inset-lg); background: var(--ds-elevation-1-surface); border: var(--ds-border-width-line) solid var(--ds-color-border-default); border-radius: var(--ds-shape-container); }
+  .rows { list-style: none; margin: 0; padding: 0; }
+  .rows li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--ds-space-stack-xs) var(--ds-space-inline-md); padding-block: var(--ds-space-inset-sm); }
+  .rows li + li { border-block-start: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+  .check { display: flex; gap: var(--ds-space-inline-sm); align-items: center; }
+  .check input { inline-size: 1rem; block-size: 1rem; margin: 0; accent-color: var(--ds-color-bg-brand); }
+
+  /* View switcher and buttons */
+  .btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md);
+    border: var(--ds-border-width-control) solid transparent; border-radius: var(--ds-shape-control); font: inherit; cursor: pointer; }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-primary:hover { background: var(--ds-color-action-primary-bg-hover); }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-secondary:hover { background: var(--ds-color-action-secondary-bg-hover); }
+  .btn-secondary[aria-pressed="true"] { background: var(--ds-color-bg-selected); color: var(--ds-color-fg-default); font-weight: var(--ds-font-weight-semibold); }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--ds-space-inline-sm); }
+  .bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-md); margin-block-end: var(--ds-space-stack-md); }
+
+  /* Members table: a frame, lines between rows, scrolls on its own */
+  .table-frame { overflow-x: auto; border: var(--ds-border-width-line) solid var(--ds-color-border-default); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  table { border-collapse: collapse; inline-size: 100%; }
+  th, td { padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); text-align: start; white-space: nowrap; }
+  tbody tr { border-block-start: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+  th { color: var(--ds-color-fg-muted); font-weight: var(--ds-font-weight-semibold); }
+</style>
+</head>
+<body>
+<header class="app"><h1 class="ds-type-title-lg">Workspace settings</h1></header>
+<main class="ds-page">
+  <div>
+    <div class="tabs" role="tablist" aria-label="Settings">
+      <button role="tab" type="button" id="tab-general" aria-selected="true" aria-controls="general">General</button>
+      <button role="tab" type="button" id="tab-billing" aria-selected="false" tabindex="-1">Billing</button>
+      <button role="tab" type="button" id="tab-security" aria-selected="false" tabindex="-1">Security</button>
+    </div>
+  </div>
+
+  <section id="general" role="tabpanel" aria-labelledby="tab-general" class="form">
+    <h2 class="ds-type-heading-sm">Workspace</h2>
+    <div class="field">
+      <label for="ws">Workspace name</label>
+      <input id="ws" value="Northwind">
+    </div>
+    <div class="field">
+      <label for="billing-email">Billing email</label>
+      <input id="billing-email" value="finance@northwind" aria-invalid="true" aria-describedby="billing-email-err">
+      <p id="billing-email-err" class="error"><span aria-hidden="true">⚠</span><span>Enter the whole address, like finance@northwind.com</span></p>
+    </div>
+    <fieldset class="plans">
+      <legend>Plan</legend>
+      <label class="plan"><input type="radio" name="plan" value="team"><span class="ds-type-title-md">Team</span><span class="muted">Up to 10 people</span><span class="tick" aria-hidden="true">✓ Selected</span></label>
+      <label class="plan"><input type="radio" name="plan" value="business" checked><span class="ds-type-title-md">Business</span><span class="muted">Up to 100 people</span><span class="tick" aria-hidden="true">✓ Selected</span></label>
+      <label class="plan"><input type="radio" name="plan" value="enterprise"><span class="ds-type-title-md">Enterprise</span><span class="muted">Unlimited people</span><span class="tick" aria-hidden="true">✓ Selected</span></label>
+    </fieldset>
+    <div class="card">
+      <h2 class="ds-type-title-md">Notifications</h2>
+      <ul class="rows">
+        <li><span>New members</span><label class="check"><input type="checkbox" checked>Email</label></li>
+        <li><span>Failed payments</span><label class="check"><input type="checkbox" checked>Email</label></li>
+        <li><span>Weekly summary</span><label class="check"><input type="checkbox">Email</label></li>
+      </ul>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" type="button">Save changes</button>
+      <button class="btn btn-secondary" type="button">Cancel</button>
+    </div>
+  </section>
+
+  <section aria-labelledby="members-h">
+    <div class="bar">
+      <h2 id="members-h" class="ds-type-heading-sm">Members</h2>
+      <div class="ds-join" role="group" aria-label="View">
+        <button class="btn btn-secondary" type="button" aria-pressed="true">List</button>
+        <button class="btn btn-secondary" type="button" aria-pressed="false">Cards</button>
+      </div>
+    </div>
+    <div class="table-frame" tabindex="0" role="region" aria-label="Members">
+      <table>
+        <thead><tr><th scope="col">Name</th><th scope="col">Email</th><th scope="col">Role</th></tr></thead>
+        <tbody>
+          <tr><td>Asha Rao</td><td>asha@northwind.com</td><td>Owner</td></tr>
+          <tr><td>Daniel Kim</td><td>daniel@northwind.com</td><td>Admin</td></tr>
+          <tr><td>Lena Fischer</td><td>lena@northwind.com</td><td>Member</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+<script>
+  for (const b of document.querySelectorAll('[aria-label="View"] .btn')) b.addEventListener('click', () => { for (const o of b.parentElement.children) o.setAttribute('aria-pressed', String(o === b)); });
+</script>
+</body>
+</html>

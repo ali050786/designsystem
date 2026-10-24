@@ -1,0 +1,1255 @@
+{
+  "$schema": "ds-radius-contract/1",
+  "system": "ds",
+  "prefix": "ds",
+  "standard": "WCAG 2.2 AA",
+  "defaultStyle": "default",
+  "styles": [
+    "sharp",
+    "default",
+    "round"
+  ],
+  "modeSwitching": {
+    "css": "The product's style (default) is on :root. data-radius=\"sharp|default|round\" on <html> or any element switches the roles inside it.",
+    "figma": "Set the Shape mode (sharp, default, round) on a frame; frames on Auto follow default."
+  },
+  "scale": [
+    {
+      "token": "radius.0",
+      "px": 0
+    },
+    {
+      "token": "radius.1",
+      "px": 2
+    },
+    {
+      "token": "radius.2",
+      "px": 4
+    },
+    {
+      "token": "radius.3",
+      "px": 6
+    },
+    {
+      "token": "radius.4",
+      "px": 8
+    },
+    {
+      "token": "radius.6",
+      "px": 12
+    },
+    {
+      "token": "radius.8",
+      "px": 16
+    },
+    {
+      "token": "radius.full",
+      "px": 9999
+    }
+  ],
+  "roles": [
+    {
+      "name": "shape.none",
+      "job": "none",
+      "use": "Square corners: tables and their cells, full-bleed images and bands, dividers, and the edges where joined parts meet",
+      "tailwind": "rounded-none",
+      "cssVar": "--ds-shape-none",
+      "styles": {
+        "sharp": 0,
+        "default": 0,
+        "round": 0
+      },
+      "focus": null,
+      "product": false
+    },
+    {
+      "name": "shape.mark",
+      "job": "mark",
+      "use": "Small square marks about the size of a line of text: checkboxes, colour swatches, keyboard keys, inline code",
+      "tailwind": "rounded-mark",
+      "cssVar": "--ds-shape-mark",
+      "styles": {
+        "sharp": 2,
+        "default": 2,
+        "round": 4
+      },
+      "focus": "shape.mark-focus",
+      "product": false
+    },
+    {
+      "name": "shape.control",
+      "job": "control",
+      "use": "Things people press, type in or pick from: buttons, inputs, selects, tabs, menu items, chips, segmented controls",
+      "tailwind": "rounded-control",
+      "cssVar": "--ds-shape-control",
+      "styles": {
+        "sharp": 2,
+        "default": 4,
+        "round": 8
+      },
+      "focus": "shape.control-focus",
+      "product": false
+    },
+    {
+      "name": "shape.container",
+      "job": "container",
+      "use": "Things that hold content in the page or float just above it: cards, panels, table frames, menus, popovers, tooltips, toasts",
+      "tailwind": "rounded-container",
+      "cssVar": "--ds-shape-container",
+      "styles": {
+        "sharp": 2,
+        "default": 8,
+        "round": 12
+      },
+      "focus": "shape.container-focus",
+      "product": false
+    },
+    {
+      "name": "shape.surface",
+      "job": "surface",
+      "use": "The largest shapes, on top of everything: dialogs, sheets, drawers (rounded only on the side that faces the page)",
+      "tailwind": "rounded-surface",
+      "cssVar": "--ds-shape-surface",
+      "styles": {
+        "sharp": 4,
+        "default": 12,
+        "round": 16
+      },
+      "focus": "shape.surface-focus",
+      "product": false
+    },
+    {
+      "name": "shape.pill",
+      "job": "pill",
+      "use": "Fully round ends, for things whose label never wraps: badges, counters, toggle tracks, avatars, status dots",
+      "tailwind": "rounded-pill",
+      "cssVar": "--ds-shape-pill",
+      "styles": {
+        "sharp": 9999,
+        "default": 9999,
+        "round": 9999
+      },
+      "focus": null,
+      "product": false
+    }
+  ],
+  "nested": {
+    "formula": "inner radius = max(0, parent radius − padding), for a shape that fills its parent edge to edge inside the padding (a panel, a header, a menu item, a segment) when the padding is smaller than the parent's radius; a flush child (padding 0) takes the parent's radius on the corners it shares; with padding of at least the parent's radius the child is clear of the curve and keeps its own role",
+    "css": "border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-sm));",
+    "tailwind": "rounded-[max(0px,var(--radius-container)-var(--spacing-inset-sm))]",
+    "table": [
+      {
+        "outer": "shape.container",
+        "rows": [
+          {
+            "inset": "flush (0)",
+            "css": "var(--ds-shape-container)",
+            "values": {
+              "sharp": {
+                "comfortable": 2,
+                "default": 2,
+                "compact": 2
+              },
+              "default": {
+                "comfortable": 8,
+                "default": 8,
+                "compact": 8
+              },
+              "round": {
+                "comfortable": 12,
+                "default": 12,
+                "compact": 12
+              }
+            },
+            "clear": {
+              "sharp": {
+                "comfortable": false,
+                "default": false,
+                "compact": false
+              },
+              "default": {
+                "comfortable": false,
+                "default": false,
+                "compact": false
+              },
+              "round": {
+                "comfortable": false,
+                "default": false,
+                "compact": false
+              }
+            }
+          },
+          {
+            "inset": "space.inset.xs",
+            "css": "max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs))",
+            "values": {
+              "sharp": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              },
+              "default": {
+                "comfortable": 2,
+                "default": 4,
+                "compact": 6
+              },
+              "round": {
+                "comfortable": 6,
+                "default": 8,
+                "compact": 10
+              }
+            },
+            "clear": {
+              "sharp": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              },
+              "default": {
+                "comfortable": false,
+                "default": false,
+                "compact": false
+              },
+              "round": {
+                "comfortable": false,
+                "default": false,
+                "compact": false
+              }
+            }
+          },
+          {
+            "inset": "space.inset.sm",
+            "css": "max(0px, var(--ds-shape-container) - var(--ds-space-inset-sm))",
+            "values": {
+              "sharp": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              },
+              "default": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 2
+              },
+              "round": {
+                "comfortable": 0,
+                "default": 4,
+                "compact": 6
+              }
+            },
+            "clear": {
+              "sharp": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              },
+              "default": {
+                "comfortable": true,
+                "default": true,
+                "compact": false
+              },
+              "round": {
+                "comfortable": true,
+                "default": false,
+                "compact": false
+              }
+            }
+          },
+          {
+            "inset": "space.inset.md",
+            "css": "max(0px, var(--ds-shape-container) - var(--ds-space-inset-md))",
+            "values": {
+              "sharp": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              },
+              "default": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              },
+              "round": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 4
+              }
+            },
+            "clear": {
+              "sharp": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              },
+              "default": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              },
+              "round": {
+                "comfortable": true,
+                "default": true,
+                "compact": false
+              }
+            }
+          },
+          {
+            "inset": "space.inset.lg",
+            "css": "max(0px, var(--ds-shape-container) - var(--ds-space-inset-lg))",
+            "values": {
+              "sharp": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              },
+              "default": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              },
+              "round": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              }
+            },
+            "clear": {
+              "sharp": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              },
+              "default": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              },
+              "round": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              }
+            }
+          },
+          {
+            "inset": "space.inset.xl",
+            "css": "max(0px, var(--ds-shape-container) - var(--ds-space-inset-xl))",
+            "values": {
+              "sharp": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              },
+              "default": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              },
+              "round": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              }
+            },
+            "clear": {
+              "sharp": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              },
+              "default": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              },
+              "round": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              }
+            }
+          }
+        ]
+      },
+      {
+        "outer": "shape.surface",
+        "rows": [
+          {
+            "inset": "flush (0)",
+            "css": "var(--ds-shape-surface)",
+            "values": {
+              "sharp": {
+                "comfortable": 4,
+                "default": 4,
+                "compact": 4
+              },
+              "default": {
+                "comfortable": 12,
+                "default": 12,
+                "compact": 12
+              },
+              "round": {
+                "comfortable": 16,
+                "default": 16,
+                "compact": 16
+              }
+            },
+            "clear": {
+              "sharp": {
+                "comfortable": false,
+                "default": false,
+                "compact": false
+              },
+              "default": {
+                "comfortable": false,
+                "default": false,
+                "compact": false
+              },
+              "round": {
+                "comfortable": false,
+                "default": false,
+                "compact": false
+              }
+            }
+          },
+          {
+            "inset": "space.inset.xs",
+            "css": "max(0px, var(--ds-shape-surface) - var(--ds-space-inset-xs))",
+            "values": {
+              "sharp": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 2
+              },
+              "default": {
+                "comfortable": 6,
+                "default": 8,
+                "compact": 10
+              },
+              "round": {
+                "comfortable": 10,
+                "default": 12,
+                "compact": 14
+              }
+            },
+            "clear": {
+              "sharp": {
+                "comfortable": true,
+                "default": true,
+                "compact": false
+              },
+              "default": {
+                "comfortable": false,
+                "default": false,
+                "compact": false
+              },
+              "round": {
+                "comfortable": false,
+                "default": false,
+                "compact": false
+              }
+            }
+          },
+          {
+            "inset": "space.inset.sm",
+            "css": "max(0px, var(--ds-shape-surface) - var(--ds-space-inset-sm))",
+            "values": {
+              "sharp": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              },
+              "default": {
+                "comfortable": 0,
+                "default": 4,
+                "compact": 6
+              },
+              "round": {
+                "comfortable": 4,
+                "default": 8,
+                "compact": 10
+              }
+            },
+            "clear": {
+              "sharp": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              },
+              "default": {
+                "comfortable": true,
+                "default": false,
+                "compact": false
+              },
+              "round": {
+                "comfortable": false,
+                "default": false,
+                "compact": false
+              }
+            }
+          },
+          {
+            "inset": "space.inset.md",
+            "css": "max(0px, var(--ds-shape-surface) - var(--ds-space-inset-md))",
+            "values": {
+              "sharp": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              },
+              "default": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 4
+              },
+              "round": {
+                "comfortable": 0,
+                "default": 4,
+                "compact": 8
+              }
+            },
+            "clear": {
+              "sharp": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              },
+              "default": {
+                "comfortable": true,
+                "default": true,
+                "compact": false
+              },
+              "round": {
+                "comfortable": true,
+                "default": false,
+                "compact": false
+              }
+            }
+          },
+          {
+            "inset": "space.inset.lg",
+            "css": "max(0px, var(--ds-shape-surface) - var(--ds-space-inset-lg))",
+            "values": {
+              "sharp": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              },
+              "default": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              },
+              "round": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 4
+              }
+            },
+            "clear": {
+              "sharp": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              },
+              "default": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              },
+              "round": {
+                "comfortable": true,
+                "default": true,
+                "compact": false
+              }
+            }
+          },
+          {
+            "inset": "space.inset.xl",
+            "css": "max(0px, var(--ds-shape-surface) - var(--ds-space-inset-xl))",
+            "values": {
+              "sharp": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              },
+              "default": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              },
+              "round": {
+                "comfortable": 0,
+                "default": 0,
+                "compact": 0
+              }
+            },
+            "clear": {
+              "sharp": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              },
+              "default": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              },
+              "round": {
+                "comfortable": true,
+                "default": true,
+                "compact": true
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "join": {
+    "class": "ds-join",
+    "markup": "<div class=\"ds-join\" role=\"group\" aria-label=\"…\"> <button>…</button> <button>…</button> </div> (data-join=\"block\" for stacked parts)",
+    "corners": "border-start-start-radius, border-start-end-radius, border-end-start-radius, border-end-end-radius (Tailwind rounded-ss-, -se-, -es-, -ee-, rounded-s-, -e-)"
+  },
+  "focus": {
+    "width": 2,
+    "offset": 2,
+    "drawnWith": "outline on :focus-visible (tokens.css) — it follows border-radius",
+    "ownLayer": "shape.<role>-focus"
+  },
+  "classes": [
+    {
+      "class": "ds-join",
+      "use": "Joined parts side by side (a button group, a segmented control, an input with its button): outer corners keep their role's radius, the edges where parts meet are square; logical corners, so it flips in right-to-left; a focused part is lifted above its neighbours",
+      "tailwind": "— (use the class: it also lifts the focused part)"
+    },
+    {
+      "class": "ds-join[data-join=\"block\"]",
+      "use": "The same, stacked: list items or accordion panels that touch",
+      "tailwind": "—"
+    }
+  ],
+  "limits": {
+    "markSize": 16,
+    "cornerShare": 0.25,
+    "pillFrom": 0.5,
+    "ringReach": 4,
+    "smallestControl": 32
+  },
+  "build": {
+    "ok": true,
+    "tokens": 18,
+    "checks": [
+      {
+        "id": "R1",
+        "title": "Roles keep their order in every style (none < mark ≤ control ≤ container ≤ surface < pill), and each style is rounder than the one before",
+        "status": "pass",
+        "summary": "9/9 pass"
+      },
+      {
+        "id": "R2",
+        "title": "Shapes keep their corners: a mark's radius ≤ 25% of a 16px checkbox (never mistaken for a radio), a control's ≤ 25% of the smallest control height",
+        "status": "pass",
+        "summary": "6/6 pass"
+      },
+      {
+        "id": "R3",
+        "title": "Text stays inside the corners: in every style and density, the corner of a label's or content's box sits inside its rounded shape, on the fill its contrast is measured against",
+        "status": "pass",
+        "summary": "54/54 pass"
+      },
+      {
+        "id": "R4",
+        "title": "Focus rings follow the shape: a ring on its own layer has the shape's radius plus the ring offset, in every style",
+        "status": "pass",
+        "summary": "12/12 pass"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "id": "RR-01",
+      "rule": "Corners come from a shape role: border-radius is var(--ds-shape-*) (Tailwind rounded-none, -mark, -control, -container, -surface, -pill). No px, rem, em or % values; 0 only for the edges where joined parts meet.",
+      "why": "A hard-coded radius doesn't follow the product's style: in sharp it stays round, in round it looks pinched, and nested radii computed from the role no longer match it.",
+      "wcag": "—"
+    },
+    {
+      "id": "RR-02",
+      "rule": "Never use radius primitives (--ds-radius-*) in components. Pick the role by job.",
+      "why": "Primitives don't change with the style; a role does.",
+      "wcag": "—"
+    },
+    {
+      "id": "RR-03",
+      "rule": "In Tailwind use only the ds rounded utilities (rounded-none, -mark, -control, -container, -surface, -pill and their side and corner forms). Tailwind's own rounded, rounded-xs … rounded-4xl are removed in tailwind.theme.css; rounded-full is not a ds role (use rounded-pill).",
+      "why": "Tailwind's scale is a second set of radii that no check covers.",
+      "wcag": "—"
+    },
+    {
+      "id": "RR-04",
+      "rule": "Pick the role by what the thing is, not by its size: marks (checkboxes, swatches) → shape.mark; things people press or type in → shape.control; content holders and menus → shape.container; dialogs, sheets, drawers → shape.surface; labels that never wrap → shape.pill. A checkbox never takes the control radius; a button that can wrap never takes the pill.",
+      "why": "A checkbox with a round radius reads as a radio button; a pill whose label wraps at 200% text puts the first and last letters outside the shape, off the fill their contrast was measured on.",
+      "wcag": "1.4.3"
+    },
+    {
+      "id": "RR-05",
+      "rule": "Nested corners: a shape that fills a rounded parent (edge to edge inside its padding: a panel, a header, a menu item, a segment) with padding p smaller than the parent's radius takes max(0px, parent − p), written with the tokens: max(0px, var(--ds-shape-container) - var(--ds-space-inset-sm)), so it follows density and style. A flush child (p = 0) takes the parent's radius on the corners it shares. Never copy the parent's radius, never \"one step smaller\". With padding of at least the parent's radius the child is clear of the curve and keeps its own role.",
+      "why": "Only parent − padding keeps the gap even all the way round the corner; a copied radius bulges at the corner (always 41% wider than the sides), and a square flush child pokes out of the rounded corner.",
+      "wcag": "—"
+    },
+    {
+      "id": "RR-06",
+      "rule": "Joined parts keep their outer corners and square the edges where they meet: use .ds-join, or logical corner properties (border-start-start-radius …; Tailwind rounded-s-, -e-, -ss-, -se-, -es-, -ee-). Never physical corners (border-top-left-radius, rounded-l-, rounded-tl-): they don't flip in right-to-left layouts.",
+      "why": "In right-to-left the first part is on the right: with physical corners the seams come out rounded and the outer corners square.",
+      "wcag": "—"
+    },
+    {
+      "id": "RR-07",
+      "rule": "Focus rings are outlines (tokens.css draws them on :focus-visible), which follow the element's radius. A ring drawn on a pseudo-element or another layer takes --ds-shape-<role>-focus. The -focus tokens are for rings only.",
+      "why": "A ring with the element's own radius, offset outwards, has corners tighter than the shape — the gap pinches at every corner.",
+      "wcag": "2.4.13"
+    },
+    {
+      "id": "RR-08",
+      "rule": "Don't round a container's content by clipping it: no overflow: hidden or clip on a rounded container that holds anything focusable. Give the flush child the container's radius instead (RR-05); clip an image itself, not its card. A container that scrolls keeps padding ≥ focus.ring.offset + focus.ring.width around focusable content.",
+      "why": "Clipping cuts off the focus ring of anything within the ring's reach of the edge — the ring sits outside the element.",
+      "wcag": "2.4.7, 2.4.13"
+    },
+    {
+      "id": "RR-09",
+      "rule": "Radius never changes with state: no border-radius change on hover, focus, active, checked, selected or open. Show state with colour, the focus ring and text.",
+      "why": "A shape that changes with state is a cue only some people notice, and it moves the focus ring and the nested corners with it.",
+      "wcag": "—"
+    },
+    {
+      "id": "RR-10",
+      "rule": "Never redefine shape or radius variables in app code (--ds-shape-*, --ds-radius-*). Change radius.style or radius.roles in the engine config and build; switch one region with data-radius.",
+      "why": "An overridden radius skips the checks that keep roles in order, text inside the corners and rings hugging the shape.",
+      "wcag": "—"
+    }
+  ],
+  "decisions": [
+    {
+      "what": "Which role",
+      "question": "What is it?",
+      "answers": [
+        [
+          "A checkbox, a colour swatch, a keyboard key, inline code — a mark about the size of a line of text",
+          "shape.mark"
+        ],
+        [
+          "Something people press, type in or pick from: a button, an input, a select, a tab, a menu item, a chip",
+          "shape.control"
+        ],
+        [
+          "Something that holds content in the page or floats just above it: a card, a panel, a table frame, a menu, a popover, a tooltip, a toast",
+          "shape.container"
+        ],
+        [
+          "The largest shape, on top of everything: a dialog, a sheet, a drawer",
+          "shape.surface (a drawer or sheet attached to an edge: only the side facing the page)"
+        ],
+        [
+          "A badge, a counter, a toggle track, an avatar, a status dot — a label that never wraps",
+          "shape.pill"
+        ],
+        [
+          "A table and its cells, a full-bleed image or band, a divider",
+          "shape.none"
+        ],
+        [
+          "A button with a long or translated label, styled as a pill",
+          "shape.control — a pill whose label wraps cuts its text at the round ends"
+        ]
+      ]
+    },
+    {
+      "what": "Inside something rounded",
+      "question": "How far is it from the parent's edge?",
+      "answers": [
+        [
+          "Inset by padding p smaller than the parent's radius (its corners sit in the parent's curve)",
+          "max(0px, parent − p): max(0px, var(--ds-shape-container) - var(--ds-space-inset-sm)) — follows density and style"
+        ],
+        [
+          "Inset by padding at least the parent's radius (a card in a padded section, tiles in a grid)",
+          "its own role — its corners are clear of the parent's curve"
+        ],
+        [
+          "Flush with the edge (a header, an image, a table at the top of a card)",
+          "the parent's radius on the corners it shares (p = 0), square elsewhere — not overflow: hidden on the parent"
+        ],
+        [
+          "A button, a badge or anything that doesn't fill the parent, even near a corner",
+          "its own role — the nested rule is for shapes that fill their parent"
+        ]
+      ]
+    },
+    {
+      "what": "Touching another part",
+      "question": "Do the parts read as one shape?",
+      "answers": [
+        [
+          "Yes: a button group, a segmented control, an input with its button, stacked list items",
+          ".ds-join (or data-join=\"block\"): outer corners keep the role, shared edges square"
+        ],
+        [
+          "A drawer or sheet attached to the window edge",
+          "shape.surface on the corners facing the page only (logical corners: border-start-end-radius …)"
+        ],
+        [
+          "No: separate things side by side",
+          "each keeps its own role and a gap (Spacing)"
+        ]
+      ]
+    },
+    {
+      "what": "Focus",
+      "question": "How is the ring drawn?",
+      "answers": [
+        [
+          "With outline (tokens.css does it on :focus-visible)",
+          "nothing to set: an outline follows the radius"
+        ],
+        [
+          "On a pseudo-element or another layer",
+          "shape.<role>-focus for the ring's radius"
+        ],
+        [
+          "Inside a container that scrolls or clips",
+          "padding ≥ focus.ring.offset + focus.ring.width between the container's edge and anything focusable, or an inset ring"
+        ]
+      ]
+    },
+    {
+      "what": "A different feel",
+      "question": "What should change?",
+      "answers": [
+        [
+          "The whole product: sharper or rounder",
+          "radius.style in the engine config (sharp, default, round)"
+        ],
+        [
+          "One region, a preview or a theme picker",
+          "data-radius on that element (sharp, default or round)"
+        ],
+        [
+          "A shape the roles don't cover (a thumbnail, a map pin)",
+          "radius.roles in the engine config — a role named by job with a key per style"
+        ]
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "name": "radius.0",
+      "figma": "radius/0",
+      "cssVar": "--ds-radius-0",
+      "tailwind": [],
+      "use": "Primitive: feeds the roles; never used directly",
+      "collection": "Primitives",
+      "chapter": "How tokens are built",
+      "px": 0,
+      "product": false
+    },
+    {
+      "name": "radius.1",
+      "figma": "radius/1",
+      "cssVar": "--ds-radius-1",
+      "tailwind": [],
+      "use": "Primitive: feeds the roles; never used directly",
+      "collection": "Primitives",
+      "chapter": "How tokens are built",
+      "px": 2,
+      "product": false
+    },
+    {
+      "name": "radius.2",
+      "figma": "radius/2",
+      "cssVar": "--ds-radius-2",
+      "tailwind": [],
+      "use": "Primitive: feeds the roles; never used directly",
+      "collection": "Primitives",
+      "chapter": "How tokens are built",
+      "px": 4,
+      "product": false
+    },
+    {
+      "name": "radius.3",
+      "figma": "radius/3",
+      "cssVar": "--ds-radius-3",
+      "tailwind": [],
+      "use": "Primitive: feeds the roles; never used directly",
+      "collection": "Primitives",
+      "chapter": "How tokens are built",
+      "px": 6,
+      "product": false
+    },
+    {
+      "name": "radius.4",
+      "figma": "radius/4",
+      "cssVar": "--ds-radius-4",
+      "tailwind": [],
+      "use": "Primitive: feeds the roles; never used directly",
+      "collection": "Primitives",
+      "chapter": "How tokens are built",
+      "px": 8,
+      "product": false
+    },
+    {
+      "name": "radius.6",
+      "figma": "radius/6",
+      "cssVar": "--ds-radius-6",
+      "tailwind": [],
+      "use": "Primitive: feeds the roles; never used directly",
+      "collection": "Primitives",
+      "chapter": "How tokens are built",
+      "px": 12,
+      "product": false
+    },
+    {
+      "name": "radius.8",
+      "figma": "radius/8",
+      "cssVar": "--ds-radius-8",
+      "tailwind": [],
+      "use": "Primitive: feeds the roles; never used directly",
+      "collection": "Primitives",
+      "chapter": "How tokens are built",
+      "px": 16,
+      "product": false
+    },
+    {
+      "name": "radius.full",
+      "figma": "radius/full",
+      "cssVar": "--ds-radius-full",
+      "tailwind": [],
+      "use": "Round ends",
+      "collection": "Primitives",
+      "chapter": "How tokens are built",
+      "px": 9999,
+      "product": false
+    },
+    {
+      "name": "shape.none",
+      "figma": "shape/none",
+      "cssVar": "--ds-shape-none",
+      "tailwind": [
+        "rounded-none"
+      ],
+      "use": "Square corners: tables and their cells, full-bleed images and bands, dividers, and the edges where joined parts meet",
+      "collection": "Shape",
+      "chapter": "Roles by job",
+      "varies": "style",
+      "styles": {
+        "sharp": {
+          "px": 0,
+          "primitive": "radius.0"
+        },
+        "default": {
+          "px": 0,
+          "primitive": "radius.0"
+        },
+        "round": {
+          "px": 0,
+          "primitive": "radius.0"
+        }
+      },
+      "focus": null,
+      "product": false
+    },
+    {
+      "name": "shape.mark",
+      "figma": "shape/mark",
+      "cssVar": "--ds-shape-mark",
+      "tailwind": [
+        "rounded-mark"
+      ],
+      "use": "Small square marks about the size of a line of text: checkboxes, colour swatches, keyboard keys, inline code",
+      "collection": "Shape",
+      "chapter": "Roles by job",
+      "varies": "style",
+      "styles": {
+        "sharp": {
+          "px": 2,
+          "primitive": "radius.1"
+        },
+        "default": {
+          "px": 2,
+          "primitive": "radius.1"
+        },
+        "round": {
+          "px": 4,
+          "primitive": "radius.2"
+        }
+      },
+      "focus": "shape.mark-focus",
+      "product": false
+    },
+    {
+      "name": "shape.control",
+      "figma": "shape/control",
+      "cssVar": "--ds-shape-control",
+      "tailwind": [
+        "rounded-control"
+      ],
+      "use": "Things people press, type in or pick from: buttons, inputs, selects, tabs, menu items, chips, segmented controls",
+      "collection": "Shape",
+      "chapter": "Roles by job",
+      "varies": "style",
+      "styles": {
+        "sharp": {
+          "px": 2,
+          "primitive": "radius.1"
+        },
+        "default": {
+          "px": 4,
+          "primitive": "radius.2"
+        },
+        "round": {
+          "px": 8,
+          "primitive": "radius.4"
+        }
+      },
+      "focus": "shape.control-focus",
+      "product": false
+    },
+    {
+      "name": "shape.container",
+      "figma": "shape/container",
+      "cssVar": "--ds-shape-container",
+      "tailwind": [
+        "rounded-container"
+      ],
+      "use": "Things that hold content in the page or float just above it: cards, panels, table frames, menus, popovers, tooltips, toasts",
+      "collection": "Shape",
+      "chapter": "Roles by job",
+      "varies": "style",
+      "styles": {
+        "sharp": {
+          "px": 2,
+          "primitive": "radius.1"
+        },
+        "default": {
+          "px": 8,
+          "primitive": "radius.4"
+        },
+        "round": {
+          "px": 12,
+          "primitive": "radius.6"
+        }
+      },
+      "focus": "shape.container-focus",
+      "product": false
+    },
+    {
+      "name": "shape.surface",
+      "figma": "shape/surface",
+      "cssVar": "--ds-shape-surface",
+      "tailwind": [
+        "rounded-surface"
+      ],
+      "use": "The largest shapes, on top of everything: dialogs, sheets, drawers (rounded only on the side that faces the page)",
+      "collection": "Shape",
+      "chapter": "Roles by job",
+      "varies": "style",
+      "styles": {
+        "sharp": {
+          "px": 4,
+          "primitive": "radius.2"
+        },
+        "default": {
+          "px": 12,
+          "primitive": "radius.6"
+        },
+        "round": {
+          "px": 16,
+          "primitive": "radius.8"
+        }
+      },
+      "focus": "shape.surface-focus",
+      "product": false
+    },
+    {
+      "name": "shape.pill",
+      "figma": "shape/pill",
+      "cssVar": "--ds-shape-pill",
+      "tailwind": [
+        "rounded-pill"
+      ],
+      "use": "Fully round ends, for things whose label never wraps: badges, counters, toggle tracks, avatars, status dots",
+      "collection": "Shape",
+      "chapter": "Roles by job",
+      "varies": "style",
+      "styles": {
+        "sharp": {
+          "px": 9999,
+          "primitive": "radius.full"
+        },
+        "default": {
+          "px": 9999,
+          "primitive": "radius.full"
+        },
+        "round": {
+          "px": 9999,
+          "primitive": "radius.full"
+        }
+      },
+      "focus": null,
+      "product": false
+    },
+    {
+      "name": "shape.mark-focus",
+      "figma": "shape/mark-focus",
+      "cssVar": "--ds-shape-mark-focus",
+      "tailwind": [],
+      "use": "Radius of a focus ring drawn on its own layer around shape.mark (= shape.mark + focus.ring.offset)",
+      "collection": "Shape",
+      "chapter": "Focus rings",
+      "varies": "style",
+      "styles": {
+        "sharp": {
+          "px": 4,
+          "primitive": null
+        },
+        "default": {
+          "px": 4,
+          "primitive": null
+        },
+        "round": {
+          "px": 6,
+          "primitive": null
+        }
+      },
+      "of": "shape.mark",
+      "product": false
+    },
+    {
+      "name": "shape.control-focus",
+      "figma": "shape/control-focus",
+      "cssVar": "--ds-shape-control-focus",
+      "tailwind": [],
+      "use": "Radius of a focus ring drawn on its own layer around shape.control (= shape.control + focus.ring.offset)",
+      "collection": "Shape",
+      "chapter": "Focus rings",
+      "varies": "style",
+      "styles": {
+        "sharp": {
+          "px": 4,
+          "primitive": null
+        },
+        "default": {
+          "px": 6,
+          "primitive": null
+        },
+        "round": {
+          "px": 10,
+          "primitive": null
+        }
+      },
+      "of": "shape.control",
+      "product": false
+    },
+    {
+      "name": "shape.container-focus",
+      "figma": "shape/container-focus",
+      "cssVar": "--ds-shape-container-focus",
+      "tailwind": [],
+      "use": "Radius of a focus ring drawn on its own layer around shape.container (= shape.container + focus.ring.offset)",
+      "collection": "Shape",
+      "chapter": "Focus rings",
+      "varies": "style",
+      "styles": {
+        "sharp": {
+          "px": 4,
+          "primitive": null
+        },
+        "default": {
+          "px": 10,
+          "primitive": null
+        },
+        "round": {
+          "px": 14,
+          "primitive": null
+        }
+      },
+      "of": "shape.container",
+      "product": false
+    },
+    {
+      "name": "shape.surface-focus",
+      "figma": "shape/surface-focus",
+      "cssVar": "--ds-shape-surface-focus",
+      "tailwind": [],
+      "use": "Radius of a focus ring drawn on its own layer around shape.surface (= shape.surface + focus.ring.offset)",
+      "collection": "Shape",
+      "chapter": "Focus rings",
+      "varies": "style",
+      "styles": {
+        "sharp": {
+          "px": 6,
+          "primitive": null
+        },
+        "default": {
+          "px": 14,
+          "primitive": null
+        },
+        "round": {
+          "px": 18,
+          "primitive": null
+        }
+      },
+      "of": "shape.surface",
+      "product": false
+    }
+  ],
+  "mistakes": [
+    {
+      "mistake": "An inner radius copied from its parent (a 12px card, 8px padding, the child also 12px)",
+      "measured": "the gap is 8px along the sides and 11.3px at the corner — the inner shape bulges away from the corner",
+      "fix": "max(0px, var(--ds-shape-container) - var(--ds-space-inset-sm))",
+      "fixValue": "4px in round, 0px in default — an even 8px all the way round"
+    },
+    {
+      "mistake": "\"One step smaller\" for the inner radius (12px → 8px with 8px padding)",
+      "measured": "9.7px at the corner against 8px along the sides; the right answer changes with the padding, which \"one step\" ignores",
+      "fix": "parent − padding",
+      "fixValue": "4px, and it follows density: comfortable 0px, default 4px, compact 6px"
+    },
+    {
+      "mistake": "A square header flush with the top of a 12px card",
+      "measured": "its corners poke 5px out past the card's rounded corner",
+      "fix": "the card's radius on the header's top corners",
+      "fixValue": "border-start-start-radius and border-start-end-radius: var(--ds-shape-container) — nothing pokes out, nothing is clipped"
+    },
+    {
+      "mistake": "overflow: hidden on the card to hide those corners",
+      "measured": "the focus ring sits 2–4px outside an element, so anything within 4px of the card's edge loses its ring on that side",
+      "fix": "nested radius on the flush child",
+      "fixValue": "no clipping: the ring shows on all four sides (the radius audit samples them)"
+    },
+    {
+      "mistake": "The control radius on a checkbox (round style: 8px on a 16px box)",
+      "measured": "8px is half of 16px: the checkbox is a circle and reads as a radio button",
+      "fix": "shape.mark",
+      "fixValue": "4px in round (≤ 4px in every style): a square with soft corners"
+    },
+    {
+      "mistake": "A pill-shaped button whose label wraps (200% text on a phone)",
+      "measured": "two lines make it 88px tall, so its ends are 44px round; the label's first and last letters sit 2.7px outside the shape, off the fill their contrast was measured on",
+      "fix": "shape.control",
+      "fixValue": "4px: the button grows, the corners stay corners"
+    },
+    {
+      "mistake": "border-top-left-radius: 0 on the second button of a group",
+      "measured": "in a right-to-left layout the second button is on the left: its seam is rounded and its outer corner square",
+      "fix": ".ds-join",
+      "fixValue": "logical corners (border-start-start-radius …): the join flips with the text direction"
+    },
+    {
+      "mistake": "border-radius: 6px on a button",
+      "measured": "doesn't follow the style: in sharp it stays 6px — rounder than sharp's containers (2px) — and nested radii computed from shape.control no longer match",
+      "fix": "shape.control",
+      "fixValue": "sharp 2px, default 4px, round 8px"
+    }
+  ]
+}

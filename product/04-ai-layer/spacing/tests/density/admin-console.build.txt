@@ -1,0 +1,16 @@
+$ node src/cli.js admin-console.config.json out/admin-console
+pass  S1  6/6 pass     Pointer targets ≥ 24×24px in every density
+pass  S2  1/1 pass     Comfortable density controls ≥ 44px
+pass  S3  20/20 pass   Density is one rule: every token moves the same number of steps along the scale (compact down, comfortable up); the target floor never moves
+pass  S4  60/60 pass   One ladder: sizes step up inside each family, and a size word is the same distance in every family, in every density
+pass  S5  54/54 pass   Nothing collapses: every space is at least 2px in every density
+pass  S6  3/3 pass     Controls fit their label in every density, with at least 4px above and below
+pass  S7  16/16 pass   The scale sits on a grid: 2px steps below 8px, the 4px grid from 8px up, always increasing
+pass  S8  17/17 pass   In code, spacing is px: when readers enlarge text, the text gets the room, not the margins
+console: 411 tokens → out/admin-console/  ·  PASS
+exit code 0
+
+From tokens.css, :root (the default density):
+  --ds-space-inset-md: var(--ds-space-2);
+  --ds-space-stack-md: var(--ds-space-2);
+  --ds-size-control-height: var(--ds-space-8);

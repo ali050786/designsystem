@@ -1,0 +1,1 @@
+{ "name": "outline", "layout": { "panes": [ { "name": "layout.pane.outline", "width": 192, "from": "xl", "side": "end", "description": "Headings of a long help page, to jump between them" } ] } }

@@ -1,0 +1,1 @@
+✕ Config refused — motion.jobs → motion.recording: add "kind": "in-place" (it changes where it is) or "in-out" (it arrives and leaves). Loops and highlights are the built-in loading and highlight jobs

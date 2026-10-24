@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Border — every rule broken</title>
+  <style>
+    .card { border: 1px solid var(--ds-color-border-default); }                         /* BR-01 */
+    .panel { border: var(--ds-border-width-2) solid var(--ds-color-border-subtle); }    /* BR-02 */
+    .hair { border-top: 0.5px solid var(--ds-color-border-subtle); }                    /* BR-03 */
+    .grow { border-width: 0.0625rem; }                                                  /* BR-03 */
+    .old { border: var(--ds-border-width-default) solid var(--ds-color-border-subtle); } /* BR-01 (renamed) */
+    button:focus { outline: none; box-shadow: 0 0 0 2px var(--ds-color-border-focus); } /* BR-05 */
+    .tile { box-shadow: 0 0 0 1px var(--ds-color-border-default); }                     /* BR-06 */
+    button.primary { background: var(--ds-color-action-primary-bg); border: none; }           /* BR-06 */
+    input.search { border: var(--ds-border-width-control) solid var(--ds-color-border-subtle); } /* BR-07 */
+    .field input[aria-invalid="true"] { border-color: var(--ds-color-border-danger); }   /* BR-08 */
+    .option[aria-selected="true"] { border: var(--ds-border-width-state) solid var(--ds-color-border-selected); } /* BR-09 */
+    .group button + button { margin-inline-start: -1px; }                              /* BR-10 */
+    .tabs [role="tab"] { border-block-end: var(--ds-border-width-indicator) solid transparent; }
+    .tabs [role="tab"][aria-selected="true"] { border-block-end-color: var(--ds-color-border-selected); } /* BR-08: every tab shows a bar in forced colours */
+    :root { --ds-border-width-line: 2px; }                                              /* BR-11 */
+  </style>
+</head>
+<body><div class="card"></div></body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "trading",
+  "radius": {
+    "style": "sharp"
+  },
+  "density": {
+    "default": "compact"
+  }
+}

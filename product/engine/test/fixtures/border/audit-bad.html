@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Border audit — every failure on purpose</title>
+  <link rel="stylesheet" href="../../../out/default/tokens.css">
+  <style>
+    body { margin: 0; padding: 24px; display: grid; gap: 16px; justify-items: start; }
+    .hard { border: 1px solid var(--ds-color-border-input); padding: 8px; }                         /* width: doesn't follow border.control */
+    .grow { border: 0.0625rem solid var(--ds-color-border-input); padding: 8px; }                  /* grows at 200% text */
+    .hair { border-top: 0.5px solid var(--ds-color-border-subtle); width: 200px; height: 8px; }     /* hairline */
+    .faint { border: var(--ds-border-width-control) solid var(--ds-color-border-subtle); padding: 8px; } /* edge under 3:1 */
+    .pair { display: flex; }
+    .pair button { border: var(--ds-border-width-control) solid var(--ds-color-action-secondary-border); background: var(--ds-color-bg-surface); padding: 8px 12px; } /* doubled seam */
+    .opt { border: var(--ds-border-width-control) solid var(--ds-color-border-input); padding: 8px 12px; background: var(--ds-color-bg-surface); }
+    .opt[aria-pressed="true"] { border-width: var(--ds-border-width-state); border-color: var(--ds-color-border-selected); } /* content moves */
+    .err { border: var(--ds-border-width-control) solid var(--ds-color-border-input); padding: 8px; }
+    .err[aria-invalid="true"] { border-color: var(--ds-color-border-danger); }                      /* colour only; invisible in forced colours */
+    .ring { box-shadow: 0 0 0 1px var(--ds-color-border-strong); padding: 8px; }                   /* a line drawn with box-shadow */
+    .flat { border: none; background: var(--ds-color-bg-surface-sunken); padding: 8px; }            /* no edge in forced colours */
+    .shadowfocus:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ds-color-border-focus); } /* no ring in forced colours */
+    .noring:focus-visible { outline: none; }                                                         /* no ring at all */
+  </style>
+</head>
+<body>
+  <input class="hard" aria-label="Hard-coded" value="hard-coded 1px">
+  <input class="grow" aria-label="Rem" value="rem width">
+  <div class="hair"></div>
+  <input class="faint" aria-label="Faint" value="faint edge">
+  <div class="pair" role="group" aria-label="Pair"><button>One</button><button>Two</button></div>
+  <button class="opt" aria-pressed="true">Moves</button>
+  <input class="err" aria-invalid="true" aria-label="Error" value="colour only">
+  <div class="ring">box-shadow line</div>
+  <input class="flat" aria-label="Flat" value="no border">
+  <button class="opt shadowfocus">Shadow ring</button>
+  <button class="opt noring">No ring</button>
+</body>
+</html>

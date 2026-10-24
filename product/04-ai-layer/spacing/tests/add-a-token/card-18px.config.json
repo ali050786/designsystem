@@ -1,0 +1,3 @@
+{ "name": "card18", "spacing": { "tokens": [
+  { "name": "space.inset.card", "value": 18, "description": "Card padding from the mock-up" }
+] } }

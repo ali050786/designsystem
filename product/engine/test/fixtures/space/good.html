@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" data-density="default">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  main { padding: var(--ds-space-inset-2xl) var(--ds-layout-margin); display: grid; gap: var(--ds-space-stack-2xl); }
+  main > * { min-width: 0; }
+  fieldset { min-inline-size: 0; margin: 0; padding: 0; border: 0; }
+  legend { padding: 0; }
+  input:not([type=checkbox]) { width: 100%; box-sizing: border-box; }
+  .card { padding: var(--ds-space-inset-lg); display: grid; gap: var(--ds-space-stack-md); border: 1px solid var(--ds-color-border-subtle); }
+  .field { display: grid; gap: var(--ds-space-stack-xs); }
+  .form { display: grid; gap: var(--ds-space-stack-lg); max-width: 40rem; width: 100%; }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--ds-space-stack-sm) var(--ds-space-inline-sm); margin-top: var(--ds-space-stack-xl); }
+  .btn { min-height: var(--ds-size-control-height); padding: 0 var(--ds-space-inset-md); display: inline-flex; align-items: center; gap: var(--ds-size-control-icon-gap); }
+  .icon-button { min-width: var(--ds-size-control-height); min-height: var(--ds-size-control-height); padding: 0; }
+  .check { display: inline-flex; align-items: center; min-width: var(--ds-size-target-min); min-height: var(--ds-size-target-min); gap: var(--ds-space-inline-xs); }
+  .group + .group { margin-left: -1px; }
+  .badge { padding: var(--ds-space-inset-xs) calc(var(--ds-space-inset-sm) - 1px); }
+  .table-wrap { overflow-x: auto; margin-block: var(--ds-space-stack-lg); }
+  td, th { padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); }
+  .center { margin: 0 auto; }
+</style>
+</head>
+<body>
+  <main>
+    <section class="card" aria-labelledby="s1">
+      <h2 id="s1">Notifications</h2>
+      <form class="form">
+        <div class="field"><label for="n">Name</label><input id="n" class="btn"></div>
+        <fieldset class="field"><legend>Send me</legend>
+          <label class="check"><input type="checkbox"> Weekly summary</label>
+        </fieldset>
+        <div class="actions"><button class="btn">Save</button><button class="icon-button" aria-label="More">⋯</button></div>
+      </form>
+    </section>
+    <div class="table-wrap" data-density="compact">
+      <table><tr><th>Project</th><th>Tasks</th></tr><tr><td>Website</td><td>12</td></tr></table>
+    </div>
+  </main>
+</body>
+</html>

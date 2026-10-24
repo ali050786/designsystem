@@ -1,0 +1,17 @@
+✕ input.html:33  LR-06  @media (max-width: 900px) — a max-width (desktop-first) query.  → Write the small layout first and add min-width queries at md (37.5em), lg (64em), xl (90em).
+✕ input.html:34  LR-06  @media (max-width: 600px) — a max-width (desktop-first) query.  → Write the small layout first and add min-width queries at md (37.5em), lg (64em), xl (90em).
+✕ input.html:35  LR-06  @media (min-width: 1024px) — the right width, in px.  → Use 64em: em breakpoints follow the reader's text size (and match Tailwind's).
+✕ input.html:11  LR-10  --ds-layout-margin is redefined in app code.  → Change the engine config (layout.nav, layout.aside, layout.tile, layout.panes) and build, so the change is checked.
+✕ input.html:12  LR-08  overflow-x: hidden on body hides what doesn't fit instead of reflowing it — content past the edge can't be reached.  → Remove it and fix the element that is too wide (the layout audit names it).
+! input.html:14  LR-04  A sticky bar with height: 64px — at 200% text its content no longer fits, and the scroll padding no longer matches it.  → Use min-height: var(--ds-layout-header-height) for the header.
+✕ input.html:18  LR-02  width: 1180px on .wrapper — wider than a 320px screen, so the page scrolls 860px sideways there (and at 400% zoom).  → Use max-width with a layout token (layout.container.max, layout.measure.reading, a pane width) and let it fill the space below that.
+✕ input.html:18  LR-01  The page edge on .wrapper is 20px.  → Use layout.margin (padding-inline: var(--ds-layout-margin), or the .ds-page class) — it follows the breakpoint and keeps 288px of content at 320px.
+✕ input.html:19  LR-05  grid-template-columns: 280px 1fr 300px — a bare fr track never gets narrower than its longest word, URL or table.  → Use minmax(0, 1fr) for content tracks (the .ds-grid and .ds-tiles classes do).
+! input.html:20  LR-07  order: -1 moves .filters away from its place in the code.  → Change the DOM order instead — keyboard and screen-reader users follow the code, not the picture.
+✕ input.html:22  LR-03  max-width: 720px on running text (.intro) — px doesn't follow the text size: at 200% text the line halves.  → Use layout.measure.reading (max-width: var(--ds-layout-measure-reading)) — rem, about 71 characters at any text size.
+✕ input.html:23  LR-05  grid-template-columns: repeat(4, 1fr) — a bare fr track never gets narrower than its longest word, URL or table.  → Use minmax(0, 1fr) for content tracks (the .ds-grid and .ds-tiles classes do).
+! input.html:27  LR-02  min-width: 760px on table forces 760px.  → Fine only inside a scrolling container (overflow-x: auto, tabindex="0", an accessible name) — never on the page.
+✕ input.html:29  LR-08  width: 100vw — 100vw includes the scrollbar, so the page scrolls sideways on screens with one.  → Use 100% (or nothing: block boxes fill their container).
+! input.html:33  LR-05  grid-template-columns: 1fr — a bare fr track never gets narrower than its longest word, URL or table.  → Use minmax(0, 1fr) for content tracks (the .ds-grid and .ds-tiles classes do).
+
+1 file(s) · 11 error(s) · 4 warning(s)

@@ -1,0 +1,3 @@
+{ "name": "landing", "spacing": { "tokens": [
+  { "name": "space.stack.3xl", "base": "12", "description": "Sections of a long landing page" }
+] } }

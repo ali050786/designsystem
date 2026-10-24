@@ -1,0 +1,3 @@
+{ "typography": { "styles": [
+  { "name": "type.overline.sm", "step": -2, "kind": "label", "weight": "semibold", "case": "upper", "description": "Short upper-case label above a section title" }
+] } }

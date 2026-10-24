@@ -1,0 +1,3 @@
+{ "typography": { "styles": [
+  { "name": "type.figure.lg", "step": 7, "kind": "display", "weight": "semibold", "tabular": true, "scales": true, "description": "The one headline figure on a dashboard's home banner" }
+] } }

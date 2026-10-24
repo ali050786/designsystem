@@ -1,0 +1,12 @@
+$ npm run lint:motion -- orders.html
+
+1 file(s) · 0 error(s) · 0 warning(s)
+
+The seven other checkers:
+lint:color  1 file(s) · 0 error(s) · 0 warning(s)
+lint:type  1 file(s) · 0 error(s) · 0 warning(s)
+lint:space  1 file(s) · 0 error(s) · 0 warning(s)
+lint:layout  1 file(s) · 0 error(s) · 0 warning(s)
+lint:radius  1 file(s) · 0 error(s) · 0 warning(s)
+lint:border  1 file(s) · 0 error(s) · 0 warning(s)
+lint:elevation  1 file(s) · 0 error(s) · 0 warning(s)

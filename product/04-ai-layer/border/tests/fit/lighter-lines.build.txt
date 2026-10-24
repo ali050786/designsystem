@@ -1,0 +1,1 @@
+✕ Config refused — border: "control" must be 1 or 2 (px): the width of the boundary of text fields, checkboxes and secondary buttons. 0.5px is a hairline — browsers draw it differently, and a lighter look is a quieter colour, not a thinner line

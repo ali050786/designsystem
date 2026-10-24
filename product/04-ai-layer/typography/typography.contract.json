@@ -1,0 +1,1732 @@
+{
+  "$schema": "ds-type-contract/1",
+  "system": "ds",
+  "prefix": "ds",
+  "standard": "WCAG 2.2 AA",
+  "breakpoints": [
+    {
+      "name": "sm",
+      "minWidth": 0,
+      "ratio": 1.125
+    },
+    {
+      "name": "md",
+      "minWidth": 600,
+      "ratio": 1.15
+    },
+    {
+      "name": "lg",
+      "minWidth": 1024,
+      "ratio": 1.2
+    },
+    {
+      "name": "xl",
+      "minWidth": 1440,
+      "ratio": 1.2
+    }
+  ],
+  "modeSwitching": {
+    "css": "media queries on min-width (no attribute needed)",
+    "figma": "Set the Responsive collection mode (sm, md, lg, xl) on a frame"
+  },
+  "base": {
+    "size": 16,
+    "families": {
+      "sans": "Inter, \"Segoe UI\", system-ui, -apple-system, sans-serif",
+      "mono": "\"JetBrains Mono\", \"SFMono-Regular\", Consolas, monospace"
+    },
+    "weights": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "letterSpacingEm": {
+      "normal": 0,
+      "tight": -0.01,
+      "tighter": -0.02,
+      "caps": 0.06
+    }
+  },
+  "limits": {
+    "minSize": 12,
+    "readingLineHeight": 1.5,
+    "minLineHeight": 1.15,
+    "negativeTrackingFrom": 24,
+    "measurePx": 544
+  },
+  "build": {
+    "ok": true,
+    "styles": 21,
+    "checks": [
+      {
+        "id": "T1",
+        "title": "In code, sizes are rem, line heights unitless and letter-spacing em — text follows the reader's text size",
+        "status": "pass",
+        "summary": "62/62 pass"
+      },
+      {
+        "id": "T2",
+        "title": "Reading text line height ≥ 1.5 at every breakpoint",
+        "status": "pass",
+        "summary": "32/32 pass"
+      },
+      {
+        "id": "T3",
+        "title": "Smallest text size ≥ 12px",
+        "status": "pass",
+        "summary": "84/84 pass"
+      },
+      {
+        "id": "T4",
+        "title": "Large / normal text class per breakpoint (sets the contrast each style needs)",
+        "status": "info",
+        "summary": "27 large, 57 normal"
+      },
+      {
+        "id": "T5",
+        "title": "Number styles use tabular numerals, so digits line up in columns",
+        "status": "pass",
+        "summary": "3/3 pass"
+      },
+      {
+        "id": "T6",
+        "title": "Every style's line height ≥ 1.15, so wrapped lines never touch",
+        "status": "pass",
+        "summary": "84/84 pass"
+      },
+      {
+        "id": "T7",
+        "title": "Hierarchy holds at every breakpoint: each role steps up, headings stay above titles, display above headings",
+        "status": "pass",
+        "summary": "64/64 pass"
+      },
+      {
+        "id": "T8",
+        "title": "Letter-spacing follows the size: no negative tracking below 24px, never tighter than −0.02em; capitals are spaced out",
+        "status": "pass",
+        "summary": "84/84 pass"
+      },
+      {
+        "id": "T9",
+        "title": "Running text width gives 45–75 characters a line at body sizes (estimate; the page audit measures real lines)",
+        "status": "pass",
+        "summary": "2/2 pass"
+      },
+      {
+        "id": "L1",
+        "title": "Reflow at 320px: content width ≥ 272px and largest heading ≤ 40px",
+        "status": "pass",
+        "summary": "2/2 pass"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "id": "TR-01",
+      "rule": "Use a text style for every piece of text. Never set font size, line height or letter-spacing by hand.",
+      "why": "Styles carry the sizes for every breakpoint and line heights that are checked; a hand-set 15px carries neither.",
+      "wcag": "—"
+    },
+    {
+      "id": "TR-02",
+      "rule": "Choose the style by what the text is, not by the size you want.",
+      "why": "The size of a style changes with the screen; its job doesn't. Pick by job and the sizes follow.",
+      "wcag": "—"
+    },
+    {
+      "id": "TR-03",
+      "rule": "Nothing smaller than 12px. Paragraphs, help text and code use reading styles (body, caption, code), which keep line height at 1.5 or more.",
+      "why": "Small or cramped text is the first thing people with low vision or dyslexia lose.",
+      "wcag": "1.4.12, 1.4.8"
+    },
+    {
+      "id": "TR-04",
+      "rule": "Numbers people compare — table columns, totals, metrics, timers — use tabular numerals: type.numeric.* or tabular-nums.",
+      "why": "Proportional digits have different widths, so columns don't line up and values jump while they update.",
+      "wcag": "—"
+    },
+    {
+      "id": "TR-05",
+      "rule": "Heading tags follow the page outline; styles follow the visual weight. Never skip a level (h2 → h4) to get a size.",
+      "why": "Screen-reader users move through a page by heading level.",
+      "wcag": "1.3.1, 2.4.6"
+    },
+    {
+      "id": "TR-06",
+      "rule": "At most one display style per view, and never for an app's page title (use type.heading.lg).",
+      "why": "A second display competes with the first and flattens the hierarchy.",
+      "wcag": "—"
+    },
+    {
+      "id": "TR-07",
+      "rule": "Never give text a fixed height. If you must truncate, the full text stays available (expand, tooltip on hover and focus, or a details view).",
+      "why": "People enlarge text to 200% and override line and letter spacing; fixed boxes clip it.",
+      "wcag": "1.4.4, 1.4.12"
+    },
+    {
+      "id": "TR-08",
+      "rule": "Keep running text within layout.measure.reading (about 70 characters a line).",
+      "why": "On long lines readers lose their place when jumping to the next line.",
+      "wcag": "1.4.8"
+    },
+    {
+      "id": "TR-09",
+      "rule": "Never block zoom (user-scalable=no, maximum-scale below 2) and never size text in px in code.",
+      "why": "Zoom and the browser's text size are how many people read; px text ignores the text-size setting.",
+      "wcag": "1.4.4"
+    },
+    {
+      "id": "TR-10",
+      "rule": "Emphasise with <strong> (semibold) or <em>. Underline is only for links; colour alone never carries emphasis.",
+      "why": "Underlined words look like links; colour-only emphasis is invisible to some readers.",
+      "wcag": "1.4.1"
+    },
+    {
+      "id": "TR-11",
+      "rule": "Capitals only for short labels (three words or fewer), using a style made for them (it adds letter-spacing). Never for sentences.",
+      "why": "All-caps text is slower to read and loses word shapes.",
+      "wcag": "—"
+    },
+    {
+      "id": "TR-12",
+      "rule": "Left-align running text (start-align in right-to-left languages). Never justify it.",
+      "why": "Justified text leaves uneven gaps that make lines hard to follow.",
+      "wcag": "1.4.8"
+    },
+    {
+      "id": "TR-13",
+      "rule": "Fonts come only from font.family.sans and font.family.mono. Never set a font-family in a component.",
+      "why": "The family tokens carry a tested fallback stack, so text stays readable while fonts load; one place to change a brand font.",
+      "wcag": "—"
+    },
+    {
+      "id": "TR-14",
+      "rule": "Design once with styles; the breakpoint changes the sizes (Responsive mode in Figma, media queries in code). Never swap to a \"mobile\" style by name.",
+      "why": "The styles already shrink on small screens; swapping names breaks the hierarchy at other widths.",
+      "wcag": "—"
+    }
+  ],
+  "decisions": [
+    {
+      "what": "Text that names something",
+      "question": "What does it name?",
+      "answers": [
+        [
+          "The page's one big statement (landing, welcome, empty page)",
+          "type.display.lg / type.display.md / type.display.sm"
+        ],
+        [
+          "The page itself — its title (the h1)",
+          "type.heading.lg"
+        ],
+        [
+          "A section of the page",
+          "type.heading.md"
+        ],
+        [
+          "A subsection",
+          "type.heading.sm"
+        ],
+        [
+          "A dialog or side panel",
+          "type.title.lg"
+        ],
+        [
+          "A card or panel",
+          "type.title.md"
+        ],
+        [
+          "An item in a dense list, menu or table group",
+          "type.title.sm"
+        ]
+      ]
+    },
+    {
+      "what": "Text people read",
+      "question": "Where does it sit?",
+      "answers": [
+        [
+          "The intro under a page or section title",
+          "type.body.lg"
+        ],
+        [
+          "A paragraph or description",
+          "type.body.md"
+        ],
+        [
+          "Dense screens, text in table cells, secondary paragraphs",
+          "type.body.sm"
+        ],
+        [
+          "Help under a field, a timestamp, a footnote, chart labels",
+          "type.caption.md"
+        ]
+      ]
+    },
+    {
+      "what": "Text people act on",
+      "question": "How dense is the screen?",
+      "answers": [
+        [
+          "Buttons, field labels, tabs, menu items",
+          "type.label.md"
+        ],
+        [
+          "The same in comfortable density",
+          "type.label.lg"
+        ],
+        [
+          "Badges, chips, compact controls",
+          "type.label.sm"
+        ]
+      ]
+    },
+    {
+      "what": "A number",
+      "question": "Will people compare it with others?",
+      "answers": [
+        [
+          "Yes — a column in a table, a list of totals, a timer",
+          "type.numeric.md (type.numeric.sm in compact tables)"
+        ],
+        [
+          "The headline figure on a metric card",
+          "type.numeric.lg"
+        ],
+        [
+          "No — a number inside a sentence",
+          "the sentence's own style (body …)"
+        ]
+      ]
+    },
+    {
+      "what": "Code",
+      "question": "What is around it?",
+      "answers": [
+        [
+          "A code block, or inline code in body text",
+          "type.code.md"
+        ],
+        [
+          "Inline code in small text; IDs and keys in tables",
+          "type.code.sm"
+        ]
+      ]
+    },
+    {
+      "what": "A heading tag",
+      "question": "Where is it in the page outline?",
+      "answers": [
+        [
+          "Pick h1–h6 by the outline (never skip a level); pick the style by how much it should stand out",
+          "any heading tag + any heading or title style"
+        ],
+        [
+          "A title that is not a heading (a card label, a button)",
+          "no heading tag; use the style on a div/span/button"
+        ]
+      ]
+    }
+  ],
+  "htmlDefaults": {
+    "body": "type.body.md",
+    "h1": "type.heading.lg",
+    "h2": "type.heading.md",
+    "h3": "type.heading.sm",
+    "h4": "type.title.lg",
+    "h5": "type.title.md",
+    "h6": "type.title.md"
+  },
+  "styles": [
+    {
+      "name": "type.display.lg",
+      "figma": "type/display/lg",
+      "cssClass": "ds-type-display-lg",
+      "tailwind": "text-display-lg",
+      "cssVars": {
+        "fontFamily": "--ds-type-display-lg-font-family",
+        "fontSize": "--ds-type-display-lg-font-size",
+        "fontWeight": "--ds-type-display-lg-font-weight",
+        "lineHeight": "--ds-type-display-lg-line-height",
+        "letterSpacing": "--ds-type-display-lg-letter-spacing"
+      },
+      "role": "display",
+      "variant": "lg",
+      "kind": "display",
+      "chapter": "Headings and display",
+      "use": "The one big statement on a landing, welcome or empty page",
+      "family": "sans",
+      "weight": "bold",
+      "weightValue": 700,
+      "figmaFontStyle": "Bold",
+      "reading": false,
+      "tabular": false,
+      "upper": false,
+      "scales": true,
+      "product": false,
+      "html": [],
+      "breakpoints": {
+        "sm": {
+          "size": 40,
+          "lineHeight": 46,
+          "ratio": 1.15,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.4,
+          "large": true
+        },
+        "md": {
+          "size": 48,
+          "lineHeight": 56,
+          "ratio": 1.167,
+          "letterSpacingEm": -0.02,
+          "letterSpacingPx": -0.96,
+          "large": true
+        },
+        "lg": {
+          "size": 68,
+          "lineHeight": 80,
+          "ratio": 1.176,
+          "letterSpacingEm": -0.02,
+          "letterSpacingPx": -1.36,
+          "large": true
+        },
+        "xl": {
+          "size": 68,
+          "lineHeight": 80,
+          "ratio": 1.176,
+          "letterSpacingEm": -0.02,
+          "letterSpacingPx": -1.36,
+          "large": true
+        }
+      }
+    },
+    {
+      "name": "type.display.md",
+      "figma": "type/display/md",
+      "cssClass": "ds-type-display-md",
+      "tailwind": "text-display-md",
+      "cssVars": {
+        "fontFamily": "--ds-type-display-md-font-family",
+        "fontSize": "--ds-type-display-md-font-size",
+        "fontWeight": "--ds-type-display-md-font-weight",
+        "lineHeight": "--ds-type-display-md-line-height",
+        "letterSpacing": "--ds-type-display-md-letter-spacing"
+      },
+      "role": "display",
+      "variant": "md",
+      "kind": "display",
+      "chapter": "Headings and display",
+      "use": "Hero heading on a marketing or onboarding page",
+      "family": "sans",
+      "weight": "bold",
+      "weightValue": 700,
+      "figmaFontStyle": "Bold",
+      "reading": false,
+      "tabular": false,
+      "upper": false,
+      "scales": true,
+      "product": false,
+      "html": [],
+      "breakpoints": {
+        "sm": {
+          "size": 36,
+          "lineHeight": 42,
+          "ratio": 1.167,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.36,
+          "large": true
+        },
+        "md": {
+          "size": 44,
+          "lineHeight": 52,
+          "ratio": 1.182,
+          "letterSpacingEm": -0.02,
+          "letterSpacingPx": -0.88,
+          "large": true
+        },
+        "lg": {
+          "size": 56,
+          "lineHeight": 66,
+          "ratio": 1.179,
+          "letterSpacingEm": -0.02,
+          "letterSpacingPx": -1.12,
+          "large": true
+        },
+        "xl": {
+          "size": 56,
+          "lineHeight": 66,
+          "ratio": 1.179,
+          "letterSpacingEm": -0.02,
+          "letterSpacingPx": -1.12,
+          "large": true
+        }
+      }
+    },
+    {
+      "name": "type.display.sm",
+      "figma": "type/display/sm",
+      "cssClass": "ds-type-display-sm",
+      "tailwind": "text-display-sm",
+      "cssVars": {
+        "fontFamily": "--ds-type-display-sm-font-family",
+        "fontSize": "--ds-type-display-sm-font-size",
+        "fontWeight": "--ds-type-display-sm-font-weight",
+        "lineHeight": "--ds-type-display-sm-line-height",
+        "letterSpacing": "--ds-type-display-sm-letter-spacing"
+      },
+      "role": "display",
+      "variant": "sm",
+      "kind": "display",
+      "chapter": "Headings and display",
+      "use": "A large statement inside a page, such as a welcome banner",
+      "family": "sans",
+      "weight": "bold",
+      "weightValue": 700,
+      "figmaFontStyle": "Bold",
+      "reading": false,
+      "tabular": false,
+      "upper": false,
+      "scales": true,
+      "product": false,
+      "html": [],
+      "breakpoints": {
+        "sm": {
+          "size": 32,
+          "lineHeight": 38,
+          "ratio": 1.188,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.32,
+          "large": true
+        },
+        "md": {
+          "size": 36,
+          "lineHeight": 42,
+          "ratio": 1.167,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.36,
+          "large": true
+        },
+        "lg": {
+          "size": 48,
+          "lineHeight": 56,
+          "ratio": 1.167,
+          "letterSpacingEm": -0.02,
+          "letterSpacingPx": -0.96,
+          "large": true
+        },
+        "xl": {
+          "size": 48,
+          "lineHeight": 56,
+          "ratio": 1.167,
+          "letterSpacingEm": -0.02,
+          "letterSpacingPx": -0.96,
+          "large": true
+        }
+      }
+    },
+    {
+      "name": "type.heading.lg",
+      "figma": "type/heading/lg",
+      "cssClass": "ds-type-heading-lg",
+      "tailwind": "text-heading-lg",
+      "cssVars": {
+        "fontFamily": "--ds-type-heading-lg-font-family",
+        "fontSize": "--ds-type-heading-lg-font-size",
+        "fontWeight": "--ds-type-heading-lg-font-weight",
+        "lineHeight": "--ds-type-heading-lg-line-height",
+        "letterSpacing": "--ds-type-heading-lg-letter-spacing"
+      },
+      "role": "heading",
+      "variant": "lg",
+      "kind": "heading",
+      "chapter": "Headings and display",
+      "use": "Page title — the h1 of a screen",
+      "family": "sans",
+      "weight": "semibold",
+      "weightValue": 600,
+      "figmaFontStyle": "Semi Bold",
+      "reading": false,
+      "tabular": false,
+      "upper": false,
+      "scales": true,
+      "product": false,
+      "html": [
+        "h1"
+      ],
+      "breakpoints": {
+        "sm": {
+          "size": 28,
+          "lineHeight": 36,
+          "ratio": 1.286,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.28,
+          "large": true
+        },
+        "md": {
+          "size": 32,
+          "lineHeight": 40,
+          "ratio": 1.25,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.32,
+          "large": true
+        },
+        "lg": {
+          "size": 40,
+          "lineHeight": 50,
+          "ratio": 1.25,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.4,
+          "large": true
+        },
+        "xl": {
+          "size": 40,
+          "lineHeight": 50,
+          "ratio": 1.25,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.4,
+          "large": true
+        }
+      }
+    },
+    {
+      "name": "type.heading.md",
+      "figma": "type/heading/md",
+      "cssClass": "ds-type-heading-md",
+      "tailwind": "text-heading-md",
+      "cssVars": {
+        "fontFamily": "--ds-type-heading-md-font-family",
+        "fontSize": "--ds-type-heading-md-font-size",
+        "fontWeight": "--ds-type-heading-md-font-weight",
+        "lineHeight": "--ds-type-heading-md-line-height",
+        "letterSpacing": "--ds-type-heading-md-letter-spacing"
+      },
+      "role": "heading",
+      "variant": "md",
+      "kind": "heading",
+      "chapter": "Headings and display",
+      "use": "Section heading inside a page",
+      "family": "sans",
+      "weight": "semibold",
+      "weightValue": 600,
+      "figmaFontStyle": "Semi Bold",
+      "reading": false,
+      "tabular": false,
+      "upper": false,
+      "scales": true,
+      "product": false,
+      "html": [
+        "h2"
+      ],
+      "breakpoints": {
+        "sm": {
+          "size": 26,
+          "lineHeight": 34,
+          "ratio": 1.308,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.26,
+          "large": true
+        },
+        "md": {
+          "size": 28,
+          "lineHeight": 36,
+          "ratio": 1.286,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.28,
+          "large": true
+        },
+        "lg": {
+          "size": 32,
+          "lineHeight": 40,
+          "ratio": 1.25,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.32,
+          "large": true
+        },
+        "xl": {
+          "size": 32,
+          "lineHeight": 40,
+          "ratio": 1.25,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.32,
+          "large": true
+        }
+      }
+    },
+    {
+      "name": "type.heading.sm",
+      "figma": "type/heading/sm",
+      "cssClass": "ds-type-heading-sm",
+      "tailwind": "text-heading-sm",
+      "cssVars": {
+        "fontFamily": "--ds-type-heading-sm-font-family",
+        "fontSize": "--ds-type-heading-sm-font-size",
+        "fontWeight": "--ds-type-heading-sm-font-weight",
+        "lineHeight": "--ds-type-heading-sm-line-height",
+        "letterSpacing": "--ds-type-heading-sm-letter-spacing"
+      },
+      "role": "heading",
+      "variant": "sm",
+      "kind": "heading",
+      "chapter": "Headings and display",
+      "use": "Subsection heading",
+      "family": "sans",
+      "weight": "semibold",
+      "weightValue": 600,
+      "figmaFontStyle": "Semi Bold",
+      "reading": false,
+      "tabular": false,
+      "upper": false,
+      "scales": true,
+      "product": false,
+      "html": [
+        "h3"
+      ],
+      "breakpoints": {
+        "sm": {
+          "size": 22,
+          "lineHeight": 28,
+          "ratio": 1.273,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "md": {
+          "size": 24,
+          "lineHeight": 30,
+          "ratio": 1.25,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.24,
+          "large": true
+        },
+        "lg": {
+          "size": 28,
+          "lineHeight": 36,
+          "ratio": 1.286,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.28,
+          "large": true
+        },
+        "xl": {
+          "size": 28,
+          "lineHeight": 36,
+          "ratio": 1.286,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.28,
+          "large": true
+        }
+      }
+    },
+    {
+      "name": "type.title.lg",
+      "figma": "type/title/lg",
+      "cssClass": "ds-type-title-lg",
+      "tailwind": "text-title-lg",
+      "cssVars": {
+        "fontFamily": "--ds-type-title-lg-font-family",
+        "fontSize": "--ds-type-title-lg-font-size",
+        "fontWeight": "--ds-type-title-lg-font-weight",
+        "lineHeight": "--ds-type-title-lg-line-height",
+        "letterSpacing": "--ds-type-title-lg-letter-spacing"
+      },
+      "role": "title",
+      "variant": "lg",
+      "kind": "title",
+      "chapter": "Titles and labels",
+      "use": "Dialog and side-panel titles",
+      "family": "sans",
+      "weight": "semibold",
+      "weightValue": 600,
+      "figmaFontStyle": "Semi Bold",
+      "reading": false,
+      "tabular": false,
+      "upper": false,
+      "scales": false,
+      "product": false,
+      "html": [
+        "h4"
+      ],
+      "breakpoints": {
+        "sm": {
+          "size": 20,
+          "lineHeight": 26,
+          "ratio": 1.3,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "md": {
+          "size": 20,
+          "lineHeight": 26,
+          "ratio": 1.3,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "lg": {
+          "size": 20,
+          "lineHeight": 26,
+          "ratio": 1.3,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "xl": {
+          "size": 20,
+          "lineHeight": 26,
+          "ratio": 1.3,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        }
+      }
+    },
+    {
+      "name": "type.title.md",
+      "figma": "type/title/md",
+      "cssClass": "ds-type-title-md",
+      "tailwind": "text-title-md",
+      "cssVars": {
+        "fontFamily": "--ds-type-title-md-font-family",
+        "fontSize": "--ds-type-title-md-font-size",
+        "fontWeight": "--ds-type-title-md-font-weight",
+        "lineHeight": "--ds-type-title-md-line-height",
+        "letterSpacing": "--ds-type-title-md-letter-spacing"
+      },
+      "role": "title",
+      "variant": "md",
+      "kind": "title",
+      "chapter": "Titles and labels",
+      "use": "Card and panel titles",
+      "family": "sans",
+      "weight": "semibold",
+      "weightValue": 600,
+      "figmaFontStyle": "Semi Bold",
+      "reading": false,
+      "tabular": false,
+      "upper": false,
+      "scales": false,
+      "product": false,
+      "html": [
+        "h5",
+        "h6"
+      ],
+      "breakpoints": {
+        "sm": {
+          "size": 18,
+          "lineHeight": 24,
+          "ratio": 1.333,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "md": {
+          "size": 18,
+          "lineHeight": 24,
+          "ratio": 1.333,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "lg": {
+          "size": 18,
+          "lineHeight": 24,
+          "ratio": 1.333,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "xl": {
+          "size": 18,
+          "lineHeight": 24,
+          "ratio": 1.333,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        }
+      }
+    },
+    {
+      "name": "type.title.sm",
+      "figma": "type/title/sm",
+      "cssClass": "ds-type-title-sm",
+      "tailwind": "text-title-sm",
+      "cssVars": {
+        "fontFamily": "--ds-type-title-sm-font-family",
+        "fontSize": "--ds-type-title-sm-font-size",
+        "fontWeight": "--ds-type-title-sm-font-weight",
+        "lineHeight": "--ds-type-title-sm-line-height",
+        "letterSpacing": "--ds-type-title-sm-letter-spacing"
+      },
+      "role": "title",
+      "variant": "sm",
+      "kind": "title",
+      "chapter": "Titles and labels",
+      "use": "Titles in dense lists, menus and table groups",
+      "family": "sans",
+      "weight": "semibold",
+      "weightValue": 600,
+      "figmaFontStyle": "Semi Bold",
+      "reading": false,
+      "tabular": false,
+      "upper": false,
+      "scales": false,
+      "product": false,
+      "html": [],
+      "breakpoints": {
+        "sm": {
+          "size": 16,
+          "lineHeight": 22,
+          "ratio": 1.375,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "md": {
+          "size": 16,
+          "lineHeight": 22,
+          "ratio": 1.375,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "lg": {
+          "size": 16,
+          "lineHeight": 22,
+          "ratio": 1.375,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "xl": {
+          "size": 16,
+          "lineHeight": 22,
+          "ratio": 1.375,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        }
+      }
+    },
+    {
+      "name": "type.body.lg",
+      "figma": "type/body/lg",
+      "cssClass": "ds-type-body-lg",
+      "tailwind": "text-body-lg",
+      "cssVars": {
+        "fontFamily": "--ds-type-body-lg-font-family",
+        "fontSize": "--ds-type-body-lg-font-size",
+        "fontWeight": "--ds-type-body-lg-font-weight",
+        "lineHeight": "--ds-type-body-lg-line-height",
+        "letterSpacing": "--ds-type-body-lg-letter-spacing"
+      },
+      "role": "body",
+      "variant": "lg",
+      "kind": "reading",
+      "chapter": "Reading text",
+      "use": "Lead paragraph at the top of a page or section",
+      "family": "sans",
+      "weight": "regular",
+      "weightValue": 400,
+      "figmaFontStyle": "Regular",
+      "reading": true,
+      "tabular": false,
+      "upper": false,
+      "scales": false,
+      "product": false,
+      "html": [],
+      "breakpoints": {
+        "sm": {
+          "size": 18,
+          "lineHeight": 28,
+          "ratio": 1.556,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "md": {
+          "size": 18,
+          "lineHeight": 28,
+          "ratio": 1.556,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "lg": {
+          "size": 18,
+          "lineHeight": 28,
+          "ratio": 1.556,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "xl": {
+          "size": 18,
+          "lineHeight": 28,
+          "ratio": 1.556,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        }
+      }
+    },
+    {
+      "name": "type.body.md",
+      "figma": "type/body/md",
+      "cssClass": "ds-type-body-md",
+      "tailwind": "text-body-md",
+      "cssVars": {
+        "fontFamily": "--ds-type-body-md-font-family",
+        "fontSize": "--ds-type-body-md-font-size",
+        "fontWeight": "--ds-type-body-md-font-weight",
+        "lineHeight": "--ds-type-body-md-line-height",
+        "letterSpacing": "--ds-type-body-md-letter-spacing"
+      },
+      "role": "body",
+      "variant": "md",
+      "kind": "reading",
+      "chapter": "Reading text",
+      "use": "Default paragraphs and descriptions",
+      "family": "sans",
+      "weight": "regular",
+      "weightValue": 400,
+      "figmaFontStyle": "Regular",
+      "reading": true,
+      "tabular": false,
+      "upper": false,
+      "scales": false,
+      "product": false,
+      "html": [
+        "body"
+      ],
+      "breakpoints": {
+        "sm": {
+          "size": 16,
+          "lineHeight": 24,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "md": {
+          "size": 16,
+          "lineHeight": 24,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "lg": {
+          "size": 16,
+          "lineHeight": 24,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "xl": {
+          "size": 16,
+          "lineHeight": 24,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        }
+      }
+    },
+    {
+      "name": "type.body.sm",
+      "figma": "type/body/sm",
+      "cssClass": "ds-type-body-sm",
+      "tailwind": "text-body-sm",
+      "cssVars": {
+        "fontFamily": "--ds-type-body-sm-font-family",
+        "fontSize": "--ds-type-body-sm-font-size",
+        "fontWeight": "--ds-type-body-sm-font-weight",
+        "lineHeight": "--ds-type-body-sm-line-height",
+        "letterSpacing": "--ds-type-body-sm-letter-spacing"
+      },
+      "role": "body",
+      "variant": "sm",
+      "kind": "reading",
+      "chapter": "Reading text",
+      "use": "Secondary paragraphs, dense screens, text in table cells",
+      "family": "sans",
+      "weight": "regular",
+      "weightValue": 400,
+      "figmaFontStyle": "Regular",
+      "reading": true,
+      "tabular": false,
+      "upper": false,
+      "scales": false,
+      "product": false,
+      "html": [],
+      "breakpoints": {
+        "sm": {
+          "size": 14,
+          "lineHeight": 22,
+          "ratio": 1.571,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "md": {
+          "size": 14,
+          "lineHeight": 22,
+          "ratio": 1.571,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "lg": {
+          "size": 14,
+          "lineHeight": 22,
+          "ratio": 1.571,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "xl": {
+          "size": 14,
+          "lineHeight": 22,
+          "ratio": 1.571,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        }
+      }
+    },
+    {
+      "name": "type.label.lg",
+      "figma": "type/label/lg",
+      "cssClass": "ds-type-label-lg",
+      "tailwind": "text-label-lg",
+      "cssVars": {
+        "fontFamily": "--ds-type-label-lg-font-family",
+        "fontSize": "--ds-type-label-lg-font-size",
+        "fontWeight": "--ds-type-label-lg-font-weight",
+        "lineHeight": "--ds-type-label-lg-line-height",
+        "letterSpacing": "--ds-type-label-lg-letter-spacing"
+      },
+      "role": "label",
+      "variant": "lg",
+      "kind": "label",
+      "chapter": "Titles and labels",
+      "use": "Buttons and controls in comfortable density",
+      "family": "sans",
+      "weight": "medium",
+      "weightValue": 500,
+      "figmaFontStyle": "Medium",
+      "reading": false,
+      "tabular": false,
+      "upper": false,
+      "scales": false,
+      "product": false,
+      "html": [],
+      "breakpoints": {
+        "sm": {
+          "size": 16,
+          "lineHeight": 22,
+          "ratio": 1.375,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "md": {
+          "size": 16,
+          "lineHeight": 22,
+          "ratio": 1.375,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "lg": {
+          "size": 16,
+          "lineHeight": 22,
+          "ratio": 1.375,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "xl": {
+          "size": 16,
+          "lineHeight": 22,
+          "ratio": 1.375,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        }
+      }
+    },
+    {
+      "name": "type.label.md",
+      "figma": "type/label/md",
+      "cssClass": "ds-type-label-md",
+      "tailwind": "text-label-md",
+      "cssVars": {
+        "fontFamily": "--ds-type-label-md-font-family",
+        "fontSize": "--ds-type-label-md-font-size",
+        "fontWeight": "--ds-type-label-md-font-weight",
+        "lineHeight": "--ds-type-label-md-line-height",
+        "letterSpacing": "--ds-type-label-md-letter-spacing"
+      },
+      "role": "label",
+      "variant": "md",
+      "kind": "label",
+      "chapter": "Titles and labels",
+      "use": "Buttons, form labels, tabs, menu items",
+      "family": "sans",
+      "weight": "medium",
+      "weightValue": 500,
+      "figmaFontStyle": "Medium",
+      "reading": false,
+      "tabular": false,
+      "upper": false,
+      "scales": false,
+      "product": false,
+      "html": [],
+      "breakpoints": {
+        "sm": {
+          "size": 14,
+          "lineHeight": 20,
+          "ratio": 1.429,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "md": {
+          "size": 14,
+          "lineHeight": 20,
+          "ratio": 1.429,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "lg": {
+          "size": 14,
+          "lineHeight": 20,
+          "ratio": 1.429,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "xl": {
+          "size": 14,
+          "lineHeight": 20,
+          "ratio": 1.429,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        }
+      }
+    },
+    {
+      "name": "type.label.sm",
+      "figma": "type/label/sm",
+      "cssClass": "ds-type-label-sm",
+      "tailwind": "text-label-sm",
+      "cssVars": {
+        "fontFamily": "--ds-type-label-sm-font-family",
+        "fontSize": "--ds-type-label-sm-font-size",
+        "fontWeight": "--ds-type-label-sm-font-weight",
+        "lineHeight": "--ds-type-label-sm-line-height",
+        "letterSpacing": "--ds-type-label-sm-letter-spacing"
+      },
+      "role": "label",
+      "variant": "sm",
+      "kind": "label",
+      "chapter": "Titles and labels",
+      "use": "Compact controls, badges and chips",
+      "family": "sans",
+      "weight": "medium",
+      "weightValue": 500,
+      "figmaFontStyle": "Medium",
+      "reading": false,
+      "tabular": false,
+      "upper": false,
+      "scales": false,
+      "product": false,
+      "html": [],
+      "breakpoints": {
+        "sm": {
+          "size": 12,
+          "lineHeight": 16,
+          "ratio": 1.333,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "md": {
+          "size": 12,
+          "lineHeight": 16,
+          "ratio": 1.333,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "lg": {
+          "size": 12,
+          "lineHeight": 16,
+          "ratio": 1.333,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "xl": {
+          "size": 12,
+          "lineHeight": 16,
+          "ratio": 1.333,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        }
+      }
+    },
+    {
+      "name": "type.caption.md",
+      "figma": "type/caption/md",
+      "cssClass": "ds-type-caption-md",
+      "tailwind": "text-caption-md",
+      "cssVars": {
+        "fontFamily": "--ds-type-caption-md-font-family",
+        "fontSize": "--ds-type-caption-md-font-size",
+        "fontWeight": "--ds-type-caption-md-font-weight",
+        "lineHeight": "--ds-type-caption-md-line-height",
+        "letterSpacing": "--ds-type-caption-md-letter-spacing"
+      },
+      "role": "caption",
+      "variant": "md",
+      "kind": "reading",
+      "chapter": "Reading text",
+      "use": "Help text, timestamps, footnotes, chart labels",
+      "family": "sans",
+      "weight": "regular",
+      "weightValue": 400,
+      "figmaFontStyle": "Regular",
+      "reading": true,
+      "tabular": false,
+      "upper": false,
+      "scales": false,
+      "product": false,
+      "html": [],
+      "breakpoints": {
+        "sm": {
+          "size": 12,
+          "lineHeight": 18,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "md": {
+          "size": 12,
+          "lineHeight": 18,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "lg": {
+          "size": 12,
+          "lineHeight": 18,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "xl": {
+          "size": 12,
+          "lineHeight": 18,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        }
+      }
+    },
+    {
+      "name": "type.code.md",
+      "figma": "type/code/md",
+      "cssClass": "ds-type-code-md",
+      "tailwind": "text-code-md",
+      "cssVars": {
+        "fontFamily": "--ds-type-code-md-font-family",
+        "fontSize": "--ds-type-code-md-font-size",
+        "fontWeight": "--ds-type-code-md-font-weight",
+        "lineHeight": "--ds-type-code-md-line-height",
+        "letterSpacing": "--ds-type-code-md-letter-spacing"
+      },
+      "role": "code",
+      "variant": "md",
+      "kind": "reading",
+      "chapter": "Reading text",
+      "use": "Code blocks, and inline code in body text",
+      "family": "mono",
+      "weight": "regular",
+      "weightValue": 400,
+      "figmaFontStyle": "Regular",
+      "reading": true,
+      "tabular": false,
+      "upper": false,
+      "scales": false,
+      "product": false,
+      "html": [],
+      "breakpoints": {
+        "sm": {
+          "size": 14,
+          "lineHeight": 22,
+          "ratio": 1.571,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "md": {
+          "size": 14,
+          "lineHeight": 22,
+          "ratio": 1.571,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "lg": {
+          "size": 14,
+          "lineHeight": 22,
+          "ratio": 1.571,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "xl": {
+          "size": 14,
+          "lineHeight": 22,
+          "ratio": 1.571,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        }
+      }
+    },
+    {
+      "name": "type.code.sm",
+      "figma": "type/code/sm",
+      "cssClass": "ds-type-code-sm",
+      "tailwind": "text-code-sm",
+      "cssVars": {
+        "fontFamily": "--ds-type-code-sm-font-family",
+        "fontSize": "--ds-type-code-sm-font-size",
+        "fontWeight": "--ds-type-code-sm-font-weight",
+        "lineHeight": "--ds-type-code-sm-line-height",
+        "letterSpacing": "--ds-type-code-sm-letter-spacing"
+      },
+      "role": "code",
+      "variant": "sm",
+      "kind": "reading",
+      "chapter": "Reading text",
+      "use": "Inline code in small text; IDs and keys in tables",
+      "family": "mono",
+      "weight": "regular",
+      "weightValue": 400,
+      "figmaFontStyle": "Regular",
+      "reading": true,
+      "tabular": false,
+      "upper": false,
+      "scales": false,
+      "product": false,
+      "html": [],
+      "breakpoints": {
+        "sm": {
+          "size": 12,
+          "lineHeight": 18,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "md": {
+          "size": 12,
+          "lineHeight": 18,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "lg": {
+          "size": 12,
+          "lineHeight": 18,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "xl": {
+          "size": 12,
+          "lineHeight": 18,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        }
+      }
+    },
+    {
+      "name": "type.numeric.lg",
+      "figma": "type/numeric/lg",
+      "cssClass": "ds-type-numeric-lg",
+      "tailwind": "text-numeric-lg",
+      "cssVars": {
+        "fontFamily": "--ds-type-numeric-lg-font-family",
+        "fontSize": "--ds-type-numeric-lg-font-size",
+        "fontWeight": "--ds-type-numeric-lg-font-weight",
+        "lineHeight": "--ds-type-numeric-lg-line-height",
+        "letterSpacing": "--ds-type-numeric-lg-letter-spacing"
+      },
+      "role": "numeric",
+      "variant": "lg",
+      "kind": "heading",
+      "chapter": "Numbers and data",
+      "use": "Headline figures in metric cards",
+      "family": "sans",
+      "weight": "semibold",
+      "weightValue": 600,
+      "figmaFontStyle": "Semi Bold",
+      "reading": false,
+      "tabular": true,
+      "upper": false,
+      "scales": false,
+      "product": false,
+      "html": [],
+      "breakpoints": {
+        "sm": {
+          "size": 28,
+          "lineHeight": 36,
+          "ratio": 1.286,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.28,
+          "large": true
+        },
+        "md": {
+          "size": 28,
+          "lineHeight": 36,
+          "ratio": 1.286,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.28,
+          "large": true
+        },
+        "lg": {
+          "size": 28,
+          "lineHeight": 36,
+          "ratio": 1.286,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.28,
+          "large": true
+        },
+        "xl": {
+          "size": 28,
+          "lineHeight": 36,
+          "ratio": 1.286,
+          "letterSpacingEm": -0.01,
+          "letterSpacingPx": -0.28,
+          "large": true
+        }
+      }
+    },
+    {
+      "name": "type.numeric.md",
+      "figma": "type/numeric/md",
+      "cssClass": "ds-type-numeric-md",
+      "tailwind": "text-numeric-md",
+      "cssVars": {
+        "fontFamily": "--ds-type-numeric-md-font-family",
+        "fontSize": "--ds-type-numeric-md-font-size",
+        "fontWeight": "--ds-type-numeric-md-font-weight",
+        "lineHeight": "--ds-type-numeric-md-line-height",
+        "letterSpacing": "--ds-type-numeric-md-letter-spacing"
+      },
+      "role": "numeric",
+      "variant": "md",
+      "kind": "reading",
+      "chapter": "Numbers and data",
+      "use": "Numbers in tables, forms and running text",
+      "family": "sans",
+      "weight": "regular",
+      "weightValue": 400,
+      "figmaFontStyle": "Regular",
+      "reading": true,
+      "tabular": true,
+      "upper": false,
+      "scales": false,
+      "product": false,
+      "html": [],
+      "breakpoints": {
+        "sm": {
+          "size": 16,
+          "lineHeight": 24,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "md": {
+          "size": 16,
+          "lineHeight": 24,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "lg": {
+          "size": 16,
+          "lineHeight": 24,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "xl": {
+          "size": 16,
+          "lineHeight": 24,
+          "ratio": 1.5,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        }
+      }
+    },
+    {
+      "name": "type.numeric.sm",
+      "figma": "type/numeric/sm",
+      "cssClass": "ds-type-numeric-sm",
+      "tailwind": "text-numeric-sm",
+      "cssVars": {
+        "fontFamily": "--ds-type-numeric-sm-font-family",
+        "fontSize": "--ds-type-numeric-sm-font-size",
+        "fontWeight": "--ds-type-numeric-sm-font-weight",
+        "lineHeight": "--ds-type-numeric-sm-line-height",
+        "letterSpacing": "--ds-type-numeric-sm-letter-spacing"
+      },
+      "role": "numeric",
+      "variant": "sm",
+      "kind": "reading",
+      "chapter": "Numbers and data",
+      "use": "Numbers in compact tables",
+      "family": "sans",
+      "weight": "regular",
+      "weightValue": 400,
+      "figmaFontStyle": "Regular",
+      "reading": true,
+      "tabular": true,
+      "upper": false,
+      "scales": false,
+      "product": false,
+      "html": [],
+      "breakpoints": {
+        "sm": {
+          "size": 14,
+          "lineHeight": 22,
+          "ratio": 1.571,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "md": {
+          "size": 14,
+          "lineHeight": 22,
+          "ratio": 1.571,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "lg": {
+          "size": 14,
+          "lineHeight": 22,
+          "ratio": 1.571,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        },
+        "xl": {
+          "size": 14,
+          "lineHeight": 22,
+          "ratio": 1.571,
+          "letterSpacingEm": 0,
+          "letterSpacingPx": 0,
+          "large": false
+        }
+      }
+    }
+  ],
+  "mistakes": [
+    {
+      "mistake": "Paragraph left at the browser's line height",
+      "measured": "16px text, line height ~1.2 (19.2px) — below 1.5",
+      "fix": "type.body.md",
+      "fixValue": "16/24px (1.5)"
+    },
+    {
+      "mistake": "11px meta text",
+      "measured": "11px — below the 12px floor",
+      "fix": "type.caption.md",
+      "fixValue": "12/18px"
+    },
+    {
+      "mistake": "Negative tracking on a button label",
+      "measured": "−0.02em on 14px = −0.28px a letter — letters crowd at small sizes",
+      "fix": "type.label.md",
+      "fixValue": "14px, letter-spacing 0"
+    },
+    {
+      "mistake": "Card title in a fixed 40px-high box",
+      "measured": "at 200% text size one line of 18px text needs 48px, so the box cuts it off",
+      "fix": "type.title.md",
+      "fixValue": "no fixed height: the box grows with the text"
+    },
+    {
+      "mistake": "Caption style for a paragraph of instructions",
+      "measured": "12px over many lines — tiring to read",
+      "fix": "type.body.sm",
+      "fixValue": "14px, or type.body.md for longer text"
+    },
+    {
+      "mistake": "Amounts in a column with proportional digits",
+      "measured": "1 is narrower than 0 in most fonts, so totals don't line up",
+      "fix": "type.numeric.md",
+      "fixValue": "every digit the same width (or add tabular-nums)"
+    }
+  ],
+  "primitives": {
+    "fontFamily": {
+      "--ds-font-family-sans": "sans",
+      "--ds-font-family-mono": "mono"
+    },
+    "fontWeight": {
+      "--ds-font-weight-regular": "regular",
+      "--ds-font-weight-medium": "medium",
+      "--ds-font-weight-semibold": "semibold",
+      "--ds-font-weight-bold": "bold"
+    },
+    "fontSize": [
+      "--ds-font-size-12",
+      "--ds-font-size-14",
+      "--ds-font-size-16",
+      "--ds-font-size-18",
+      "--ds-font-size-20",
+      "--ds-font-size-22",
+      "--ds-font-size-24",
+      "--ds-font-size-26",
+      "--ds-font-size-28",
+      "--ds-font-size-32",
+      "--ds-font-size-36",
+      "--ds-font-size-40",
+      "--ds-font-size-44",
+      "--ds-font-size-48",
+      "--ds-font-size-56",
+      "--ds-font-size-68"
+    ],
+    "letterSpacing": [
+      "--ds-font-letter-spacing-normal",
+      "--ds-font-letter-spacing-tight",
+      "--ds-font-letter-spacing-tighter",
+      "--ds-font-letter-spacing-caps"
+    ]
+  }
+}

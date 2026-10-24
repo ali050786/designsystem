@@ -1,0 +1,1 @@
+{ "name": "right-sidebar", "layout": { "panes": [ { "name": "layout.pane.right", "width": 400, "from": "lg", "side": "end", "description": "Details of the selected item" } ] } }

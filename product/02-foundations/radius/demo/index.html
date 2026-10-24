@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en" data-radius="default" data-density="default" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ds radius demo</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Every corner on this page is a ds shape role or a nested radius written on the roles: no px, no primitives.
+     Spacing, type and colour are ds tokens too. Switch the style at the top: every corner moves together. */
+  body { margin: 0; }
+  .top { z-index: var(--ds-layer-sticky); display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-lg);
+    padding: var(--ds-space-inset-md) var(--ds-layout-margin); background: var(--ds-elevation-sticky-surface); border-block-end: var(--ds-border-width-line) solid var(--ds-color-border-subtle); box-shadow: var(--ds-elevation-sticky-shadow); }
+  .top .name { margin: 0; margin-inline-end: auto; }
+  .settings { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-lg); }
+  @media (min-height: 30em) { .top { position: sticky; top: 0; } } /* sticky only where there is room (layout: the header and scrolling) */
+  main { display: grid; gap: var(--ds-space-stack-2xl); padding-block: var(--ds-space-inset-2xl); }
+  main > *, .row > * { min-width: 0; }
+  section > h2 { margin: 0 0 var(--ds-space-stack-xs); }
+  section > .intro { margin: 0 0 var(--ds-space-stack-lg); color: var(--ds-color-fg-muted); }
+  h3, p { margin: 0; }
+  .row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--ds-space-stack-xl) var(--ds-space-inline-xl); }
+  .stack { display: grid; gap: var(--ds-space-stack-sm); justify-items: start; }
+  .muted { color: var(--ds-color-fg-muted); }
+  .role { display: inline-block; padding: 0 var(--ds-space-inset-xs); border-radius: var(--ds-shape-mark); background: var(--ds-color-bg-brand-subtle); color: var(--ds-color-fg-brand); }
+
+  /* Switches: radio groups drawn as segmented controls; each option fills the group, so it takes the nested radius */
+  .seg { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-inline-sm); border: 0; margin: 0; padding: 0; min-inline-size: 0; }
+  .seg legend { float: inline-start; padding: 0; color: var(--ds-color-fg-muted); }
+  .seg .opts { display: inline-flex; flex-wrap: wrap; max-width: 100%; box-sizing: border-box; padding: var(--ds-space-inset-xs); gap: var(--ds-space-inline-xs); border: var(--ds-border-width-control) solid var(--ds-color-border-strong); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .seg label { position: relative; display: inline-flex; align-items: center; min-height: var(--ds-size-target-min); padding: 0 var(--ds-space-inset-sm); border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs)); color: var(--ds-color-fg-muted); cursor: pointer; }
+  .seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .seg label:has(input:checked) { background: var(--ds-color-bg-selected); color: var(--ds-color-fg-default); font-weight: var(--ds-font-weight-semibold); }
+  .seg label:has(input:focus-visible) { outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color); outline-offset: var(--ds-focus-ring-offset); }
+
+  /* Controls */
+  .btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md);
+    border-radius: var(--ds-shape-control); border: var(--ds-border-width-control) solid transparent; font: inherit; text-decoration: none; cursor: pointer; }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-primary:hover { background: var(--ds-color-action-primary-bg-hover); }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-secondary:hover { background: var(--ds-color-action-secondary-bg-hover); }
+  .btn[aria-pressed="true"] { background: var(--ds-color-bg-selected); color: var(--ds-color-fg-default); font-weight: var(--ds-font-weight-semibold); }
+  .input { box-sizing: border-box; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); min-width: 0;
+    background: var(--ds-color-bg-surface); color: var(--ds-color-fg-default); border: var(--ds-border-width-control) solid var(--ds-color-border-input); border-radius: var(--ds-shape-control); }
+  .field { display: grid; gap: var(--ds-space-stack-xs); }
+  .check { display: inline-flex; align-items: center; gap: var(--ds-space-inline-sm); min-height: var(--ds-size-target-min); cursor: pointer; }
+  .check input { appearance: none; inline-size: 1rem; block-size: 1rem; margin: 0; display: grid; place-content: center; border: var(--ds-border-width-control) solid var(--ds-color-border-input); border-radius: var(--ds-shape-mark); background: var(--ds-color-bg-surface); }
+  .check input:checked { background: var(--ds-color-action-primary-bg); border-color: var(--ds-color-action-primary-bg); }
+  .check input[type="checkbox"]:checked::after { content: ""; inline-size: 0.25rem; block-size: 0.5rem; border: solid var(--ds-color-action-primary-fg); border-width: 0 var(--ds-border-width-state) var(--ds-border-width-state) 0; transform: translateY(-15%) rotate(45deg); }
+  .check input[type="radio"] { border-radius: var(--ds-shape-pill); }
+  .check input[type="radio"]:checked::after { content: ""; inline-size: 0.375rem; block-size: 0.375rem; border-radius: var(--ds-shape-pill); background: var(--ds-color-action-primary-fg); }
+  kbd { padding: 0 var(--ds-space-inset-xs); border: var(--ds-border-width-line) solid var(--ds-color-border-default); border-radius: var(--ds-shape-mark); background: var(--ds-color-bg-surface-sunken); }
+  .swatch { display: inline-block; inline-size: 1rem; block-size: 1rem; border-radius: var(--ds-shape-mark); background: var(--ds-color-bg-brand); vertical-align: middle; }
+  .badge { display: inline-flex; align-items: center; padding: var(--ds-space-inset-xs) var(--ds-space-inset-sm); border-radius: var(--ds-shape-pill); background: var(--ds-color-bg-brand-subtle); color: var(--ds-color-fg-brand); white-space: nowrap; }
+  /* An avatar grows with its initials (minimum sizes, square): at 200% text a fixed 40px circle cut the letters off its fill */
+  .avatar { display: inline-grid; place-content: center; box-sizing: border-box; min-inline-size: var(--ds-size-control-height); min-block-size: var(--ds-size-control-height); aspect-ratio: 1; padding: var(--ds-space-inset-xs); border-radius: var(--ds-shape-pill); background: var(--ds-color-bg-selected); color: var(--ds-color-fg-default); }
+
+  /* Containers */
+  .card { box-sizing: border-box; max-width: 100%; background: var(--ds-elevation-raised-surface); border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); box-shadow: var(--ds-elevation-raised-shadow); }
+  .card-body { display: grid; gap: var(--ds-space-stack-md); padding: var(--ds-space-inset-lg); }
+  /* A flush header takes the card's radius on the corners it shares — no overflow: hidden, so no focus ring is cut */
+  .card-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-xs) var(--ds-space-inline-sm); padding: var(--ds-space-inset-md) var(--ds-space-inset-lg);
+    background: var(--ds-color-bg-surface-sunken); border-start-start-radius: var(--ds-shape-container); border-start-end-radius: var(--ds-shape-container); }
+  .card-head h3 { margin-inline-end: auto; }
+  .plan { inline-size: min(100%, 20rem); }
+  /* A panel that fills the card, inset by inset/xs: nested radius */
+  .inset-card { padding: var(--ds-space-inset-xs); }
+  .panel { display: grid; gap: var(--ds-space-stack-xs); padding: var(--ds-space-inset-md); background: var(--ds-color-bg-brand-subtle); border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs)); }
+  .menu { list-style: none; margin: 0; padding: var(--ds-space-inset-xs); min-width: min(14rem, 100%); background: var(--ds-elevation-floating-surface); border: var(--ds-border-width-line) solid var(--ds-elevation-floating-border); border-radius: var(--ds-shape-container); box-shadow: var(--ds-elevation-floating-shadow); }
+  .menu a { display: flex; align-items: center; min-height: var(--ds-size-control-height); padding: 0 var(--ds-space-inset-sm); border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs)); color: var(--ds-color-fg-default); text-decoration: none; }
+  .menu a:hover { background: var(--ds-color-bg-item-hover); }
+  .table-frame { border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  table { border-collapse: collapse; inline-size: 100%; }
+  th, td { padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); text-align: start; border-block-end: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+  tr:last-child td { border-block-end: 0; }
+  /* The header row is flush with the frame: its outer cells take the frame's radius on the corners they share */
+  thead th { background: var(--ds-color-bg-surface-sunken); }
+  thead th:first-child { border-start-start-radius: var(--ds-shape-container); }
+  thead th:last-child { border-start-end-radius: var(--ds-shape-container); }
+  .sheet { display: grid; gap: var(--ds-space-stack-lg); max-inline-size: 26rem; padding: var(--ds-space-inset-xl); background: var(--ds-elevation-modal-surface); border: var(--ds-border-width-line) solid var(--ds-elevation-modal-border); border-radius: var(--ds-shape-surface); box-shadow: var(--ds-elevation-modal-shadow); }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--ds-space-stack-sm) var(--ds-space-inline-sm); }
+  .join-input .input { flex: 1 1 10rem; }
+
+  /* The readout */
+  .readout { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr)); gap: var(--ds-space-stack-sm) var(--ds-space-inline-lg); padding: var(--ds-space-inset-md); background: var(--ds-color-bg-surface-sunken); border-radius: var(--ds-shape-container); margin: 0; }
+  .readout div { display: grid; gap: 0; }
+  .readout dt { color: var(--ds-color-fg-muted); }
+  .readout dd { margin: 0; }
+</style>
+</head>
+<body>
+<div class="top">
+  <h1 class="name ds-type-title-md">ds · radius demo</h1>
+  <form class="settings" aria-label="Demo settings">
+    <fieldset class="seg"><legend class="ds-type-label-md">Radius style&nbsp;</legend><div class="opts ds-type-label-md">
+      <label><input type="radio" name="radius" value="sharp">sharp</label><label><input type="radio" name="radius" value="default" checked>default</label><label><input type="radio" name="radius" value="round">round</label></div></fieldset>
+    <fieldset class="seg"><legend class="ds-type-label-md">Density&nbsp;</legend><div class="opts ds-type-label-md">
+      <label><input type="radio" name="density" value="comfortable">comfortable</label><label><input type="radio" name="density" value="default" checked>default</label><label><input type="radio" name="density" value="compact">compact</label></div></fieldset>
+    <fieldset class="seg"><legend class="ds-type-label-md">Direction&nbsp;</legend><div class="opts ds-type-label-md">
+      <label><input type="radio" name="dir" value="ltr" checked>left to right</label><label><input type="radio" name="dir" value="rtl">right to left</label></div></fieldset>
+  </form>
+</div>
+
+<main class="ds-page">
+  <section aria-labelledby="h-roles">
+    <h2 id="h-roles" class="ds-type-heading-md">Roles by job</h2>
+    <p class="intro ds-type-body-md ds-measure">Every shape takes the role of what it is. Switch the style at the top: every role moves together, and a checkbox stays square while the radio next to it stays round.</p>
+    <div class="row">
+      <div class="stack">
+        <span class="role ds-type-code-sm">shape.mark</span>
+        <label class="check ds-type-body-md"><input type="checkbox" checked> Billed yearly</label>
+        <label class="check ds-type-body-md"><input type="radio" name="plan-r" checked> A radio, for comparison</label>
+        <p class="ds-type-body-md">Press <kbd class="ds-type-code-sm">Ctrl</kbd> <kbd class="ds-type-code-sm">K</kbd> · brand <span class="swatch" aria-hidden="true"></span></p>
+      </div>
+      <div class="stack">
+        <span class="role ds-type-code-sm">shape.control</span>
+        <div class="actions"><button class="btn btn-primary ds-type-label-md" type="button">Save</button><button class="btn btn-secondary ds-type-label-md" type="button">Cancel</button></div>
+        <div class="field"><label class="ds-type-label-md" for="team">Team name</label><input class="input ds-type-body-md" id="team" value="Atlas"></div>
+      </div>
+      <div class="stack">
+        <span class="role ds-type-code-sm">shape.pill</span>
+        <span class="badge ds-type-label-sm">Beta</span>
+        <span class="avatar ds-type-label-md" role="img" aria-label="Sikandar Ali">SA</span>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-styles">
+    <h2 id="h-styles" class="ds-type-heading-md">One card, three styles</h2>
+    <p class="intro ds-type-body-md ds-measure">The same card three times, each with its own <code class="ds-type-code-sm">data-radius</code>. Nothing else differs.</p>
+    <div class="row">
+      <article class="card plan" data-radius="sharp" aria-label="Sharp"><div class="card-head"><h3 class="ds-type-title-md">Pro plan</h3><span class="badge ds-type-label-sm">sharp</span></div>
+        <div class="card-body"><label class="check ds-type-body-md"><input type="checkbox" checked> Billed yearly</label><div class="actions"><a class="btn btn-primary ds-type-label-md" href="#h-joined">Choose</a></div></div></article>
+      <article class="card plan" data-radius="default" aria-label="Default"><div class="card-head"><h3 class="ds-type-title-md">Pro plan</h3><span class="badge ds-type-label-sm">default</span></div>
+        <div class="card-body"><label class="check ds-type-body-md"><input type="checkbox" checked> Billed yearly</label><div class="actions"><a class="btn btn-primary ds-type-label-md" href="#h-joined">Choose</a></div></div></article>
+      <article class="card plan" data-radius="round" aria-label="Round"><div class="card-head"><h3 class="ds-type-title-md">Pro plan</h3><span class="badge ds-type-label-sm">round</span></div>
+        <div class="card-body"><label class="check ds-type-body-md"><input type="checkbox" checked> Billed yearly</label><div class="actions"><a class="btn btn-primary ds-type-label-md" href="#h-joined">Choose</a></div></div></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-nested">
+    <h2 id="h-nested" class="ds-type-heading-md">Nested corners</h2>
+    <p class="intro ds-type-body-md ds-measure">A shape that fills a rounded one takes the parent's radius minus the padding, written on the tokens — so it follows the style and the density. A flush header takes the card's radius on the corners it shares; nothing is clipped.</p>
+    <div class="row">
+      <article class="card inset-card plan" aria-labelledby="h-usage">
+        <div class="panel"><h3 id="h-usage" class="ds-type-title-sm">Storage</h3><p class="ds-type-body-sm">12 of 50 GB used. <a href="#h-readout">How is this counted?</a></p></div>
+      </article>
+      <nav aria-label="Account"><ul class="menu ds-type-label-md"><li><a href="#h-roles">Profile</a></li><li><a href="#h-styles">Plans</a></li><li><a href="#h-readout">Sign out</a></li></ul></nav>
+      <div class="table-frame" role="region" aria-label="Members" tabindex="0">
+        <table class="ds-type-body-sm"><thead><tr><th scope="col">Name</th><th scope="col">Role</th></tr></thead>
+          <tbody><tr><td>Sikandar Ali</td><td>Owner</td></tr><tr><td>Mira Rao</td><td>Editor</td></tr></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-joined">
+    <h2 id="h-joined" class="ds-type-heading-md">Joined corners</h2>
+    <p class="intro ds-type-body-md ds-measure">Parts that touch read as one shape: the outer corners keep the role, the edges where they meet are square. The corners are logical — switch to right to left and the group flips. A focused part comes forward, so its neighbour never covers the ring.</p>
+    <div class="row">
+      <div class="ds-join" role="group" aria-label="View">
+        <button class="btn btn-secondary ds-type-label-md" type="button" aria-pressed="true">List</button><button class="btn btn-secondary ds-type-label-md" type="button" aria-pressed="false">Board</button><button class="btn btn-secondary ds-type-label-md" type="button" aria-pressed="false">Calendar</button>
+      </div>
+      <form class="ds-join join-input" aria-label="Invite" onsubmit="return false">
+        <input class="input ds-type-body-md" aria-label="Email address" placeholder="name@example.com"><button class="btn btn-primary ds-type-label-md" type="submit">Invite</button>
+      </form>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-surface">
+    <h2 id="h-surface" class="ds-type-heading-md">A surface</h2>
+    <p class="intro ds-type-body-md ds-measure">Dialogs, sheets and drawers take the largest radius: they sit on top of everything.</p>
+    <div class="sheet" role="group" aria-labelledby="h-delete">
+      <h3 id="h-delete" class="ds-type-title-lg">Delete project?</h3>
+      <p class="ds-type-body-md muted">Its files and reports go to the bin for 30 days.</p>
+      <div class="actions"><button class="btn btn-primary ds-type-label-md" type="button">Delete</button><button class="btn btn-secondary ds-type-label-md" type="button">Keep it</button></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-readout">
+    <h2 id="h-readout" class="ds-type-heading-md">What the page is using now</h2>
+    <p class="intro ds-type-body-md ds-measure">Read live from the page: the roles in the current style, and the nested radii in the current density.</p>
+    <dl class="readout ds-type-body-sm" id="readout" aria-live="polite"></dl>
+  </section>
+</main>
+
+<script>
+  const root = document.documentElement;
+  const bar = document.querySelector('.top');
+  const tall = matchMedia('(min-height: 30em)');
+  // Clear the bar and the focus ring above a focused item (its offset + width).
+  const ringReach = () => { const cs = getComputedStyle(root); return parseFloat(cs.getPropertyValue('--ds-focus-ring-offset')) + parseFloat(cs.getPropertyValue('--ds-focus-ring-width')); };
+  const pad = () => { root.style.scrollPaddingTop = tall.matches ? `${bar.getBoundingClientRect().height + ringReach()}px` : ''; };
+  const px = (sel, prop = 'borderStartStartRadius') => { const el = document.querySelector(sel); return el ? getComputedStyle(el)[prop] : '—'; };
+  function readout() {
+    const cs = getComputedStyle(root);
+    const items = [
+      ...['mark', 'control', 'container', 'surface'].map((r) => [`shape.${r}`, (() => { const p = document.createElement('div'); p.style.borderRadius = `var(--ds-shape-${r})`; document.body.append(p); const v = getComputedStyle(p).borderTopLeftRadius; p.remove(); return v; })()]),
+      ['inset.xs (padding)', cs.getPropertyValue('--ds-space-inset-xs').trim()],
+      ['Panel in the card', px('.panel')],
+      ['Menu item', px('.menu a')],
+      ['Card header in this style (shared corner)', px(`.plan[data-radius="${root.getAttribute('data-radius')}"] .card-head`)],
+    ];
+    document.getElementById('readout').innerHTML = items.map(([k, v]) => `<div><dt>${k}</dt><dd class="ds-type-code-md">${v}</dd></div>`).join('');
+  }
+  for (const [name, attr] of [['radius', 'data-radius'], ['density', 'data-density'], ['dir', 'dir']]) {
+    for (const r of document.querySelectorAll(`input[name="${name}"]`)) r.addEventListener('change', () => { root.setAttribute(attr, r.value); pad(); readout(); });
+  }
+  for (const b of document.querySelectorAll('[aria-label="View"] .btn')) b.addEventListener('click', () => { for (const o of b.parentElement.children) o.setAttribute('aria-pressed', String(o === b)); });
+  tall.addEventListener('change', pad); new ResizeObserver(pad).observe(bar, { box: "border-box" }); // the bar wraps: measure it whenever it changes
+  pad(); readout();
+</script>
+</body>
+</html>

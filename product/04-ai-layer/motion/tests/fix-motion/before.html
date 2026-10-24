@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reports · before</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+  main { display: grid; gap: var(--ds-space-stack-xl); padding-block: var(--ds-space-inset-2xl); }
+  h1, h2, p { margin: 0; }
+  .muted { color: var(--ds-color-fg-muted); }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-inline-sm); }
+  @keyframes slide-in { from { opacity: 0; transform: translateX(-60px); } }
+  .intro { animation: slide-in 800ms ease-out; }
+  .btn { display: inline-flex; align-items: center; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; border-radius: var(--ds-shape-control); font: inherit; cursor: pointer; transition: all 300ms ease-in-out; }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-primary:hover { background: var(--ds-color-action-primary-bg-hover); transform: translateY(-2px); }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-secondary:hover { background: var(--ds-color-action-secondary-bg-hover); }
+  .btn-danger { background: var(--ds-color-action-danger-bg); color: var(--ds-color-action-danger-fg); }
+  .menu { margin: 0; padding: var(--ds-space-inset-xs); min-inline-size: 12rem; border-radius: var(--ds-shape-container); }
+  .menu:popover-open { position: fixed; inset: auto; animation: drop-in 200ms ease-out; }
+  @keyframes drop-in { from { opacity: 0; transform: scale(0.95); } }
+  .menu button { display: flex; inline-size: 100%; min-height: var(--ds-size-control-height); align-items: center; padding: 0 var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs)); background: transparent; color: var(--ds-color-fg-default); font: inherit; text-align: start; cursor: pointer; }
+  .menu button:hover { background: var(--ds-color-bg-item-hover); }
+  dialog.ds-modal { box-sizing: border-box; inline-size: min(28rem, 100% - 2 * var(--ds-layout-margin)); padding: var(--ds-space-inset-xl); border-radius: var(--ds-shape-surface); }
+  dialog.ds-modal[open] { animation: zoom-in 350ms cubic-bezier(.2, .9, .3, 1.4); }
+  @keyframes zoom-in { from { opacity: 0; transform: scale(0.8); } }
+  dialog.ds-modal::backdrop { animation: fade 500ms; }
+  @keyframes fade { from { opacity: 0; } }
+  dialog .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--ds-space-inline-sm); margin-block-start: var(--ds-space-stack-lg); }
+  .toast { margin: 0; inset: auto var(--ds-layout-margin) var(--ds-layout-margin) auto; padding: var(--ds-space-inset-md) var(--ds-space-inset-lg); border-radius: var(--ds-shape-container); }
+  .toast:popover-open { animation: from-right 400ms ease-out; }
+  @keyframes from-right { from { transform: translateX(120%); } }
+  .panel { max-inline-size: 34rem; border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .panel button { display: flex; inline-size: 100%; justify-content: space-between; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; background: transparent; color: var(--ds-color-fg-default); font: inherit; cursor: pointer; }
+  .panel .body { max-height: 0; overflow: hidden; transition: max-height 400ms ease; }
+  .panel.open .body { max-height: 12rem; }
+  .panel .body p { padding: 0 var(--ds-space-inset-md) var(--ds-space-inset-md); }
+  .spinner { display: inline-block; width: 16px; height: 16px; border: var(--ds-border-width-state) solid currentColor; border-top-color: transparent; border-radius: var(--ds-shape-pill); animation: spin 800ms linear infinite; }
+  .spinner[hidden] { display: none; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .skeleton { block-size: 4rem; max-inline-size: 34rem; border-radius: var(--ds-shape-container); background: linear-gradient(90deg, var(--ds-color-bg-surface-sunken), var(--ds-color-bg-surface), var(--ds-color-bg-surface-sunken)); background-size: 200% 100%; animation: shimmer 1.2s linear infinite; }
+  .skeleton[hidden] { display: none; }
+  @keyframes shimmer { to { background-position: -200% 0; } }
+</style>
+</head>
+<body>
+<main class="ds-page">
+  <div class="intro">
+    <h1 class="ds-type-heading-lg">Reports</h1>
+    <p class="muted">Sent this year: <strong id="sent" class="ds-type-numeric-md">0</strong></p>
+  </div>
+  <div class="row">
+    <button class="btn btn-primary" type="button" id="run">Run report</button>
+    <span class="spinner" id="spinner" aria-hidden="true" hidden></span>
+    <span id="run-status" role="status"></span>
+    <button class="btn btn-secondary" type="button" id="more" popovertarget="more-menu">More ▾</button>
+    <button class="btn btn-danger" type="button" id="open-delete">Delete report…</button>
+  </div>
+  <div class="menu ds-floating" id="more-menu" popover aria-label="More"><button type="button">Duplicate</button><button type="button">Download as CSV</button></div>
+  <div class="skeleton" id="skeleton" aria-hidden="true" hidden></div>
+  <div class="panel" id="panel"><button type="button" aria-expanded="false" aria-controls="panel-body" id="panel-toggle">Who receives it</button><div class="body" id="panel-body" role="region" aria-labelledby="panel-toggle"><p>The finance team and the account owner, every Monday at 9:00.</p></div></div>
+</main>
+<dialog class="ds-modal" id="delete" aria-labelledby="delete-title">
+  <form method="dialog"><h2 id="delete-title" class="ds-type-title-lg">Delete this report?</h2><p class="muted">Past copies stay in people's inboxes.</p>
+    <div class="actions"><button class="btn btn-secondary" value="keep" type="submit">Keep it</button><button class="btn btn-danger" value="delete" type="submit" id="confirm">Delete report</button></div></form>
+</dialog>
+<div class="toast ds-floating" data-layer="toast" id="toast" popover="manual" role="status">Report deleted.</div>
+<script>
+  // Count the number up on load.
+  const sent = document.getElementById('sent'), target = 1234, t0 = performance.now();
+  const roll = (t) => { const k = Math.min(1, (t - t0) / 1000); sent.textContent = Math.round(target * k).toLocaleString('en-IN'); if (k < 1) requestAnimationFrame(roll); };
+  requestAnimationFrame(roll);
+  // Run: skeleton and spinner while it runs.
+  document.getElementById('run').addEventListener('click', () => {
+    document.getElementById('spinner').hidden = false; document.getElementById('skeleton').hidden = false; document.getElementById('run-status').textContent = 'Running…';
+    setTimeout(() => { document.getElementById('skeleton').hidden = true; document.getElementById('run-status').textContent = 'Report ready.'; }, 3000);
+  });
+  // Panel.
+  const panel = document.getElementById('panel'), pt = document.getElementById('panel-toggle');
+  pt.addEventListener('click', () => { const open = !panel.classList.contains('open'); panel.classList.toggle('open', open); pt.setAttribute('aria-expanded', String(open)); });
+  // Menu next to its button.
+  const menu = document.getElementById('more-menu'), more = document.getElementById('more');
+  menu.addEventListener('toggle', (e) => { if (e.newState !== 'open') return; const r = more.getBoundingClientRect(); menu.style.left = `${Math.max(8, Math.min(r.left, innerWidth - menu.offsetWidth - 8))}px`; menu.style.top = `${r.bottom + 4}px`; menu.querySelector('button').focus(); });
+  // Dialog, then a toast.
+  const dlg = document.getElementById('delete'), opener = document.getElementById('open-delete');
+  opener.addEventListener('click', () => dlg.showModal());
+  dlg.addEventListener('close', () => { opener.focus(); if (dlg.returnValue === 'delete') { const t = document.getElementById('toast'); t.showPopover(); setTimeout(() => t.hidePopover(), 5000); } });
+</script>
+</body>
+</html>

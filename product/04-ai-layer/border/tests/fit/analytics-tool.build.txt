@@ -1,0 +1,9 @@
+pass  F2  2/2 pass     Focus ring ≥ 2px thick with an offset (colour checked in C3)
+pass  B1  13/13 pass   Widths are whole pixels from 1 to 3px on the scale — no hairlines below a pixel — and px in code, so a line stays a line at 200% text
+pass  B2  5/5 pass     Jobs stay apart: a state is wider than the control it marks, jobs that share a width use different colours, and the focus ring stands off the element
+pass  B3  10/10 pass   Lines people need — control boundaries, states, the current-item bar — reach 3:1 against every background, in Light and Dark
+pass  B4  9/9 pass     States don't move content: a wider border takes its extra width off the padding, and at least 2px of padding is left in every density
+pass  B5  2/2 pass     Joined parts share one line: parts overlap by the control width and the part that changes is lifted above its neighbours
+pass  B6  5/5 pass     Forced colours (Windows contrast themes) keep every cue: the focus ring is an outline, states get a system-colour outline, disabled controls turn GrayText, overlays keep a border
+ds: 415 tokens → /tmp/fit-analytics-tool/  ·  PASS
+line 1px · control 1px · state 2px · indicator 3px

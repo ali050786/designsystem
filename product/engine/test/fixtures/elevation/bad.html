@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<style>
+  .a { box-shadow: 0 4px 12px rgba(0,0,0,.2); }
+  .b { box-shadow: 0 2px 8px 0 var(--ds-color-shadow-2); }
+  .c { background: var(--ds-elevation-raised-surface); box-shadow: var(--ds-elevation-floating-shadow); border: var(--ds-border-width-line) solid var(--ds-elevation-floating-border); }
+  .d { background: var(--ds-elevation-floating-surface); box-shadow: var(--ds-elevation-floating-shadow); }
+  .e { z-index: 9999; }
+  .f::backdrop { background: rgba(0,0,0,.5); }
+  [data-theme="dark"] .g { box-shadow: 0 2px 8px rgba(0,0,0,.6); }
+  .h:hover { box-shadow: var(--ds-elevation-sticky-shadow); }
+  .i { backdrop-filter: blur(12px); }
+  .j { --ds-layer-modal: 10; }
+  .k { box-shadow: var(--ds-elevation-3-shadow); }
+  .ds-floating.plain { border: none; }
+</style>
+</head>
+<body>
+  <dialog open>…</dialog>
+  <div role="dialog" aria-modal="true">…</div>
+</body>
+</html>

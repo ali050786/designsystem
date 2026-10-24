@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Invoices</title>
+<link rel="stylesheet" href="../build/tokens.css">
+<style>
+  /* The "before" page for the fix-the-stacking test: z-index numbers, a menu inside a scrolling table, a modal made of
+     divs, and a toast under the modal's overlay. Everything else follows ds. */
+  body { margin: 0; }
+  .top { position: sticky; top: 0; z-index: 1000; display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-inline-md); padding: var(--ds-space-inset-md) var(--ds-layout-margin);
+    background: var(--ds-elevation-sticky-surface); box-shadow: var(--ds-elevation-sticky-shadow); border-block-end: var(--ds-border-width-line) solid var(--ds-elevation-sticky-border); }
+  .top h1 { margin: 0; margin-inline-end: auto; }
+  main { display: grid; gap: var(--ds-space-stack-xl); padding-block: var(--ds-space-inset-2xl); }
+  main > * { min-width: 0; }
+  h2, p { margin: 0; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md);
+    border-radius: var(--ds-shape-control); border: var(--ds-border-width-control) solid transparent; font: inherit; cursor: pointer; }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-danger { background: var(--ds-color-action-danger-bg); color: var(--ds-color-action-danger-fg); }
+
+  .table-wrap { overflow: auto; border-radius: var(--ds-shape-container); background: var(--ds-elevation-raised-surface); box-shadow: var(--ds-elevation-raised-shadow); }
+  table { inline-size: 100%; border-collapse: collapse; }
+  th, td { text-align: start; padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); border-block-end: var(--ds-border-width-line) solid var(--ds-color-border-subtle); }
+  thead th { position: sticky; top: 0; z-index: 5; background: var(--ds-color-bg-surface-sunken); }
+  td.actions { position: relative; text-align: end; }
+  .row-menu { position: absolute; inset-inline-end: var(--ds-space-inset-md); top: 100%; z-index: 9999; display: none; min-inline-size: 11rem; padding: var(--ds-space-inset-xs); border-radius: var(--ds-shape-container);
+    background: var(--ds-elevation-floating-surface); box-shadow: var(--ds-elevation-floating-shadow); border: var(--ds-border-width-line) solid var(--ds-elevation-floating-border); text-align: start; }
+  .row-menu.open { display: grid; }
+  .row-menu button { min-height: var(--ds-size-control-height); padding: 0 var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; background: transparent; color: var(--ds-color-fg-default); font: inherit; text-align: start; }
+
+  .overlay { position: fixed; inset: 0; z-index: 5000; display: none; place-items: center; background: var(--ds-elevation-modal-scrim); }
+  .overlay.open { display: grid; }
+  .modal { box-sizing: border-box; inline-size: min(28rem, 100% - 2 * var(--ds-layout-margin)); padding: var(--ds-space-inset-xl); border-radius: var(--ds-shape-surface);
+    background: var(--ds-elevation-modal-surface); box-shadow: var(--ds-elevation-modal-shadow); border: var(--ds-border-width-line) solid var(--ds-elevation-modal-border); display: grid; gap: var(--ds-space-stack-md); }
+  .modal .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--ds-space-inline-sm); }
+
+  .toast { position: fixed; inset: auto var(--ds-layout-margin) var(--ds-layout-margin) auto; z-index: 100; display: none; padding: var(--ds-space-inset-md) var(--ds-space-inset-lg); border-radius: var(--ds-shape-container);
+    background: var(--ds-elevation-floating-surface); box-shadow: var(--ds-elevation-floating-shadow); border: var(--ds-border-width-line) solid var(--ds-elevation-floating-border); }
+  .toast.show { display: block; }
+</style>
+</head>
+<body>
+<header class="top"><h1 class="ds-type-title-lg">Invoices</h1><button class="btn btn-secondary" type="button">Export</button></header>
+<main class="ds-page">
+  <section aria-labelledby="h-inv">
+    <h2 id="h-inv">This month</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th scope="col">Invoice</th><th scope="col">Customer</th><th scope="col">Amount</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead>
+        <tbody>
+          <tr><td>INV-1042</td><td>Northwind</td><td>€1,200.00</td><td class="actions"><button class="btn btn-secondary" type="button" id="more-1042" aria-expanded="false" aria-label="More actions for INV-1042">⋯</button>
+            <div class="row-menu" id="menu-1042"><button type="button">Download PDF</button><button type="button" id="void-1042">Void invoice…</button></div></td></tr>
+          <tr><td>INV-1043</td><td>Contoso</td><td>€640.00</td><td class="actions"></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<div class="overlay" id="overlay">
+  <div class="modal" role="dialog" aria-labelledby="void-title">
+    <h2 id="void-title" class="ds-type-title-lg">Void INV-1042?</h2>
+    <p>The customer can no longer pay it. This can't be undone.</p>
+    <div class="actions"><button class="btn btn-secondary" type="button" id="keep">Keep it</button><button class="btn btn-danger" type="button" id="void">Void invoice</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status">INV-1042 voided.</div>
+
+<script>
+  const more = document.getElementById('more-1042'), menu = document.getElementById('menu-1042'), overlay = document.getElementById('overlay'), toast = document.getElementById('toast');
+  more.addEventListener('click', () => more.setAttribute('aria-expanded', menu.classList.toggle('open')));
+  document.getElementById('void-1042').addEventListener('click', () => { menu.classList.remove('open'); overlay.classList.add('open'); document.getElementById('keep').focus(); });
+  document.getElementById('keep').addEventListener('click', () => { overlay.classList.remove('open'); more.focus(); });
+  document.getElementById('void').addEventListener('click', () => { toast.classList.add('show'); setTimeout(() => { overlay.classList.remove('open'); more.focus(); }, 1500); });
+</script>
+</body>
+</html>

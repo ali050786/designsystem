@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reports · after</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  body { margin: 0; }
+  main { display: grid; gap: var(--ds-space-stack-xl); padding-block: var(--ds-space-inset-2xl); }
+  h1, h2, p { margin: 0; }
+  .muted { color: var(--ds-color-fg-muted); }
+  .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-inline-sm); }
+  .btn { display: inline-flex; align-items: center; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; border-radius: var(--ds-shape-control); font: inherit; cursor: pointer;
+    transition: background-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing), border-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing), color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing); }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-primary:hover { background: var(--ds-color-action-primary-bg-hover); }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-secondary:hover { background: var(--ds-color-action-secondary-bg-hover); }
+  .btn-danger { background: var(--ds-color-action-danger-bg); color: var(--ds-color-action-danger-fg); }
+  .btn-danger:hover { background: var(--ds-color-action-danger-bg-hover); }
+  .menu { margin: 0; padding: var(--ds-space-inset-xs); min-inline-size: 12rem; border-radius: var(--ds-shape-container); }
+  .menu:popover-open { position: fixed; inset: auto; }
+  .menu button { display: flex; inline-size: 100%; min-height: var(--ds-size-control-height); align-items: center; padding: 0 var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs)); background: transparent; color: var(--ds-color-fg-default); font: inherit; text-align: start; cursor: pointer;
+    transition: background-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing); }
+  .menu button:hover { background: var(--ds-color-bg-item-hover); }
+  dialog.ds-modal { box-sizing: border-box; inline-size: min(28rem, 100% - 2 * var(--ds-layout-margin)); padding: var(--ds-space-inset-xl); border-radius: var(--ds-shape-surface); }
+  dialog .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--ds-space-inline-sm); margin-block-start: var(--ds-space-stack-lg); }
+  .toast { margin: 0; inset: auto var(--ds-layout-margin) var(--ds-layout-margin) auto; padding: var(--ds-space-inset-md) var(--ds-space-inset-lg); border-radius: var(--ds-shape-container); }
+  .panel { max-inline-size: 34rem; border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .panel button { display: flex; inline-size: 100%; justify-content: space-between; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; background: transparent; color: var(--ds-color-fg-default); font: inherit; cursor: pointer; }
+  /* The panel takes its new size at once; its content arrives by the change job's distance (only fades in reduced motion) */
+  @keyframes arrive { from { opacity: 0; translate: 0 calc(-1 * var(--ds-motion-change-distance)); } }
+  .panel .body:not([hidden]) { animation: arrive var(--ds-motion-change-duration) var(--ds-motion-change-easing); }
+  .panel .body p { padding: 0 var(--ds-space-inset-md) var(--ds-space-inset-md); }
+  .status { display: inline-flex; align-items: center; gap: var(--ds-space-inline-sm); }
+  .status svg { color: var(--ds-color-fg-icon); flex: none; }
+  .skeleton { block-size: 4rem; max-inline-size: 34rem; border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface-sunken); } /* still: a placeholder, not a loop */
+  .skeleton[hidden] { display: none; }
+</style>
+</head>
+<body>
+<main class="ds-page">
+  <div class="intro">
+    <h1 class="ds-type-heading-lg">Reports</h1>
+    <p class="muted">Sent this year: <strong id="sent" class="ds-type-numeric-md">0</strong></p>
+  </div>
+  <div class="row">
+    <button class="btn btn-primary" type="button" id="run">Run report</button>
+    <span class="status" role="status"><svg class="ds-loading" id="spinner" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" hidden><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="26 12" stroke-linecap="round"/></svg><span id="run-status"></span></span>
+    <button class="btn btn-secondary" type="button" id="more" popovertarget="more-menu">More ▾</button>
+    <button class="btn btn-danger" type="button" id="open-delete">Delete report…</button>
+  </div>
+  <div class="menu ds-floating" id="more-menu" popover aria-label="More"><button type="button">Duplicate</button><button type="button">Download as CSV</button></div>
+  <div class="skeleton" id="skeleton" aria-hidden="true" hidden></div>
+  <div class="panel" id="panel"><button type="button" aria-expanded="false" aria-controls="panel-body" id="panel-toggle">Who receives it</button><div class="body" id="panel-body" role="region" aria-labelledby="panel-toggle" hidden><p>The finance team and the account owner, every Monday at 9:00.</p></div></div>
+</main>
+<dialog class="ds-modal" id="delete" aria-labelledby="delete-title">
+  <form method="dialog"><h2 id="delete-title" class="ds-type-title-lg">Delete this report?</h2><p class="muted">Past copies stay in people's inboxes.</p>
+    <div class="actions"><button class="btn btn-secondary" value="keep" type="submit">Keep it</button><button class="btn btn-danger" value="delete" type="submit" id="confirm">Delete report</button></div></form>
+</dialog>
+<div class="toast ds-floating" data-layer="toast" id="toast" popover="manual" role="status">Report deleted.</div>
+<script>
+  // The number is the number: no rolling digits.
+  document.getElementById('sent').textContent = (1234).toLocaleString('en-IN');
+  // Run: skeleton and spinner while it runs.
+  document.getElementById('run').addEventListener('click', () => {
+    document.getElementById('spinner').hidden = false; document.getElementById('skeleton').hidden = false; document.getElementById('run-status').textContent = 'Running…';
+    setTimeout(() => { document.getElementById('skeleton').hidden = true; document.getElementById('spinner').hidden = true; const s = document.getElementById('run-status'); s.textContent = 'Report ready.'; s.classList.remove('ds-highlight'); requestAnimationFrame(() => s.classList.add('ds-highlight')); }, 3000);
+  });
+  // Panel.
+  const panel = document.getElementById('panel'), pt = document.getElementById('panel-toggle');
+  pt.addEventListener('click', () => { const open = pt.getAttribute('aria-expanded') !== 'true'; document.getElementById('panel-body').hidden = !open; pt.setAttribute('aria-expanded', String(open)); });
+  // Menu next to its button.
+  const menu = document.getElementById('more-menu'), more = document.getElementById('more');
+  menu.addEventListener('toggle', (e) => { if (e.newState !== 'open') return; const r = more.getBoundingClientRect(); menu.style.left = `${Math.max(8, Math.min(r.left, innerWidth - menu.offsetWidth - 8))}px`; menu.style.top = `${r.bottom + 4}px`; menu.querySelector('button').focus(); });
+  // Dialog, then a toast.
+  const dlg = document.getElementById('delete'), opener = document.getElementById('open-delete');
+  opener.addEventListener('click', () => dlg.showModal());
+  dlg.addEventListener('close', () => { opener.focus(); if (dlg.returnValue === 'delete') { const t = document.getElementById('toast'); t.showPopover(); setTimeout(() => t.hidePopover(), 5000); } });
+</script>
+</body>
+</html>

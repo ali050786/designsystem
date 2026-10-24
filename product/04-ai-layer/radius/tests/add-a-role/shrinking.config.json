@@ -1,0 +1,14 @@
+{
+  "radius": {
+    "style": "default",
+    "roles": [
+      {
+        "name": "shape.thumbnail",
+        "sharp": "2",
+        "default": "3",
+        "round": "2",
+        "description": "Image previews"
+      }
+    ]
+  }
+}

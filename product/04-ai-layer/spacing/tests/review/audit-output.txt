@@ -1,0 +1,21 @@
+$ npm run audit:space -- input.html
+comfortable 13 targets (+0 links in sentences) · smallest 16px (button.close "Clear filter") · control height 48px · phone scrolls sideways
+default     13 targets (+0 links in sentences) · smallest 16px (button.close "Clear filter") · control height 40px · phone scrolls sideways
+compact     13 targets (+0 links in sentences) · smallest 16px (button.close "Clear filter") · control height 32px · phone scrolls sideways
+spacing that doesn't follow density: 1 element(s)
+✕ target    a.help-link.ds-type-label-sm "What is a project key?" is 18×18px and too close to a.help-link.ds-type-label-sm "All project keys" (WCAG 2.5.8: 24×24px, or a 24px circle that touches nothing)  [every density, desktop and phone]
+✕ target    a.help-link.ds-type-label-sm "All project keys" is 18×18px and too close to a.help-link.ds-type-label-sm "What is a project key?" (WCAG 2.5.8: 24×24px, or a 24px circle that touches nothing)  [every density, desktop and phone]
+✕ reflow    the page scrolls sideways at 320px (628px wide): h1.ds-type-heading-lg (right edge 628px), h2#h-general (right edge 607px), label.ds-type-label-md (right edge 607px), input#pname (right edge 607px), a.help-link (right edge 421px), a.help-link (right edge 443px), input#key (right edge 607px), p.ds-type-label-md (right edge 607px)  [comfortable, phone]
+✕ reflow    the page scrolls sideways at 320px (604px wide): h1.ds-type-heading-lg (right edge 604px), h2#h-general (right edge 583px), label.ds-type-label-md (right edge 583px), input#pname (right edge 583px), a.help-link (right edge 405px), a.help-link (right edge 427px), input#key (right edge 583px), p.ds-type-label-md (right edge 583px)  [default, phone]
+✕ reflow    the page scrolls sideways at 320px (588px wide): h1.ds-type-heading-lg (right edge 588px), h2#h-general (right edge 567px), label.ds-type-label-md (right edge 567px), input#pname (right edge 567px), a.help-link (right edge 397px), a.help-link (right edge 419px), input#key (right edge 567px), p.ds-type-label-md (right edge 567px)  [compact, phone]
+✕ text-size button.btn "Save changes" no longer fits at 200% text (box 36px, line 40px) — use min-height, not height (SR-06)  [compact, desktop and phone]
+✕ text-size button.btn "Reset" no longer fits at 200% text (box 36px, line 40px) — use min-height, not height (SR-06)  [compact, desktop and phone]
+✕ text-size button.pill-filter "Admins only" no longer fits at 200% text (box 28px, line 32px) — use min-height, not height (SR-06)  [compact, desktop and phone]
+✕ text-size button.close "×" no longer fits at 200% text (box 16px, line 48px) — use min-height, not height (SR-06)  [compact, desktop and phone]
+! target    label "Comments" is 102.1×20px — passes only on spacing; ds asks for 24px on its own (SR-05)  [every density, desktop and phone]
+! target    label "Status changes" is 137.3×20px — passes only on spacing; ds asks for 24px on its own (SR-05)  [every density, desktop and phone]
+! height    button.btn.btn-primary "Save changes" is 36px tall — shorter than size.control.height in that density  [comfortable, default, desktop and phone]
+! height    button.pill-filter.ds-type-label-sm "Admins only" is 28px tall — shorter than size.control.height in that density  [every density, desktop and phone]
+! target    button.close "Clear filter" is 16×16px — passes only on spacing; ds asks for 24px on its own (SR-05)  [every density, desktop and phone]
+! height    button.close "Clear filter" is 16px tall — shorter than size.control.height in that density  [every density, desktop and phone]
+! density   section#general "General Project name Pro": padding-top 20px, padding-right 20px, padding-bottom 20px, padding-left 20px — the same in every density (hand-set, a primitive or a browser default)  [every density, desktop]

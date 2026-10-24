@@ -1,0 +1,1245 @@
+{
+  "$schema": "ds-space-contract/1",
+  "system": "ds",
+  "prefix": "ds",
+  "standard": "WCAG 2.2 AA",
+  "densities": [
+    "comfortable",
+    "default",
+    "compact"
+  ],
+  "defaultDensity": "default",
+  "modeSwitching": {
+    "css": "data-density=\"comfortable|default|compact\" on <html> or on any container; without it, the default density",
+    "figma": "Set the Density collection mode (comfortable, default, compact) on a frame"
+  },
+  "densityRule": {
+    "step": 1,
+    "text": "Compact is one step down the scale from default and comfortable one step up, for every token; size.target.min never moves."
+  },
+  "scale": [
+    {
+      "token": "space.0",
+      "key": "0",
+      "px": 0,
+      "cssVar": "--ds-space-0",
+      "units": 0
+    },
+    {
+      "token": "space.0-5",
+      "key": "0-5",
+      "px": 2,
+      "cssVar": "--ds-space-0-5",
+      "units": 0.5
+    },
+    {
+      "token": "space.1",
+      "key": "1",
+      "px": 4,
+      "cssVar": "--ds-space-1",
+      "units": 1
+    },
+    {
+      "token": "space.1-5",
+      "key": "1-5",
+      "px": 6,
+      "cssVar": "--ds-space-1-5",
+      "units": 1.5
+    },
+    {
+      "token": "space.2",
+      "key": "2",
+      "px": 8,
+      "cssVar": "--ds-space-2",
+      "units": 2
+    },
+    {
+      "token": "space.3",
+      "key": "3",
+      "px": 12,
+      "cssVar": "--ds-space-3",
+      "units": 3
+    },
+    {
+      "token": "space.4",
+      "key": "4",
+      "px": 16,
+      "cssVar": "--ds-space-4",
+      "units": 4
+    },
+    {
+      "token": "space.5",
+      "key": "5",
+      "px": 20,
+      "cssVar": "--ds-space-5",
+      "units": 5
+    },
+    {
+      "token": "space.6",
+      "key": "6",
+      "px": 24,
+      "cssVar": "--ds-space-6",
+      "units": 6
+    },
+    {
+      "token": "space.8",
+      "key": "8",
+      "px": 32,
+      "cssVar": "--ds-space-8",
+      "units": 8
+    },
+    {
+      "token": "space.10",
+      "key": "10",
+      "px": 40,
+      "cssVar": "--ds-space-10",
+      "units": 10
+    },
+    {
+      "token": "space.12",
+      "key": "12",
+      "px": 48,
+      "cssVar": "--ds-space-12",
+      "units": 12
+    },
+    {
+      "token": "space.14",
+      "key": "14",
+      "px": 56,
+      "cssVar": "--ds-space-14",
+      "units": 14
+    },
+    {
+      "token": "space.16",
+      "key": "16",
+      "px": 64,
+      "cssVar": "--ds-space-16",
+      "units": 16
+    },
+    {
+      "token": "space.20",
+      "key": "20",
+      "px": 80,
+      "cssVar": "--ds-space-20",
+      "units": 20
+    },
+    {
+      "token": "space.24",
+      "key": "24",
+      "px": 96,
+      "cssVar": "--ds-space-24",
+      "units": 24
+    }
+  ],
+  "base": 4,
+  "families": {
+    "inset": {
+      "about": "Padding inside a container",
+      "css": "padding",
+      "figma": "Padding",
+      "tw": "p-, px-, py-, pt-, pr-, pb-, pl-",
+      "tailwind": [
+        "p",
+        "px",
+        "py",
+        "pt",
+        "pr",
+        "pb",
+        "pl",
+        "ps",
+        "pe"
+      ]
+    },
+    "stack": {
+      "about": "Vertical gap between things stacked in a column",
+      "css": "row-gap, margin-block (margin-top, margin-bottom)",
+      "figma": "Gap in a vertical auto layout",
+      "tw": "gap-y-, space-y-, mt-, mb-, my-",
+      "tailwind": [
+        "gap-y",
+        "space-y",
+        "mt",
+        "mb",
+        "my"
+      ]
+    },
+    "inline": {
+      "about": "Horizontal gap between things side by side in a row",
+      "css": "column-gap, margin-inline (margin-left, margin-right)",
+      "figma": "Gap in a horizontal auto layout",
+      "tw": "gap-x-, space-x-, ml-, mr-, mx-",
+      "tailwind": [
+        "gap-x",
+        "space-x",
+        "ml",
+        "mr",
+        "mx",
+        "ms",
+        "me"
+      ]
+    }
+  },
+  "ladder": {
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32
+  },
+  "labelFor": {
+    "comfortable": "type.label.lg",
+    "default": "type.label.md",
+    "compact": "type.label.md"
+  },
+  "limits": {
+    "targetMin": 24,
+    "targetEnhanced": 44,
+    "minSpace": 2,
+    "labelRoom": 4,
+    "gridFrom": 8,
+    "units": "px"
+  },
+  "build": {
+    "ok": true,
+    "tokens": 20,
+    "checks": [
+      {
+        "id": "S1",
+        "title": "Pointer targets ≥ 24×24px in every density",
+        "status": "pass",
+        "summary": "6/6 pass"
+      },
+      {
+        "id": "S2",
+        "title": "Comfortable density controls ≥ 44px",
+        "status": "pass",
+        "summary": "1/1 pass"
+      },
+      {
+        "id": "S3",
+        "title": "Density is one rule: every token moves the same number of steps along the scale (compact down, comfortable up); the target floor never moves",
+        "status": "pass",
+        "summary": "22/22 pass"
+      },
+      {
+        "id": "S4",
+        "title": "One ladder: sizes step up inside each family, and a size word is the same distance in every family, in every density",
+        "status": "pass",
+        "summary": "60/60 pass"
+      },
+      {
+        "id": "S5",
+        "title": "Nothing collapses: every space is at least 2px in every density",
+        "status": "pass",
+        "summary": "60/60 pass"
+      },
+      {
+        "id": "S6",
+        "title": "Controls fit their label in every density, with at least 4px above and below",
+        "status": "pass",
+        "summary": "3/3 pass"
+      },
+      {
+        "id": "S7",
+        "title": "The scale sits on a grid: 2px steps below 8px, the 4px grid from 8px up, always increasing",
+        "status": "pass",
+        "summary": "16/16 pass"
+      },
+      {
+        "id": "S8",
+        "title": "In code, spacing is px: when readers enlarge text, the text gets the room, not the margins",
+        "status": "pass",
+        "summary": "17/17 pass"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "id": "SR-01",
+      "rule": "Use a spacing token for every padding, margin and gap. Never px, rem or em values, and never Tailwind's own numeric scale (p-4, gap-2, mt-[13px]).",
+      "why": "Tokens follow the density and stay on the scale; a hand-set 12px does neither and is never checked.",
+      "wcag": "—"
+    },
+    {
+      "id": "SR-02",
+      "rule": "Pick the family by direction: space.inset.* for padding, space.stack.* for vertical gaps (row-gap, margin-top and -bottom), space.inline.* for horizontal gaps (column-gap, margin-left and -right).",
+      "why": "A size word is the same distance in every family, so the family only records which way the space runs. That is what reviews and the checker read.",
+      "wcag": "—"
+    },
+    {
+      "id": "SR-03",
+      "rule": "Pick the size by relationship: the more closely two things belong together, the smaller the space between them; space inside a group is always smaller than the space around it. When spacing shows a group, the markup groups it too (a list, a fieldset, a section with a heading).",
+      "why": "People read grouping from distance before they read borders or headings. Screen-reader users get the same grouping only from the markup.",
+      "wcag": "1.3.1"
+    },
+    {
+      "id": "SR-04",
+      "rule": "Density is a mode: set data-density on <html> or on a container (a dense table inside a default page). Never swap token names or write a .compact class to make something tighter.",
+      "why": "The mode moves every token together and keeps targets and labels safe; a swapped name moves one value and breaks the ladder.",
+      "wcag": "—"
+    },
+    {
+      "id": "SR-05",
+      "rule": "Every pointer target is at least 24×24px in every density. Controls use size.control.height; icon-only buttons are at least that square (min-width and min-height); small marks (a checkbox, a close icon, a drag handle) get a hit area of at least size.target.min.",
+      "why": "People with tremors, on a moving bus or using a thumb miss small targets. 24px is the WCAG minimum.",
+      "wcag": "2.5.8"
+    },
+    {
+      "id": "SR-06",
+      "rule": "Heights are minimums. Anything that holds text uses min-height (min-height: var(--…-size-control-height), Tailwind min-h-control), never height.",
+      "why": "At 200% text a label needs twice its line height; a fixed 32px box cuts it off.",
+      "wcag": "1.4.4, 1.4.12"
+    },
+    {
+      "id": "SR-07",
+      "rule": "Never use a primitive (space.4, --…-space-4) in a component. Use the semantic token for the job.",
+      "why": "Primitives don't change with density, so that one space stays put when the rest of the screen tightens.",
+      "wcag": "—"
+    },
+    {
+      "id": "SR-08",
+      "rule": "Never redefine a spacing token in app code (--…-space-inset-md: 10px). Change the engine config and build, so the change is checked.",
+      "why": "An overridden variable skips every check and silently changes every component that uses it.",
+      "wcag": "—"
+    },
+    {
+      "id": "SR-09",
+      "rule": "Never make space with empty elements: spacer divs, runs of <br> or &nbsp;.",
+      "why": "They don't follow density, and screen readers may announce empty lines as \"blank\".",
+      "wcag": "—"
+    }
+  ],
+  "decisions": [
+    {
+      "what": "Space inside something (padding)",
+      "question": "What is the container?",
+      "answers": [
+        [
+          "A badge, tag or small chip — above and below its label (the sides take space.inset.sm)",
+          "space.inset.xs"
+        ],
+        [
+          "A menu item, list row, tooltip, or a cell in a dense table",
+          "space.inset.sm"
+        ],
+        [
+          "The sides of a button or input; a table cell, popover or toast",
+          "space.inset.md"
+        ],
+        [
+          "A card or panel",
+          "space.inset.lg"
+        ],
+        [
+          "A dialog, sheet, large card or empty state",
+          "space.inset.xl"
+        ],
+        [
+          "A band across the page; the space above and below a page's content",
+          "space.inset.2xl"
+        ]
+      ]
+    },
+    {
+      "what": "Space between things above and below each other",
+      "question": "How closely do they belong together?",
+      "answers": [
+        [
+          "Parts of one thing: a label and its field, a field and its help text, a title and its subtitle",
+          "space.stack.xs"
+        ],
+        [
+          "Items of one group: options in a checkbox group, rows of a simple list, menu items",
+          "space.stack.sm"
+        ],
+        [
+          "A heading and the content under it; items inside a card",
+          "space.stack.md"
+        ],
+        [
+          "Paragraphs, fields in a form, cards in a list",
+          "space.stack.lg"
+        ],
+        [
+          "Groups in a form or panel; blocks inside a large card",
+          "space.stack.xl"
+        ],
+        [
+          "Sections of a page or panel",
+          "space.stack.2xl"
+        ]
+      ]
+    },
+    {
+      "what": "Space between things side by side",
+      "question": "How closely do they belong together?",
+      "answers": [
+        [
+          "An icon and its text in content; a value and its unit",
+          "space.inline.xs"
+        ],
+        [
+          "Items of one group: buttons in a button group, chips, tags",
+          "space.inline.sm"
+        ],
+        [
+          "A checkbox or radio and its label (a native box has no space of its own)",
+          "space.inline.sm"
+        ],
+        [
+          "Fields side by side; a title and its actions in a header",
+          "space.inline.md"
+        ],
+        [
+          "Columns of content in a card or panel; filters next to a search box",
+          "space.inline.lg"
+        ],
+        [
+          "Groups in a toolbar or action bar",
+          "space.inline.xl"
+        ]
+      ]
+    },
+    {
+      "what": "Something people press",
+      "question": "What is it?",
+      "answers": [
+        [
+          "A button, input, select or tab",
+          "size.control.height (as min-height)"
+        ],
+        [
+          "An icon-only button",
+          "size.control.height (min-width and min-height)"
+        ],
+        [
+          "An icon next to the label inside a control",
+          "size.control.icon-gap"
+        ],
+        [
+          "A small mark people click: a checkbox, a close icon, a drag handle",
+          "size.target.min (its hit area)"
+        ]
+      ]
+    },
+    {
+      "what": "How dense the screen is",
+      "question": "What kind of screen is it?",
+      "answers": [
+        [
+          "Tables, dashboards, admin tools — people scan a lot at once",
+          "data-density=\"compact\""
+        ],
+        [
+          "Most product screens",
+          "data-density=\"default\""
+        ],
+        [
+          "Touch-first screens, onboarding, people who need bigger targets",
+          "data-density=\"comfortable\""
+        ],
+        [
+          "One dense part of a page, such as a table in a default page",
+          "data-density=\"compact\" on that container"
+        ]
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "name": "space.inset.xs",
+      "figma": "space/inset/xs",
+      "cssVar": "--ds-space-inset-xs",
+      "tailwind": [
+        "p-inset-xs",
+        "px-inset-xs",
+        "py-inset-xs",
+        "pt-inset-xs",
+        "pr-inset-xs",
+        "pb-inset-xs",
+        "pl-inset-xs",
+        "ps-inset-xs",
+        "pe-inset-xs"
+      ],
+      "kind": "spacing",
+      "family": "inset",
+      "size": "xs",
+      "use": "Badges, tags and small chips, above and below the label (their sides take inset.sm)",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Inset: padding",
+      "densities": {
+        "comfortable": {
+          "px": 6,
+          "primitive": "space.1-5"
+        },
+        "default": {
+          "px": 4,
+          "primitive": "space.1"
+        },
+        "compact": {
+          "px": 2,
+          "primitive": "space.0-5"
+        }
+      }
+    },
+    {
+      "name": "space.inset.sm",
+      "figma": "space/inset/sm",
+      "cssVar": "--ds-space-inset-sm",
+      "tailwind": [
+        "p-inset-sm",
+        "px-inset-sm",
+        "py-inset-sm",
+        "pt-inset-sm",
+        "pr-inset-sm",
+        "pb-inset-sm",
+        "pl-inset-sm",
+        "ps-inset-sm",
+        "pe-inset-sm"
+      ],
+      "kind": "spacing",
+      "family": "inset",
+      "size": "sm",
+      "use": "Menu items, list rows, tooltips, cells in dense tables",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Inset: padding",
+      "densities": {
+        "comfortable": {
+          "px": 12,
+          "primitive": "space.3"
+        },
+        "default": {
+          "px": 8,
+          "primitive": "space.2"
+        },
+        "compact": {
+          "px": 6,
+          "primitive": "space.1-5"
+        }
+      }
+    },
+    {
+      "name": "space.inset.md",
+      "figma": "space/inset/md",
+      "cssVar": "--ds-space-inset-md",
+      "tailwind": [
+        "p-inset-md",
+        "px-inset-md",
+        "py-inset-md",
+        "pt-inset-md",
+        "pr-inset-md",
+        "pb-inset-md",
+        "pl-inset-md",
+        "ps-inset-md",
+        "pe-inset-md"
+      ],
+      "kind": "spacing",
+      "family": "inset",
+      "size": "md",
+      "use": "The sides of buttons and inputs; table cells, popovers, toasts",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Inset: padding",
+      "densities": {
+        "comfortable": {
+          "px": 16,
+          "primitive": "space.4"
+        },
+        "default": {
+          "px": 12,
+          "primitive": "space.3"
+        },
+        "compact": {
+          "px": 8,
+          "primitive": "space.2"
+        }
+      }
+    },
+    {
+      "name": "space.inset.lg",
+      "figma": "space/inset/lg",
+      "cssVar": "--ds-space-inset-lg",
+      "tailwind": [
+        "p-inset-lg",
+        "px-inset-lg",
+        "py-inset-lg",
+        "pt-inset-lg",
+        "pr-inset-lg",
+        "pb-inset-lg",
+        "pl-inset-lg",
+        "ps-inset-lg",
+        "pe-inset-lg"
+      ],
+      "kind": "spacing",
+      "family": "inset",
+      "size": "lg",
+      "use": "Cards and panels",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Inset: padding",
+      "densities": {
+        "comfortable": {
+          "px": 20,
+          "primitive": "space.5"
+        },
+        "default": {
+          "px": 16,
+          "primitive": "space.4"
+        },
+        "compact": {
+          "px": 12,
+          "primitive": "space.3"
+        }
+      }
+    },
+    {
+      "name": "space.inset.xl",
+      "figma": "space/inset/xl",
+      "cssVar": "--ds-space-inset-xl",
+      "tailwind": [
+        "p-inset-xl",
+        "px-inset-xl",
+        "py-inset-xl",
+        "pt-inset-xl",
+        "pr-inset-xl",
+        "pb-inset-xl",
+        "pl-inset-xl",
+        "ps-inset-xl",
+        "pe-inset-xl"
+      ],
+      "kind": "spacing",
+      "family": "inset",
+      "size": "xl",
+      "use": "Dialogs, sheets, large cards and empty states",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Inset: padding",
+      "densities": {
+        "comfortable": {
+          "px": 32,
+          "primitive": "space.8"
+        },
+        "default": {
+          "px": 24,
+          "primitive": "space.6"
+        },
+        "compact": {
+          "px": 20,
+          "primitive": "space.5"
+        }
+      }
+    },
+    {
+      "name": "space.inset.2xl",
+      "figma": "space/inset/2xl",
+      "cssVar": "--ds-space-inset-2xl",
+      "tailwind": [
+        "p-inset-2xl",
+        "px-inset-2xl",
+        "py-inset-2xl",
+        "pt-inset-2xl",
+        "pr-inset-2xl",
+        "pb-inset-2xl",
+        "pl-inset-2xl",
+        "ps-inset-2xl",
+        "pe-inset-2xl"
+      ],
+      "kind": "spacing",
+      "family": "inset",
+      "size": "2xl",
+      "use": "Bands that run across a page; the space above and below a page's content",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Inset: padding",
+      "densities": {
+        "comfortable": {
+          "px": 40,
+          "primitive": "space.10"
+        },
+        "default": {
+          "px": 32,
+          "primitive": "space.8"
+        },
+        "compact": {
+          "px": 24,
+          "primitive": "space.6"
+        }
+      }
+    },
+    {
+      "name": "space.stack.xs",
+      "figma": "space/stack/xs",
+      "cssVar": "--ds-space-stack-xs",
+      "tailwind": [
+        "gap-y-stack-xs",
+        "space-y-stack-xs",
+        "mt-stack-xs",
+        "mb-stack-xs",
+        "my-stack-xs"
+      ],
+      "kind": "spacing",
+      "family": "stack",
+      "size": "xs",
+      "use": "Parts of one thing: a label and its field, a field and its help text, a title and its subtitle",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Stack: vertical gaps",
+      "densities": {
+        "comfortable": {
+          "px": 6,
+          "primitive": "space.1-5"
+        },
+        "default": {
+          "px": 4,
+          "primitive": "space.1"
+        },
+        "compact": {
+          "px": 2,
+          "primitive": "space.0-5"
+        }
+      }
+    },
+    {
+      "name": "space.stack.sm",
+      "figma": "space/stack/sm",
+      "cssVar": "--ds-space-stack-sm",
+      "tailwind": [
+        "gap-y-stack-sm",
+        "space-y-stack-sm",
+        "mt-stack-sm",
+        "mb-stack-sm",
+        "my-stack-sm"
+      ],
+      "kind": "spacing",
+      "family": "stack",
+      "size": "sm",
+      "use": "Items of one group: options in a checkbox group, rows of a simple list, menu items",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Stack: vertical gaps",
+      "densities": {
+        "comfortable": {
+          "px": 12,
+          "primitive": "space.3"
+        },
+        "default": {
+          "px": 8,
+          "primitive": "space.2"
+        },
+        "compact": {
+          "px": 6,
+          "primitive": "space.1-5"
+        }
+      }
+    },
+    {
+      "name": "space.stack.md",
+      "figma": "space/stack/md",
+      "cssVar": "--ds-space-stack-md",
+      "tailwind": [
+        "gap-y-stack-md",
+        "space-y-stack-md",
+        "mt-stack-md",
+        "mb-stack-md",
+        "my-stack-md"
+      ],
+      "kind": "spacing",
+      "family": "stack",
+      "size": "md",
+      "use": "A heading and the content under it; items inside a card",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Stack: vertical gaps",
+      "densities": {
+        "comfortable": {
+          "px": 16,
+          "primitive": "space.4"
+        },
+        "default": {
+          "px": 12,
+          "primitive": "space.3"
+        },
+        "compact": {
+          "px": 8,
+          "primitive": "space.2"
+        }
+      }
+    },
+    {
+      "name": "space.stack.lg",
+      "figma": "space/stack/lg",
+      "cssVar": "--ds-space-stack-lg",
+      "tailwind": [
+        "gap-y-stack-lg",
+        "space-y-stack-lg",
+        "mt-stack-lg",
+        "mb-stack-lg",
+        "my-stack-lg"
+      ],
+      "kind": "spacing",
+      "family": "stack",
+      "size": "lg",
+      "use": "Paragraphs, fields in a form, cards in a list",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Stack: vertical gaps",
+      "densities": {
+        "comfortable": {
+          "px": 20,
+          "primitive": "space.5"
+        },
+        "default": {
+          "px": 16,
+          "primitive": "space.4"
+        },
+        "compact": {
+          "px": 12,
+          "primitive": "space.3"
+        }
+      }
+    },
+    {
+      "name": "space.stack.xl",
+      "figma": "space/stack/xl",
+      "cssVar": "--ds-space-stack-xl",
+      "tailwind": [
+        "gap-y-stack-xl",
+        "space-y-stack-xl",
+        "mt-stack-xl",
+        "mb-stack-xl",
+        "my-stack-xl"
+      ],
+      "kind": "spacing",
+      "family": "stack",
+      "size": "xl",
+      "use": "Groups in a form or panel; blocks inside a large card",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Stack: vertical gaps",
+      "densities": {
+        "comfortable": {
+          "px": 32,
+          "primitive": "space.8"
+        },
+        "default": {
+          "px": 24,
+          "primitive": "space.6"
+        },
+        "compact": {
+          "px": 20,
+          "primitive": "space.5"
+        }
+      }
+    },
+    {
+      "name": "space.stack.2xl",
+      "figma": "space/stack/2xl",
+      "cssVar": "--ds-space-stack-2xl",
+      "tailwind": [
+        "gap-y-stack-2xl",
+        "space-y-stack-2xl",
+        "mt-stack-2xl",
+        "mb-stack-2xl",
+        "my-stack-2xl"
+      ],
+      "kind": "spacing",
+      "family": "stack",
+      "size": "2xl",
+      "use": "Sections of a page or panel",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Stack: vertical gaps",
+      "densities": {
+        "comfortable": {
+          "px": 40,
+          "primitive": "space.10"
+        },
+        "default": {
+          "px": 32,
+          "primitive": "space.8"
+        },
+        "compact": {
+          "px": 24,
+          "primitive": "space.6"
+        }
+      }
+    },
+    {
+      "name": "space.inline.xs",
+      "figma": "space/inline/xs",
+      "cssVar": "--ds-space-inline-xs",
+      "tailwind": [
+        "gap-x-inline-xs",
+        "space-x-inline-xs",
+        "ml-inline-xs",
+        "mr-inline-xs",
+        "mx-inline-xs",
+        "ms-inline-xs",
+        "me-inline-xs"
+      ],
+      "kind": "spacing",
+      "family": "inline",
+      "size": "xs",
+      "use": "An icon and its text in content; a value and its unit",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Inline: horizontal gaps",
+      "densities": {
+        "comfortable": {
+          "px": 6,
+          "primitive": "space.1-5"
+        },
+        "default": {
+          "px": 4,
+          "primitive": "space.1"
+        },
+        "compact": {
+          "px": 2,
+          "primitive": "space.0-5"
+        }
+      }
+    },
+    {
+      "name": "space.inline.sm",
+      "figma": "space/inline/sm",
+      "cssVar": "--ds-space-inline-sm",
+      "tailwind": [
+        "gap-x-inline-sm",
+        "space-x-inline-sm",
+        "ml-inline-sm",
+        "mr-inline-sm",
+        "mx-inline-sm",
+        "ms-inline-sm",
+        "me-inline-sm"
+      ],
+      "kind": "spacing",
+      "family": "inline",
+      "size": "sm",
+      "use": "Items of one group: buttons in a button group, chips, tags; a checkbox or radio and its label",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Inline: horizontal gaps",
+      "densities": {
+        "comfortable": {
+          "px": 12,
+          "primitive": "space.3"
+        },
+        "default": {
+          "px": 8,
+          "primitive": "space.2"
+        },
+        "compact": {
+          "px": 6,
+          "primitive": "space.1-5"
+        }
+      }
+    },
+    {
+      "name": "space.inline.md",
+      "figma": "space/inline/md",
+      "cssVar": "--ds-space-inline-md",
+      "tailwind": [
+        "gap-x-inline-md",
+        "space-x-inline-md",
+        "ml-inline-md",
+        "mr-inline-md",
+        "mx-inline-md",
+        "ms-inline-md",
+        "me-inline-md"
+      ],
+      "kind": "spacing",
+      "family": "inline",
+      "size": "md",
+      "use": "Fields side by side; a title and its actions in a header",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Inline: horizontal gaps",
+      "densities": {
+        "comfortable": {
+          "px": 16,
+          "primitive": "space.4"
+        },
+        "default": {
+          "px": 12,
+          "primitive": "space.3"
+        },
+        "compact": {
+          "px": 8,
+          "primitive": "space.2"
+        }
+      }
+    },
+    {
+      "name": "space.inline.lg",
+      "figma": "space/inline/lg",
+      "cssVar": "--ds-space-inline-lg",
+      "tailwind": [
+        "gap-x-inline-lg",
+        "space-x-inline-lg",
+        "ml-inline-lg",
+        "mr-inline-lg",
+        "mx-inline-lg",
+        "ms-inline-lg",
+        "me-inline-lg"
+      ],
+      "kind": "spacing",
+      "family": "inline",
+      "size": "lg",
+      "use": "Columns of content inside a card or panel; filters next to a search box",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Inline: horizontal gaps",
+      "densities": {
+        "comfortable": {
+          "px": 20,
+          "primitive": "space.5"
+        },
+        "default": {
+          "px": 16,
+          "primitive": "space.4"
+        },
+        "compact": {
+          "px": 12,
+          "primitive": "space.3"
+        }
+      }
+    },
+    {
+      "name": "space.inline.xl",
+      "figma": "space/inline/xl",
+      "cssVar": "--ds-space-inline-xl",
+      "tailwind": [
+        "gap-x-inline-xl",
+        "space-x-inline-xl",
+        "ml-inline-xl",
+        "mr-inline-xl",
+        "mx-inline-xl",
+        "ms-inline-xl",
+        "me-inline-xl"
+      ],
+      "kind": "spacing",
+      "family": "inline",
+      "size": "xl",
+      "use": "Groups in a toolbar or action bar",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Inline: horizontal gaps",
+      "densities": {
+        "comfortable": {
+          "px": 32,
+          "primitive": "space.8"
+        },
+        "default": {
+          "px": 24,
+          "primitive": "space.6"
+        },
+        "compact": {
+          "px": 20,
+          "primitive": "space.5"
+        }
+      }
+    },
+    {
+      "name": "size.control.height",
+      "figma": "size/control/height",
+      "cssVar": "--ds-size-control-height",
+      "tailwind": [
+        "min-h-control",
+        "min-w-control"
+      ],
+      "kind": "size",
+      "family": null,
+      "size": null,
+      "use": "Minimum height of buttons, inputs, selects and tabs; the minimum width and height of an icon-only button",
+      "product": false,
+      "fixed": false,
+      "target": true,
+      "chapter": "Controls and targets",
+      "densities": {
+        "comfortable": {
+          "px": 48,
+          "primitive": "space.12"
+        },
+        "default": {
+          "px": 40,
+          "primitive": "space.10"
+        },
+        "compact": {
+          "px": 32,
+          "primitive": "space.8"
+        }
+      }
+    },
+    {
+      "name": "size.control.icon-gap",
+      "figma": "size/control/icon-gap",
+      "cssVar": "--ds-size-control-icon-gap",
+      "tailwind": [
+        "gap-icon"
+      ],
+      "kind": "size",
+      "family": null,
+      "size": null,
+      "use": "Gap between an icon and the label inside a control",
+      "product": false,
+      "fixed": false,
+      "target": false,
+      "chapter": "Controls and targets",
+      "densities": {
+        "comfortable": {
+          "px": 12,
+          "primitive": "space.3"
+        },
+        "default": {
+          "px": 8,
+          "primitive": "space.2"
+        },
+        "compact": {
+          "px": 6,
+          "primitive": "space.1-5"
+        }
+      }
+    },
+    {
+      "name": "size.target.min",
+      "figma": "size/target/min",
+      "cssVar": "--ds-size-target-min",
+      "tailwind": [
+        "min-w-target",
+        "min-h-target"
+      ],
+      "kind": "size",
+      "family": null,
+      "size": null,
+      "use": "Smallest pointer target in every density (WCAG 2.5.8: 24×24px): the hit area of a checkbox, a close icon, a drag handle",
+      "product": false,
+      "fixed": true,
+      "target": true,
+      "chapter": "Controls and targets",
+      "densities": {
+        "comfortable": {
+          "px": 24,
+          "primitive": "space.6"
+        },
+        "default": {
+          "px": 24,
+          "primitive": "space.6"
+        },
+        "compact": {
+          "px": 24,
+          "primitive": "space.6"
+        }
+      }
+    }
+  ],
+  "mistakes": [
+    {
+      "mistake": "Padding written as 12px",
+      "measured": "stays 12px in every density; `space.inset.md` is 16 / 12 / 8px (comfortable / default / compact)",
+      "fix": "space.inset.md",
+      "fixValue": "follows the density"
+    },
+    {
+      "mistake": "Compact made by swapping names (inset.md → inset.sm in a .compact class)",
+      "measured": "inside a compact screen that gives 6px — two steps from default while everything else moves one",
+      "fix": "data-density=\"compact\"",
+      "fixValue": "on the container: `space.inset.md` becomes 8px and every other token moves with it"
+    },
+    {
+      "mistake": "Icon-only button drawn 20 × 20px",
+      "measured": "20px is below the 24px minimum (WCAG 2.5.8)",
+      "fix": "size.control.height",
+      "fixValue": "as min-width and min-height: 48 / 40 / 32px square"
+    },
+    {
+      "mistake": "Button with height: 32px",
+      "measured": "at 200% text a `label.md` line is 40px, so a fixed 32px box cuts the label off",
+      "fix": "size.control.height",
+      "fixValue": "as min-height — the button grows with its label"
+    },
+    {
+      "mistake": "Page margins in rem (1rem)",
+      "measured": "at 200% text on a 320px phone each margin becomes 32px: 256px of content, under 272px",
+      "fix": "layout.margin",
+      "fixValue": "16px (px, linked to spacing): 288px of content"
+    },
+    {
+      "mistake": "The same space between everything (stack.md everywhere)",
+      "measured": "a label is 12px from its own field and 12px from the next field's label, so pairs don't read as pairs",
+      "fix": "space.stack.xs / space.stack.lg",
+      "fixValue": "xs inside a field (4px), lg between fields (16px)"
+    }
+  ],
+  "layoutLinks": [
+    {
+      "token": "layout.gutter",
+      "breakpoints": {
+        "sm": {
+          "px": 16,
+          "primitive": "space.4"
+        },
+        "md": {
+          "px": 24,
+          "primitive": "space.6"
+        },
+        "lg": {
+          "px": 24,
+          "primitive": "space.6"
+        },
+        "xl": {
+          "px": 32,
+          "primitive": "space.8"
+        }
+      }
+    },
+    {
+      "token": "layout.margin",
+      "breakpoints": {
+        "sm": {
+          "px": 16,
+          "primitive": "space.4"
+        },
+        "md": {
+          "px": 32,
+          "primitive": "space.8"
+        },
+        "lg": {
+          "px": 40,
+          "primitive": "space.10"
+        },
+        "xl": {
+          "px": 64,
+          "primitive": "space.16"
+        }
+      }
+    }
+  ],
+  "headerLink": {
+    "token": "layout.header.height",
+    "densities": {
+      "comfortable": 64,
+      "default": 56,
+      "compact": 48
+    }
+  }
+}

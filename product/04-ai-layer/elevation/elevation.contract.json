@@ -1,0 +1,1014 @@
+{
+  "$schema": "ds-elevation-contract/1",
+  "system": "ds",
+  "prefix": "ds",
+  "standard": "WCAG 2.2 AA",
+  "levels": [
+    {
+      "job": "page",
+      "use": "The page itself and what lies flat in it: the page background, bands, wells",
+      "height": 0,
+      "temporary": false,
+      "class": "",
+      "surface": {
+        "token": "elevation.page.surface",
+        "role": "color.bg.canvas",
+        "cssVar": "--ds-elevation-page-surface",
+        "Light": "#ECEEF0",
+        "Dark": "#161618",
+        "stepOverPage": {
+          "Light": 1,
+          "Dark": 1
+        }
+      },
+      "shadow": null,
+      "edge": null,
+      "scrim": null,
+      "layer": null
+    },
+    {
+      "job": "raised",
+      "use": "Cards, panels and table frames in the flow of the page",
+      "height": 1,
+      "temporary": false,
+      "class": "ds-raised",
+      "surface": {
+        "token": "elevation.raised.surface",
+        "role": "color.bg.surface",
+        "cssVar": "--ds-elevation-raised-surface",
+        "Light": "#FFFFFF",
+        "Dark": "#232427",
+        "stepOverPage": {
+          "Light": 1.16,
+          "Dark": 1.16
+        }
+      },
+      "shadow": {
+        "token": "elevation.raised.shadow",
+        "cssVar": "--ds-elevation-raised-shadow",
+        "tailwind": "shadow-raised",
+        "color": "color.shadow.1",
+        "offsetY": 1,
+        "blur": 3,
+        "spread": 0,
+        "alpha": {
+          "Light": 0.08,
+          "Dark": 0.32
+        },
+        "peakOnPage": {
+          "Light": 1.12,
+          "Dark": 1.04
+        }
+      },
+      "edge": null,
+      "scrim": null,
+      "layer": null
+    },
+    {
+      "job": "sticky",
+      "use": "Bars that stay while content scrolls under them: the page header, toolbars, sticky table headers, a settings bar",
+      "height": 3,
+      "temporary": false,
+      "class": "ds-sticky",
+      "surface": {
+        "token": "elevation.sticky.surface",
+        "role": "color.bg.surface-raised",
+        "cssVar": "--ds-elevation-sticky-surface",
+        "Light": "#FFFFFF",
+        "Dark": "#2E3033",
+        "stepOverPage": {
+          "Light": 1.16,
+          "Dark": 1.37
+        }
+      },
+      "shadow": {
+        "token": "elevation.sticky.shadow",
+        "cssVar": "--ds-elevation-sticky-shadow",
+        "tailwind": "shadow-sticky",
+        "color": "color.shadow.2",
+        "offsetY": 2,
+        "blur": 6,
+        "spread": 0,
+        "alpha": {
+          "Light": 0.12,
+          "Dark": 0.4
+        },
+        "peakOnPage": {
+          "Light": 1.21,
+          "Dark": 1.05
+        }
+      },
+      "edge": {
+        "token": "elevation.sticky.border",
+        "role": "color.border.subtle",
+        "cssVar": "--ds-elevation-sticky-border",
+        "width": "border.width.line",
+        "sides": "the side facing the content",
+        "Light": "#CBCED2",
+        "Dark": "#414449"
+      },
+      "scrim": null,
+      "layer": "layer.sticky"
+    },
+    {
+      "job": "floating",
+      "use": "What opens over content without blocking it: menus, popovers, tooltips, toasts, date pickers, the navigation drawer",
+      "height": 8,
+      "temporary": false,
+      "class": "ds-floating",
+      "surface": {
+        "token": "elevation.floating.surface",
+        "role": "color.bg.surface-overlay",
+        "cssVar": "--ds-elevation-floating-surface",
+        "Light": "#FFFFFF",
+        "Dark": "#373A3E",
+        "stepOverPage": {
+          "Light": 1.16,
+          "Dark": 1.58
+        }
+      },
+      "shadow": {
+        "token": "elevation.floating.shadow",
+        "cssVar": "--ds-elevation-floating-shadow",
+        "tailwind": "shadow-floating",
+        "color": "color.shadow.3",
+        "offsetY": 4,
+        "blur": 16,
+        "spread": -2,
+        "alpha": {
+          "Light": 0.16,
+          "Dark": 0.48
+        },
+        "peakOnPage": {
+          "Light": 1.23,
+          "Dark": 1.05
+        }
+      },
+      "edge": {
+        "token": "elevation.floating.border",
+        "role": "color.border.floating",
+        "cssVar": "--ds-elevation-floating-border",
+        "width": "border.width.line",
+        "sides": "all",
+        "Light": "#AEB1B8",
+        "Dark": "#54575E"
+      },
+      "scrim": null,
+      "layer": "layer.floating"
+    },
+    {
+      "job": "modal",
+      "use": "What blocks the page until it is answered or closed: dialogs, sheets, modal drawers — always with the scrim behind",
+      "height": 16,
+      "temporary": false,
+      "class": "ds-modal",
+      "surface": {
+        "token": "elevation.modal.surface",
+        "role": "color.bg.surface-overlay",
+        "cssVar": "--ds-elevation-modal-surface",
+        "Light": "#FFFFFF",
+        "Dark": "#373A3E",
+        "stepOverPage": {
+          "Light": 1.16,
+          "Dark": 1.58
+        }
+      },
+      "shadow": {
+        "token": "elevation.modal.shadow",
+        "cssVar": "--ds-elevation-modal-shadow",
+        "tailwind": "shadow-modal",
+        "color": "color.shadow.4",
+        "offsetY": 8,
+        "blur": 32,
+        "spread": -4,
+        "alpha": {
+          "Light": 0.2,
+          "Dark": 0.56
+        },
+        "peakOnPage": {
+          "Light": 1.3,
+          "Dark": 1.06
+        }
+      },
+      "edge": {
+        "token": "elevation.modal.border",
+        "role": "color.border.floating",
+        "cssVar": "--ds-elevation-modal-border",
+        "width": "border.width.line",
+        "sides": "all",
+        "Light": "#AEB1B8",
+        "Dark": "#54575E"
+      },
+      "scrim": {
+        "token": "elevation.modal.scrim",
+        "role": "color.bg.scrim",
+        "cssVar": "--ds-elevation-modal-scrim",
+        "Light": "#0000007A",
+        "Dark": "#000000A3"
+      },
+      "layer": "layer.modal"
+    },
+    {
+      "job": "dragging",
+      "use": "An item while it is being dragged: it keeps its own surface, lifts above everything, and returns to its level when dropped",
+      "height": 24,
+      "temporary": true,
+      "class": "ds-dragging",
+      "surface": null,
+      "shadow": {
+        "token": "elevation.dragging.shadow",
+        "cssVar": "--ds-elevation-dragging-shadow",
+        "tailwind": "shadow-dragging",
+        "color": "color.shadow.4",
+        "offsetY": 12,
+        "blur": 48,
+        "spread": -6,
+        "alpha": {
+          "Light": 0.2,
+          "Dark": 0.56
+        },
+        "peakOnPage": {
+          "Light": 1.3,
+          "Dark": 1.06
+        }
+      },
+      "edge": {
+        "token": "elevation.dragging.border",
+        "role": "color.border.floating",
+        "cssVar": "--ds-elevation-dragging-border",
+        "width": "border.width.line",
+        "sides": "all",
+        "Light": "#AEB1B8",
+        "Dark": "#54575E"
+      },
+      "scrim": null,
+      "layer": "layer.dragging"
+    }
+  ],
+  "layers": [
+    {
+      "name": "layer.sticky",
+      "value": 100,
+      "cssVar": "--ds-layer-sticky",
+      "tailwind": "z-(--ds-layer-sticky)",
+      "use": "Sticky bars and the page header: above the content that scrolls under them",
+      "product": false
+    },
+    {
+      "name": "layer.floating",
+      "value": 200,
+      "cssVar": "--ds-layer-floating",
+      "tailwind": "z-(--ds-layer-floating)",
+      "use": "Menus, popovers, tooltips and the navigation drawer: above sticky bars, so a menu opened from the header is never cut by it",
+      "product": false
+    },
+    {
+      "name": "layer.modal",
+      "value": 300,
+      "cssVar": "--ds-layer-modal",
+      "tailwind": "z-(--ds-layer-modal)",
+      "use": "Dialogs and their scrim: above everything the page shows, so nothing outside the dialog can be reached",
+      "product": false
+    },
+    {
+      "name": "layer.toast",
+      "value": 400,
+      "cssVar": "--ds-layer-toast",
+      "tailwind": "z-(--ds-layer-toast)",
+      "use": "Toasts and status messages: above dialogs, so a message is never hidden behind a scrim (it must not need an action while a dialog is open)",
+      "product": false
+    },
+    {
+      "name": "layer.dragging",
+      "value": 500,
+      "cssVar": "--ds-layer-dragging",
+      "tailwind": "z-(--ds-layer-dragging)",
+      "use": "An item being dragged: above everything while the pointer or keyboard holds it",
+      "product": false
+    }
+  ],
+  "layerStep": 100,
+  "shadowFormula": "offsetY = max(1, ceil(height / 2)), blur = max(3, 2 × height), spread = −floor(height / 4); colour = the level's color.shadow step",
+  "edges": {
+    "min": 1.5,
+    "color": "color.border.floating",
+    "lowest": {
+      "floating": {
+        "Light": {
+          "ratio": 1.68,
+          "on": "page"
+        },
+        "Dark": {
+          "ratio": 1.58,
+          "on": "floating"
+        }
+      },
+      "modal": {
+        "Light": {
+          "ratio": 1.59,
+          "on": "page"
+        },
+        "Dark": {
+          "ratio": 1.58,
+          "on": "floating"
+        }
+      },
+      "dragging": {
+        "Light": {
+          "ratio": 1.58,
+          "on": "page"
+        },
+        "Dark": {
+          "ratio": 1.58,
+          "on": "floating"
+        }
+      }
+    },
+    "rule": "The edge of whatever floats reaches 1.5:1 against every surface it can sit on (page, raised, sticky, another floating surface) and against the scrim, in Light and Dark"
+  },
+  "dark": {
+    "rule": "In Dark each rising level is lighter than the one below (≥ 1.1:1); floating and modal share the top surface and the scrim tells a modal apart",
+    "steps": [
+      {
+        "job": "page",
+        "dark": "#161618",
+        "overPage": 1
+      },
+      {
+        "job": "raised",
+        "dark": "#232427",
+        "overPage": 1.16
+      },
+      {
+        "job": "sticky",
+        "dark": "#2E3033",
+        "overPage": 1.37
+      },
+      {
+        "job": "floating",
+        "dark": "#373A3E",
+        "overPage": 1.58
+      },
+      {
+        "job": "modal",
+        "dark": "#373A3E",
+        "overPage": 1.58
+      }
+    ]
+  },
+  "topLayer": {
+    "what": "The browser's top layer sits above every z-index: a <dialog> opened with showModal() and an element with the popover attribute go there, in the order they opened. Layer numbers order everything else.",
+    "dialog": "<dialog class=\"ds-modal\" aria-labelledby=\"…\"> … </dialog> opened with dialog.showModal(); its ::backdrop is the scrim; Escape closes it; return focus to the opener",
+    "popover": "<div class=\"ds-floating\" popover id=\"menu\"> … </div> with <button popovertarget=\"menu\">: light dismiss, Escape, never clipped by a parent",
+    "toast": "<div class=\"ds-floating\" data-layer=\"toast\" popover=\"manual\" role=\"status\"> … </div>, shown after any open dialog"
+  },
+  "modal": {
+    "must": [
+      "open with showModal() (or role=\"dialog\" + aria-modal=\"true\" + .ds-scrim when <dialog> can't be used)",
+      "a label: aria-labelledby pointing at the dialog's heading",
+      "focus moves into the dialog when it opens (the first field, or the dialog itself)",
+      "focus stays inside while it is open; the page behind is inert",
+      "Escape closes it (unless closing would lose work: then it asks)",
+      "focus returns to the control that opened it"
+    ],
+    "css": ".ds-modal::backdrop { background: var(--ds-elevation-modal-scrim); }"
+  },
+  "forcedColors": {
+    "what": "Forced colours (Windows contrast themes) remove every box-shadow and replace surfaces with the system page colour: every level looks flat. Borders stay, drawn in the system text colour.",
+    "tokensCss": [
+      ".ds-floating, .ds-modal and .ds-dragging draw a border on every side, .ds-sticky on the side facing the content",
+      "the drawer pane of .ds-shell draws its edge"
+    ],
+    "you": [
+      "never remove the border of a floating level (ER-04)",
+      "show hover and press with something besides the shadow (ER-08)",
+      "keep focus rings on: a shadow is never a focus indicator"
+    ]
+  },
+  "classes": [
+    {
+      "class": "ds-raised",
+      "use": "Cards, panels, table frames in the flow of the page: raised surface and shadow",
+      "tailwind": "bg-elevation-raised-surface shadow-raised"
+    },
+    {
+      "class": "ds-sticky",
+      "use": "A bar that stays while content scrolls under it: sticky at the top, sticky layer, surface, shadow and a line on its bottom edge (data-stick=\"end\": at the bottom, line on top)",
+      "tailwind": "sticky top-0 z-(--ds-layer-sticky) bg-elevation-sticky-surface shadow-sticky border-b-line border-elevation-sticky-border"
+    },
+    {
+      "class": "ds-floating",
+      "use": "Menus, popovers, tooltips, toasts, the navigation drawer: floating layer, surface, shadow and an edge on every side (data-layer=\"toast\": the toast layer)",
+      "tailwind": "z-(--ds-layer-floating) bg-elevation-floating-surface shadow-floating border-line border-elevation-floating-border"
+    },
+    {
+      "class": "ds-modal",
+      "use": "Dialogs and sheets: modal layer, surface, shadow, edge; its ::backdrop is the scrim",
+      "tailwind": "z-(--ds-layer-modal) bg-elevation-modal-surface shadow-modal border-line border-elevation-modal-border backdrop:bg-elevation-modal-scrim"
+    },
+    {
+      "class": "ds-scrim",
+      "use": "The scrim for a modal that is not a <dialog>: fixed over the page, just before the dialog in the same layer",
+      "tailwind": "fixed inset-0 z-(--ds-layer-modal) bg-elevation-modal-scrim"
+    },
+    {
+      "class": "ds-dragging",
+      "use": "An item while it is dragged: the dragging layer, shadow and edge; it keeps its own surface",
+      "tailwind": "relative z-(--ds-layer-dragging) shadow-dragging border-line border-elevation-dragging-border"
+    }
+  ],
+  "limits": {
+    "edgeMin": 1.5,
+    "surfaceStepMin": 1.1,
+    "localZ": [
+      -1,
+      0,
+      1,
+      2
+    ],
+    "layerStep": 100
+  },
+  "build": {
+    "ok": true,
+    "tokens": 20,
+    "productLayers": 0,
+    "checks": [
+      {
+        "id": "E1",
+        "title": "Whatever floats keeps an edge — never shadow alone (forced colours remove shadows) — and a modal has its scrim",
+        "status": "pass",
+        "summary": "9/9 pass"
+      },
+      {
+        "id": "E2",
+        "title": "Height shows by surface where shadows can't: in Dark each level is lighter than the one below (≥ 1.1:1); in Light no level is darker than the page",
+        "status": "pass",
+        "summary": "8/8 pass"
+      },
+      {
+        "id": "E3",
+        "title": "Edges are seen: the edge of whatever floats reaches 1.5:1 against every surface it can sit on and against the scrim, in Light and Dark",
+        "status": "pass",
+        "summary": "28/28 pass"
+      },
+      {
+        "id": "E4",
+        "title": "Shadows grow with height: a higher level drops further, blurs wider and is at least as dark, in Light and Dark",
+        "status": "pass",
+        "summary": "9/9 pass"
+      },
+      {
+        "id": "E5",
+        "title": "Text reads on every level: each surface is measured with every text colour (C1), in Light and Dark",
+        "status": "pass",
+        "summary": "5/5 pass"
+      },
+      {
+        "id": "E6",
+        "title": "The stacking order holds: sticky < floating < modal < toast < dragging, product layers in between, and tokens.css stacks only with layer tokens",
+        "status": "pass",
+        "summary": "7/7 pass"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "id": "ER-01",
+      "rule": "Shadows come from a level: box-shadow is var(--ds-elevation-<job>-shadow) or none (Tailwind shadow-raised, shadow-sticky, shadow-floating, shadow-modal, shadow-dragging). No shadow written by hand, none of Tailwind's own (shadow-sm … shadow-2xl, drop-shadow-*), no filter: drop-shadow() on a surface.",
+      "why": "A hand-made shadow belongs to no level: it doesn't grow with height, doesn't switch for Dark, and nobody can tell what sits on what.",
+      "wcag": "—"
+    },
+    {
+      "id": "ER-02",
+      "rule": "Never use the shadow colours or alpha primitives in a shadow (--ds-color-shadow-*, --ds-color-black-alpha-*). Pick the level.",
+      "why": "They are the strengths the levels pick from; a shadow made from them by hand skips the order the build checks.",
+      "wcag": "—"
+    },
+    {
+      "id": "ER-03",
+      "rule": "A level's surface and shadow go together: the shadow of floating goes on the floating surface, never on a card's. Use the class (.ds-raised … .ds-dragging) to take the whole level.",
+      "why": "In Dark the surface is what shows height; a floating shadow on a raised surface sits at one height and looks like another.",
+      "wcag": "—"
+    },
+    {
+      "id": "ER-04",
+      "rule": "Whatever floats has its edge: floating, modal and dragging draw border: var(--ds-border-width-line) solid var(--ds-elevation-<job>-border) on every side; a sticky bar draws its line on the side facing the content.",
+      "why": "Forced colours remove every shadow, and in Dark a shadow barely shows: without a border a menu has no edge and its items run into the page.",
+      "wcag": "1.4.11"
+    },
+    {
+      "id": "ER-05",
+      "rule": "Stacking uses layers: z-index is var(--ds-layer-<job>) (Tailwind z-(--ds-layer-floating)). Raw numbers only -1, 0, 1 and 2, for order inside one component. Never 999 or 9999.",
+      "why": "Stray numbers race each other: a dropdown at 9999 paints over an open dialog and its scrim, and a sticky header at 1000 covers the menu opened from it.",
+      "wcag": "2.4.11"
+    },
+    {
+      "id": "ER-06",
+      "rule": "A modal is modal: a <dialog> opened with showModal() (not the open attribute), its ::backdrop the scrim (var(--ds-elevation-modal-scrim)). A dialog built without <dialog> has role=\"dialog\", aria-modal=\"true\", a .ds-scrim behind it, focus moved in and held, the page behind made inert, Escape to close, and focus returned on close.",
+      "why": "Without it, keyboard and screen-reader users walk out of the dialog into a page they can't see past the scrim.",
+      "wcag": "2.4.3, 4.1.2"
+    },
+    {
+      "id": "ER-07",
+      "rule": "Height in Dark comes from the tokens: never override shadows or level surfaces for dark mode ([data-theme=\"dark\"] or prefers-color-scheme rules that set box-shadow or an elevation background).",
+      "why": "The tokens already switch: Dark lifts surfaces (lighter as they rise) because a darker shadow on a near-black page measures almost nothing.",
+      "wcag": "—"
+    },
+    {
+      "id": "ER-08",
+      "rule": "Hover and press never lift alone: a :hover or :active rule that changes box-shadow also changes the fill (color.bg.surface-hover), a border colour or an outline. Press goes back down, never up.",
+      "why": "A shadow change is removed in forced colours and barely shows in Dark: for many people nothing happens under the pointer.",
+      "wcag": "1.4.11"
+    },
+    {
+      "id": "ER-09",
+      "rule": "No glass: floating and modal surfaces are opaque — no backdrop-filter, no translucent background, no opacity on the surface.",
+      "why": "Text contrast on a see-through surface depends on whatever scrolls behind it, so it can't be measured — and it fails exactly when the page behind is busy.",
+      "wcag": "1.4.3"
+    },
+    {
+      "id": "ER-10",
+      "rule": "Never redefine elevation or layer variables in app code (--ds-elevation-*, --ds-layer-*). Add a product layer in the engine config (elevation.layers) and build.",
+      "why": "An overridden level skips the checks that keep edges visible, surfaces rising in Dark and layers in order.",
+      "wcag": "—"
+    }
+  ],
+  "decisions": [
+    {
+      "what": "Does it need height at all",
+      "question": "What should set it apart?",
+      "answers": [
+        [
+          "Things that belong together, with room around them",
+          "space (Spacing: a bigger stack or inline gap) — no level"
+        ],
+        [
+          "A region of the page (a sidebar, a band, a well)",
+          "a surface change (color.bg.surface-sunken) or a border.width.line edge — no shadow"
+        ],
+        [
+          "Many cards side by side (a dashboard, a grid of results)",
+          "elevation.raised, or only a border.width.line outline: a page of shadows is noise"
+        ],
+        [
+          "Something that sits over other content",
+          "a level from the next table — the higher it sits, the more it interrupts"
+        ]
+      ]
+    },
+    {
+      "what": "Which level",
+      "question": "Where does it sit, and what does it do to the page?",
+      "answers": [
+        [
+          "It is the page, or lies flat in it",
+          "elevation.page — the page surface, no shadow"
+        ],
+        [
+          "It groups content in the flow of the page (a card, a panel, a table frame)",
+          "elevation.raised (.ds-raised)"
+        ],
+        [
+          "It stays while content scrolls under it (the page header, a toolbar, a sticky table header)",
+          "elevation.sticky (.ds-sticky; data-stick=\"end\" for a bar along the bottom)"
+        ],
+        [
+          "It opens over content and the page stays usable (a menu, popover, tooltip, toast, date picker, the navigation drawer)",
+          "elevation.floating (.ds-floating), opened as a popover so it sits in the top layer"
+        ],
+        [
+          "It must be answered or closed before the page can be used (a dialog, a sheet, a modal drawer)",
+          "elevation.modal (.ds-modal) on a <dialog> opened with showModal(): the scrim, the edge and the layer come with it"
+        ],
+        [
+          "It is being dragged",
+          "elevation.dragging (.ds-dragging) while it is held; back to its own level when dropped"
+        ]
+      ]
+    },
+    {
+      "what": "Stacking",
+      "question": "What has to be on top?",
+      "answers": [
+        [
+          "A menu opened from the sticky header",
+          "nothing to do: layer.floating is above layer.sticky"
+        ],
+        [
+          "A menu, select or tooltip inside a dialog",
+          "open it as a popover (top layer: it goes above the dialog) — or keep it inside the dialog's own box; never a bigger z-index"
+        ],
+        [
+          "A menu inside a card or table that clips (overflow: hidden or auto)",
+          "a popover: the top layer is never clipped by a parent; a z-index can't escape overflow"
+        ],
+        [
+          "A toast while a dialog is open",
+          "layer.toast (.ds-floating data-layer=\"toast\"), opened as popover=\"manual\" after the dialog; it must not need an action, because the page outside the dialog is inert"
+        ],
+        [
+          "Something the system doesn't have a place for (a banner over sticky bars, a help panel)",
+          "a product layer in the config (elevation.layers, \"above\": the layer below it) — the number is computed"
+        ]
+      ]
+    },
+    {
+      "what": "Moving",
+      "question": "Does it change while someone uses it?",
+      "answers": [
+        [
+          "Hover on something clickable (a card that is a link)",
+          "color.bg.surface-hover or a border colour — a bigger shadow may come with it, never alone"
+        ],
+        [
+          "Press",
+          "back to its resting level (never higher): it moves toward the page"
+        ],
+        [
+          "Keyboard focus",
+          "the focus ring (tokens.css draws it) — never a shadow"
+        ],
+        [
+          "Drag",
+          "elevation.dragging while held, plus a keyboard way to move it (buttons or arrow keys); back to its level on drop"
+        ]
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "name": "layer.sticky",
+      "figma": null,
+      "cssVar": "--ds-layer-sticky",
+      "tailwind": [
+        "z-(--ds-layer-sticky)"
+      ],
+      "use": "Sticky bars and the page header: above the content that scrolls under them",
+      "collection": "Elevation",
+      "chapter": "The stacking order",
+      "value": 100,
+      "product": false
+    },
+    {
+      "name": "layer.floating",
+      "figma": null,
+      "cssVar": "--ds-layer-floating",
+      "tailwind": [
+        "z-(--ds-layer-floating)"
+      ],
+      "use": "Menus, popovers, tooltips and the navigation drawer: above sticky bars, so a menu opened from the header is never cut by it",
+      "collection": "Elevation",
+      "chapter": "The stacking order",
+      "value": 200,
+      "product": false
+    },
+    {
+      "name": "layer.modal",
+      "figma": null,
+      "cssVar": "--ds-layer-modal",
+      "tailwind": [
+        "z-(--ds-layer-modal)"
+      ],
+      "use": "Dialogs and their scrim: above everything the page shows, so nothing outside the dialog can be reached",
+      "collection": "Elevation",
+      "chapter": "The stacking order",
+      "value": 300,
+      "product": false
+    },
+    {
+      "name": "layer.toast",
+      "figma": null,
+      "cssVar": "--ds-layer-toast",
+      "tailwind": [
+        "z-(--ds-layer-toast)"
+      ],
+      "use": "Toasts and status messages: above dialogs, so a message is never hidden behind a scrim (it must not need an action while a dialog is open)",
+      "collection": "Elevation",
+      "chapter": "The stacking order",
+      "value": 400,
+      "product": false
+    },
+    {
+      "name": "layer.dragging",
+      "figma": null,
+      "cssVar": "--ds-layer-dragging",
+      "tailwind": [
+        "z-(--ds-layer-dragging)"
+      ],
+      "use": "An item being dragged: above everything while the pointer or keyboard holds it",
+      "collection": "Elevation",
+      "chapter": "The stacking order",
+      "value": 500,
+      "product": false
+    },
+    {
+      "name": "elevation.page.surface",
+      "figma": "elevation/page/surface",
+      "cssVar": "--ds-elevation-page-surface",
+      "tailwind": [
+        "bg-elevation-page-surface"
+      ],
+      "use": "The page itself and what lies flat in it: the page background, bands, wells — surface (linked to Colour)",
+      "collection": "Elevation",
+      "chapter": "Levels by job",
+      "type": "color",
+      "role": "color.bg.canvas",
+      "light": "#ECEEF0",
+      "dark": "#161618",
+      "product": false
+    },
+    {
+      "name": "elevation.raised.surface",
+      "figma": "elevation/raised/surface",
+      "cssVar": "--ds-elevation-raised-surface",
+      "tailwind": [
+        "bg-elevation-raised-surface"
+      ],
+      "use": "Cards, panels and table frames in the flow of the page — surface (linked to Colour)",
+      "collection": "Elevation",
+      "chapter": "Levels by job",
+      "type": "color",
+      "role": "color.bg.surface",
+      "light": "#FFFFFF",
+      "dark": "#232427",
+      "product": false
+    },
+    {
+      "name": "elevation.raised.shadow",
+      "figma": "elevation/raised (effect style)",
+      "cssVar": "--ds-elevation-raised-shadow",
+      "tailwind": [
+        "shadow-raised"
+      ],
+      "use": "Shadow of raised: 1px above the page (colour linked to Colour)",
+      "collection": "Elevation",
+      "chapter": "Shadows",
+      "type": "shadow",
+      "value": {
+        "color": "#00000014",
+        "offsetX": 0,
+        "offsetY": 1,
+        "blur": 3,
+        "spread": 0
+      },
+      "color": "color.shadow.1",
+      "product": false
+    },
+    {
+      "name": "elevation.sticky.surface",
+      "figma": "elevation/sticky/surface",
+      "cssVar": "--ds-elevation-sticky-surface",
+      "tailwind": [
+        "bg-elevation-sticky-surface"
+      ],
+      "use": "Bars that stay while content scrolls under them: the page header, toolbars, sticky table headers, a settings bar — surface (linked to Colour)",
+      "collection": "Elevation",
+      "chapter": "Levels by job",
+      "type": "color",
+      "role": "color.bg.surface-raised",
+      "light": "#FFFFFF",
+      "dark": "#2E3033",
+      "product": false
+    },
+    {
+      "name": "elevation.sticky.shadow",
+      "figma": "elevation/sticky (effect style)",
+      "cssVar": "--ds-elevation-sticky-shadow",
+      "tailwind": [
+        "shadow-sticky"
+      ],
+      "use": "Shadow of sticky: 3px above the page (colour linked to Colour)",
+      "collection": "Elevation",
+      "chapter": "Shadows",
+      "type": "shadow",
+      "value": {
+        "color": "#0000001F",
+        "offsetX": 0,
+        "offsetY": 2,
+        "blur": 6,
+        "spread": 0
+      },
+      "color": "color.shadow.2",
+      "product": false
+    },
+    {
+      "name": "elevation.sticky.border",
+      "figma": "elevation/sticky/border",
+      "cssVar": "--ds-elevation-sticky-border",
+      "tailwind": [
+        "border-elevation-sticky-border"
+      ],
+      "use": "Line on the side of sticky that faces the content scrolling under it, drawn at border.width.line — keeps the bar's edge where shadows are removed (forced colours)",
+      "collection": "Elevation",
+      "chapter": "Edges",
+      "type": "color",
+      "role": "color.border.subtle",
+      "light": "#CBCED2",
+      "dark": "#414449",
+      "product": false
+    },
+    {
+      "name": "elevation.floating.surface",
+      "figma": "elevation/floating/surface",
+      "cssVar": "--ds-elevation-floating-surface",
+      "tailwind": [
+        "bg-elevation-floating-surface"
+      ],
+      "use": "What opens over content without blocking it: menus, popovers, tooltips, toasts, date pickers, the navigation drawer — surface (linked to Colour)",
+      "collection": "Elevation",
+      "chapter": "Levels by job",
+      "type": "color",
+      "role": "color.bg.surface-overlay",
+      "light": "#FFFFFF",
+      "dark": "#373A3E",
+      "product": false
+    },
+    {
+      "name": "elevation.floating.shadow",
+      "figma": "elevation/floating (effect style)",
+      "cssVar": "--ds-elevation-floating-shadow",
+      "tailwind": [
+        "shadow-floating"
+      ],
+      "use": "Shadow of floating: 8px above the page (colour linked to Colour)",
+      "collection": "Elevation",
+      "chapter": "Shadows",
+      "type": "shadow",
+      "value": {
+        "color": "#00000029",
+        "offsetX": 0,
+        "offsetY": 4,
+        "blur": 16,
+        "spread": -2
+      },
+      "color": "color.shadow.3",
+      "product": false
+    },
+    {
+      "name": "elevation.floating.border",
+      "figma": "elevation/floating/border",
+      "cssVar": "--ds-elevation-floating-border",
+      "tailwind": [
+        "border-elevation-floating-border"
+      ],
+      "use": "Edge of floating, all sides, drawn at border.width.line — never shadow alone: forced colours remove shadows and Dark barely shows them",
+      "collection": "Elevation",
+      "chapter": "Edges",
+      "type": "color",
+      "role": "color.border.floating",
+      "light": "#AEB1B8",
+      "dark": "#54575E",
+      "product": false
+    },
+    {
+      "name": "elevation.modal.surface",
+      "figma": "elevation/modal/surface",
+      "cssVar": "--ds-elevation-modal-surface",
+      "tailwind": [
+        "bg-elevation-modal-surface"
+      ],
+      "use": "What blocks the page until it is answered or closed: dialogs, sheets, modal drawers — always with the scrim behind — surface (linked to Colour)",
+      "collection": "Elevation",
+      "chapter": "Levels by job",
+      "type": "color",
+      "role": "color.bg.surface-overlay",
+      "light": "#FFFFFF",
+      "dark": "#373A3E",
+      "product": false
+    },
+    {
+      "name": "elevation.modal.shadow",
+      "figma": "elevation/modal (effect style)",
+      "cssVar": "--ds-elevation-modal-shadow",
+      "tailwind": [
+        "shadow-modal"
+      ],
+      "use": "Shadow of modal: 16px above the page (colour linked to Colour)",
+      "collection": "Elevation",
+      "chapter": "Shadows",
+      "type": "shadow",
+      "value": {
+        "color": "#00000033",
+        "offsetX": 0,
+        "offsetY": 8,
+        "blur": 32,
+        "spread": -4
+      },
+      "color": "color.shadow.4",
+      "product": false
+    },
+    {
+      "name": "elevation.modal.border",
+      "figma": "elevation/modal/border",
+      "cssVar": "--ds-elevation-modal-border",
+      "tailwind": [
+        "border-elevation-modal-border"
+      ],
+      "use": "Edge of modal, all sides, drawn at border.width.line — never shadow alone: forced colours remove shadows and Dark barely shows them",
+      "collection": "Elevation",
+      "chapter": "Edges",
+      "type": "color",
+      "role": "color.border.floating",
+      "light": "#AEB1B8",
+      "dark": "#54575E",
+      "product": false
+    },
+    {
+      "name": "elevation.modal.scrim",
+      "figma": "elevation/modal/scrim",
+      "cssVar": "--ds-elevation-modal-scrim",
+      "tailwind": [
+        "bg-elevation-modal-scrim"
+      ],
+      "use": "Backdrop behind a modal: dims the page and shows it can't be used until the dialog closes",
+      "collection": "Elevation",
+      "chapter": "Dialogs and the scrim",
+      "type": "color",
+      "role": "color.bg.scrim",
+      "light": "#0000007A",
+      "dark": "#000000A3",
+      "product": false
+    },
+    {
+      "name": "elevation.dragging.shadow",
+      "figma": "elevation/dragging (effect style)",
+      "cssVar": "--ds-elevation-dragging-shadow",
+      "tailwind": [
+        "shadow-dragging"
+      ],
+      "use": "Shadow of dragging: 24px above the page (colour linked to Colour)",
+      "collection": "Elevation",
+      "chapter": "Shadows",
+      "type": "shadow",
+      "value": {
+        "color": "#00000033",
+        "offsetX": 0,
+        "offsetY": 12,
+        "blur": 48,
+        "spread": -6
+      },
+      "color": "color.shadow.4",
+      "product": false
+    },
+    {
+      "name": "elevation.dragging.border",
+      "figma": "elevation/dragging/border",
+      "cssVar": "--ds-elevation-dragging-border",
+      "tailwind": [
+        "border-elevation-dragging-border"
+      ],
+      "use": "Edge of dragging, all sides, drawn at border.width.line — never shadow alone: forced colours remove shadows and Dark barely shows them",
+      "collection": "Elevation",
+      "chapter": "Edges",
+      "type": "color",
+      "role": "color.border.floating",
+      "light": "#AEB1B8",
+      "dark": "#54575E",
+      "product": false
+    }
+  ],
+  "mistakes": [
+    {
+      "mistake": "A menu set apart from the page by its shadow alone",
+      "measured": "its shadow reaches 1.23:1 against the page in Light and 1.05:1 in Dark; forced colours remove it altogether — the menu's items run into the page",
+      "fix": ".ds-floating",
+      "fixValue": "the edge `elevation.floating.border`: at least 1.68:1 (Light) and 1.58:1 (Dark) against anything a menu can sit on, measured beside its own shadow, and kept in forced colours"
+    },
+    {
+      "mistake": "Darker shadows for dark mode",
+      "measured": "even at 56% black, the modal shadow reaches 1.06:1 on the Dark page — there is almost nothing left to darken",
+      "fix": "the level surfaces",
+      "fixValue": "in Dark the floating surface is 1.58:1 lighter than the page; the tokens switch by themselves"
+    },
+    {
+      "mistake": "z-index: 9999 on a dropdown",
+      "measured": "it is above `layer.modal` (300) and `layer.dragging` (500): left open, it paints over a dialog and its scrim",
+      "fix": "var(--ds-layer-floating)",
+      "fixValue": "200: above sticky bars (100), below dialogs (300); a popover sits in the top layer and is never clipped"
+    },
+    {
+      "mistake": "A dialog on the card surface (color.bg.surface) in Dark",
+      "measured": "against the scrim over the page it reaches 1.29:1, and it looks like one more card",
+      "fix": ".ds-modal",
+      "fixValue": "1.75:1 for the modal surface, plus its edge (2.77:1)"
+    },
+    {
+      "mistake": "A card that shows hover only by a bigger shadow",
+      "measured": "in Dark the raised and sticky shadows reach 1.04:1 and 1.05:1 (1/3px against 2/6px) — the change is close to invisible, and gone in forced colours",
+      "fix": "color.bg.surface-hover",
+      "fixValue": "1.36:1 against the card in Light; the shadow may change too, never alone"
+    },
+    {
+      "mistake": "A frosted-glass menu (backdrop-filter: blur, translucent background)",
+      "measured": "its text contrast depends on whatever scrolls behind it, so no build can measure it — it fails exactly when the page behind is busy",
+      "fix": "elevation.floating.surface",
+      "fixValue": "opaque: every text colour measured on it (E5)"
+    },
+    {
+      "mistake": "A <dialog> shown with the open attribute",
+      "measured": "it opens without the top layer, the backdrop or an inert page: Tab walks out of the dialog into the page behind it",
+      "fix": "dialog.showModal()",
+      "fixValue": "top layer, ::backdrop scrim, page inert, Escape closes; return focus to the button that opened it"
+    }
+  ]
+}

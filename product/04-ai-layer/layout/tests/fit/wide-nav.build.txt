@@ -1,0 +1,3 @@
+$ node src/cli.js wide-nav.config.json out/wide-nav
+✕ Config refused — layout: "nav" must be between 160 and 272px — as a drawer on a 320px screen it must leave 48px of the page visible
+exit code 2

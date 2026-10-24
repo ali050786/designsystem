@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Billing</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  body { margin: 0; }
+  main { display: grid; gap: var(--ds-space-stack-2xl); padding-block: var(--ds-space-inset-2xl); }
+  main > *, .card-body > *, .field > * { min-width: 0; } /* grid items can shrink below their content (LR-05) — missing in the first try */
+  h1, h2, p { margin: 0; }
+  .stack { display: grid; gap: var(--ds-space-stack-md); }
+  .muted { color: var(--ds-color-fg-muted); }
+  /* Plan picker: one control in three parts (RR-06: .ds-join, logical corners) */
+  .plans .btn { flex: 1 1 auto; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-height: var(--ds-size-control-height);
+    padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border: var(--ds-border-width-default) solid var(--ds-color-action-secondary-border);
+    border-radius: var(--ds-shape-control); background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); font: inherit; cursor: pointer; }
+  .btn:hover { background: var(--ds-color-action-secondary-bg-hover); }
+  .btn[aria-pressed="true"] { background: var(--ds-color-bg-selected); color: var(--ds-color-fg-default); }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); border-color: transparent; }
+  .btn-primary:hover { background: var(--ds-color-action-primary-bg-hover); }
+  /* Summary card: container; the flush header shares its top corners (RR-05), no clipping (RR-08) */
+  .card { max-width: var(--ds-layout-measure-reading); background: var(--ds-elevation-1-surface); border: var(--ds-border-width-default) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); box-shadow: var(--ds-elevation-1-shadow); }
+  .card-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-xs) var(--ds-space-inline-sm); padding: var(--ds-space-inset-md) var(--ds-space-inset-lg);
+    background: var(--ds-color-bg-surface-sunken); border-start-start-radius: var(--ds-shape-container); border-start-end-radius: var(--ds-shape-container); }
+  .card-head h2 { margin-inline-end: auto; }
+  .card-body { display: grid; gap: var(--ds-space-stack-lg); padding: var(--ds-space-inset-lg); }
+  .badge { display: inline-flex; padding: var(--ds-space-inset-xs) var(--ds-space-inset-sm); border-radius: var(--ds-shape-pill); background: var(--ds-color-bg-success-subtle); color: var(--ds-color-fg-success); white-space: nowrap; }
+  /* Usage panel fills the card body inset by inset/xs: nested radius */
+  .usage { padding: var(--ds-space-inset-xs); border: var(--ds-border-width-default) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); }
+  .usage-fill { display: grid; gap: var(--ds-space-stack-xs); padding: var(--ds-space-inset-md); background: var(--ds-color-bg-brand-subtle); border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs)); }
+  .meter { block-size: 0.5rem; border-radius: var(--ds-shape-pill); background: var(--ds-color-bg-surface); overflow: hidden; }
+  .meter span { display: block; block-size: 100%; inline-size: 62%; background: var(--ds-color-bg-brand); }
+  .field { display: grid; gap: var(--ds-space-stack-xs); }
+  .join .input { flex: 1 1 auto; min-width: 0; box-sizing: border-box; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md);
+    border: var(--ds-border-width-input) solid var(--ds-color-border-input); border-radius: var(--ds-shape-control); background: var(--ds-color-bg-surface); color: var(--ds-color-fg-default); font: inherit; }
+  .check { display: inline-flex; align-items: center; gap: var(--ds-space-inline-sm); min-height: var(--ds-size-target-min); }
+  .check input { inline-size: 1rem; block-size: 1rem; margin: 0; accent-color: var(--ds-color-action-primary-bg); border-radius: var(--ds-shape-mark); }
+</style>
+</head>
+<body>
+<main class="ds-page">
+  <div class="stack">
+    <h1 class="ds-type-heading-lg">Billing</h1>
+    <p class="ds-type-body-md muted ds-measure">Your plan, what you have used this month and where invoices go.</p>
+  </div>
+  <section class="stack" aria-labelledby="h-period">
+    <h2 id="h-period" class="ds-type-title-md">Billing period</h2>
+    <div class="ds-join plans" data-join="auto" role="group" aria-labelledby="h-period">
+      <button class="btn ds-type-label-md" type="button" aria-pressed="false">Monthly</button><button class="btn ds-type-label-md" type="button" aria-pressed="true">Yearly · save 15%</button><button class="btn ds-type-label-md" type="button" aria-pressed="false">Every two years</button>
+    </div>
+  </section>
+  <article class="card" aria-labelledby="h-plan">
+    <div class="card-head"><h2 id="h-plan" class="ds-type-title-md">Team plan</h2><span class="badge ds-type-label-sm">Active</span></div>
+    <div class="card-body">
+      <div class="usage"><div class="usage-fill"><p class="ds-type-label-md">Storage</p><div class="meter" role="img" aria-label="31 of 50 GB used"><span></span></div><p class="ds-type-body-sm">31 of 50 GB used</p></div></div>
+      <div class="field"><label class="ds-type-label-md" for="email">Send invoices to</label>
+        <div class="ds-join join"><input class="input ds-type-body-md" id="email" type="email" value="billing@example.com"><button class="btn btn-primary ds-type-label-md" type="button">Save</button></div></div>
+      <label class="check ds-type-body-md"><input type="checkbox" checked> Email me a copy of each invoice</label>
+      <div><button class="btn btn-primary ds-type-label-md" type="button">Upgrade plan</button></div>
+    </div>
+  </article>
+</main>
+<script>
+  for (const b of document.querySelectorAll('.plans .btn')) b.addEventListener('click', () => { for (const o of b.parentElement.children) o.setAttribute('aria-pressed', String(o === b)); });
+</script>
+</body>
+</html>

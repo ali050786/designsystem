@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orders · ds motion build test</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Orders page for a shop's back office. Motion comes only from ds motion jobs: feedback on controls, change for
+     order details and removed rows, the ready transitions for the filter menu, the dialog and the toast, a highlight
+     when the count updates on its own, the loading indicator while syncing. Nothing of its own on popovers or dialogs. */
+  body { margin: 0; }
+  .top { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-lg); padding: var(--ds-space-inset-md) var(--ds-layout-margin); position: static; }
+  @media (min-height: 30em) { .top { position: sticky; } }
+  .top h1 { margin: 0; margin-inline-end: auto; }
+  .today { display: inline-flex; align-items: baseline; gap: var(--ds-space-inline-sm); margin: 0; }
+  .today output { padding: 0 var(--ds-space-inset-xs); border-radius: var(--ds-shape-mark); }
+  main { display: grid; gap: var(--ds-space-stack-xl); padding-block: var(--ds-space-inset-2xl); }
+  main > * { min-width: 0; }
+  h2, h3, p { margin: 0; }
+  .muted { color: var(--ds-color-fg-muted); }
+  .bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-sm); }
+  .bar .status { margin-inline-start: auto; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--ds-size-control-icon-gap); box-sizing: border-box; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md);
+    border-radius: var(--ds-shape-control); border: var(--ds-border-width-control) solid transparent; font: inherit; cursor: pointer;
+    transition: background-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing), border-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing), color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing); }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-primary:hover { background: var(--ds-color-action-primary-bg-hover); }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-secondary:hover { background: var(--ds-color-action-secondary-bg-hover); }
+  .btn-danger { background: var(--ds-color-action-danger-bg); color: var(--ds-color-action-danger-fg); }
+  .btn-danger:hover { background: var(--ds-color-action-danger-bg-hover); }
+  .btn-ghost { background: var(--ds-color-action-ghost-bg); color: var(--ds-color-action-ghost-fg); }
+  .btn-ghost:hover { background: var(--ds-color-action-ghost-bg-hover); }
+  .btn[disabled] { background: var(--ds-color-action-disabled-bg); color: var(--ds-color-action-disabled-fg); border-color: var(--ds-color-action-disabled-border); cursor: default; }
+
+  /* Orders: rows that open in place (change) */
+  @keyframes arrive { from { opacity: 0; translate: 0 calc(-1 * var(--ds-motion-change-distance)); } }
+  @keyframes leave { to { opacity: 0; translate: 0 calc(-1 * var(--ds-motion-change-distance)); } }
+  .orders { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--ds-space-stack-sm); max-inline-size: 48rem; }
+  .order { border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .order.leaving { animation: leave var(--ds-motion-change-duration) var(--ds-motion-change-easing) forwards; }
+  .order h3 { display: flex; }
+  .order .toggle { display: flex; flex: 1; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-xs) var(--ds-space-inline-md); min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; border-radius: max(0px, var(--ds-shape-container) - var(--ds-border-width-line)); background: transparent; color: var(--ds-color-fg-default); font: inherit; text-align: start; cursor: pointer;
+    transition: background-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing); }
+  .order .toggle:hover { background: var(--ds-color-bg-item-hover); }
+  .order .toggle .id { font-weight: var(--ds-font-weight-semibold); }
+  .order .toggle .sum { margin-inline-start: auto; }
+  .order .toggle .sign::after { content: "+"; }
+  .order .toggle[aria-expanded="true"] .sign::after { content: "−"; }
+  .details { display: grid; gap: var(--ds-space-stack-sm); padding: 0 var(--ds-space-inset-md) var(--ds-space-inset-md); }
+  .details:not([hidden]) { animation: arrive var(--ds-motion-change-duration) var(--ds-motion-change-easing); }
+  .details .actions { display: flex; flex-wrap: wrap; gap: var(--ds-space-inline-sm); }
+
+  /* Floating and modal: tokens.css opens and closes them; only placement here */
+  .menu { margin: 0; padding: var(--ds-space-inset-xs); min-inline-size: 12rem; border-radius: var(--ds-shape-container); }
+  .menu:popover-open { position: fixed; inset: auto; }
+  .menu ul { list-style: none; margin: 0; padding: 0; display: grid; }
+  .menu button { display: flex; inline-size: 100%; min-height: var(--ds-size-control-height); align-items: center; padding: 0 var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; border-radius: max(0px, var(--ds-shape-container) - var(--ds-space-inset-xs)); background: transparent; color: var(--ds-color-fg-default); font: inherit; text-align: start; cursor: pointer;
+    transition: background-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing); }
+  .menu button:hover { background: var(--ds-color-bg-item-hover); }
+  .menu button[aria-checked="true"] { font-weight: var(--ds-font-weight-semibold); }
+  dialog.ds-modal { box-sizing: border-box; inline-size: min(28rem, 100% - 2 * var(--ds-layout-margin)); max-block-size: calc(100dvh - 2 * var(--ds-layout-margin)); overflow: auto; padding: var(--ds-space-inset-xl); border-radius: var(--ds-shape-surface); }
+  dialog .body { display: grid; gap: var(--ds-space-stack-md); }
+  dialog .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--ds-space-inline-sm); }
+  .toast { margin: 0; inset: auto var(--ds-layout-margin) var(--ds-layout-margin) auto; padding: var(--ds-space-inset-md) var(--ds-space-inset-lg); border-radius: var(--ds-shape-container); max-inline-size: calc(100% - 2 * var(--ds-layout-margin)); box-sizing: border-box; }
+
+  .status { display: inline-flex; align-items: center; gap: var(--ds-space-inline-sm); min-height: var(--ds-size-control-height); }
+  .status svg { color: var(--ds-color-fg-icon); flex: none; }
+</style>
+</head>
+<body>
+<header class="top ds-sticky">
+  <h1 class="ds-type-title-lg">Orders</h1>
+  <p class="today"><span class="muted">Orders today</span> <output id="today" class="ds-type-numeric-md">38</output></p>
+</header>
+
+<main class="ds-page">
+  <div class="bar">
+    <button class="btn btn-secondary" type="button" id="filter" popovertarget="filter-menu" aria-haspopup="true">Status: <span id="filter-value">All</span>&nbsp;▾</button>
+    <button class="btn btn-secondary" type="button" id="sync">Sync with warehouse</button>
+    <p class="status" role="status"><span id="sync-indicator" hidden><svg class="ds-loading" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="26 12" stroke-linecap="round"/></svg></span><span id="sync-text" class="muted">Synced 2 minutes ago</span></p>
+  </div>
+  <div class="menu ds-floating" id="filter-menu" popover aria-label="Status"><ul role="menu">
+    <li><button type="button" role="menuitemradio" aria-checked="true" data-status="All">All</button></li>
+    <li><button type="button" role="menuitemradio" aria-checked="false" data-status="To pack">To pack</button></li>
+    <li><button type="button" role="menuitemradio" aria-checked="false" data-status="Shipped">Shipped</button></li></ul></div>
+
+  <section aria-labelledby="h-orders">
+    <h2 id="h-orders" class="ds-type-title-md" style="margin-block-end: var(--ds-space-stack-md)">Recent orders</h2>
+    <ul class="orders" id="orders">
+      <li class="order" data-status="To pack"><h3><button class="toggle" type="button" aria-expanded="false" aria-controls="d-1042" id="o-1042"><span class="id">#1042</span><span class="muted">Asha Rao · To pack</span><span class="sum ds-type-numeric-md">₹2,340</span><span class="sign" aria-hidden="true"></span></button></h3>
+        <div class="details" id="d-1042" role="region" aria-labelledby="o-1042" hidden><p>2 × Cotton kurta (M), 1 × Scarf. Ships to Pune.</p><div class="actions"><button class="btn btn-danger" type="button" data-cancel="1042">Cancel order…</button></div></div></li>
+      <li class="order" data-status="To pack"><h3><button class="toggle" type="button" aria-expanded="false" aria-controls="d-1041" id="o-1041"><span class="id">#1041</span><span class="muted">Vikram Shah · To pack</span><span class="sum ds-type-numeric-md">₹860</span><span class="sign" aria-hidden="true"></span></button></h3>
+        <div class="details" id="d-1041" role="region" aria-labelledby="o-1041" hidden><p>1 × Leather wallet. Ships to Surat.</p><div class="actions"><button class="btn btn-danger" type="button" data-cancel="1041">Cancel order…</button></div></div></li>
+      <li class="order" data-status="Shipped"><h3><button class="toggle" type="button" aria-expanded="false" aria-controls="d-1039" id="o-1039"><span class="id">#1039</span><span class="muted">Neha Kapoor · Shipped</span><span class="sum ds-type-numeric-md">₹4,120</span><span class="sign" aria-hidden="true"></span></button></h3>
+        <div class="details" id="d-1039" role="region" aria-labelledby="o-1039" hidden><p>3 × Linen shirt. Delivered by Friday.</p></div></li>
+    </ul>
+  </section>
+</main>
+
+<dialog class="ds-modal" id="cancel" aria-labelledby="cancel-title" aria-describedby="cancel-desc">
+  <form method="dialog" class="body">
+    <h2 id="cancel-title" class="ds-type-title-lg">Cancel order <span id="cancel-id"></span>?</h2>
+    <p id="cancel-desc" class="muted">The customer is refunded in full and told by email.</p>
+    <div class="actions">
+      <button class="btn btn-secondary" value="keep" type="submit">Keep order</button>
+      <button class="btn btn-danger" value="cancel" type="submit" id="confirm">Cancel order</button>
+    </div>
+  </form>
+</dialog>
+<div class="toast ds-floating" data-layer="toast" id="toast" popover="manual" role="status"></div>
+
+<script>
+  const root = document.documentElement, bar = document.querySelector('.top'), tall = matchMedia('(min-height: 30em)');
+  const v = (n) => getComputedStyle(root).getPropertyValue(n).trim();
+  const pad = () => { root.style.scrollPaddingTop = tall.matches ? `${bar.getBoundingClientRect().height + parseFloat(v('--ds-focus-ring-offset')) + parseFloat(v('--ds-focus-ring-width'))}px` : ''; };
+  tall.addEventListener('change', pad); new ResizeObserver(pad).observe(bar, { box: "border-box" }); pad();
+
+  // Highlight, once per change.
+  const highlight = (el) => { el.classList.remove('ds-highlight'); requestAnimationFrame(() => el.classList.add('ds-highlight')); };
+
+  // Order details open in place.
+  for (const b of document.querySelectorAll('.order .toggle')) b.addEventListener('click', () => { const open = b.getAttribute('aria-expanded') !== 'true'; b.setAttribute('aria-expanded', String(open)); document.getElementById(b.getAttribute('aria-controls')).hidden = !open; });
+
+  // Filter menu: placed under its button; picking a status filters the list at once.
+  const menu = document.getElementById('filter-menu'), filter = document.getElementById('filter');
+  menu.addEventListener('toggle', (e) => { if (e.newState !== 'open') return; const r = filter.getBoundingClientRect(); menu.style.left = `${Math.max(8, Math.min(r.left, innerWidth - menu.offsetWidth - 8))}px`; menu.style.top = `${r.bottom + 4}px`; menu.querySelector('[aria-checked="true"]').focus(); });
+  menu.addEventListener('keydown', (e) => { const items = [...menu.querySelectorAll('button')], i = items.indexOf(document.activeElement); if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); items[(i + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length].focus(); } });
+  for (const b of menu.querySelectorAll('[data-status]')) b.addEventListener('click', () => {
+    for (const x of menu.querySelectorAll('[data-status]')) x.setAttribute('aria-checked', String(x === b));
+    document.getElementById('filter-value').textContent = b.dataset.status;
+    for (const o of document.querySelectorAll('.order')) o.hidden = b.dataset.status !== 'All' && o.dataset.status !== b.dataset.status;
+    menu.hidePopover(); filter.focus();
+  });
+
+  // Cancelling: the dialog, then the row leaves and a toast says so.
+  const dlg = document.getElementById('cancel');
+  let opener = null, row = null;
+  for (const b of document.querySelectorAll('[data-cancel]')) b.addEventListener('click', () => { opener = b; row = b.closest('.order'); document.getElementById('cancel-id').textContent = `#${b.dataset.cancel}`; dlg.showModal(); });
+  dlg.addEventListener('close', () => {
+    if (dlg.returnValue !== 'cancel') { opener?.focus(); return; }
+    const next = row.nextElementSibling?.querySelector('.toggle') ?? row.previousElementSibling?.querySelector('.toggle') ?? filter;
+    next.focus();
+    row.classList.add('leaving');
+    row.addEventListener('animationend', () => row.remove(), { once: true });
+    toast(`Order ${document.getElementById('cancel-id').textContent} cancelled.`);
+  });
+  const t = document.getElementById('toast');
+  let timer;
+  function toast(msg) { t.textContent = msg; if (!t.matches(':popover-open')) t.showPopover(); clearTimeout(timer); timer = setTimeout(() => t.hidePopover(), 6000); }
+
+  // Sync: the indicator runs only while syncing; past five seconds the status says how far it got.
+  const sync = document.getElementById('sync'), ind = document.getElementById('sync-indicator'), txt = document.getElementById('sync-text');
+  sync.addEventListener('click', () => {
+    sync.disabled = true; ind.hidden = false; txt.textContent = 'Syncing with the warehouse…';
+    const start = Date.now();
+    const tick = setInterval(() => { const s = (Date.now() - start) / 1000; if (s >= 5) txt.textContent = `Syncing… ${Math.min(3, Math.floor(s / 2))} of 3 stock lists updated`; }, 500);
+    setTimeout(() => { clearInterval(tick); ind.hidden = true; txt.textContent = 'Synced just now'; highlight(txt); sync.disabled = false; sync.focus(); }, 6500);
+  });
+
+  // The count updates on its own (a new order arrives): one highlight per change.
+  const today = document.getElementById('today');
+  setInterval(() => { today.textContent = String(+today.textContent + 1); highlight(today); }, 20000);
+</script>
+</body>
+</html>

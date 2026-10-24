@@ -1,0 +1,1 @@
+✕ Config refused — elevation.layers → layer.cookie-banner: "z" is not allowed: say which layer it sits just above ("above": "sticky", "floating", "modal", "toast", "dragging"); the number is computed

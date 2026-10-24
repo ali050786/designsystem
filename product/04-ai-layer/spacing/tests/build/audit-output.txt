@@ -1,0 +1,15 @@
+$ npm run audit:space -- members.html
+comfortable 14 targets (+0 links in sentences) · smallest 32px (button.btn.btn-secondary "Actions for Ali Khan") · control height 48px · phone fits 320px
+default     14 targets (+0 links in sentences) · smallest 32px (button.btn.btn-secondary "Actions for Ali Khan") · control height 40px · phone fits 320px
+compact     14 targets (+0 links in sentences) · smallest 32px (button.btn.btn-primary "+ Invite people") · control height 32px · phone fits 320px
+spacing that doesn't follow density: 0 element(s)
+
+$ npm run audit:type -- members.html
+desktop: 39 text elements · smallest 12px · reading text 0 (lowest line height —)
+phone: 39 text elements · page fits 320px
+tabular figures: Inter ok
+cut off as designed: 0 · readers' settings: text-spacing override cuts off 0 more · 200% text cuts off 0 more · text not growing 0
+
+$ npm run audit:page -- members.html
+light  text 41/41 pass (lowest 5.35 : 1, span.badge.ds-type-label-sm)  ·  controls 5/5  ·  focus ring 8/8
+dark  text 41/41 pass (lowest 5.32 : 1, span.badge.ds-type-label-sm)  ·  controls 5/5  ·  focus ring 8/8

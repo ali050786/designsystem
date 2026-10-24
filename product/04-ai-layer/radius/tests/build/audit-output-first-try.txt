@@ -1,0 +1,9 @@
+product style: default
+sharp    1280px/100%: 0 poke, 0 nested, 0 text · 320px/100%: 0 poke, 0 nested, 0 text · 1280px/200%: 0 poke, 0 nested, 0 text · 320px/200%: 0 poke, 0 nested, 0 text
+default  1280px/100%: 0 poke, 0 nested, 0 text · 320px/100%: 0 poke, 0 nested, 0 text · 1280px/200%: 0 poke, 0 nested, 0 text · 320px/200%: 0 poke, 0 nested, 0 text
+round    1280px/100%: 0 poke, 0 nested, 0 text · 320px/100%: 0 poke, 0 nested, 0 text · 1280px/200%: 0 poke, 0 nested, 0 text · 320px/200%: 0 poke, 0 nested, 0 text
+focus default 1280   7 tab stops, 7 rings sampled on four sides
+focus default 320    7 tab stops, 7 rings sampled on four sides
+focus round 1280     7 tab stops, 7 rings sampled on four sides
+✕ seam      button.btn.ds-type-label-md "Yearly · save 15%" and button.btn.ds-type-label-md "Every two years" touch, and the edge where they meet is rounded (4px) — use .ds-join or logical corners (RR-06)  [ltr; 320]
+✕ seam      button.btn.ds-type-label-md "Yearly · save 15%" and button.btn.ds-type-label-md "Every two years" touch, and the edge where they meet is rounded (4px) in right-to-left — physical corners? — use .ds-join or logical corners (RR-06)  [rtl; 320]

@@ -1,0 +1,1 @@
+✕ Config refused — radius.roles → shape.thumbnail: the radius must not shrink from sharp to default to round

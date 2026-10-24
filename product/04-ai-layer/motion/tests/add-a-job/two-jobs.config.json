@@ -1,0 +1,4 @@
+{ "motion": { "jobs": [
+  { "name": "motion.carousel", "kind": "in-place", "distance": "space.6", "description": "Slides of a carousel the reader steps through with its buttons" },
+  { "name": "motion.sheet-handle", "kind": "in-out", "distance": "space.8", "description": "The handle of a non-modal bottom panel that comes up from the bottom edge" }
+] } }

@@ -1,0 +1,19 @@
+✕ input.html:10  ER-10  --ds-layer-modal is redefined in app code.  → Add a product layer in the engine config (elevation.layers) and build; levels are computed.
+✕ input.html:12  ER-05  z-index: 1000 is a stray number — it races the layers (a dialog is 300).  → Use a layer: --ds-layer-sticky, --ds-layer-floating, --ds-layer-modal, --ds-layer-toast, --ds-layer-dragging. Raw -1, 0, 1, 2 only for order inside one component.
+✕ input.html:13  ER-02  box-shadow: 0 2px 8px var(--ds-color-shadow-2) builds a shadow from --ds-color-shadow-2.  → Pick the level's shadow: var(--ds-elevation-<job>-shadow) (raised, sticky, floating, modal, dragging).
+! input.html:12  ER-04  .top is a sticky bar with no line toward the content.  → border-block-end: var(--ds-border-width-line) solid var(--ds-elevation-sticky-border) — or .ds-sticky.
+✕ input.html:28  ER-01  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12) is hand-made — it belongs to no level.  → Use the level's shadow: var(--ds-elevation-<job>-shadow) (raised, sticky, floating, modal, dragging) — or the class .ds-<job>.
+! input.html:29  ER-08  .card:hover shows hover by shadow alone — removed in forced colours, barely visible in Dark.  → Change the fill too (var(--ds-color-bg-surface-hover)) or a border colour.
+✕ input.html:30  ER-01  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8) is hand-made — it belongs to no level.  → Use the level's shadow: var(--ds-elevation-<job>-shadow) (raised, sticky, floating, modal, dragging) — or the class .ds-<job>.
+✕ input.html:30  ER-07  [data-theme="dark"] .card sets a shadow for dark mode.  → Remove it: the level tokens switch for Dark by themselves, and height there comes from lighter surfaces.
+✕ input.html:34  ER-05  z-index: 9999 is a stray number — it races the layers (a dialog is 300).  → Use a layer: --ds-layer-sticky, --ds-layer-floating, --ds-layer-modal, --ds-layer-toast, --ds-layer-dragging — or open it as a popover (top layer, never clipped). Raw -1, 0, 1, 2 only for order inside one component.
+✕ input.html:34  ER-03  .dropdown mixes levels: the floating shadow on the raised surface.  → Take one level: .ds-floating (or its surface, var(--ds-elevation-floating-surface)).
+✕ input.html:34  ER-04  .dropdown floats (floating) with no edge — forced colours remove its shadow and Dark barely shows it.  → border: var(--ds-border-width-line) solid var(--ds-elevation-floating-border) — or the class .ds-floating.
+✕ input.html:43  ER-09  backdrop-filter: blur(12px) — a see-through surface: text contrast depends on what scrolls behind it.  → Use an opaque level surface (var(--ds-elevation-floating-surface)).
+✕ input.html:42  ER-04  .help floats (floating) with no edge — forced colours remove its shadow and Dark barely shows it.  → border: var(--ds-border-width-line) solid var(--ds-elevation-floating-border) — or the class .ds-floating.
+✕ input.html:43  ER-09  .help has a see-through background (rgb(255 255 255 / 0.7)).  → Use the opaque level surface var(--ds-elevation-floating-surface).
+✕ input.html:49  ER-05  z-index: 10 is a stray number.  → Use a layer: --ds-layer-sticky, --ds-layer-floating, --ds-layer-modal, --ds-layer-toast, --ds-layer-dragging. Raw -1, 0, 1, 2 only for order inside one component.
+! input.html:95  ER-06  <dialog> without a label — a screen reader announces "dialog" and nothing else.  → aria-labelledby="<id of its heading>".
+! input.html:107  ER-06  dialog.show() opens it without the top layer, the scrim or an inert page.  → dialog.showModal() for anything that must be answered.
+
+1 file(s) · 13 error(s) · 4 warning(s)

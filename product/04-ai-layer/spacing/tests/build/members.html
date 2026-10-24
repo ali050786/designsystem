@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team members</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  body { margin: 0; }
+  main { max-width: 1200px; margin: 0 auto; padding: var(--ds-space-inset-2xl) var(--ds-layout-margin); display: grid; gap: var(--ds-space-stack-xl); }
+  main > *, .layout > * { min-width: 0; }
+  h1, h2, p { margin: 0; }
+
+  .page-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-md); }
+  .page-head .titles { display: grid; gap: var(--ds-space-stack-xs); margin-inline-end: auto; }
+  .muted { color: var(--ds-color-fg-muted); }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--ds-size-control-icon-gap); min-height: var(--ds-size-control-height);
+    padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border-radius: var(--ds-shape-control); border: 1px solid transparent; cursor: pointer; }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-primary:hover { background: var(--ds-color-action-primary-bg-hover); }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-secondary:hover { background: var(--ds-color-action-secondary-bg-hover); }
+  .icon-btn { min-width: var(--ds-size-control-height); padding: 0; }
+
+  .toolbar { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--ds-space-stack-md) var(--ds-space-inline-xl); }
+  .field { display: grid; gap: var(--ds-space-stack-xs); }
+  .field input, .field select, .field textarea { width: 100%; box-sizing: border-box; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md);
+    background: var(--ds-color-bg-surface); color: var(--ds-color-fg-default); border: 1px solid var(--ds-color-border-input); border-radius: var(--ds-shape-control); }
+  .search { min-width: 14rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: var(--ds-space-stack-sm) var(--ds-space-inline-sm); border: 0; margin: 0; padding: 0; min-inline-size: 0; }
+  .chips legend { padding: 0; margin-bottom: var(--ds-space-stack-xs); }
+  .chip { position: relative; display: inline-flex; align-items: center; min-height: var(--ds-size-control-height); padding: 0 var(--ds-space-inset-md);
+    border: 1px solid var(--ds-color-border-default); border-radius: var(--ds-shape-pill); background: var(--ds-color-bg-surface); cursor: pointer; }
+  .chip input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+  .chip:has(input:checked) { background: var(--ds-color-bg-selected); border-color: var(--ds-color-border-strong); }
+  .chip:has(input:focus-visible) { outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color); outline-offset: var(--ds-focus-ring-offset); }
+
+  .layout { display: grid; gap: var(--ds-space-stack-xl) var(--ds-space-inline-xl); grid-template-columns: minmax(0, 1fr); }
+  @media (min-width: 1024px) { .layout { grid-template-columns: minmax(0, 1fr) 20rem; } }
+
+  .table-wrap { overflow-x: auto; background: var(--ds-color-bg-surface); border: 1px solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); text-align: start; border-bottom: 1px solid var(--ds-color-border-subtle); vertical-align: middle; }
+  thead th { background: var(--ds-color-bg-surface-sunken); color: var(--ds-color-fg-muted); white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: 0; }
+  .person { display: grid; gap: var(--ds-space-stack-xs); }
+  .badge { display: inline-flex; padding: var(--ds-space-inset-xs) var(--ds-space-inset-sm); border-radius: var(--ds-shape-pill); background: var(--ds-color-bg-brand-subtle); color: var(--ds-color-fg-brand); }
+  td.actions-cell { text-align: end; }
+
+  .side { display: grid; gap: var(--ds-space-stack-xl); align-content: start; }
+  .card { display: grid; gap: var(--ds-space-stack-md); padding: var(--ds-space-inset-lg); background: var(--ds-elevation-1-surface); border: 1px solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); box-shadow: var(--ds-elevation-1-shadow); }
+  .meter { block-size: 0.5rem; border-radius: var(--ds-shape-pill); background: var(--ds-color-bg-surface-sunken); overflow: hidden; }
+  .meter span { display: block; block-size: 100%; background: var(--ds-color-bg-brand); }
+  .stat { display: grid; gap: var(--ds-space-stack-xs); }
+  .form { display: grid; gap: var(--ds-space-stack-lg); }
+  .form-actions { display: flex; flex-wrap: wrap; gap: var(--ds-space-stack-sm) var(--ds-space-inline-sm); margin-top: var(--ds-space-stack-sm); }
+  .note { padding: var(--ds-space-inset-md); border-radius: var(--ds-shape-control); background: var(--ds-color-bg-info-subtle); color: var(--ds-color-fg-default); }
+</style>
+</head>
+<body>
+<main>
+  <header class="page-head">
+    <div class="titles">
+      <h1 class="ds-type-heading-lg">Team members</h1>
+      <p class="ds-type-body-md muted">12 of 15 seats used in Acme workspace</p>
+    </div>
+    <button type="button" class="btn btn-primary ds-type-label-md"><span aria-hidden="true">+</span> Invite people</button>
+  </header>
+
+  <form class="toolbar" role="search" aria-label="Filter members" onsubmit="return false">
+    <div class="field search"><label for="q" class="ds-type-label-md">Search</label><input id="q" class="ds-type-body-md" type="search" placeholder="Name or email"></div>
+    <div class="field"><label for="role" class="ds-type-label-md">Role</label>
+      <select id="role" class="ds-type-body-md"><option>All roles</option><option>Admin</option><option>Member</option><option>Guest</option></select></div>
+    <fieldset class="chips ds-type-label-md">
+      <legend>Status</legend>
+      <label class="chip"><input type="radio" name="status" checked> All</label>
+      <label class="chip"><input type="radio" name="status"> Active</label>
+      <label class="chip"><input type="radio" name="status"> Invited</label>
+    </fieldset>
+  </form>
+
+  <div class="layout">
+    <section aria-labelledby="h-members" class="stack">
+      <h2 id="h-members" class="ds-type-heading-md">Members</h2>
+      <div class="table-wrap" data-density="compact" style="margin-top: var(--ds-space-stack-md)">
+        <table>
+          <thead class="ds-type-label-sm"><tr><th scope="col">Person</th><th scope="col">Role</th><th scope="col">Last active</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+          <tbody class="ds-type-body-sm">
+            <tr><td><div class="person"><span class="ds-type-title-sm">Ali Khan</span><span class="muted">ali@acme.example</span></div></td><td><span class="badge ds-type-label-sm">Admin</span></td><td>Today</td>
+              <td class="actions-cell"><button type="button" class="btn btn-secondary icon-btn ds-type-label-md" aria-label="Actions for Ali Khan">⋯</button></td></tr>
+            <tr><td><div class="person"><span class="ds-type-title-sm">Sara Iqbal</span><span class="muted">sara@acme.example</span></div></td><td>Member</td><td>Yesterday</td>
+              <td class="actions-cell"><button type="button" class="btn btn-secondary icon-btn ds-type-label-md" aria-label="Actions for Sara Iqbal">⋯</button></td></tr>
+            <tr><td><div class="person"><span class="ds-type-title-sm">Ravi Menon</span><span class="muted">ravi@acme.example</span></div></td><td>Guest</td><td>3 days ago</td>
+              <td class="actions-cell"><button type="button" class="btn btn-secondary icon-btn ds-type-label-md" aria-label="Actions for Ravi Menon">⋯</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note ds-type-body-sm" style="margin-top: var(--ds-space-stack-md)">No one matches “design” — try a name or an email address.</p>
+    </section>
+
+    <aside class="side" aria-label="Workspace">
+      <section class="card" aria-labelledby="h-seats">
+        <h2 id="h-seats" class="ds-type-title-md">Seats</h2>
+        <div class="stat"><span class="ds-type-numeric-lg">12 / 15</span><span class="ds-type-caption-md muted">3 seats left on this plan</span></div>
+        <div class="meter" role="img" aria-label="12 of 15 seats used"><span style="inline-size: 80%"></span></div>
+      </section>
+
+      <section class="card" aria-labelledby="h-invite">
+        <h2 id="h-invite" class="ds-type-title-md">Invite someone</h2>
+        <form class="form" onsubmit="return false">
+          <div class="field"><label for="inv-email" class="ds-type-label-md">Email</label><input id="inv-email" class="ds-type-body-md" type="email" aria-describedby="inv-help"><span id="inv-help" class="ds-type-caption-md muted">They get a link that works for 7 days.</span></div>
+          <div class="field"><label for="inv-role" class="ds-type-label-md">Role</label><select id="inv-role" class="ds-type-body-md"><option>Member</option><option>Admin</option><option>Guest</option></select></div>
+          <div class="field"><label for="inv-msg" class="ds-type-label-md">Message (optional)</label><textarea id="inv-msg" class="ds-type-body-md" rows="3"></textarea></div>
+          <div class="form-actions"><button type="submit" class="btn btn-primary ds-type-label-md">Send invite</button><button type="reset" class="btn btn-secondary ds-type-label-md">Cancel</button></div>
+        </form>
+      </section>
+    </aside>
+  </div>
+</main>
+<style>.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }</style>
+</body>
+</html>

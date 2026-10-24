@@ -1,0 +1,26 @@
+# Design Systems Surf downloads: licence forbids redistribution. Never commit.
+surf/
+
+# Third-party FigCraft binaries (rebuild or stage locally)
+product/engine/figcraft/bin/
+
+# Generated outputs (npm run build:all)
+product/engine/out/
+
+# Transfer area
+product/_inbox/
+
+# Dependencies and builds
+node_modules/
+.next/
+out-app/
+.vercel/
+*.tsbuildinfo
+.env*
+!.env.example
+
+# OS / editor
+.DS_Store
+*.swp
+.vscode/
+.idea/

@@ -1,0 +1,15 @@
+light  text 23/25 pass (lowest 1.58 : 1, span.badge-error)  ·  controls 0/1  ·  focus ring 2/5
+dark   text 22/25 pass (lowest 1.84 : 1, span.tag)  ·  controls 0/1  ·  focus ring 2/5
+✕ light  text     span.badge-error "Overdue"  #414449 on #AD3831 = 1.58 : 1 (needs 4.5)
+✕ light  text     p "Settings saved."  #232427 on #2A57D1 = 2.5 : 1 (needs 4.5)
+✕ light  control  input#reason  #BDBFC5 around #FFFFFF = 1.84 : 1 (needs 3)
+✕ light  focus    button.btn.btn-ghost  no visible focus ring (none)
+✕ light  focus    button.btn.btn-secondary  no visible focus ring (none)
+✕ light  focus    button.btn.btn-primary  no visible focus ring (none)
+✕ dark  text     span.price "$12 per seat"  #0A7D32 on #232427 = 2.95 : 1 (needs 4.5)
+✕ dark  text     span.tag "Annual"  #79A2FF on #CDDEFF = 1.84 : 1 (needs 4.5)
+✕ dark  text     span.badge-error "Overdue"  #BDBFC5 on #AD3831 = 3.37 : 1 (needs 4.5)
+✕ dark  control  input#reason  #4B4D53 around #373A3E = 1.36 : 1 (needs 3)
+✕ dark  focus    button.btn.btn-ghost  no visible focus ring (none)
+✕ dark  focus    button.btn.btn-secondary  no visible focus ring (none)
+✕ dark  focus    button.btn.btn-primary  no visible focus ring (none)

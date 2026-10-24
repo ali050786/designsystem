@@ -1,0 +1,5 @@
+{ "color": { "roles": [
+  { "name": "color.border.drop-target", "light": "brand.55", "dark": "brand.40",
+    "description": "Outline of an area while a file is dragged over it (shown with bg.brand-subtle)",
+    "on": ["color.bg.canvas", "color.bg.surface", "color.bg.surface-sunken", "color.bg.brand-subtle"] }
+] } }

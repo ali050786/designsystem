@@ -1,0 +1,4755 @@
+{
+  "$schema": "ds-color-contract/1",
+  "system": "ds",
+  "prefix": "ds",
+  "standard": "WCAG 2.2 AA",
+  "modes": [
+    "Light",
+    "Dark"
+  ],
+  "modeSwitching": {
+    "css": "<html data-theme=\"light|dark\">; without it the OS preference is followed",
+    "figma": "Set the Color collection mode on a frame"
+  },
+  "build": {
+    "brand": "#2D5BD7",
+    "ok": true,
+    "pairs": 324,
+    "measurements": 648
+  },
+  "rules": [
+    {
+      "id": "CR-01",
+      "rule": "Use roles, never shades or hex.",
+      "why": "Roles carry the Light and Dark values and the contrast promise; `color.<hue>.<grade>` and hex codes carry neither.",
+      "wcag": "—"
+    },
+    {
+      "id": "CR-02",
+      "rule": "Put text, icons and outlines only on backgrounds listed for them in the pair contract.",
+      "why": "Only listed pairs are measured. Anything else is unsupported.",
+      "wcag": "1.4.3, 1.4.11"
+    },
+    {
+      "id": "CR-03",
+      "rule": "On a solid fill (bg.brand, bg.danger, action.primary.bg …) use its partner on- colour.",
+      "why": "Any other text on a solid fill falls far below 4.5 : 1.",
+      "wcag": "1.4.3"
+    },
+    {
+      "id": "CR-04",
+      "rule": "Never use colour alone to carry meaning.",
+      "why": "Status needs words or an icon, links need an underline, changes need an arrow or sign.",
+      "wcag": "1.4.1"
+    },
+    {
+      "id": "CR-05",
+      "rule": "Positive and negative mean good and bad, not up and down.",
+      "why": "A falling error rate is positive (green with ▼). Choose by meaning; the arrow shows direction.",
+      "wcag": "1.4.1"
+    },
+    {
+      "id": "CR-06",
+      "rule": "Hover with translucent tints only on canvas, surface or sunken; inside menus, popovers, dialogs and raised cards use the solid item roles.",
+      "why": "In Dark, lightening a high surface closes the gap to its text (brand text measured at 2.8 : 1).",
+      "wcag": "1.4.3"
+    },
+    {
+      "id": "CR-07",
+      "rule": "Never place ghost buttons or brand-coloured text on a tinted sunken well.",
+      "why": "Brand text there lands on the 4.5 : 1 line — too close to rely on.",
+      "wcag": "1.4.3"
+    },
+    {
+      "id": "CR-08",
+      "rule": "One primary action per view.",
+      "why": "Two primaries force people to choose between equals.",
+      "wcag": "—"
+    },
+    {
+      "id": "CR-09",
+      "rule": "Every focusable element shows a 2px border.focus ring with a 2px gap on :focus-visible. Never remove it.",
+      "why": "Keyboard users lose their place without it.",
+      "wcag": "2.4.7, 2.4.13"
+    },
+    {
+      "id": "CR-10",
+      "rule": "Outlines that identify a control use border.input or border.strong; border.subtle and border.default are decorative only.",
+      "why": "People need to see a field's edge to find it (3 : 1).",
+      "wcag": "1.4.11"
+    },
+    {
+      "id": "CR-11",
+      "rule": "Disabled colours are exempt from contrast, so never put information in disabled text; explain nearby why something is disabled.",
+      "why": "Low-contrast text is hard to read for many people.",
+      "wcag": "1.4.3 (exception)"
+    },
+    {
+      "id": "CR-12",
+      "rule": "Overlays (menus, popovers, dialogs) take their whole elevation level — bg.surface-overlay, border.floating at border.width.line and the level's shadow; modal dialogs also get bg.scrim (Elevation rulebook).",
+      "why": "Depth must not rely on shadow alone.",
+      "wcag": "1.4.11"
+    },
+    {
+      "id": "CR-13",
+      "rule": "Use chart series in order (chart-1, chart-2 …) and label series directly or with a legend.",
+      "why": "The order is tuned so neighbours stay distinct for colour-blind readers.",
+      "wcag": "1.4.1"
+    },
+    {
+      "id": "CR-14",
+      "rule": "Brand colour is identity, not an intent. Never use it to mean success.",
+      "why": "Intent colours must keep one meaning everywhere.",
+      "wcag": "—"
+    },
+    {
+      "id": "CR-15",
+      "rule": "Design once with roles; switch Light and Dark by mode (data-theme on <html>), never by swapping names.",
+      "why": "Roles are remapped per mode; swapping names breaks the pair contract.",
+      "wcag": "—"
+    }
+  ],
+  "decisions": [
+    {
+      "what": "A background",
+      "question": "Where does it sit?",
+      "answers": [
+        [
+          "The page itself",
+          "color.bg.canvas"
+        ],
+        [
+          "A card, panel or table",
+          "color.bg.surface"
+        ],
+        [
+          "Set back inside a card (table head, well, code)",
+          "color.bg.surface-sunken"
+        ],
+        [
+          "Stays above scrolling content (sticky header, toolbar)",
+          "color.bg.surface-raised"
+        ],
+        [
+          "Opens on top (menu, popover, dialog)",
+          "color.bg.surface-overlay"
+        ],
+        [
+          "The selected item",
+          "color.bg.selected"
+        ],
+        [
+          "A message or highlight tint",
+          "color.bg.{intent}-subtle"
+        ],
+        [
+          "Behind a modal dialog",
+          "color.bg.scrim"
+        ]
+      ]
+    },
+    {
+      "what": "Text",
+      "question": "How important is it?",
+      "answers": [
+        [
+          "Main content and headings",
+          "color.fg.default"
+        ],
+        [
+          "Supporting details",
+          "color.fg.muted"
+        ],
+        [
+          "Meta text, timestamps, placeholders",
+          "color.fg.subtle"
+        ],
+        [
+          "A link (always underlined)",
+          "color.fg.link"
+        ],
+        [
+          "Status words",
+          "color.fg.{intent}"
+        ],
+        [
+          "On a solid fill",
+          "color.fg.on-{fill}"
+        ],
+        [
+          "A good / bad change (with an arrow)",
+          "color.fg.positive / color.fg.negative"
+        ]
+      ]
+    },
+    {
+      "what": "An icon",
+      "question": "Does it carry meaning?",
+      "answers": [
+        [
+          "Beside a label",
+          "color.fg.icon"
+        ],
+        [
+          "Chevron or decoration",
+          "color.fg.icon-subtle"
+        ],
+        [
+          "Status icon",
+          "color.fg.{intent}"
+        ],
+        [
+          "Inside a button with a label",
+          "color.action.{kind}.fg"
+        ],
+        [
+          "An icon-only button (toolbar, row actions): ghost button with a neutral icon",
+          "color.fg.icon"
+        ]
+      ]
+    },
+    {
+      "what": "An outline",
+      "question": "Would someone miss the control if this line disappeared?",
+      "answers": [
+        [
+          "Yes — input, checkbox, radio",
+          "color.border.input"
+        ],
+        [
+          "Yes — button, toggle, chip",
+          "color.border.strong"
+        ],
+        [
+          "No — divider, card edge",
+          "color.border.subtle / color.border.default"
+        ],
+        [
+          "Keyboard focus",
+          "color.border.focus"
+        ],
+        [
+          "Field in error",
+          "color.border.danger"
+        ]
+      ]
+    },
+    {
+      "what": "A button",
+      "question": "How important is the action?",
+      "answers": [
+        [
+          "The main action (one per view)",
+          "color.action.primary.*"
+        ],
+        [
+          "An alternative",
+          "color.action.secondary.*"
+        ],
+        [
+          "Quiet actions, toolbars",
+          "color.action.ghost.*"
+        ],
+        [
+          "Deletes or can't be undone",
+          "color.action.danger.*"
+        ],
+        [
+          "Not available right now",
+          "color.action.disabled.*"
+        ]
+      ]
+    },
+    {
+      "what": "Hover or pressed",
+      "question": "What is underneath?",
+      "answers": [
+        [
+          "canvas, surface or sunken",
+          "color.bg.state-hover / color.bg.state-pressed (translucent tint)"
+        ],
+        [
+          "Inside a menu, popover, dialog or raised card",
+          "color.bg.item-hover / color.bg.item-pressed (solid)"
+        ],
+        [
+          "A row on a surface (solid)",
+          "color.bg.surface-hover / color.bg.surface-pressed"
+        ]
+      ]
+    },
+    {
+      "what": "Data and charts",
+      "question": "What does it show?",
+      "answers": [
+        [
+          "A good change (arrow shows direction)",
+          "color.fg.positive (text) / color.data.positive (marks)"
+        ],
+        [
+          "A bad change",
+          "color.fg.negative (text) / color.data.negative (marks)"
+        ],
+        [
+          "No change",
+          "color.data.neutral"
+        ],
+        [
+          "Several series, in order",
+          "color.data.chart-1 … chart-8"
+        ],
+        [
+          "Axes and ticks",
+          "color.data.axis"
+        ],
+        [
+          "Gridlines (decorative)",
+          "color.data.gridline"
+        ]
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "name": "color.bg.canvas",
+      "figma": "color/bg/canvas",
+      "css": "--ds-color-bg-canvas",
+      "tailwind": "bg-bg-canvas",
+      "kind": "fill",
+      "chapter": "Surfaces and depth",
+      "use": "Page background",
+      "light": "#ECEEF0",
+      "dark": "#161618",
+      "lightShade": "neutral.5",
+      "darkShade": "neutral.95",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.surface",
+      "figma": "color/bg/surface",
+      "css": "--ds-color-bg-surface",
+      "tailwind": "bg-bg-surface",
+      "kind": "fill",
+      "chapter": "Surfaces and depth",
+      "use": "Cards, panels, tables",
+      "light": "#FFFFFF",
+      "dark": "#232427",
+      "lightShade": "white",
+      "darkShade": "neutral.90",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.surface-raised",
+      "figma": "color/bg/surface-raised",
+      "css": "--ds-color-bg-surface-raised",
+      "tailwind": "bg-bg-surface-raised",
+      "kind": "fill",
+      "chapter": "Surfaces and depth",
+      "use": "Sticky bars: headers, toolbars, sticky table headers (elevation.sticky)",
+      "light": "#FFFFFF",
+      "dark": "#2E3033",
+      "lightShade": "white",
+      "darkShade": "neutral.85",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.surface-overlay",
+      "figma": "color/bg/surface-overlay",
+      "css": "--ds-color-bg-surface-overlay",
+      "tailwind": "bg-bg-surface-overlay",
+      "kind": "fill",
+      "chapter": "Surfaces and depth",
+      "use": "Menus, popovers, toasts, dialogs (elevation.floating and elevation.modal)",
+      "light": "#FFFFFF",
+      "dark": "#373A3E",
+      "lightShade": "white",
+      "darkShade": "neutral.80",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.surface-sunken",
+      "figma": "color/bg/surface-sunken",
+      "css": "--ds-color-bg-surface-sunken",
+      "tailwind": "bg-bg-surface-sunken",
+      "kind": "fill",
+      "chapter": "Surfaces and depth",
+      "use": "Wells, table headers, code blocks",
+      "light": "#DCDDE1",
+      "dark": "#161618",
+      "lightShade": "neutral.10",
+      "darkShade": "neutral.95",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.surface-hover",
+      "figma": "color/bg/surface-hover",
+      "css": "--ds-color-bg-surface-hover",
+      "tailwind": "bg-bg-surface-hover",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Hovered row or item",
+      "light": "#DCDDE1",
+      "dark": "#2E3033",
+      "lightShade": "neutral.10",
+      "darkShade": "neutral.85",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.surface-pressed",
+      "figma": "color/bg/surface-pressed",
+      "css": "--ds-color-bg-surface-pressed",
+      "tailwind": "bg-bg-surface-pressed",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Pressed row or item",
+      "light": "#CBCED2",
+      "dark": "#373A3E",
+      "lightShade": "neutral.15",
+      "darkShade": "neutral.80",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.selected",
+      "figma": "color/bg/selected",
+      "css": "--ds-color-bg-selected",
+      "tailwind": "bg-bg-selected",
+      "kind": "fill",
+      "chapter": "Surfaces and depth",
+      "use": "Selected row or item",
+      "light": "#CDDEFF",
+      "dark": "#163383",
+      "lightShade": "brand.10",
+      "darkShade": "brand.80",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.disabled",
+      "figma": "color/bg/disabled",
+      "css": "--ds-color-bg-disabled",
+      "tailwind": "bg-bg-disabled",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Disabled control fill (exempt from contrast, WCAG 1.4.3 exception)",
+      "light": "#DCDDE1",
+      "dark": "#2E3033",
+      "lightShade": "neutral.10",
+      "darkShade": "neutral.85",
+      "exempt": true
+    },
+    {
+      "name": "color.bg.scrim",
+      "figma": "color/bg/scrim",
+      "css": "--ds-color-bg-scrim",
+      "tailwind": "bg-bg-scrim",
+      "kind": "tint",
+      "chapter": "Surfaces and depth",
+      "use": "Behind modal dialogs",
+      "light": "#0000007A",
+      "dark": "#000000A3",
+      "lightShade": "black-alpha.48",
+      "darkShade": "black-alpha.64",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.brand",
+      "figma": "color/bg/brand",
+      "css": "--ds-color-bg-brand",
+      "tailwind": "bg-bg-brand",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Solid brand fill (grade 60) — text on it uses color.fg.on-brand",
+      "light": "#2A57D1",
+      "dark": "#2A57D1",
+      "lightShade": "brand.60",
+      "darkShade": "brand.60",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.brand-hover",
+      "figma": "color/bg/brand-hover",
+      "css": "--ds-color-bg-brand-hover",
+      "tailwind": "bg-bg-brand-hover",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Hovered solid brand fill",
+      "light": "#1E44AE",
+      "dark": "#1E44AE",
+      "lightShade": "brand.70",
+      "darkShade": "brand.70",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.brand-pressed",
+      "figma": "color/bg/brand-pressed",
+      "css": "--ds-color-bg-brand-pressed",
+      "tailwind": "bg-bg-brand-pressed",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Pressed solid brand fill",
+      "light": "#163383",
+      "dark": "#163383",
+      "lightShade": "brand.80",
+      "darkShade": "brand.80",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.brand-subtle",
+      "figma": "color/bg/brand-subtle",
+      "css": "--ds-color-bg-brand-subtle",
+      "tailwind": "bg-bg-brand-subtle",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Tinted brand background (alerts, badges)",
+      "light": "#CDDEFF",
+      "dark": "#122B6B",
+      "lightShade": "brand.10",
+      "darkShade": "brand.85",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.on-brand",
+      "figma": "color/fg/on-brand",
+      "css": "--ds-color-fg-on-brand",
+      "tailwind": "text-fg-on-brand",
+      "kind": "text",
+      "chapter": "Actions and states",
+      "use": "Text and icons on color.bg.brand",
+      "light": "#FFFFFF",
+      "dark": "#FFFFFF",
+      "lightShade": "white",
+      "darkShade": "white",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.success",
+      "figma": "color/bg/success",
+      "css": "--ds-color-bg-success",
+      "tailwind": "bg-bg-success",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Solid success fill (grade 60) — text on it uses color.fg.on-success",
+      "light": "#007031",
+      "dark": "#007031",
+      "lightShade": "success.60",
+      "darkShade": "success.60",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.success-hover",
+      "figma": "color/bg/success-hover",
+      "css": "--ds-color-bg-success-hover",
+      "tailwind": "bg-bg-success-hover",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Hovered solid success fill",
+      "light": "#005A26",
+      "dark": "#005A26",
+      "lightShade": "success.70",
+      "darkShade": "success.70",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.success-pressed",
+      "figma": "color/bg/success-pressed",
+      "css": "--ds-color-bg-success-pressed",
+      "tailwind": "bg-bg-success-pressed",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Pressed solid success fill",
+      "light": "#00441B",
+      "dark": "#00441B",
+      "lightShade": "success.80",
+      "darkShade": "success.80",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.success-subtle",
+      "figma": "color/bg/success-subtle",
+      "css": "--ds-color-bg-success-subtle",
+      "tailwind": "bg-bg-success-subtle",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Tinted success background (alerts, badges)",
+      "light": "#BAE9C3",
+      "dark": "#003815",
+      "lightShade": "success.10",
+      "darkShade": "success.85",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.on-success",
+      "figma": "color/fg/on-success",
+      "css": "--ds-color-fg-on-success",
+      "tailwind": "text-fg-on-success",
+      "kind": "text",
+      "chapter": "Status and data",
+      "use": "Text and icons on color.bg.success",
+      "light": "#FFFFFF",
+      "dark": "#FFFFFF",
+      "lightShade": "white",
+      "darkShade": "white",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.warning",
+      "figma": "color/bg/warning",
+      "css": "--ds-color-bg-warning",
+      "tailwind": "bg-bg-warning",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Solid warning fill (grade 25) — text on it uses color.fg.on-warning",
+      "light": "#E1A74E",
+      "dark": "#E1A74E",
+      "lightShade": "warning.25",
+      "darkShade": "warning.25",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.warning-hover",
+      "figma": "color/bg/warning-hover",
+      "css": "--ds-color-bg-warning-hover",
+      "tailwind": "bg-bg-warning-hover",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Hovered solid warning fill",
+      "light": "#D8982D",
+      "dark": "#D8982D",
+      "lightShade": "warning.30",
+      "darkShade": "warning.30",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.warning-pressed",
+      "figma": "color/bg/warning-pressed",
+      "css": "--ds-color-bg-warning-pressed",
+      "tailwind": "bg-bg-warning-pressed",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Pressed solid warning fill",
+      "light": "#CD8A00",
+      "dark": "#CD8A00",
+      "lightShade": "warning.35",
+      "darkShade": "warning.35",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.warning-subtle",
+      "figma": "color/bg/warning-subtle",
+      "css": "--ds-color-bg-warning-subtle",
+      "tailwind": "bg-bg-warning-subtle",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Tinted warning background (alerts, badges)",
+      "light": "#FAD8AB",
+      "dark": "#432B00",
+      "lightShade": "warning.10",
+      "darkShade": "warning.85",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.on-warning",
+      "figma": "color/fg/on-warning",
+      "css": "--ds-color-fg-on-warning",
+      "tailwind": "text-fg-on-warning",
+      "kind": "text",
+      "chapter": "Status and data",
+      "use": "Text and icons on color.bg.warning",
+      "light": "#000000",
+      "dark": "#000000",
+      "lightShade": "black",
+      "darkShade": "black",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.danger",
+      "figma": "color/bg/danger",
+      "css": "--ds-color-bg-danger",
+      "tailwind": "bg-bg-danger",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Solid danger fill (grade 60) — text on it uses color.fg.on-danger",
+      "light": "#AD3831",
+      "dark": "#AD3831",
+      "lightShade": "danger.60",
+      "darkShade": "danger.60",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.danger-hover",
+      "figma": "color/bg/danger-hover",
+      "css": "--ds-color-bg-danger-hover",
+      "tailwind": "bg-bg-danger-hover",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Hovered solid danger fill",
+      "light": "#8E2924",
+      "dark": "#8E2924",
+      "lightShade": "danger.70",
+      "darkShade": "danger.70",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.danger-pressed",
+      "figma": "color/bg/danger-pressed",
+      "css": "--ds-color-bg-danger-pressed",
+      "tailwind": "bg-bg-danger-pressed",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Pressed solid danger fill",
+      "light": "#6C1E1B",
+      "dark": "#6C1E1B",
+      "lightShade": "danger.80",
+      "darkShade": "danger.80",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.danger-subtle",
+      "figma": "color/bg/danger-subtle",
+      "css": "--ds-color-bg-danger-subtle",
+      "tailwind": "bg-bg-danger-subtle",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Tinted danger background (alerts, badges)",
+      "light": "#FFD3CE",
+      "dark": "#581A17",
+      "lightShade": "danger.10",
+      "darkShade": "danger.85",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.on-danger",
+      "figma": "color/fg/on-danger",
+      "css": "--ds-color-fg-on-danger",
+      "tailwind": "text-fg-on-danger",
+      "kind": "text",
+      "chapter": "Status and data",
+      "use": "Text and icons on color.bg.danger",
+      "light": "#FFFFFF",
+      "dark": "#FFFFFF",
+      "lightShade": "white",
+      "darkShade": "white",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.info",
+      "figma": "color/bg/info",
+      "css": "--ds-color-bg-info",
+      "tailwind": "bg-bg-info",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Solid info fill (grade 60) — text on it uses color.fg.on-info",
+      "light": "#0065A2",
+      "dark": "#0065A2",
+      "lightShade": "info.60",
+      "darkShade": "info.60",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.info-hover",
+      "figma": "color/bg/info-hover",
+      "css": "--ds-color-bg-info-hover",
+      "tailwind": "bg-bg-info-hover",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Hovered solid info fill",
+      "light": "#005182",
+      "dark": "#005182",
+      "lightShade": "info.70",
+      "darkShade": "info.70",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.info-pressed",
+      "figma": "color/bg/info-pressed",
+      "css": "--ds-color-bg-info-pressed",
+      "tailwind": "bg-bg-info-pressed",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Pressed solid info fill",
+      "light": "#003D63",
+      "dark": "#003D63",
+      "lightShade": "info.80",
+      "darkShade": "info.80",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.info-subtle",
+      "figma": "color/bg/info-subtle",
+      "css": "--ds-color-bg-info-subtle",
+      "tailwind": "bg-bg-info-subtle",
+      "kind": "fill",
+      "chapter": "Status and data",
+      "use": "Tinted info background (alerts, badges)",
+      "light": "#C0E1FF",
+      "dark": "#003252",
+      "lightShade": "info.10",
+      "darkShade": "info.85",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.on-info",
+      "figma": "color/fg/on-info",
+      "css": "--ds-color-fg-on-info",
+      "tailwind": "text-fg-on-info",
+      "kind": "text",
+      "chapter": "Status and data",
+      "use": "Text and icons on color.bg.info",
+      "light": "#FFFFFF",
+      "dark": "#FFFFFF",
+      "lightShade": "white",
+      "darkShade": "white",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.default",
+      "figma": "color/fg/default",
+      "css": "--ds-color-fg-default",
+      "tailwind": "text-fg-default",
+      "kind": "text",
+      "chapter": "Text, icons and outlines",
+      "use": "Body text, headings",
+      "light": "#232427",
+      "dark": "#ECEEF0",
+      "lightShade": "neutral.90",
+      "darkShade": "neutral.5",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.muted",
+      "figma": "color/fg/muted",
+      "css": "--ds-color-fg-muted",
+      "tailwind": "text-fg-muted",
+      "kind": "text",
+      "chapter": "Text, icons and outlines",
+      "use": "Secondary text",
+      "light": "#414449",
+      "dark": "#BDBFC5",
+      "lightShade": "neutral.75",
+      "darkShade": "neutral.20",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.subtle",
+      "figma": "color/fg/subtle",
+      "css": "--ds-color-fg-subtle",
+      "tailwind": "text-fg-subtle",
+      "kind": "text",
+      "chapter": "Text, icons and outlines",
+      "use": "Meta text, placeholders, captions",
+      "light": "#54575E",
+      "dark": "#A1A4AB",
+      "lightShade": "neutral.65",
+      "darkShade": "neutral.30",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.brand",
+      "figma": "color/fg/brand",
+      "css": "--ds-color-fg-brand",
+      "tailwind": "text-fg-brand",
+      "kind": "text",
+      "chapter": "Text, icons and outlines",
+      "use": "Brand-coloured text",
+      "light": "#244DC0",
+      "dark": "#79A2FF",
+      "lightShade": "brand.65",
+      "darkShade": "brand.30",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.link",
+      "figma": "color/fg/link",
+      "css": "--ds-color-fg-link",
+      "tailwind": "text-fg-link",
+      "kind": "text",
+      "chapter": "Text, icons and outlines",
+      "use": "Links (underlined by default — WCAG 1.4.1)",
+      "light": "#244DC0",
+      "dark": "#79A2FF",
+      "lightShade": "brand.65",
+      "darkShade": "brand.30",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.link-hover",
+      "figma": "color/fg/link-hover",
+      "css": "--ds-color-fg-link-hover",
+      "tailwind": "text-fg-link-hover",
+      "kind": "text",
+      "chapter": "Text, icons and outlines",
+      "use": "Hovered links",
+      "light": "#163383",
+      "dark": "#B7CEFF",
+      "lightShade": "brand.80",
+      "darkShade": "brand.15",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.success",
+      "figma": "color/fg/success",
+      "css": "--ds-color-fg-success",
+      "tailwind": "text-fg-success",
+      "kind": "text",
+      "chapter": "Status and data",
+      "use": "Success text and icons — with words or an icon, never colour alone",
+      "light": "#00652C",
+      "dark": "#58B770",
+      "lightShade": "success.65",
+      "darkShade": "success.30",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.warning",
+      "figma": "color/fg/warning",
+      "css": "--ds-color-fg-warning",
+      "tailwind": "text-fg-warning",
+      "kind": "text",
+      "chapter": "Status and data",
+      "use": "Warning text and icons — with words or an icon, never colour alone",
+      "light": "#774F00",
+      "dark": "#D8982D",
+      "lightShade": "warning.65",
+      "darkShade": "warning.30",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.danger",
+      "figma": "color/fg/danger",
+      "css": "--ds-color-fg-danger",
+      "tailwind": "text-fg-danger",
+      "kind": "text",
+      "chapter": "Status and data",
+      "use": "Danger text and icons — with words or an icon, never colour alone",
+      "light": "#9E302A",
+      "dark": "#F48479",
+      "lightShade": "danger.65",
+      "darkShade": "danger.30",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.info",
+      "figma": "color/fg/info",
+      "css": "--ds-color-fg-info",
+      "tailwind": "text-fg-info",
+      "kind": "text",
+      "chapter": "Status and data",
+      "use": "Info text and icons — with words or an icon, never colour alone",
+      "light": "#005B91",
+      "dark": "#4DABF3",
+      "lightShade": "info.65",
+      "darkShade": "info.30",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.disabled",
+      "figma": "color/fg/disabled",
+      "css": "--ds-color-fg-disabled",
+      "tailwind": "text-fg-disabled",
+      "kind": "text",
+      "chapter": "Text, icons and outlines",
+      "use": "Disabled text (exempt from contrast, WCAG 1.4.3 exception)",
+      "light": "#888C93",
+      "dark": "#5D6168",
+      "lightShade": "neutral.40",
+      "darkShade": "neutral.60",
+      "exempt": true
+    },
+    {
+      "name": "color.border.subtle",
+      "figma": "color/border/subtle",
+      "css": "--ds-color-border-subtle",
+      "tailwind": "border-border-subtle",
+      "kind": "line",
+      "chapter": "Text, icons and outlines",
+      "use": "Decorative dividers (not needed to identify a control)",
+      "light": "#CBCED2",
+      "dark": "#414449",
+      "lightShade": "neutral.15",
+      "darkShade": "neutral.75",
+      "exempt": true
+    },
+    {
+      "name": "color.border.default",
+      "figma": "color/border/default",
+      "css": "--ds-color-border-default",
+      "tailwind": "border-border-default",
+      "kind": "line",
+      "chapter": "Text, icons and outlines",
+      "use": "Card and table outlines (decorative)",
+      "light": "#BDBFC5",
+      "dark": "#4B4D53",
+      "lightShade": "neutral.20",
+      "darkShade": "neutral.70",
+      "exempt": true
+    },
+    {
+      "name": "color.border.strong",
+      "figma": "color/border/strong",
+      "css": "--ds-color-border-strong",
+      "tailwind": "border-border-strong",
+      "kind": "line",
+      "chapter": "Text, icons and outlines",
+      "use": "Boundaries that identify a control",
+      "light": "#686B72",
+      "dark": "#888C93",
+      "lightShade": "neutral.55",
+      "darkShade": "neutral.40",
+      "exempt": false
+    },
+    {
+      "name": "color.border.input",
+      "figma": "color/border/input",
+      "css": "--ds-color-border-input",
+      "tailwind": "border-border-input",
+      "kind": "line",
+      "chapter": "Text, icons and outlines",
+      "use": "Text field, checkbox, radio borders",
+      "light": "#686B72",
+      "dark": "#888C93",
+      "lightShade": "neutral.55",
+      "darkShade": "neutral.40",
+      "exempt": false
+    },
+    {
+      "name": "color.border.focus",
+      "figma": "color/border/focus",
+      "css": "--ds-color-border-focus",
+      "tailwind": "border-border-focus",
+      "kind": "line",
+      "chapter": "Actions and states",
+      "use": "Focus ring",
+      "light": "#2A57D1",
+      "dark": "#6594FF",
+      "lightShade": "brand.60",
+      "darkShade": "brand.35",
+      "exempt": false
+    },
+    {
+      "name": "color.border.floating",
+      "figma": "color/border/floating",
+      "css": "--ds-color-border-floating",
+      "tailwind": "border-border-floating",
+      "kind": "line",
+      "chapter": "Status and data",
+      "use": "The edge of anything that floats over content: menus, popovers, toasts, dialogs, a dragged item — seen against every surface below it, kept in forced colours",
+      "light": "#AEB1B8",
+      "dark": "#54575E",
+      "lightShade": "neutral.25",
+      "darkShade": "neutral.65",
+      "exempt": false
+    },
+    {
+      "name": "color.border.selected",
+      "figma": "color/border/selected",
+      "css": "--ds-color-border-selected",
+      "tailwind": "border-border-selected",
+      "kind": "line",
+      "chapter": "Status and data",
+      "use": "Selected or current item: the border of a selected option or card, the bar under the current tab — with a second cue (a check mark, bold text)",
+      "light": "#244DC0",
+      "dark": "#79A2FF",
+      "lightShade": "brand.65",
+      "darkShade": "brand.30",
+      "exempt": false
+    },
+    {
+      "name": "color.border.success",
+      "figma": "color/border/success",
+      "css": "--ds-color-border-success",
+      "tailwind": "border-border-success",
+      "kind": "line",
+      "chapter": "Status and data",
+      "use": "Success outline — a field that passed validation",
+      "light": "#007C37",
+      "dark": "#29A051",
+      "lightShade": "success.55",
+      "darkShade": "success.40",
+      "exempt": false
+    },
+    {
+      "name": "color.border.warning",
+      "figma": "color/border/warning",
+      "css": "--ds-color-border-warning",
+      "tailwind": "border-border-warning",
+      "kind": "line",
+      "chapter": "Status and data",
+      "use": "Warning outline — a field that needs attention",
+      "light": "#926100",
+      "dark": "#BD7F00",
+      "lightShade": "warning.55",
+      "darkShade": "warning.40",
+      "exempt": false
+    },
+    {
+      "name": "color.border.danger",
+      "figma": "color/border/danger",
+      "css": "--ds-color-border-danger",
+      "tailwind": "border-border-danger",
+      "kind": "line",
+      "chapter": "Status and data",
+      "use": "Danger outline — a field in error",
+      "light": "#BB413A",
+      "dark": "#E0665B",
+      "lightShade": "danger.55",
+      "darkShade": "danger.40",
+      "exempt": false
+    },
+    {
+      "name": "color.border.info",
+      "figma": "color/border/info",
+      "css": "--ds-color-border-info",
+      "tailwind": "border-border-info",
+      "kind": "line",
+      "chapter": "Status and data",
+      "use": "Info outline — a highlighted field or callout",
+      "light": "#0070B1",
+      "dark": "#1592E1",
+      "lightShade": "info.55",
+      "darkShade": "info.40",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.positive",
+      "figma": "color/fg/positive",
+      "css": "--ds-color-fg-positive",
+      "tailwind": "text-fg-positive",
+      "kind": "text",
+      "chapter": "Status and data",
+      "use": "A good change, as text — always with an arrow or sign; colour shows good, the arrow shows direction (WCAG 1.4.1)",
+      "light": "#00652C",
+      "dark": "#58B770",
+      "lightShade": "success.65",
+      "darkShade": "success.30",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.negative",
+      "figma": "color/fg/negative",
+      "css": "--ds-color-fg-negative",
+      "tailwind": "text-fg-negative",
+      "kind": "text",
+      "chapter": "Status and data",
+      "use": "A bad change, as text — always with an arrow or sign; colour shows bad, the arrow shows direction (WCAG 1.4.1)",
+      "light": "#9E302A",
+      "dark": "#F48479",
+      "lightShade": "danger.65",
+      "darkShade": "danger.30",
+      "exempt": false
+    },
+    {
+      "name": "color.data.positive",
+      "figma": "color/data/positive",
+      "css": "--ds-color-data-positive",
+      "tailwind": "fill-data-positive",
+      "kind": "data",
+      "chapter": "Status and data",
+      "use": "Marks for good changes: bars, sparklines, deltas",
+      "light": "#00883D",
+      "dark": "#86CF96",
+      "lightShade": "success.50",
+      "darkShade": "success.20",
+      "exempt": false
+    },
+    {
+      "name": "color.data.negative",
+      "figma": "color/data/negative",
+      "css": "--ds-color-data-negative",
+      "tailwind": "fill-data-negative",
+      "kind": "data",
+      "chapter": "Status and data",
+      "use": "Marks for bad changes: bars, sparklines, deltas",
+      "light": "#7E231F",
+      "dark": "#E0665B",
+      "lightShade": "danger.75",
+      "darkShade": "danger.40",
+      "exempt": false
+    },
+    {
+      "name": "color.data.neutral",
+      "figma": "color/data/neutral",
+      "css": "--ds-color-data-neutral",
+      "tailwind": "fill-data-neutral",
+      "kind": "data",
+      "chapter": "Status and data",
+      "use": "Unchanged values",
+      "light": "#686B72",
+      "dark": "#888C93",
+      "lightShade": "neutral.55",
+      "darkShade": "neutral.40",
+      "exempt": false
+    },
+    {
+      "name": "color.data.gridline",
+      "figma": "color/data/gridline",
+      "css": "--ds-color-data-gridline",
+      "tailwind": "fill-data-gridline",
+      "kind": "data",
+      "chapter": "Status and data",
+      "use": "Chart gridlines (decorative)",
+      "light": "#CBCED2",
+      "dark": "#414449",
+      "lightShade": "neutral.15",
+      "darkShade": "neutral.75",
+      "exempt": true
+    },
+    {
+      "name": "color.data.axis",
+      "figma": "color/data/axis",
+      "css": "--ds-color-data-axis",
+      "tailwind": "fill-data-axis",
+      "kind": "data",
+      "chapter": "Status and data",
+      "use": "Chart axes and ticks",
+      "light": "#686B72",
+      "dark": "#888C93",
+      "lightShade": "neutral.55",
+      "darkShade": "neutral.40",
+      "exempt": false
+    },
+    {
+      "name": "color.data.chart-1",
+      "figma": "color/data/chart-1",
+      "css": "--ds-color-data-chart-1",
+      "tailwind": "fill-data-chart-1",
+      "kind": "data",
+      "chapter": "Status and data",
+      "use": "Categorical chart series 1",
+      "light": "#0B54B0",
+      "dark": "#82A3F0",
+      "lightShade": "chart-1.light",
+      "darkShade": "chart-1.dark",
+      "exempt": false
+    },
+    {
+      "name": "color.data.chart-2",
+      "figma": "color/data/chart-2",
+      "css": "--ds-color-data-chart-2",
+      "tailwind": "fill-data-chart-2",
+      "kind": "data",
+      "chapter": "Status and data",
+      "use": "Categorical chart series 2",
+      "light": "#8C5400",
+      "dark": "#F1C69A",
+      "lightShade": "chart-2.light",
+      "darkShade": "chart-2.dark",
+      "exempt": false
+    },
+    {
+      "name": "color.data.chart-3",
+      "figma": "color/data/chart-3",
+      "css": "--ds-color-data-chart-3",
+      "tailwind": "fill-data-chart-3",
+      "kind": "data",
+      "chapter": "Status and data",
+      "use": "Categorical chart series 3",
+      "light": "#008BB2",
+      "dark": "#92D8F2",
+      "lightShade": "chart-3.light",
+      "darkShade": "chart-3.dark",
+      "exempt": false
+    },
+    {
+      "name": "color.data.chart-4",
+      "figma": "color/data/chart-4",
+      "css": "--ds-color-data-chart-4",
+      "tailwind": "fill-data-chart-4",
+      "kind": "data",
+      "chapter": "Status and data",
+      "use": "Categorical chart series 4",
+      "light": "#6A2772",
+      "dark": "#B465A1",
+      "lightShade": "chart-4.light",
+      "darkShade": "chart-4.dark",
+      "exempt": false
+    },
+    {
+      "name": "color.data.chart-5",
+      "figma": "color/data/chart-5",
+      "css": "--ds-color-data-chart-5",
+      "tailwind": "fill-data-chart-5",
+      "kind": "data",
+      "chapter": "Status and data",
+      "use": "Categorical chart series 5",
+      "light": "#928100",
+      "dark": "#B0B927",
+      "lightShade": "chart-5.light",
+      "darkShade": "chart-5.dark",
+      "exempt": false
+    },
+    {
+      "name": "color.data.chart-6",
+      "figma": "color/data/chart-6",
+      "css": "--ds-color-data-chart-6",
+      "tailwind": "fill-data-chart-6",
+      "kind": "data",
+      "chapter": "Status and data",
+      "use": "Categorical chart series 6",
+      "light": "#7F5EDF",
+      "dark": "#9465EE",
+      "lightShade": "chart-6.light",
+      "darkShade": "chart-6.dark",
+      "exempt": false
+    },
+    {
+      "name": "color.data.chart-7",
+      "figma": "color/data/chart-7",
+      "css": "--ds-color-data-chart-7",
+      "tailwind": "fill-data-chart-7",
+      "kind": "data",
+      "chapter": "Status and data",
+      "use": "Categorical chart series 7",
+      "light": "#2D4A34",
+      "dark": "#00953A",
+      "lightShade": "chart-7.light",
+      "darkShade": "chart-7.dark",
+      "exempt": false
+    },
+    {
+      "name": "color.data.chart-8",
+      "figma": "color/data/chart-8",
+      "css": "--ds-color-data-chart-8",
+      "tailwind": "fill-data-chart-8",
+      "kind": "data",
+      "chapter": "Status and data",
+      "use": "Categorical chart series 8",
+      "light": "#D94E7B",
+      "dark": "#E6899D",
+      "lightShade": "chart-8.light",
+      "darkShade": "chart-8.dark",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.icon",
+      "figma": "color/fg/icon",
+      "css": "--ds-color-fg-icon",
+      "tailwind": "text-fg-icon",
+      "kind": "icon",
+      "chapter": "Text, icons and outlines",
+      "use": "Default icons — same weight as muted text",
+      "light": "#414449",
+      "dark": "#BDBFC5",
+      "lightShade": "neutral.75",
+      "darkShade": "neutral.20",
+      "exempt": false
+    },
+    {
+      "name": "color.fg.icon-subtle",
+      "figma": "color/fg/icon-subtle",
+      "css": "--ds-color-fg-icon-subtle",
+      "tailwind": "text-fg-icon-subtle",
+      "kind": "icon",
+      "chapter": "Text, icons and outlines",
+      "use": "Secondary icons (chevrons, decorative glyphs next to a label) — 3:1",
+      "light": "#686B72",
+      "dark": "#888C93",
+      "lightShade": "neutral.55",
+      "darkShade": "neutral.40",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.state-hover",
+      "figma": "color/bg/state-hover",
+      "css": "--ds-color-bg-state-hover",
+      "tailwind": "bg-bg-state-hover",
+      "kind": "tint",
+      "chapter": "Actions and states",
+      "use": "Hover tint over canvas, surface or sunken",
+      "light": "#0000000F",
+      "dark": "#FFFFFF0A",
+      "lightShade": "black-alpha.6",
+      "darkShade": "white-alpha.4",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.state-pressed",
+      "figma": "color/bg/state-pressed",
+      "css": "--ds-color-bg-state-pressed",
+      "tailwind": "bg-bg-state-pressed",
+      "kind": "tint",
+      "chapter": "Actions and states",
+      "use": "Pressed tint over canvas, surface or sunken",
+      "light": "#00000014",
+      "dark": "#FFFFFF14",
+      "lightShade": "black-alpha.8",
+      "darkShade": "white-alpha.8",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.item-hover",
+      "figma": "color/bg/item-hover",
+      "css": "--ds-color-bg-item-hover",
+      "tailwind": "bg-bg-item-hover",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Hovered item inside a menu, popover, dialog or raised card",
+      "light": "#DCDDE1",
+      "dark": "#2E3033",
+      "lightShade": "neutral.10",
+      "darkShade": "neutral.85",
+      "exempt": false
+    },
+    {
+      "name": "color.bg.item-pressed",
+      "figma": "color/bg/item-pressed",
+      "css": "--ds-color-bg-item-pressed",
+      "tailwind": "bg-bg-item-pressed",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Pressed item inside a menu, popover, dialog or raised card",
+      "light": "#CBCED2",
+      "dark": "#232427",
+      "lightShade": "neutral.15",
+      "darkShade": "neutral.90",
+      "exempt": false
+    },
+    {
+      "name": "color.action.primary.bg",
+      "figma": "color/action/primary/bg",
+      "css": "--ds-color-action-primary-bg",
+      "tailwind": "bg-action-primary-bg",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Primary button fill — one per view",
+      "light": "#2A57D1",
+      "dark": "#2A57D1",
+      "lightShade": "brand.60",
+      "darkShade": "brand.60",
+      "exempt": false
+    },
+    {
+      "name": "color.action.primary.bg-hover",
+      "figma": "color/action/primary/bg-hover",
+      "css": "--ds-color-action-primary-bg-hover",
+      "tailwind": "bg-action-primary-bg-hover",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Primary button, hovered",
+      "light": "#1E44AE",
+      "dark": "#1E44AE",
+      "lightShade": "brand.70",
+      "darkShade": "brand.70",
+      "exempt": false
+    },
+    {
+      "name": "color.action.primary.bg-pressed",
+      "figma": "color/action/primary/bg-pressed",
+      "css": "--ds-color-action-primary-bg-pressed",
+      "tailwind": "bg-action-primary-bg-pressed",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Primary button, pressed",
+      "light": "#163383",
+      "dark": "#163383",
+      "lightShade": "brand.80",
+      "darkShade": "brand.80",
+      "exempt": false
+    },
+    {
+      "name": "color.action.primary.fg",
+      "figma": "color/action/primary/fg",
+      "css": "--ds-color-action-primary-fg",
+      "tailwind": "text-action-primary-fg",
+      "kind": "text",
+      "chapter": "Actions and states",
+      "use": "Label and icon on a primary button",
+      "light": "#FFFFFF",
+      "dark": "#FFFFFF",
+      "lightShade": "white",
+      "darkShade": "white",
+      "exempt": false
+    },
+    {
+      "name": "color.action.secondary.bg",
+      "figma": "color/action/secondary/bg",
+      "css": "--ds-color-action-secondary-bg",
+      "tailwind": "bg-action-secondary-bg",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Secondary button fill (matches the surface)",
+      "light": "#FFFFFF",
+      "dark": "#232427",
+      "lightShade": "white",
+      "darkShade": "neutral.90",
+      "exempt": false
+    },
+    {
+      "name": "color.action.secondary.bg-hover",
+      "figma": "color/action/secondary/bg-hover",
+      "css": "--ds-color-action-secondary-bg-hover",
+      "tailwind": "bg-action-secondary-bg-hover",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Secondary button, hovered",
+      "light": "#DCDDE1",
+      "dark": "#2E3033",
+      "lightShade": "neutral.10",
+      "darkShade": "neutral.85",
+      "exempt": false
+    },
+    {
+      "name": "color.action.secondary.bg-pressed",
+      "figma": "color/action/secondary/bg-pressed",
+      "css": "--ds-color-action-secondary-bg-pressed",
+      "tailwind": "bg-action-secondary-bg-pressed",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Secondary button, pressed",
+      "light": "#CBCED2",
+      "dark": "#373A3E",
+      "lightShade": "neutral.15",
+      "darkShade": "neutral.80",
+      "exempt": false
+    },
+    {
+      "name": "color.action.secondary.fg",
+      "figma": "color/action/secondary/fg",
+      "css": "--ds-color-action-secondary-fg",
+      "tailwind": "text-action-secondary-fg",
+      "kind": "text",
+      "chapter": "Actions and states",
+      "use": "Label and icon on a secondary button",
+      "light": "#232427",
+      "dark": "#ECEEF0",
+      "lightShade": "neutral.90",
+      "darkShade": "neutral.5",
+      "exempt": false
+    },
+    {
+      "name": "color.action.secondary.border",
+      "figma": "color/action/secondary/border",
+      "css": "--ds-color-action-secondary-border",
+      "tailwind": "border-action-secondary-border",
+      "kind": "line",
+      "chapter": "Actions and states",
+      "use": "Secondary button outline — 3:1, it is what shows the button",
+      "light": "#686B72",
+      "dark": "#888C93",
+      "lightShade": "neutral.55",
+      "darkShade": "neutral.40",
+      "exempt": false
+    },
+    {
+      "name": "color.action.ghost.bg",
+      "figma": "color/action/ghost/bg",
+      "css": "--ds-color-action-ghost-bg",
+      "tailwind": "bg-action-ghost-bg",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Ghost button: no fill until hovered",
+      "light": "#FFFFFF00",
+      "dark": "#FFFFFF00",
+      "lightShade": "transparent",
+      "darkShade": "transparent",
+      "exempt": false
+    },
+    {
+      "name": "color.action.ghost.bg-hover",
+      "figma": "color/action/ghost/bg-hover",
+      "css": "--ds-color-action-ghost-bg-hover",
+      "tailwind": "bg-action-ghost-bg-hover",
+      "kind": "tint",
+      "chapter": "Actions and states",
+      "use": "Ghost button, hovered (state layer; inside menus and dialogs use bg/item-hover)",
+      "light": "#0000000F",
+      "dark": "#FFFFFF0A",
+      "lightShade": "black-alpha.6",
+      "darkShade": "white-alpha.4",
+      "exempt": false
+    },
+    {
+      "name": "color.action.ghost.bg-pressed",
+      "figma": "color/action/ghost/bg-pressed",
+      "css": "--ds-color-action-ghost-bg-pressed",
+      "tailwind": "bg-action-ghost-bg-pressed",
+      "kind": "tint",
+      "chapter": "Actions and states",
+      "use": "Ghost button, pressed (state layer; inside menus and dialogs use bg/item-pressed)",
+      "light": "#00000014",
+      "dark": "#FFFFFF14",
+      "lightShade": "black-alpha.8",
+      "darkShade": "white-alpha.8",
+      "exempt": false
+    },
+    {
+      "name": "color.action.ghost.fg",
+      "figma": "color/action/ghost/fg",
+      "css": "--ds-color-action-ghost-fg",
+      "tailwind": "text-action-ghost-fg",
+      "kind": "text",
+      "chapter": "Actions and states",
+      "use": "Ghost button label — brand text",
+      "light": "#244DC0",
+      "dark": "#79A2FF",
+      "lightShade": "brand.65",
+      "darkShade": "brand.30",
+      "exempt": false
+    },
+    {
+      "name": "color.action.danger.bg",
+      "figma": "color/action/danger/bg",
+      "css": "--ds-color-action-danger-bg",
+      "tailwind": "bg-action-danger-bg",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Destructive button fill",
+      "light": "#AD3831",
+      "dark": "#AD3831",
+      "lightShade": "danger.60",
+      "darkShade": "danger.60",
+      "exempt": false
+    },
+    {
+      "name": "color.action.danger.bg-hover",
+      "figma": "color/action/danger/bg-hover",
+      "css": "--ds-color-action-danger-bg-hover",
+      "tailwind": "bg-action-danger-bg-hover",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Destructive button, hovered",
+      "light": "#8E2924",
+      "dark": "#8E2924",
+      "lightShade": "danger.70",
+      "darkShade": "danger.70",
+      "exempt": false
+    },
+    {
+      "name": "color.action.danger.bg-pressed",
+      "figma": "color/action/danger/bg-pressed",
+      "css": "--ds-color-action-danger-bg-pressed",
+      "tailwind": "bg-action-danger-bg-pressed",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Destructive button, pressed",
+      "light": "#6C1E1B",
+      "dark": "#6C1E1B",
+      "lightShade": "danger.80",
+      "darkShade": "danger.80",
+      "exempt": false
+    },
+    {
+      "name": "color.action.danger.fg",
+      "figma": "color/action/danger/fg",
+      "css": "--ds-color-action-danger-fg",
+      "tailwind": "text-action-danger-fg",
+      "kind": "text",
+      "chapter": "Actions and states",
+      "use": "Label and icon on a destructive button",
+      "light": "#FFFFFF",
+      "dark": "#FFFFFF",
+      "lightShade": "white",
+      "darkShade": "white",
+      "exempt": false
+    },
+    {
+      "name": "color.action.disabled.bg",
+      "figma": "color/action/disabled/bg",
+      "css": "--ds-color-action-disabled-bg",
+      "tailwind": "bg-action-disabled-bg",
+      "kind": "fill",
+      "chapter": "Actions and states",
+      "use": "Any disabled button (exempt from contrast)",
+      "light": "#DCDDE1",
+      "dark": "#2E3033",
+      "lightShade": "neutral.10",
+      "darkShade": "neutral.85",
+      "exempt": true
+    },
+    {
+      "name": "color.action.disabled.fg",
+      "figma": "color/action/disabled/fg",
+      "css": "--ds-color-action-disabled-fg",
+      "tailwind": "text-action-disabled-fg",
+      "kind": "text",
+      "chapter": "Actions and states",
+      "use": "Disabled label (exempt from contrast)",
+      "light": "#888C93",
+      "dark": "#5D6168",
+      "lightShade": "neutral.40",
+      "darkShade": "neutral.60",
+      "exempt": true
+    },
+    {
+      "name": "color.action.disabled.border",
+      "figma": "color/action/disabled/border",
+      "css": "--ds-color-action-disabled-border",
+      "tailwind": "border-action-disabled-border",
+      "kind": "line",
+      "chapter": "Actions and states",
+      "use": "Disabled outline (exempt from contrast)",
+      "light": "#CBCED2",
+      "dark": "#414449",
+      "lightShade": "neutral.15",
+      "darkShade": "neutral.75",
+      "exempt": true
+    },
+    {
+      "name": "color.shadow.1",
+      "figma": "color/shadow/1",
+      "css": "--ds-color-shadow-1",
+      "tailwind": "shadow-shadow-1",
+      "kind": "shadow",
+      "chapter": "Surfaces and depth",
+      "use": "Shadow strength 1 of 4 (Light: the shadow itself; Dark: a weak extra cue — height there comes from lighter surfaces)",
+      "light": "#00000014",
+      "dark": "#00000052",
+      "lightShade": "black-alpha.8",
+      "darkShade": "black-alpha.32",
+      "exempt": false
+    },
+    {
+      "name": "color.shadow.2",
+      "figma": "color/shadow/2",
+      "css": "--ds-color-shadow-2",
+      "tailwind": "shadow-shadow-2",
+      "kind": "shadow",
+      "chapter": "Surfaces and depth",
+      "use": "Shadow strength 2 of 4 (Light: the shadow itself; Dark: a weak extra cue — height there comes from lighter surfaces)",
+      "light": "#0000001F",
+      "dark": "#00000066",
+      "lightShade": "black-alpha.12",
+      "darkShade": "black-alpha.40",
+      "exempt": false
+    },
+    {
+      "name": "color.shadow.3",
+      "figma": "color/shadow/3",
+      "css": "--ds-color-shadow-3",
+      "tailwind": "shadow-shadow-3",
+      "kind": "shadow",
+      "chapter": "Surfaces and depth",
+      "use": "Shadow strength 3 of 4 (Light: the shadow itself; Dark: a weak extra cue — height there comes from lighter surfaces)",
+      "light": "#00000029",
+      "dark": "#0000007A",
+      "lightShade": "black-alpha.16",
+      "darkShade": "black-alpha.48",
+      "exempt": false
+    },
+    {
+      "name": "color.shadow.4",
+      "figma": "color/shadow/4",
+      "css": "--ds-color-shadow-4",
+      "tailwind": "shadow-shadow-4",
+      "kind": "shadow",
+      "chapter": "Surfaces and depth",
+      "use": "Shadow strength 4 of 4 (Light: the shadow itself; Dark: a weak extra cue — height there comes from lighter surfaces)",
+      "light": "#00000033",
+      "dark": "#0000008F",
+      "lightShade": "black-alpha.20",
+      "darkShade": "black-alpha.56",
+      "exempt": false
+    }
+  ],
+  "pairs": [
+    {
+      "fg": "color.fg.on-brand",
+      "bg": "color.bg.brand",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.21,
+      "dark": 6.21
+    },
+    {
+      "fg": "color.fg.on-brand",
+      "bg": "color.bg.brand-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 8.42,
+      "dark": 8.42
+    },
+    {
+      "fg": "color.fg.on-brand",
+      "bg": "color.bg.brand-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.44,
+      "dark": 11.44
+    },
+    {
+      "fg": "color.fg.on-success",
+      "bg": "color.bg.success",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.25,
+      "dark": 6.25
+    },
+    {
+      "fg": "color.fg.on-success",
+      "bg": "color.bg.success-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 8.43,
+      "dark": 8.43
+    },
+    {
+      "fg": "color.fg.on-success",
+      "bg": "color.bg.success-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.4,
+      "dark": 11.4
+    },
+    {
+      "fg": "color.fg.on-warning",
+      "bg": "color.bg.warning",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 9.84,
+      "dark": 9.84
+    },
+    {
+      "fg": "color.fg.on-warning",
+      "bg": "color.bg.warning-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 8.45,
+      "dark": 8.45
+    },
+    {
+      "fg": "color.fg.on-warning",
+      "bg": "color.bg.warning-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.23,
+      "dark": 7.23
+    },
+    {
+      "fg": "color.fg.on-danger",
+      "bg": "color.bg.danger",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.2,
+      "dark": 6.2
+    },
+    {
+      "fg": "color.fg.on-danger",
+      "bg": "color.bg.danger-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 8.42,
+      "dark": 8.42
+    },
+    {
+      "fg": "color.fg.on-danger",
+      "bg": "color.bg.danger-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.42,
+      "dark": 11.42
+    },
+    {
+      "fg": "color.fg.on-info",
+      "bg": "color.bg.info",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.21,
+      "dark": 6.21
+    },
+    {
+      "fg": "color.fg.on-info",
+      "bg": "color.bg.info-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 8.4,
+      "dark": 8.4
+    },
+    {
+      "fg": "color.fg.on-info",
+      "bg": "color.bg.info-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.37,
+      "dark": 11.37
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.canvas",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 13.34,
+      "dark": 15.54
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.surface",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 15.52,
+      "dark": 13.34
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.surface-raised",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 15.52,
+      "dark": 11.38
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.surface-overlay",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 15.52,
+      "dark": 9.83
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.surface-sunken",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.44,
+      "dark": 15.54
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.surface-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.44,
+      "dark": 11.38
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.surface-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 9.83,
+      "dark": 9.83
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.selected",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.45,
+      "dark": 9.84
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.canvas",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 8.41,
+      "dark": 9.83
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.surface",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 9.78,
+      "dark": 8.44
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.surface-raised",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 9.78,
+      "dark": 7.2
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.surface-overlay",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 9.78,
+      "dark": 6.22
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.surface-sunken",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.2,
+      "dark": 9.83
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.surface-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.2,
+      "dark": 7.2
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.surface-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.19,
+      "dark": 6.22
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.selected",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.21,
+      "dark": 6.22
+    },
+    {
+      "fg": "color.fg.subtle",
+      "bg": "color.bg.canvas",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.22,
+      "dark": 7.24
+    },
+    {
+      "fg": "color.fg.subtle",
+      "bg": "color.bg.surface",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.24,
+      "dark": 6.22
+    },
+    {
+      "fg": "color.fg.subtle",
+      "bg": "color.bg.surface-raised",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.24,
+      "dark": 5.3
+    },
+    {
+      "fg": "color.fg.subtle",
+      "bg": "color.bg.surface-overlay",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.24,
+      "dark": 4.58
+    },
+    {
+      "fg": "color.fg.subtle",
+      "bg": "color.bg.surface-sunken",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.33,
+      "dark": 7.24
+    },
+    {
+      "fg": "color.fg.subtle",
+      "bg": "color.bg.surface-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.33,
+      "dark": 5.3
+    },
+    {
+      "fg": "color.fg.subtle",
+      "bg": "color.bg.surface-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.58,
+      "dark": 4.58
+    },
+    {
+      "fg": "color.fg.subtle",
+      "bg": "color.bg.selected",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 4.58
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.canvas",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.23,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.surface",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 6.23
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.surface-raised",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.surface-overlay",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.surface-sunken",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.surface-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.surface-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.59,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.selected",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.35,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.fg.link",
+      "bg": "color.bg.canvas",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.23,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.fg.link",
+      "bg": "color.bg.surface",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 6.23
+    },
+    {
+      "fg": "color.fg.link",
+      "bg": "color.bg.surface-raised",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.link",
+      "bg": "color.bg.surface-overlay",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.fg.link",
+      "bg": "color.bg.surface-sunken",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.fg.link",
+      "bg": "color.bg.surface-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.link",
+      "bg": "color.bg.surface-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.59,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.fg.link",
+      "bg": "color.bg.selected",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.35,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.fg.link-hover",
+      "bg": "color.bg.canvas",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 9.84,
+      "dark": 11.43
+    },
+    {
+      "fg": "color.fg.link-hover",
+      "bg": "color.bg.surface",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.44,
+      "dark": 9.82
+    },
+    {
+      "fg": "color.fg.link-hover",
+      "bg": "color.bg.surface-raised",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.44,
+      "dark": 8.37
+    },
+    {
+      "fg": "color.fg.link-hover",
+      "bg": "color.bg.surface-overlay",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.44,
+      "dark": 7.23
+    },
+    {
+      "fg": "color.fg.link-hover",
+      "bg": "color.bg.surface-sunken",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 8.43,
+      "dark": 11.43
+    },
+    {
+      "fg": "color.fg.link-hover",
+      "bg": "color.bg.surface-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 8.43,
+      "dark": 8.37
+    },
+    {
+      "fg": "color.fg.link-hover",
+      "bg": "color.bg.surface-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 7.23
+    },
+    {
+      "fg": "color.fg.link-hover",
+      "bg": "color.bg.selected",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 8.44,
+      "dark": 7.24
+    },
+    {
+      "fg": "color.fg.success",
+      "bg": "color.bg.canvas",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.23,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.fg.success",
+      "bg": "color.bg.surface",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 6.22
+    },
+    {
+      "fg": "color.fg.success",
+      "bg": "color.bg.surface-raised",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.success",
+      "bg": "color.bg.surface-overlay",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 4.58
+    },
+    {
+      "fg": "color.fg.success",
+      "bg": "color.bg.surface-sunken",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.fg.success",
+      "bg": "color.bg.surface-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.success",
+      "bg": "color.bg.surface-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.59,
+      "dark": 4.58
+    },
+    {
+      "fg": "color.fg.success",
+      "bg": "color.bg.selected",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.fg.warning",
+      "bg": "color.bg.canvas",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.22,
+      "dark": 7.27
+    },
+    {
+      "fg": "color.fg.warning",
+      "bg": "color.bg.surface",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.23,
+      "dark": 6.24
+    },
+    {
+      "fg": "color.fg.warning",
+      "bg": "color.bg.surface-raised",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.23,
+      "dark": 5.32
+    },
+    {
+      "fg": "color.fg.warning",
+      "bg": "color.bg.surface-overlay",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.23,
+      "dark": 4.6
+    },
+    {
+      "fg": "color.fg.warning",
+      "bg": "color.bg.surface-sunken",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.33,
+      "dark": 7.27
+    },
+    {
+      "fg": "color.fg.warning",
+      "bg": "color.bg.surface-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.33,
+      "dark": 5.32
+    },
+    {
+      "fg": "color.fg.warning",
+      "bg": "color.bg.surface-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.58,
+      "dark": 4.6
+    },
+    {
+      "fg": "color.fg.warning",
+      "bg": "color.bg.selected",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 4.6
+    },
+    {
+      "fg": "color.fg.danger",
+      "bg": "color.bg.canvas",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.2,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.fg.danger",
+      "bg": "color.bg.surface",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.22,
+      "dark": 6.23
+    },
+    {
+      "fg": "color.fg.danger",
+      "bg": "color.bg.surface-raised",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.22,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.danger",
+      "bg": "color.bg.surface-overlay",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.22,
+      "dark": 4.58
+    },
+    {
+      "fg": "color.fg.danger",
+      "bg": "color.bg.surface-sunken",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.32,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.fg.danger",
+      "bg": "color.bg.surface-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.32,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.danger",
+      "bg": "color.bg.surface-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.57,
+      "dark": 4.58
+    },
+    {
+      "fg": "color.fg.danger",
+      "bg": "color.bg.selected",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.32,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.fg.info",
+      "bg": "color.bg.canvas",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.21,
+      "dark": 7.26
+    },
+    {
+      "fg": "color.fg.info",
+      "bg": "color.bg.surface",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.23,
+      "dark": 6.23
+    },
+    {
+      "fg": "color.fg.info",
+      "bg": "color.bg.surface-raised",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.23,
+      "dark": 5.32
+    },
+    {
+      "fg": "color.fg.info",
+      "bg": "color.bg.surface-overlay",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.23,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.fg.info",
+      "bg": "color.bg.surface-sunken",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.33,
+      "dark": 7.26
+    },
+    {
+      "fg": "color.fg.info",
+      "bg": "color.bg.surface-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.33,
+      "dark": 5.32
+    },
+    {
+      "fg": "color.fg.info",
+      "bg": "color.bg.surface-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.58,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.fg.info",
+      "bg": "color.bg.selected",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.33,
+      "dark": 4.6
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.success-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.48,
+      "dark": 11.45
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.success-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.23,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.fg.success",
+      "bg": "color.bg.success-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.36,
+      "dark": 5.34
+    },
+    {
+      "fg": "color.fg.link",
+      "bg": "color.bg.success-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.36,
+      "dark": 5.34
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.warning-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.44,
+      "dark": 11.4
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.warning-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.21,
+      "dark": 7.21
+    },
+    {
+      "fg": "color.fg.warning",
+      "bg": "color.bg.warning-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.33,
+      "dark": 5.33
+    },
+    {
+      "fg": "color.fg.link",
+      "bg": "color.bg.warning-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 5.32
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.danger-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.43,
+      "dark": 11.46
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.danger-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.2,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.fg.danger",
+      "bg": "color.bg.danger-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.31,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.fg.link",
+      "bg": "color.bg.danger-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.info-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.42,
+      "dark": 11.44
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.info-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.2,
+      "dark": 7.24
+    },
+    {
+      "fg": "color.fg.info",
+      "bg": "color.bg.info-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.32,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.fg.link",
+      "bg": "color.bg.info-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.33,
+      "dark": 5.34
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.brand-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.45,
+      "dark": 11.4
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.brand-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.21,
+      "dark": 7.21
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.brand-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.35,
+      "dark": 5.32
+    },
+    {
+      "fg": "color.fg.link",
+      "bg": "color.bg.brand-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.35,
+      "dark": 5.32
+    },
+    {
+      "fg": "color.border.strong",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 4.59,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.border.strong",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 4.6
+    },
+    {
+      "fg": "color.border.strong",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 3.92
+    },
+    {
+      "fg": "color.border.strong",
+      "bg": "color.bg.surface-overlay",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.border.strong",
+      "bg": "color.bg.surface-sunken",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.93,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.border.strong",
+      "bg": "color.bg.surface-hover",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.93,
+      "dark": 3.92
+    },
+    {
+      "fg": "color.border.strong",
+      "bg": "color.bg.surface-pressed",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.38,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.border.strong",
+      "bg": "color.bg.selected",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.94,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.border.input",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 4.59,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.border.input",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 4.6
+    },
+    {
+      "fg": "color.border.input",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 3.92
+    },
+    {
+      "fg": "color.border.input",
+      "bg": "color.bg.surface-overlay",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.border.input",
+      "bg": "color.bg.surface-sunken",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.93,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.border.input",
+      "bg": "color.bg.surface-hover",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.93,
+      "dark": 3.92
+    },
+    {
+      "fg": "color.border.input",
+      "bg": "color.bg.surface-pressed",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.38,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.border.input",
+      "bg": "color.bg.selected",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.94,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.border.focus",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11, 2.4.13",
+      "light": 5.34,
+      "dark": 6.22
+    },
+    {
+      "fg": "color.border.focus",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11, 2.4.13",
+      "light": 6.21,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.border.focus",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11, 2.4.13",
+      "light": 6.21,
+      "dark": 4.56
+    },
+    {
+      "fg": "color.border.focus",
+      "bg": "color.bg.surface-overlay",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11, 2.4.13",
+      "light": 6.21,
+      "dark": 3.94
+    },
+    {
+      "fg": "color.border.focus",
+      "bg": "color.bg.surface-sunken",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11, 2.4.13",
+      "light": 4.57,
+      "dark": 6.22
+    },
+    {
+      "fg": "color.border.focus",
+      "bg": "color.bg.surface-hover",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11, 2.4.13",
+      "light": 4.57,
+      "dark": 4.56
+    },
+    {
+      "fg": "color.border.focus",
+      "bg": "color.bg.surface-pressed",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11, 2.4.13",
+      "light": 3.93,
+      "dark": 3.94
+    },
+    {
+      "fg": "color.border.focus",
+      "bg": "color.bg.selected",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11, 2.4.13",
+      "light": 4.58,
+      "dark": 3.94
+    },
+    {
+      "fg": "color.border.selected",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 6.23,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.border.selected",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 7.25,
+      "dark": 6.23
+    },
+    {
+      "fg": "color.border.selected",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 7.25,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.border.selected",
+      "bg": "color.bg.surface-overlay",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 7.25,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.border.selected",
+      "bg": "color.bg.surface-sunken",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.border.selected",
+      "bg": "color.bg.surface-hover",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.border.selected",
+      "bg": "color.bg.surface-pressed",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 4.59,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.border.selected",
+      "bg": "color.bg.selected",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.35,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.border.success",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 4.58,
+      "dark": 5.37
+    },
+    {
+      "fg": "color.border.success",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.33,
+      "dark": 4.61
+    },
+    {
+      "fg": "color.border.success",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.33,
+      "dark": 3.93
+    },
+    {
+      "fg": "color.border.success",
+      "bg": "color.bg.surface-overlay",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.33,
+      "dark": 3.4
+    },
+    {
+      "fg": "color.border.success",
+      "bg": "color.bg.surface-sunken",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.93,
+      "dark": 5.37
+    },
+    {
+      "fg": "color.border.success",
+      "bg": "color.bg.surface-hover",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.93,
+      "dark": 3.93
+    },
+    {
+      "fg": "color.border.success",
+      "bg": "color.bg.surface-pressed",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.38,
+      "dark": 3.4
+    },
+    {
+      "fg": "color.border.success",
+      "bg": "color.bg.selected",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.93,
+      "dark": 3.4
+    },
+    {
+      "fg": "color.border.warning",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 4.59,
+      "dark": 5.33
+    },
+    {
+      "fg": "color.border.warning",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 4.58
+    },
+    {
+      "fg": "color.border.warning",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 3.91
+    },
+    {
+      "fg": "color.border.warning",
+      "bg": "color.bg.surface-overlay",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 3.37
+    },
+    {
+      "fg": "color.border.warning",
+      "bg": "color.bg.surface-sunken",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.94,
+      "dark": 5.33
+    },
+    {
+      "fg": "color.border.warning",
+      "bg": "color.bg.surface-hover",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.94,
+      "dark": 3.91
+    },
+    {
+      "fg": "color.border.warning",
+      "bg": "color.bg.surface-pressed",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.38,
+      "dark": 3.37
+    },
+    {
+      "fg": "color.border.warning",
+      "bg": "color.bg.selected",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.94,
+      "dark": 3.38
+    },
+    {
+      "fg": "color.border.danger",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 4.59,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.border.danger",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 4.6
+    },
+    {
+      "fg": "color.border.danger",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 3.92
+    },
+    {
+      "fg": "color.border.danger",
+      "bg": "color.bg.surface-overlay",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.border.danger",
+      "bg": "color.bg.surface-sunken",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.94,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.border.danger",
+      "bg": "color.bg.surface-hover",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.94,
+      "dark": 3.92
+    },
+    {
+      "fg": "color.border.danger",
+      "bg": "color.bg.surface-pressed",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.38,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.border.danger",
+      "bg": "color.bg.selected",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.94,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.border.info",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 4.57,
+      "dark": 5.36
+    },
+    {
+      "fg": "color.border.info",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.31,
+      "dark": 4.6
+    },
+    {
+      "fg": "color.border.info",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.31,
+      "dark": 3.93
+    },
+    {
+      "fg": "color.border.info",
+      "bg": "color.bg.surface-overlay",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.31,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.border.info",
+      "bg": "color.bg.surface-sunken",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.91,
+      "dark": 5.36
+    },
+    {
+      "fg": "color.border.info",
+      "bg": "color.bg.surface-hover",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.91,
+      "dark": 3.93
+    },
+    {
+      "fg": "color.border.info",
+      "bg": "color.bg.surface-pressed",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.36,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.border.info",
+      "bg": "color.bg.selected",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.92,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.fg.positive",
+      "bg": "color.bg.canvas",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.23,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.fg.positive",
+      "bg": "color.bg.surface",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 6.22
+    },
+    {
+      "fg": "color.fg.positive",
+      "bg": "color.bg.surface-raised",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.positive",
+      "bg": "color.bg.surface-overlay",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 4.58
+    },
+    {
+      "fg": "color.fg.positive",
+      "bg": "color.bg.surface-sunken",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.fg.positive",
+      "bg": "color.bg.surface-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.positive",
+      "bg": "color.bg.surface-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.59,
+      "dark": 4.58
+    },
+    {
+      "fg": "color.fg.positive",
+      "bg": "color.bg.selected",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.fg.positive",
+      "bg": "color.bg.success-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.36,
+      "dark": 5.34
+    },
+    {
+      "fg": "color.fg.negative",
+      "bg": "color.bg.canvas",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.2,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.fg.negative",
+      "bg": "color.bg.surface",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.22,
+      "dark": 6.23
+    },
+    {
+      "fg": "color.fg.negative",
+      "bg": "color.bg.surface-raised",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.22,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.negative",
+      "bg": "color.bg.surface-overlay",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.22,
+      "dark": 4.58
+    },
+    {
+      "fg": "color.fg.negative",
+      "bg": "color.bg.surface-sunken",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.32,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.fg.negative",
+      "bg": "color.bg.surface-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.32,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.negative",
+      "bg": "color.bg.surface-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.57,
+      "dark": 4.58
+    },
+    {
+      "fg": "color.fg.negative",
+      "bg": "color.bg.selected",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.32,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.fg.negative",
+      "bg": "color.bg.danger-subtle",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.31,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.data.positive",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.93,
+      "dark": 9.79
+    },
+    {
+      "fg": "color.data.positive",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 4.58,
+      "dark": 8.41
+    },
+    {
+      "fg": "color.data.positive",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 4.58,
+      "dark": 7.17
+    },
+    {
+      "fg": "color.data.negative",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 8.41,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.data.negative",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 9.78,
+      "dark": 4.6
+    },
+    {
+      "fg": "color.data.negative",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 9.78,
+      "dark": 3.92
+    },
+    {
+      "fg": "color.data.neutral",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 4.59,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.data.neutral",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 4.6
+    },
+    {
+      "fg": "color.data.neutral",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 3.92
+    },
+    {
+      "fg": "color.data.axis",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 4.59,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.data.axis",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 4.6
+    },
+    {
+      "fg": "color.data.axis",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 3.92
+    },
+    {
+      "fg": "color.data.chart-1",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 6.21,
+      "dark": 7.27
+    },
+    {
+      "fg": "color.data.chart-1",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 7.22,
+      "dark": 6.24
+    },
+    {
+      "fg": "color.data.chart-1",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 7.22,
+      "dark": 5.32
+    },
+    {
+      "fg": "color.data.chart-2",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 11.43
+    },
+    {
+      "fg": "color.data.chart-2",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 6.21,
+      "dark": 9.82
+    },
+    {
+      "fg": "color.data.chart-2",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 6.21,
+      "dark": 8.37
+    },
+    {
+      "fg": "color.data.chart-3",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.38,
+      "dark": 11.47
+    },
+    {
+      "fg": "color.data.chart-3",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.94,
+      "dark": 9.85
+    },
+    {
+      "fg": "color.data.chart-3",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.94,
+      "dark": 8.4
+    },
+    {
+      "fg": "color.data.chart-4",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 8.41,
+      "dark": 4.58
+    },
+    {
+      "fg": "color.data.chart-4",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 9.79,
+      "dark": 3.93
+    },
+    {
+      "fg": "color.data.chart-4",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 9.79,
+      "dark": 3.35
+    },
+    {
+      "fg": "color.data.chart-5",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.37,
+      "dark": 8.45
+    },
+    {
+      "fg": "color.data.chart-5",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.92,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.data.chart-5",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.92,
+      "dark": 6.19
+    },
+    {
+      "fg": "color.data.chart-6",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.95,
+      "dark": 4.61
+    },
+    {
+      "fg": "color.data.chart-6",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 4.6,
+      "dark": 3.96
+    },
+    {
+      "fg": "color.data.chart-6",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 4.6,
+      "dark": 3.37
+    },
+    {
+      "fg": "color.data.chart-7",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 8.43,
+      "dark": 4.61
+    },
+    {
+      "fg": "color.data.chart-7",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 9.81,
+      "dark": 3.96
+    },
+    {
+      "fg": "color.data.chart-7",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 9.81,
+      "dark": 3.38
+    },
+    {
+      "fg": "color.data.chart-8",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.39,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.data.chart-8",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.94,
+      "dark": 6.23
+    },
+    {
+      "fg": "color.data.chart-8",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.94,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.canvas",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 8.41,
+      "dark": 9.83
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.surface",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 9.78,
+      "dark": 8.44
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.surface-raised",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 9.78,
+      "dark": 7.2
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.surface-overlay",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 9.78,
+      "dark": 6.22
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.surface-sunken",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 7.2,
+      "dark": 9.83
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.surface-hover",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 7.2,
+      "dark": 7.2
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.surface-pressed",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 6.19,
+      "dark": 6.22
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.selected",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 7.21,
+      "dark": 6.22
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.canvas",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 4.59,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.surface",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 4.6
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.surface-raised",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 3.92
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.surface-overlay",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.surface-sunken",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.93,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.surface-hover",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.93,
+      "dark": 3.92
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.surface-pressed",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.38,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.selected",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.94,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.state-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.canvas",
+      "light": 11.73,
+      "dark": 14.15
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.state-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.canvas",
+      "light": 7.39,
+      "dark": 8.95
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.state-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.canvas",
+      "light": 5.48,
+      "dark": 6.6
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.state-hover",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "over": "color.bg.canvas",
+      "light": 7.39,
+      "dark": 8.95
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.state-hover",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "over": "color.bg.canvas",
+      "light": 4.03,
+      "dark": 4.87
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.state-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.surface",
+      "light": 13.62,
+      "dark": 11.85
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.state-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.surface",
+      "light": 8.58,
+      "dark": 7.5
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.state-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.surface",
+      "light": 6.36,
+      "dark": 5.53
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.state-hover",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "over": "color.bg.surface",
+      "light": 8.58,
+      "dark": 7.5
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.state-hover",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "over": "color.bg.surface",
+      "light": 4.68,
+      "dark": 4.08
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.state-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.surface-sunken",
+      "light": 10.07,
+      "dark": 14.15
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.state-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.surface-sunken",
+      "light": 6.34,
+      "dark": 8.95
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.state-hover",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "over": "color.bg.surface-sunken",
+      "light": 6.34,
+      "dark": 8.95
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.state-hover",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "over": "color.bg.surface-sunken",
+      "light": 3.46,
+      "dark": 4.87
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.state-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.canvas",
+      "light": 11.18,
+      "dark": 12.65
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.state-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.canvas",
+      "light": 7.04,
+      "dark": 8
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.state-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.canvas",
+      "light": 5.22,
+      "dark": 5.9
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.state-pressed",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "over": "color.bg.canvas",
+      "light": 7.04,
+      "dark": 8
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.state-pressed",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "over": "color.bg.canvas",
+      "light": 3.84,
+      "dark": 4.36
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.state-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.surface",
+      "light": 13.02,
+      "dark": 10.54
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.state-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.surface",
+      "light": 8.2,
+      "dark": 6.67
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.state-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.surface",
+      "light": 6.08,
+      "dark": 4.92
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.state-pressed",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "over": "color.bg.surface",
+      "light": 8.2,
+      "dark": 6.67
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.state-pressed",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "over": "color.bg.surface",
+      "light": 4.48,
+      "dark": 3.63
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.state-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.surface-sunken",
+      "light": 9.66,
+      "dark": 12.65
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.state-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.surface-sunken",
+      "light": 6.09,
+      "dark": 8
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.state-pressed",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "over": "color.bg.surface-sunken",
+      "light": 6.09,
+      "dark": 8
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.state-pressed",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "over": "color.bg.surface-sunken",
+      "light": 3.32,
+      "dark": 4.36
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.item-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.44,
+      "dark": 11.38
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.item-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.2,
+      "dark": 7.2
+    },
+    {
+      "fg": "color.fg.subtle",
+      "bg": "color.bg.item-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.33,
+      "dark": 5.3
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.item-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.link",
+      "bg": "color.bg.item-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.success",
+      "bg": "color.bg.item-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.warning",
+      "bg": "color.bg.item-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.33,
+      "dark": 5.32
+    },
+    {
+      "fg": "color.fg.danger",
+      "bg": "color.bg.item-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.32,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.fg.info",
+      "bg": "color.bg.item-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.33,
+      "dark": 5.32
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.item-hover",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 7.2,
+      "dark": 7.2
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.item-hover",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.93,
+      "dark": 3.92
+    },
+    {
+      "fg": "color.fg.default",
+      "bg": "color.bg.item-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 9.83,
+      "dark": 13.34
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.item-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.19,
+      "dark": 8.44
+    },
+    {
+      "fg": "color.fg.subtle",
+      "bg": "color.bg.item-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.58,
+      "dark": 6.22
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.item-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.59,
+      "dark": 6.23
+    },
+    {
+      "fg": "color.fg.link",
+      "bg": "color.bg.item-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.59,
+      "dark": 6.23
+    },
+    {
+      "fg": "color.fg.success",
+      "bg": "color.bg.item-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.59,
+      "dark": 6.22
+    },
+    {
+      "fg": "color.fg.warning",
+      "bg": "color.bg.item-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.58,
+      "dark": 6.24
+    },
+    {
+      "fg": "color.fg.danger",
+      "bg": "color.bg.item-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.57,
+      "dark": 6.23
+    },
+    {
+      "fg": "color.fg.info",
+      "bg": "color.bg.item-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.58,
+      "dark": 6.23
+    },
+    {
+      "fg": "color.fg.icon",
+      "bg": "color.bg.item-pressed",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 6.19,
+      "dark": 8.44
+    },
+    {
+      "fg": "color.fg.icon-subtle",
+      "bg": "color.bg.item-pressed",
+      "kind": "icon",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.38,
+      "dark": 4.6
+    },
+    {
+      "fg": "color.action.primary.fg",
+      "bg": "color.action.primary.bg",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.21,
+      "dark": 6.21
+    },
+    {
+      "fg": "color.action.primary.fg",
+      "bg": "color.action.primary.bg-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 8.42,
+      "dark": 8.42
+    },
+    {
+      "fg": "color.action.primary.fg",
+      "bg": "color.action.primary.bg-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.44,
+      "dark": 11.44
+    },
+    {
+      "fg": "color.action.danger.fg",
+      "bg": "color.action.danger.bg",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.2,
+      "dark": 6.2
+    },
+    {
+      "fg": "color.action.danger.fg",
+      "bg": "color.action.danger.bg-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 8.42,
+      "dark": 8.42
+    },
+    {
+      "fg": "color.action.danger.fg",
+      "bg": "color.action.danger.bg-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.42,
+      "dark": 11.42
+    },
+    {
+      "fg": "color.action.secondary.fg",
+      "bg": "color.action.secondary.bg",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 15.52,
+      "dark": 13.34
+    },
+    {
+      "fg": "color.action.secondary.fg",
+      "bg": "color.action.secondary.bg-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 11.44,
+      "dark": 11.38
+    },
+    {
+      "fg": "color.action.secondary.fg",
+      "bg": "color.action.secondary.bg-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 9.83,
+      "dark": 9.83
+    },
+    {
+      "fg": "color.action.secondary.border",
+      "bg": "color.bg.canvas",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 4.59,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.action.ghost.fg",
+      "bg": "color.bg.canvas",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 6.23,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.action.secondary.border",
+      "bg": "color.bg.surface",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 4.6
+    },
+    {
+      "fg": "color.action.ghost.fg",
+      "bg": "color.bg.surface",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 6.23
+    },
+    {
+      "fg": "color.action.secondary.border",
+      "bg": "color.bg.surface-raised",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 3.92
+    },
+    {
+      "fg": "color.action.ghost.fg",
+      "bg": "color.bg.surface-raised",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.action.secondary.border",
+      "bg": "color.bg.surface-overlay",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 5.34,
+      "dark": 3.39
+    },
+    {
+      "fg": "color.action.ghost.fg",
+      "bg": "color.bg.surface-overlay",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 7.25,
+      "dark": 4.59
+    },
+    {
+      "fg": "color.action.secondary.border",
+      "bg": "color.bg.surface-sunken",
+      "kind": "non-text",
+      "min": 3,
+      "wcag": "1.4.11",
+      "light": 3.93,
+      "dark": 5.35
+    },
+    {
+      "fg": "color.action.ghost.fg",
+      "bg": "color.bg.surface-sunken",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 7.25
+    },
+    {
+      "fg": "color.action.ghost.fg",
+      "bg": "color.action.ghost.bg-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.canvas",
+      "light": 5.48,
+      "dark": 6.6
+    },
+    {
+      "fg": "color.action.ghost.fg",
+      "bg": "color.action.ghost.bg-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.canvas",
+      "light": 5.22,
+      "dark": 5.9
+    },
+    {
+      "fg": "color.action.ghost.fg",
+      "bg": "color.action.ghost.bg-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.surface",
+      "light": 6.36,
+      "dark": 5.53
+    },
+    {
+      "fg": "color.action.ghost.fg",
+      "bg": "color.action.ghost.bg-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "over": "color.bg.surface",
+      "light": 6.08,
+      "dark": 4.92
+    },
+    {
+      "fg": "color.action.ghost.fg",
+      "bg": "color.bg.item-hover",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 5.34,
+      "dark": 5.31
+    },
+    {
+      "fg": "color.action.ghost.fg",
+      "bg": "color.bg.item-pressed",
+      "kind": "text",
+      "min": 4.5,
+      "wcag": "1.4.3",
+      "light": 4.59,
+      "dark": 6.23
+    }
+  ],
+  "notAllowed": [
+    {
+      "fg": "color.fg.subtle",
+      "bg": "color.bg.brand",
+      "label": "Meta text on a solid brand fill",
+      "fix": "color.fg.on-brand",
+      "light": 1.17,
+      "dark": 2.49
+    },
+    {
+      "fg": "color.fg.brand",
+      "bg": "color.bg.brand",
+      "label": "Brand text on the brand fill",
+      "fix": "color.fg.on-brand",
+      "light": 1.17,
+      "dark": 2.49
+    },
+    {
+      "fg": "color.fg.on-brand",
+      "bg": "color.bg.warning",
+      "label": "White text on the warning fill",
+      "fix": "color.fg.on-warning",
+      "light": 2.13,
+      "dark": 2.13
+    },
+    {
+      "fg": "color.fg.positive",
+      "bg": "color.bg.success",
+      "label": "Positive text on a solid success fill",
+      "fix": "color.fg.on-success",
+      "light": 1.16,
+      "dark": 2.51
+    },
+    {
+      "fg": "color.fg.muted",
+      "bg": "color.bg.danger",
+      "label": "Muted text on a solid danger fill",
+      "fix": "color.fg.on-danger",
+      "light": 1.58,
+      "dark": 3.37
+    },
+    {
+      "fg": "color.border.subtle",
+      "bg": "color.bg.surface",
+      "label": "Decorative border used as an input outline",
+      "fix": "color.border.input",
+      "light": 1.58,
+      "dark": 1.59
+    }
+  ],
+  "aliases": {
+    "--ds-focus-ring-color": "color.border.focus",
+    "--ds-elevation-page-surface": "color.bg.canvas",
+    "--ds-elevation-raised-surface": "color.bg.surface",
+    "--ds-elevation-sticky-surface": "color.bg.surface-raised",
+    "--ds-elevation-sticky-border": "color.border.subtle",
+    "--ds-elevation-floating-surface": "color.bg.surface-overlay",
+    "--ds-elevation-floating-border": "color.border.floating",
+    "--ds-elevation-modal-surface": "color.bg.surface-overlay",
+    "--ds-elevation-modal-border": "color.border.floating",
+    "--ds-elevation-modal-scrim": "color.bg.scrim",
+    "--ds-elevation-dragging-border": "color.border.floating"
+  }
+}

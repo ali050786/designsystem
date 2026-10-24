@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Billing — Acme workspace</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  body { margin: 0; }
+  .top { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; gap: var(--ds-space-4); padding: var(--ds-space-3) var(--ds-layout-margin);
+    background: var(--ds-elevation-2-surface); border-bottom: 1px solid var(--ds-color-border-subtle); box-shadow: var(--ds-elevation-2-shadow); }
+  main { max-width: 1040px; margin: 0 auto; padding: var(--ds-space-8) var(--ds-layout-margin) var(--ds-space-16); display: grid; gap: var(--ds-space-10); }
+  main > *, .cols > * { min-width: 0; }
+  p { margin: 0; }
+  h1, h2, h3 { margin: 0; }
+  .intro { color: var(--ds-color-fg-muted); margin-top: var(--ds-space-2); max-width: var(--ds-layout-measure-reading); }
+  .section-head { margin-bottom: var(--ds-space-4); }
+  .card { background: var(--ds-elevation-1-surface); border: 1px solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); padding: var(--ds-space-inset-lg); }
+  .cols { display: grid; gap: var(--ds-space-4); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .plan { display: flex; flex-wrap: wrap; gap: var(--ds-space-6); align-items: center; justify-content: space-between; }
+  .plan .muted, .muted { color: var(--ds-color-fg-muted); }
+  .metric { display: grid; gap: var(--ds-space-1); }
+  .good { color: var(--ds-color-fg-positive); }
+  .bad { color: var(--ds-color-fg-negative); }
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: var(--ds-space-3) var(--ds-space-4); border-bottom: 1px solid var(--ds-color-border-subtle); }
+  thead th { background: var(--ds-color-bg-surface-sunken); color: var(--ds-color-fg-muted); }
+  .num { text-align: right; white-space: nowrap; }
+  .status-paid { color: var(--ds-color-fg-success); }
+  .status-overdue { color: var(--ds-color-fg-danger); }
+  .form { display: grid; gap: var(--ds-space-5); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .field { display: grid; gap: var(--ds-space-1-5); align-content: start; }
+  .field input { background: var(--ds-color-bg-surface); color: var(--ds-color-fg-default); border: 1px solid var(--ds-color-border-input); border-radius: var(--ds-shape-control);
+    padding: var(--ds-space-2) var(--ds-space-3); min-height: var(--ds-size-control-height); box-sizing: border-box; }
+  .field input[aria-invalid="true"] { border-color: var(--ds-color-border-danger); }
+  .help { color: var(--ds-color-fg-muted); }
+  .error { color: var(--ds-color-fg-danger); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: var(--ds-size-control-height); padding: var(--ds-space-2) var(--ds-space-4);
+    border-radius: var(--ds-shape-control); border: 1px solid transparent; cursor: pointer; }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-danger { background: var(--ds-color-action-danger-bg); color: var(--ds-color-action-danger-fg); }
+  .actions { margin-top: var(--ds-space-5); display: flex; gap: var(--ds-space-3); flex-wrap: wrap; }
+  .danger-zone { border-color: var(--ds-color-border-danger); }
+  .danger-zone p { margin: var(--ds-space-2) 0 var(--ds-space-4); max-width: var(--ds-layout-measure-reading); }
+  .faq { display: grid; gap: var(--ds-space-6); max-width: var(--ds-layout-measure-reading); }
+  .faq h3 + p { margin-top: var(--ds-space-2); }
+</style>
+</head>
+<body>
+  <header class="top"><span class="ds-type-title-md">Acme workspace</span></header>
+  <main>
+    <div>
+      <h1>Billing</h1>
+      <p class="ds-type-body-lg intro">Your plan, what you've used this month, and every invoice in one place.</p>
+    </div>
+
+    <section aria-labelledby="plan-h">
+      <h2 id="plan-h" class="section-head">Current plan</h2>
+      <div class="card plan">
+        <div>
+          <h3 class="ds-type-title-md">Team plan</h3>
+          <p class="ds-type-body-sm muted">Renews on <time datetime="2026-11-14">14 November 2026</time></p>
+        </div>
+        <p><span class="ds-type-numeric-lg">€480.00</span> <span class="ds-type-caption-md muted">per month, 24 seats</span></p>
+        <button class="btn btn-secondary ds-type-label-md" type="button">Change plan</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="usage-h">
+      <h2 id="usage-h" class="section-head">Usage this month</h2>
+      <div class="cols">
+        <div class="card metric"><span class="ds-type-label-md muted">Seats used</span><span class="ds-type-numeric-lg">21 of 24</span><span class="ds-type-caption-md good">▲ 3 since last month</span></div>
+        <div class="card metric"><span class="ds-type-label-md muted">Storage</span><span class="ds-type-numeric-lg">46.2 GB</span><span class="ds-type-caption-md bad">▲ 8.1 GB since last month</span></div>
+        <div class="card metric"><span class="ds-type-label-md muted">API calls</span><span class="ds-type-numeric-lg">1,204,880</span><span class="ds-type-caption-md good">▼ 4.0% since last month</span></div>
+      </div>
+    </section>
+
+    <section aria-labelledby="inv-h">
+      <h2 id="inv-h" class="section-head">Invoices</h2>
+      <div class="card scroll">
+        <table>
+          <thead><tr><th scope="col" class="ds-type-label-sm">Date</th><th scope="col" class="ds-type-label-sm">Invoice</th><th scope="col" class="ds-type-label-sm num">Amount (€)</th><th scope="col" class="ds-type-label-sm">Status</th></tr></thead>
+          <tbody class="ds-type-body-sm">
+            <tr><td><time datetime="2026-10-14">14 Oct 2026</time></td><td><code class="ds-type-code-sm">INV-2026-0142</code></td><td class="num">480.00</td><td class="status-overdue">✕ Overdue</td></tr>
+            <tr><td><time datetime="2026-09-14">14 Sep 2026</time></td><td><code class="ds-type-code-sm">INV-2026-0118</code></td><td class="num">480.00</td><td class="status-paid">✓ Paid</td></tr>
+            <tr><td><time datetime="2026-08-14">14 Aug 2026</time></td><td><code class="ds-type-code-sm">INV-2026-0097</code></td><td class="num">440.00</td><td class="status-paid">✓ Paid</td></tr>
+            <tr><td><time datetime="2026-07-14">14 Jul 2026</time></td><td><code class="ds-type-code-sm">INV-2026-0071</code></td><td class="num">−40.00</td><td class="status-paid">✓ Credit</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="pay-h">
+      <h2 id="pay-h" class="section-head">Payment method</h2>
+      <form class="card" onsubmit="return false">
+        <div class="form">
+          <div class="field"><label for="holder" class="ds-type-label-md">Name on card</label><input id="holder" class="ds-type-body-md" value="Priya Raman"></div>
+          <div class="field"><label for="num" class="ds-type-label-md">Card number</label><input id="num" class="ds-type-numeric-md" inputmode="numeric" value="4242 4242 4242 4242" aria-describedby="num-help"><span id="num-help" class="ds-type-caption-md help">We never store the full number.</span></div>
+          <div class="field"><label for="exp" class="ds-type-label-md">Expiry</label><input id="exp" class="ds-type-numeric-md" value="09/24" aria-invalid="true" aria-describedby="exp-err"><span id="exp-err" class="ds-type-caption-md error">✕ This card expired in September 2024.</span></div>
+        </div>
+        <div class="actions"><button class="btn btn-primary ds-type-label-md" type="submit">Save card</button></div>
+      </form>
+    </section>
+
+    <section aria-labelledby="cancel-h">
+      <h2 id="cancel-h" class="section-head">Cancel plan</h2>
+      <div class="card danger-zone">
+        <h3 class="ds-type-title-md">Cancel the Team plan</h3>
+        <p class="ds-type-body-md">Your workspace stays open until 14 November 2026. After that, projects become read-only and files over 2 GB are deleted after 30 days.</p>
+        <button class="btn btn-danger ds-type-label-md" type="button">Cancel plan</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="faq-h">
+      <h2 id="faq-h" class="section-head">Questions</h2>
+      <div class="faq">
+        <div><h3 class="ds-type-title-lg">When am I charged?</h3><p>On the same day each month as your first payment. If that day doesn't exist in a month, we charge on the last day.</p></div>
+        <div><h3 class="ds-type-title-lg">Can I get a refund for unused seats?</h3><p>Seats you remove are credited to your next invoice, to the day. Credits appear as a minus amount in the table above.</p></div>
+        <div><h3 class="ds-type-title-lg">Where do invoices go?</h3><p>To the billing contact in your workspace settings. Every invoice is also here, and you can download it as a PDF.</p></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

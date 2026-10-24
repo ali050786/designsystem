@@ -1,0 +1,3 @@
+$ node src/cli.js card-18px.config.json out/test
+✕ Config refused — spacing.tokens → space.inset.card: "value" is not allowed: give a "base" — a key on the spacing scale, such as "8" (32px). The engine computes compact and comfortable
+exit code 2

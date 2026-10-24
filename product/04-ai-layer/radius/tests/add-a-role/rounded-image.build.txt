@@ -1,0 +1,1 @@
+✕ Config refused — radius.roles → shape.rounded-image: name the role by its job (what it is for), not by how it looks or how big it is — the style decides that

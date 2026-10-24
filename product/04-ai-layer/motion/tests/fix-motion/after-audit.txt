@@ -1,0 +1,4 @@
+motion audit · after.html · full and reduced motion at 1280 and 320px · nothing moves in reduced motion · ≤ 32px · flashes ≤ 3 a second
+animations recorded: full/1280 16 · full/320 17 · reduced/1280 16 · reduced/320 16
+
+no problems

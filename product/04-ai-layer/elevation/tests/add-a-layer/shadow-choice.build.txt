@@ -1,0 +1,1 @@
+✕ Config refused — elevation: "shadows" is not an elevation choice: the config takes "layers" (product places in the stacking order). Levels, surfaces and shadows are computed

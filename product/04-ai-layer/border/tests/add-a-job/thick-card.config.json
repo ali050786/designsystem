@@ -1,0 +1,1 @@
+{ "border": { "control": 1, "roles": [ { "name": "border.width.thick-card", "width": 2, "color": "color.border.default", "identifies": false, "description": "Featured cards" } ] } }

@@ -1,0 +1,1 @@
+✕ Config refused — motion.jobs → motion.snackbar: "duration" is not allowed: durations and curves are computed from the kind and the distance (100ms + 37.5ms × √px, rounded down to 50ms)

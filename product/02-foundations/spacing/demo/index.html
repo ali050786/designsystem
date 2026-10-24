@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en" data-density="default">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ds space demo</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  /* Every padding, gap and control size on this page is a ds spacing token: no px, no primitives. Text uses ds text
+     styles and colours use ds colour roles. Switch the density at the top: the whole page moves one step together. */
+  body { margin: 0; }
+  .top { z-index: var(--ds-layer-sticky); display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-lg);
+    padding: var(--ds-space-inset-md) var(--ds-layout-margin); background: var(--ds-elevation-sticky-surface); border-bottom: var(--ds-border-width-line) solid var(--ds-color-border-subtle); box-shadow: var(--ds-elevation-sticky-shadow); }
+  .top .name { margin: 0; margin-inline-end: auto; }
+  .settings { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-lg); }
+  @media (min-height: 30em) { .top { position: sticky; top: 0; } } /* sticky only where there is room (layout: the header and scrolling) */
+  main { box-sizing: border-box; max-width: calc(var(--ds-layout-container-max) + 2 * var(--ds-layout-margin)); margin: 0 auto; padding: var(--ds-space-inset-2xl) var(--ds-layout-margin); display: grid; gap: var(--ds-space-stack-2xl); }
+  main > *, .row > * { min-width: 0; } /* wide content wraps or scrolls inside its card instead of widening the page */
+  section > h2 { margin: 0 0 var(--ds-space-stack-xs); }
+  section > .intro { margin: 0 0 var(--ds-space-stack-lg); color: var(--ds-color-fg-muted); max-width: var(--ds-layout-measure-reading); }
+  h3 { margin: 0; }
+  p { margin: 0; }
+  .card { background: var(--ds-elevation-raised-surface); border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); padding: var(--ds-space-inset-lg); box-shadow: var(--ds-elevation-raised-shadow); }
+  .row { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--ds-space-stack-xl) var(--ds-space-inline-xl); }
+  .specimen { display: grid; gap: var(--ds-space-stack-sm); justify-items: start; }
+  .tag { display: inline-block; max-width: 100%; box-sizing: border-box; overflow-wrap: anywhere; padding: var(--ds-space-inset-xs) var(--ds-space-inset-sm); border-radius: var(--ds-shape-control); background: var(--ds-color-bg-brand-subtle); color: var(--ds-color-fg-brand); }
+  .muted { color: var(--ds-color-fg-muted); }
+
+  /* Switches: radio groups drawn as segmented controls */
+  .seg { display: inline-flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-inline-sm); border: 0; margin: 0; padding: 0; min-inline-size: 0; }
+  .seg legend { float: left; padding: 0; color: var(--ds-color-fg-muted); }
+  .seg .opts { display: inline-flex; flex-wrap: wrap; max-width: 100%; box-sizing: border-box; padding: var(--ds-space-inset-xs); gap: var(--ds-space-inline-xs); border: var(--ds-border-width-control) solid var(--ds-color-border-strong); border-radius: var(--ds-shape-container); background: var(--ds-color-bg-surface); }
+  .seg label { position: relative; display: inline-flex; align-items: center; min-height: var(--ds-size-target-min); padding: 0 var(--ds-space-inset-sm); border-radius: var(--ds-shape-control); color: var(--ds-color-fg-muted); cursor: pointer; }
+  .seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .seg label:has(input:checked) { background: var(--ds-color-bg-selected); color: var(--ds-color-fg-default); font-weight: var(--ds-font-weight-semibold); }
+  .seg label:has(input:focus-visible) { outline: var(--ds-focus-ring-width) solid var(--ds-focus-ring-color); outline-offset: var(--ds-focus-ring-offset); }
+
+  /* The ladder */
+  .ladder { width: 100%; border-collapse: collapse; }
+  .ladder th, .ladder td { padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); text-align: start; border-bottom: var(--ds-border-width-line) solid var(--ds-color-border-subtle); vertical-align: middle; }
+  .ladder thead th { color: var(--ds-color-fg-muted); }
+  .ladder td.num, .ladder th.num { text-align: end; }
+  .bar { display: block; inline-size: var(--w); block-size: 0.75rem; border-radius: var(--ds-shape-control); background: var(--ds-color-bg-brand); }
+
+  /* Inset specimens */
+  .badge { display: inline-flex; padding: var(--ds-space-inset-xs) var(--ds-space-inset-sm); border-radius: var(--ds-shape-pill); background: var(--ds-color-bg-brand-subtle); color: var(--ds-color-fg-brand); }
+  .menu { list-style: none; margin: 0; padding: var(--ds-space-inset-xs); min-width: min(12rem, 100%); background: var(--ds-elevation-floating-surface); border: var(--ds-border-width-line) solid var(--ds-elevation-floating-border); border-radius: var(--ds-shape-container); box-shadow: var(--ds-elevation-floating-shadow); }
+  .menu button { display: flex; align-items: center; width: 100%; min-height: var(--ds-size-control-height); padding: 0 calc(var(--ds-space-inset-sm) - var(--ds-border-width-control)); border: var(--ds-border-width-control) solid transparent; border-radius: var(--ds-shape-control); background: transparent; color: var(--ds-color-fg-default); text-align: start; cursor: pointer; }
+  .menu button:hover { background: var(--ds-color-bg-item-hover); }
+  .panel { display: grid; gap: var(--ds-space-stack-md); max-width: 24rem; padding: var(--ds-space-inset-xl); background: var(--ds-elevation-modal-surface); border: var(--ds-border-width-line) solid var(--ds-elevation-modal-border); border-radius: var(--ds-shape-surface); box-shadow: var(--ds-elevation-modal-shadow); }
+
+  /* Controls */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--ds-size-control-icon-gap); min-height: var(--ds-size-control-height);
+    padding: var(--ds-space-inset-xs) var(--ds-space-inset-md); border-radius: var(--ds-shape-control); border: var(--ds-border-width-control) solid transparent; cursor: pointer; }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+  .btn-primary:hover { background: var(--ds-color-action-primary-bg-hover); }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-secondary:hover { background: var(--ds-color-action-secondary-bg-hover); }
+  .icon-btn { min-width: var(--ds-size-control-height); padding: 0; }
+  .close { display: inline-flex; align-items: center; justify-content: center; min-width: var(--ds-size-target-min); min-height: var(--ds-size-target-min); padding: 0; border: 0; border-radius: var(--ds-shape-control); background: transparent; color: var(--ds-color-fg-icon); cursor: pointer; }
+  .close:hover { background: var(--ds-color-bg-state-hover); }
+  .actions { display: flex; flex-wrap: wrap; gap: var(--ds-space-stack-sm) var(--ds-space-inline-sm); }
+
+  /* Fields */
+  .form { display: grid; gap: var(--ds-space-stack-xl); max-width: 32rem; }
+  .group { display: grid; gap: var(--ds-space-stack-lg); border: 0; margin: 0; padding: 0; min-inline-size: 0; }
+  .group > legend { padding: 0; margin-bottom: var(--ds-space-stack-md); } /* a legend sits outside the fieldset's gap */
+  .field { display: grid; gap: var(--ds-space-stack-xs); }
+  .field input, .field select { width: 100%; box-sizing: border-box; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md);
+    background: var(--ds-color-bg-surface); color: var(--ds-color-fg-default); border: var(--ds-border-width-control) solid var(--ds-color-border-input); border-radius: var(--ds-shape-control); }
+  .help { color: var(--ds-color-fg-muted); }
+  .options { display: grid; gap: var(--ds-space-stack-sm); }
+  .check { display: inline-flex; align-items: center; gap: var(--ds-space-inline-sm); min-height: var(--ds-size-target-min); min-width: var(--ds-size-target-min); cursor: pointer; }
+  .check input { inline-size: 1.125em; block-size: 1.125em; margin: 0; accent-color: var(--ds-color-action-primary-bg); }
+
+  /* Rows */
+  .toolbar { display: flex; flex-wrap: wrap; gap: var(--ds-space-stack-sm) var(--ds-space-inline-xl); padding: var(--ds-space-inset-sm); background: var(--ds-color-bg-surface); border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); }
+  .toolbar .actions { gap: var(--ds-space-stack-sm) var(--ds-space-inline-sm); }
+  .card-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--ds-space-stack-sm) var(--ds-space-inline-md); }
+  .card-head h3 { margin-inline-end: auto; }
+  .status { display: inline-flex; align-items: center; gap: var(--ds-space-inline-xs); }
+  .status .dot { color: var(--ds-color-fg-success); }
+  .chips { display: flex; flex-wrap: wrap; gap: var(--ds-space-stack-sm) var(--ds-space-inline-sm); list-style: none; margin: 0; padding: 0; }
+  .chips li { padding: var(--ds-space-inset-xs) var(--ds-space-inset-sm); border-radius: var(--ds-shape-pill); background: var(--ds-color-bg-surface-sunken); }
+  .stack-md { display: grid; gap: var(--ds-space-stack-md); }
+
+  /* A region with its own density */
+  .table-wrap { overflow-x: auto; background: var(--ds-color-bg-surface); border: var(--ds-border-width-line) solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); }
+  .table-wrap table { width: 100%; border-collapse: collapse; }
+  .table-wrap th, .table-wrap td { padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); text-align: start; border-bottom: var(--ds-border-width-line) solid var(--ds-color-border-subtle); white-space: nowrap; }
+  .table-wrap thead th { background: var(--ds-color-bg-surface-sunken); color: var(--ds-color-fg-muted); }
+  .table-wrap tbody tr:last-child td { border-bottom: 0; }
+  .table-wrap .num { text-align: end; }
+
+  /* Worked example */
+  .settings-card { display: grid; gap: var(--ds-space-stack-xl); max-width: 26rem; }
+  .settings-card .head { display: grid; gap: var(--ds-space-stack-xs); }
+
+  /* Show targets: outline everything people press */
+  [data-show-targets] :is(a[href], button, select, .field input, .check, .seg label):not(:focus-visible) { outline: var(--ds-border-width-line) solid var(--ds-color-border-focus); outline-offset: 0; }
+  footer { padding: 0 var(--ds-layout-margin) var(--ds-space-inset-2xl); max-width: 1100px; margin: 0 auto; color: var(--ds-color-fg-muted); }
+</style>
+</head>
+<body>
+  <header class="top">
+    <h1 class="name ds-type-title-md">ds · space demo</h1>
+    <div class="settings" role="group" aria-label="Demo settings">
+      <fieldset class="seg ds-type-label-md">
+        <legend>Density</legend>
+        <span class="opts">
+          <label><input type="radio" name="density" value="comfortable"> Comfortable</label>
+          <label><input type="radio" name="density" value="default" checked> Default</label>
+          <label><input type="radio" name="density" value="compact"> Compact</label>
+        </span>
+      </fieldset>
+      <fieldset class="seg ds-type-label-md">
+        <legend>Text size</legend>
+        <span class="opts">
+          <label><input type="radio" name="size" value="100" checked> 100%</label>
+          <label><input type="radio" name="size" value="200"> 200%</label>
+        </span>
+      </fieldset>
+      <label class="check ds-type-label-md"><input type="checkbox" id="show-targets"> Show targets</label>
+    </div>
+  </header>
+
+  <main>
+    <section aria-labelledby="h-ladder">
+      <h2 id="h-ladder">One ladder, three directions</h2>
+      <p class="intro ds-type-body-lg">Each value is read from the page as it is now. Switch the density: every size moves one step along the scale, and the order never changes. The same size word is the same distance in all three families.</p>
+      <div class="card" style="overflow-x: auto" tabindex="0" role="region" aria-labelledby="h-ladder">
+        <table class="ladder">
+          <thead><tr><th scope="col" class="ds-type-label-sm">Size</th><th scope="col" class="ds-type-label-sm">Distance</th><th scope="col" class="num ds-type-label-sm">inset</th><th scope="col" class="num ds-type-label-sm">stack</th><th scope="col" class="num ds-type-label-sm">inline</th></tr></thead>
+          <tbody class="ds-type-body-sm">
+            <tr><th scope="row">xs</th><td><span class="bar" style="--w: var(--ds-space-stack-xs)"></span></td><td class="num"><output data-token="space-inset-xs">–</output></td><td class="num"><output data-token="space-stack-xs">–</output></td><td class="num"><output data-token="space-inline-xs">–</output></td></tr>
+            <tr><th scope="row">sm</th><td><span class="bar" style="--w: var(--ds-space-stack-sm)"></span></td><td class="num"><output data-token="space-inset-sm">–</output></td><td class="num"><output data-token="space-stack-sm">–</output></td><td class="num"><output data-token="space-inline-sm">–</output></td></tr>
+            <tr><th scope="row">md</th><td><span class="bar" style="--w: var(--ds-space-stack-md)"></span></td><td class="num"><output data-token="space-inset-md">–</output></td><td class="num"><output data-token="space-stack-md">–</output></td><td class="num"><output data-token="space-inline-md">–</output></td></tr>
+            <tr><th scope="row">lg</th><td><span class="bar" style="--w: var(--ds-space-stack-lg)"></span></td><td class="num"><output data-token="space-inset-lg">–</output></td><td class="num"><output data-token="space-stack-lg">–</output></td><td class="num"><output data-token="space-inline-lg">–</output></td></tr>
+            <tr><th scope="row">xl</th><td><span class="bar" style="--w: var(--ds-space-stack-xl)"></span></td><td class="num"><output data-token="space-inset-xl">–</output></td><td class="num"><output data-token="space-stack-xl">–</output></td><td class="num"><output data-token="space-inline-xl">–</output></td></tr>
+            <tr><th scope="row">2xl</th><td><span class="bar" style="--w: var(--ds-space-stack-2xl)"></span></td><td class="num"><output data-token="space-inset-2xl">–</output></td><td class="num"><output data-token="space-stack-2xl">–</output></td><td class="num">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-inset">
+      <h2 id="h-inset">Inset: padding by container</h2>
+      <p class="intro">Small things wrap their content tightly; big surfaces give it room. Controls take their height from size.control.height and only their sides from inset.</p>
+      <div class="row">
+        <div class="specimen"><span class="badge ds-type-label-sm">Beta</span><span class="tag ds-type-code-sm">inset.xs · sides inset.sm</span></div>
+        <div class="specimen">
+          <ul class="menu ds-type-label-md" aria-label="Project actions">
+            <li><button type="button">Rename</button></li>
+            <li><button type="button">Duplicate</button></li>
+            <li><button type="button">Archive</button></li>
+          </ul>
+          <span class="tag ds-type-code-sm">inset.xs · items inset.sm</span>
+        </div>
+        <div class="specimen">
+          <button type="button" class="btn btn-primary ds-type-label-md">Save changes</button>
+          <span class="tag ds-type-code-sm">sides inset.md · min-height control</span>
+        </div>
+        <div class="specimen">
+          <div class="card stack-md"><h3 class="ds-type-title-md">Storage</h3><p class="ds-type-body-sm muted">12 GB of 50 GB used</p></div>
+          <span class="tag ds-type-code-sm">inset.lg</span>
+        </div>
+        <div class="specimen">
+          <div class="panel" role="group" aria-labelledby="h-panel">
+            <h3 id="h-panel" class="ds-type-title-lg">Archive this project?</h3>
+            <p class="ds-type-body-md muted">People can still find it under Archived. You can bring it back at any time.</p>
+            <div class="actions"><button type="button" class="btn btn-primary ds-type-label-md">Archive</button><button type="button" class="btn btn-secondary ds-type-label-md">Cancel</button></div>
+          </div>
+          <span class="tag ds-type-code-sm">inset.xl</span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-stack">
+      <h2 id="h-stack">Stack: a form spaced by relationship</h2>
+      <p class="intro">A label sits closest to its own field, fields are further apart, groups further still. People see the groups before they read a word — and the markup groups them too.</p>
+      <div class="card">
+        <form class="form" onsubmit="return false">
+          <fieldset class="group">
+            <legend class="ds-type-title-md">Profile</legend>
+            <div class="field"><label for="name" class="ds-type-label-md">Name</label><input id="name" class="ds-type-body-md" value="Ali Khan"></div>
+            <div class="field"><label for="email" class="ds-type-label-md">Email</label><input id="email" class="ds-type-body-md" value="ali@example.com" aria-describedby="email-help"><span id="email-help" class="help ds-type-caption-md">We only use it to send what you choose below.</span></div>
+          </fieldset>
+          <fieldset class="group">
+            <legend class="ds-type-title-md">Notifications</legend>
+            <div class="options">
+              <label class="check ds-type-body-md"><input type="checkbox" checked> Weekly summary</label>
+              <label class="check ds-type-body-md"><input type="checkbox"> Mentions</label>
+              <label class="check ds-type-body-md"><input type="checkbox"> Product news</label>
+            </div>
+          </fieldset>
+          <div class="actions"><button type="submit" class="btn btn-primary ds-type-label-md">Save</button><button type="button" class="btn btn-secondary ds-type-label-md">Cancel</button></div>
+        </form>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-inline">
+      <h2 id="h-inline">Inline: rows spaced by relationship</h2>
+      <p class="intro">Items of one group share a small gap; a bigger gap separates the next group. Rows wrap instead of squeezing, with stack between the lines.</p>
+      <div class="toolbar" role="toolbar" aria-label="Editor">
+        <div class="actions"><button type="button" class="btn btn-secondary ds-type-label-md"><span aria-hidden="true">⚲</span> Filter</button><button type="button" class="btn btn-secondary ds-type-label-md"><span aria-hidden="true">↕</span> Sort</button></div>
+        <div class="actions"><button type="button" class="btn btn-secondary ds-type-label-md">Bold</button><button type="button" class="btn btn-secondary ds-type-label-md">Italic</button><button type="button" class="btn btn-secondary ds-type-label-md">Link</button></div>
+        <div class="actions"><button type="button" class="btn btn-secondary ds-type-label-md">Share</button><button type="button" class="btn btn-secondary ds-type-label-md">Export</button></div>
+      </div>
+      <div class="row" style="margin-top: var(--ds-space-stack-lg)">
+        <div class="card stack-md">
+          <div class="card-head"><h3 class="ds-type-title-md">Storage</h3><button type="button" class="btn btn-secondary icon-btn ds-type-label-md" aria-label="More options">⋯</button><button type="button" class="btn btn-primary ds-type-label-md">Upgrade</button></div>
+          <span class="tag ds-type-code-sm">title and actions: inline.md</span>
+        </div>
+        <div class="card stack-md">
+          <p class="status ds-type-body-sm"><span class="dot" aria-hidden="true">●</span> All systems running</p>
+          <span class="tag ds-type-code-sm">icon and its text: inline.xs</span>
+        </div>
+        <div class="card stack-md">
+          <ul class="chips ds-type-label-sm" aria-label="Teams"><li>Design</li><li>Research</li><li>Marketing</li><li>Engineering</li><li>Support</li><li>Finance</li></ul>
+          <span class="tag ds-type-code-sm">inline.sm · stack.sm between lines</span>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-targets">
+      <h2 id="h-targets">Controls and targets</h2>
+      <p class="intro">Every target is at least 24 × 24px in every density. Turn on <strong>Show targets</strong> to see them, and try 200% text: controls grow with their labels because their heights are minimums.</p>
+      <div class="card stack-md">
+        <p class="ds-type-body-sm muted">Control height now: <output data-token="size-control-height" class="ds-type-numeric-md">–</output> · smallest target on this page: <output id="smallest" class="ds-type-numeric-md">–</output></p>
+        <div class="actions">
+          <button type="button" class="btn btn-primary ds-type-label-md"><span aria-hidden="true">✓</span> Save</button>
+          <button type="button" class="btn btn-secondary icon-btn ds-type-label-md" aria-label="More options">⋯</button>
+          <button type="button" class="close ds-type-label-md" aria-label="Close">×</button>
+        </div>
+        <label class="check ds-type-body-md"><input type="checkbox" checked> A checkbox drawn at 18px, inside a 24px label</label>
+        <p class="ds-type-body-md">Links inside a sentence, like <a href="#h-targets">this one about targets</a>, take their size from the line of text — the one exception WCAG allows.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-region">
+      <h2 id="h-region">One part of the page in its own density</h2>
+      <p class="intro">This table's container has data-density="compact", so it stays compact whatever the page uses. Everything inside follows; nothing outside changes.</p>
+      <div class="table-wrap" data-density="compact" tabindex="0" role="region" aria-label="Members table, compact">
+        <table>
+          <thead class="ds-type-label-sm"><tr><th scope="col">Project</th><th scope="col">Owner</th><th scope="col" class="num">Tasks</th><th scope="col" class="num">Hours</th></tr></thead>
+          <tbody class="ds-type-body-sm">
+            <tr><td>Website redesign</td><td>Ali</td><td class="num">124</td><td class="num">1,248</td></tr>
+            <tr><td>Mobile app</td><td>Sara</td><td class="num">91</td><td class="num">911</td></tr>
+            <tr><td>Onboarding flow</td><td>Ravi</td><td class="num">17</td><td class="num">74</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="ds-type-caption-md muted" style="margin-top: var(--ds-space-stack-sm)">Row padding here: <output data-token="space-inset-sm" class="ds-type-numeric-md" data-from=".table-wrap">–</output> — compact, in every page density.</p>
+    </section>
+
+    <section aria-labelledby="h-example">
+      <h2 id="h-example">Worked example: a settings card</h2>
+      <p class="intro">Spaced one question at a time: which way does the space run, and how closely do the two things belong together?</p>
+      <div class="card settings-card">
+        <div class="head"><h3 class="ds-type-title-md">Notifications</h3><p class="ds-type-body-sm muted">Choose what we send you.</p></div>
+        <div class="group">
+          <div class="field"><label for="ex-email" class="ds-type-label-md">Email</label><input id="ex-email" class="ds-type-body-md" value="ali@example.com"></div>
+          <div class="options">
+            <label class="check ds-type-body-md"><input type="checkbox" checked> Weekly summary</label>
+            <label class="check ds-type-body-md"><input type="checkbox"> Mentions</label>
+          </div>
+        </div>
+        <div class="actions"><button type="button" class="btn btn-primary ds-type-label-md">Save</button><button type="button" class="btn btn-secondary ds-type-label-md">Cancel</button></div>
+      </div>
+    </section>
+  </main>
+  <footer class="ds-type-caption-md">Spacing from tokens.css, generated by the ds engine. Check this page with npm run lint:space and npm run audit:space.</footer>
+
+<script>
+  const root = document.documentElement;
+  // Values are read from the page itself: a token's value where its output sits (a region with its own density counts).
+  function measure() {
+    for (const out of document.querySelectorAll('output[data-token]')) {
+      const host = out.dataset.from ? document.querySelector(out.dataset.from) : out;
+      const v = getComputedStyle(host).getPropertyValue('--ds-' + out.dataset.token).trim();
+      out.textContent = v ? Math.round(parseFloat(v)) + 'px' : '–';
+    }
+    let min = Infinity;
+    for (const el of document.querySelectorAll('button, select, .field input, .check, .seg label')) {
+      const r = el.getBoundingClientRect();
+      if (r.width && r.height) min = Math.min(min, r.width, r.height);
+    }
+    document.getElementById('smallest').textContent = Number.isFinite(min) ? Math.round(min) + 'px' : '–';
+  }
+  for (const input of document.querySelectorAll('input[name="density"]')) {
+    input.checked = input.value === (root.dataset.density || 'default');
+    input.addEventListener('change', () => { root.dataset.density = input.value; measure(); });
+  }
+  for (const input of document.querySelectorAll('input[name="size"]')) input.addEventListener('change', () => { root.style.fontSize = input.value === '200' ? '200%' : ''; measure(); });
+  document.getElementById('show-targets').addEventListener('change', (e) => { root.toggleAttribute('data-show-targets', e.target.checked); });
+  window.addEventListener('resize', measure);
+  document.fonts.ready.then(measure);
+  measure();
+</script>
+<script>
+  // The settings bar sticks only in windows at least 30em tall, and can wrap onto a second row on small screens, so the
+  // scroll padding comes from its real height (the layout handoff's measured header): focus never lands under it.
+  (() => {
+    const bar = document.querySelector('.top'), tall = matchMedia('(min-height: 30em)');
+    // Clear the bar and the focus ring above a focused item (its offset + width).
+    const ringReach = () => { const cs = getComputedStyle(document.documentElement); return parseFloat(cs.getPropertyValue('--ds-focus-ring-offset')) + parseFloat(cs.getPropertyValue('--ds-focus-ring-width')); };
+    const set = () => { document.documentElement.style.scrollPaddingTop = tall.matches ? `${bar.getBoundingClientRect().height + ringReach()}px` : ''; };
+    new ResizeObserver(set).observe(bar, { box: "border-box" }); tall.addEventListener('change', set); set();
+  })();
+</script>
+</body>
+</html>

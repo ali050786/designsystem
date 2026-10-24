@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project settings</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  :root { --ds-space-stack-md: 14px; }
+  body { margin: 0; }
+  main { padding: var(--ds-space-inset-2xl) var(--ds-space-inset-xl); display: grid; gap: var(--ds-space-stack-2xl); }
+  h1, h2, p { margin: 0; }
+  .layout { display: grid; grid-template-columns: 15rem 1fr; gap: var(--ds-space-inline-xl); }
+  .nav { display: grid; gap: var(--ds-space-inset-sm); }
+  .nav a { display: block; padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); border-radius: var(--ds-shape-control); color: var(--ds-color-fg-default); text-decoration: none; }
+  .card { padding: 20px; background: var(--ds-color-bg-surface); border: 1px solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); }
+  .card-tight { padding: var(--ds-space-inset-xs); background: var(--ds-color-bg-surface); border: 1px solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); }
+  .form { display: grid; gap: var(--ds-space-stack-sm); }
+  .field { display: grid; gap: var(--ds-space-stack-lg); }
+  .field label { margin-bottom: var(--ds-space-inline-xs); }
+  .field input { min-height: var(--ds-size-control-height); padding: 0 var(--ds-space-inset-md); border: 1px solid var(--ds-color-border-input); border-radius: var(--ds-shape-control); background: var(--ds-color-bg-surface); color: var(--ds-color-fg-default); }
+  .options { display: grid; gap: var(--ds-space-stack-sm); }
+  .toolbar { display: flex; gap: 0.75rem; }
+  .btn { display: inline-flex; align-items: center; height: 36px; padding: 0 var(--ds-space-inset-md); border-radius: var(--ds-shape-control); border: 1px solid var(--ds-color-action-secondary-border); background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); border-color: transparent; }
+  .pill-filter { height: 28px; overflow: hidden; padding: 0 var(--ds-space-inset-sm); border: 1px solid var(--ds-color-border-default); border-radius: var(--ds-shape-pill); background: var(--ds-color-bg-surface); color: var(--ds-color-fg-default); }
+  .close { width: 16px; height: 16px; padding: 0; border: 0; background: transparent; color: var(--ds-color-fg-icon); }
+  .help-link { display: inline-block; width: 18px; height: 18px; text-align: center; border-radius: var(--ds-shape-pill); background: var(--ds-color-bg-surface-sunken); color: var(--ds-color-fg-default); text-decoration: none; }
+  .compact .member { padding: var(--ds-space-inset-xs); }
+  .member { display: flex; justify-content: space-between; padding: var(--ds-space-inset-md); border-bottom: 1px solid var(--ds-color-border-subtle); }
+  .panel { margin-top: var(--ds-space-6); }
+  .note { color: var(--ds-color-fg-muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1 class="ds-type-heading-lg">Project settings</h1>
+  <div class="layout">
+    <nav class="nav ds-type-label-md" aria-label="Settings">
+      <a href="#general">General</a><a href="#members">Members</a><a href="#billing">Billing</a>
+    </nav>
+    <div class="stack">
+      <section class="card" id="general" aria-labelledby="h-general">
+        <h2 id="h-general" class="ds-type-title-lg">General</h2>
+        <form class="form" onsubmit="return false">
+          <div class="field"><label for="pname" class="ds-type-label-md">Project name</label><input id="pname" class="ds-type-body-md" value="Website redesign"></div>
+          <div class="field"><label for="key" class="ds-type-label-md">Project key <a class="help-link ds-type-label-sm" href="#key-help" aria-label="What is a project key?">?</a> <a class="help-link ds-type-label-sm" href="#keys" aria-label="All project keys">#</a></label><input id="key" class="ds-type-body-md" value="WEB"></div>
+          <p class="ds-type-label-md">Notify me about</p>
+          <div class="options">
+            <div class="ds-type-body-md"><input type="checkbox" id="o1" checked> <label for="o1">Comments</label></div>
+            <div class="ds-type-body-md"><input type="checkbox" id="o2"> <label for="o2">Status changes</label></div>
+          </div>
+          <div class="spacer"></div>
+          <div class="toolbar">
+            <button type="submit" class="btn btn-primary ds-type-label-md">Save changes</button>
+            <div data-density="compact"><button type="button" class="btn ds-type-label-md">Reset</button></div>
+          </div>
+        </form>
+      </section>
+      <section class="card-tight panel" id="members" aria-labelledby="h-members">
+        <div class="toolbar"><h2 id="h-members" class="ds-type-title-lg">Members</h2><button type="button" class="pill-filter ds-type-label-sm">Admins only</button><button type="button" class="close" aria-label="Clear filter">×</button></div>
+        <div class="compact">
+          <div class="member ds-type-body-sm"><span>Ali Khan</span><span>Admin</span></div>
+          <div class="member ds-type-body-sm"><span>Sara Iqbal</span><span>Member</span></div>
+        </div>
+        <p class="note ds-type-caption-md">Members can see every task in this project.</p>
+      </section>
+    </div>
+  </div>
+</main>
+</body>
+</html>

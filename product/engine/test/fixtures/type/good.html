@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  .card { padding: var(--ds-space-inset-lg); min-height: 120px; }
+  .card h2 { margin: 0; }
+  .lead { max-width: var(--ds-layout-measure-reading); }
+  .stat-value { font-family: var(--ds-type-numeric-lg-font-family); font-size: var(--ds-type-numeric-lg-font-size); font-weight: var(--ds-type-numeric-lg-font-weight); line-height: var(--ds-type-numeric-lg-line-height); letter-spacing: var(--ds-type-numeric-lg-letter-spacing); font-variant-numeric: tabular-nums; }
+  strong { font-weight: var(--ds-font-weight-semibold); }
+  button { font: inherit; }
+</style>
+</head>
+<body>
+  <h1>Projects</h1>
+  <p class="ds-type-body-lg lead">Everything your team is working on, with <strong>owners</strong> and due dates.</p>
+  <section class="card">
+    <h2 class="ds-type-title-md">Storage</h2>
+    <p class="stat-value">12,480</p>
+    <p class="ds-type-caption-md">Updated 2 hours ago · run <code class="ds-type-code-sm">ds sync</code> to refresh</p>
+    <span class="ds-type-numeric-md">1,024</span>
+  </section>
+  <h2>Activity</h2>
+  <table>
+    <tr><th>Project</th><th>Tasks</th></tr>
+    <tr><td>Website redesign</td><td>1,248</td></tr>
+  </table>
+  <h3>Older</h3>
+  <button class="ds-type-label-md">Load more</button>
+</body>
+</html>

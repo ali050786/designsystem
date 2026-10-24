@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team dashboard</title>
+<link rel="stylesheet" href="../build/tokens.css">
+<style>
+  /* A page written for the review test: it looks fine in Light at a glance, and has elevation problems on purpose. */
+  :root { --ds-layer-modal: 50; }
+  body { margin: 0; }
+  .top { position: sticky; top: 0; z-index: 1000; display: grid; gap: var(--ds-space-stack-sm); padding: var(--ds-space-inset-md) var(--ds-layout-margin);
+    background: var(--ds-elevation-sticky-surface); box-shadow: 0 2px 8px var(--ds-color-shadow-2); }
+  .top h1 { margin: 0; }
+  .top .tabs { display: flex; flex-wrap: wrap; gap: var(--ds-space-inline-sm); }
+  main { display: grid; gap: var(--ds-space-stack-2xl); padding-block: var(--ds-space-inset-2xl); }
+  main > * { min-width: 0; }
+  h2, h3, p { margin: 0; }
+  section > h2 { margin-block-end: var(--ds-space-stack-md); }
+  .muted { color: var(--ds-color-fg-muted); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-height: var(--ds-size-control-height); padding: var(--ds-space-inset-xs) var(--ds-space-inset-md);
+    border-radius: var(--ds-shape-control); border: var(--ds-border-width-control) solid transparent; font: inherit; cursor: pointer; }
+  .btn-secondary { background: var(--ds-color-action-secondary-bg); color: var(--ds-color-action-secondary-fg); border-color: var(--ds-color-action-secondary-border); }
+  .btn-primary { background: var(--ds-color-action-primary-bg); color: var(--ds-color-action-primary-fg); }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--ds-layout-tile-min)), 1fr)); gap: var(--ds-space-stack-lg) var(--ds-space-inline-lg); list-style: none; margin: 0; padding: 0; }
+  .card { position: relative; display: grid; gap: var(--ds-space-stack-sm); padding: var(--ds-space-inset-lg); border-radius: var(--ds-shape-container);
+    background: var(--ds-elevation-raised-surface); box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12); overflow: hidden; }
+  .card:hover { box-shadow: var(--ds-elevation-floating-shadow); }
+  [data-theme="dark"] .card { box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8); }
+  .card a { color: var(--ds-color-fg-default); }
+  .card a:focus-visible { outline: none; box-shadow: var(--ds-elevation-floating-shadow); }
+  .more-wrap { position: relative; justify-self: end; }
+  .dropdown { position: absolute; inset-inline-end: 0; top: 100%; z-index: 9999; display: none; min-inline-size: 12rem; padding: var(--ds-space-inset-xs); border-radius: var(--ds-shape-container);
+    background: var(--ds-elevation-raised-surface); box-shadow: var(--ds-elevation-floating-shadow); }
+  .dropdown.open { display: grid; }
+  .dropdown button { min-height: var(--ds-size-control-height); padding: 0 var(--ds-space-inset-md); border: var(--ds-border-width-control) solid transparent; background: transparent; color: var(--ds-color-fg-default); font: inherit; text-align: start; }
+
+  .activity { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--ds-space-stack-sm); }
+  .activity li { padding: var(--ds-space-inset-sm) var(--ds-space-inset-md); border-radius: var(--ds-shape-container); background: var(--ds-elevation-raised-surface); box-shadow: var(--ds-elevation-raised-shadow); }
+
+  .help { margin: 0; padding: var(--ds-space-inset-md); max-inline-size: 20rem; border-radius: var(--ds-shape-container);
+    background: rgb(255 255 255 / 0.7); backdrop-filter: blur(12px); box-shadow: var(--ds-elevation-floating-shadow); }
+
+  dialog.confirm { box-sizing: border-box; inline-size: min(28rem, 100% - 2 * var(--ds-layout-margin)); padding: var(--ds-space-inset-xl); border-radius: var(--ds-shape-surface);
+    background: var(--ds-elevation-modal-surface); box-shadow: var(--ds-elevation-modal-shadow); border: var(--ds-border-width-line) solid var(--ds-elevation-modal-border); }
+  dialog.confirm .actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--ds-space-inline-sm); margin-block-start: var(--ds-space-stack-lg); }
+
+  .toast { position: fixed; inset: auto var(--ds-layout-margin) var(--ds-layout-margin) auto; z-index: 10; display: none; gap: var(--ds-space-inline-md); align-items: center; padding: var(--ds-space-inset-md) var(--ds-space-inset-lg);
+    border-radius: var(--ds-shape-container); background: var(--ds-elevation-floating-surface); box-shadow: var(--ds-elevation-floating-shadow); border: var(--ds-border-width-line) solid var(--ds-elevation-floating-border); }
+  .toast.show { display: flex; }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1 class="ds-type-title-lg">Team dashboard</h1>
+  <nav class="tabs" aria-label="Sections"><a href="#h-projects">Projects</a> <a href="#h-activity">Activity</a> <a href="#h-help">Help</a></nav>
+</header>
+
+<main class="ds-page">
+  <section aria-labelledby="h-projects">
+    <h2 id="h-projects">Projects</h2>
+    <ul class="cards">
+      <li class="card"><a href="#h-projects"><h3 class="ds-type-title-md">Atlas</h3></a><p class="muted">12 open tasks</p>
+        <div class="more-wrap"><button class="btn btn-secondary" type="button" id="more-atlas" aria-expanded="false" aria-label="More actions for Atlas">⋯</button>
+          <div class="dropdown" id="menu-atlas"><button type="button">Rename</button><button type="button" id="delete-atlas">Delete…</button></div></div></li>
+      <li class="card"><a href="#h-projects"><h3 class="ds-type-title-md">Beacon</h3></a><p class="muted">4 open tasks</p></li>
+      <li class="card"><a href="#h-projects"><h3 class="ds-type-title-md">Compass</h3></a><p class="muted">No open tasks</p></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-activity">
+    <h2 id="h-activity">Activity</h2>
+    <ul class="activity">
+      <li>Meera closed <a href="#h-activity">"Invoice download"</a></li>
+      <li>Tomás commented on <a href="#h-activity">"Two-factor codes"</a></li>
+      <li>Ana opened <a href="#h-activity">"Data export"</a></li>
+      <li>Ravi assigned <a href="#h-activity">"Billing address"</a></li>
+      <li>Lena closed <a href="#h-activity">"Password reset"</a></li>
+      <li>Omar commented on <a href="#h-activity">"SSO setup"</a></li>
+      <li>Meera opened <a href="#h-activity">"Slow search"</a></li>
+      <li>Tomás closed <a href="#h-activity">"Export to CSV"</a></li>
+      <li>Ana commented on <a href="#h-activity">"Team limits"</a></li>
+      <li>Ravi opened <a href="#h-activity">"Webhook retries"</a></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="h-help">
+    <h2 id="h-help">Help</h2>
+    <button class="btn btn-secondary" type="button" popovertarget="help" id="open-help">Keyboard shortcuts</button>
+    <div class="help" id="help" popover><p>Press N for a new project, / to search.</p></div>
+  </section>
+</main>
+
+<dialog class="confirm" id="confirm">
+  <h2 class="ds-type-title-lg">Delete Atlas?</h2>
+  <p class="muted">Its tasks and files are deleted too.</p>
+  <div class="actions"><button class="btn btn-secondary" type="button" id="cancel">Cancel</button><button class="btn btn-primary" type="button" id="yes">Delete project</button></div>
+</dialog>
+
+<div class="toast" id="toast" role="status"><span>Atlas deleted.</span><button class="btn btn-secondary" type="button">Undo</button></div>
+
+<script>
+  const more = document.getElementById('more-atlas'), menu = document.getElementById('menu-atlas');
+  more.addEventListener('click', () => { const o = menu.classList.toggle('open'); more.setAttribute('aria-expanded', o); });
+  const dlg = document.getElementById('confirm');
+  document.getElementById('delete-atlas').addEventListener('click', () => { menu.classList.remove('open'); dlg.show(); });
+  document.getElementById('cancel').addEventListener('click', () => dlg.close());
+  document.getElementById('yes').addEventListener('click', () => { document.getElementById('toast').classList.add('show'); });
+</script>
+</body>
+</html>

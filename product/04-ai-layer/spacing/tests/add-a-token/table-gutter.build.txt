@@ -1,0 +1,3 @@
+$ node src/cli.js table-gutter.config.json out/test
+✕ Config refused — spacing.tokens → space.gutter.table: the family must be inset (padding), stack (vertical gaps) or inline (horizontal gaps). Space for one component belongs with the component, not in spacing
+exit code 2

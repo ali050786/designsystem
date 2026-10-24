@@ -1,0 +1,1 @@
+✕ Config refused — typography.styles → type.axis.sm: "step" must be a whole number from -2 to 9 (0 = the base size; -2 is the smallest, 12px by default)

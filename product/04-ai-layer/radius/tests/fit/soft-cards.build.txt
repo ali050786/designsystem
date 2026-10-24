@@ -1,0 +1,38 @@
+pass  C1  374/374 pass Text contrast ≥ 4.5:1 on every allowed background
+pass  C3  194/194 pass Borders, focus rings and chart marks ≥ 3:1 against their backgrounds
+pass  C4  176/176 pass Icons ≥ 3:1 against every background they are allowed on
+pass  C6  12/12 pass   Body text against AAA 7:1 (report only)
+pass  C5  58/58 pass   Positive/negative change (≥ 0.1) and chart colours (≥ 0.07) stay distinct for protanopia, deuteranopia, tritanopia (OKLab distance)
+pass  T1  62/62 pass   In code, sizes are rem, line heights unitless and letter-spacing em — text follows the reader's text size
+pass  T2  32/32 pass   Reading text line height ≥ 1.5 at every breakpoint
+pass  T3  84/84 pass   Smallest text size ≥ 12px
+info  T4  27 large, 57 normal Large / normal text class per breakpoint (sets the contrast each style needs)
+pass  T5  3/3 pass     Number styles use tabular numerals, so digits line up in columns
+pass  T6  84/84 pass   Every style's line height ≥ 1.15, so wrapped lines never touch
+pass  T7  64/64 pass   Hierarchy holds at every breakpoint: each role steps up, headings stay above titles, display above headings
+pass  T8  84/84 pass   Letter-spacing follows the size: no negative tracking below 24px, never tighter than −0.02em; capitals are spaced out
+pass  T9  2/2 pass     Running text width gives 45–75 characters a line at body sizes (estimate; the page audit measures real lines)
+pass  S1  6/6 pass     Pointer targets ≥ 24×24px in every density
+pass  S2  1/1 pass     Comfortable density controls ≥ 44px
+pass  S3  22/22 pass   Density is one rule: every token moves the same number of steps along the scale (compact down, comfortable up); the target floor never moves
+pass  S4  60/60 pass   One ladder: sizes step up inside each family, and a size word is the same distance in every family, in every density
+pass  S5  60/60 pass   Nothing collapses: every space is at least 2px in every density
+pass  S6  3/3 pass     Controls fit their label in every density, with at least 4px above and below
+pass  S7  16/16 pass   The scale sits on a grid: 2px steps below 8px, the 4px grid from 8px up, always increasing
+pass  S8  17/17 pass   In code, spacing is px: when readers enlarge text, the text gets the room, not the margins
+pass  L1  2/2 pass     Reflow at 320px: content width ≥ 272px and largest heading ≤ 40px
+pass  L2  9/9 pass     The page grid fits every breakpoint: at its narrowest width each column is ≥ 40px and gutters take ≤ a third of the row
+pass  L3  5/5 pass     Panes add up: a pane goes inline only at a breakpoint where the main region still holds a full reading line (layout.measure.reading) and its own grid keeps columns ≥ 40px
+pass  L4  12/12 pass   A sticky header never hides focus: it holds its controls in every density, the scroll padding is its height, and it sticks only in windows ≥ 30em tall, where it takes ≤ 25% of the height
+pass  L5  8/8 pass     One set of breakpoints: rising from 0, shared by type and layout, and the same in tokens.css (em) and Tailwind (rem), so both follow the reader's text size
+pass  R1  9/9 pass     Roles keep their order in every style (none < mark ≤ control ≤ container ≤ surface < pill), and each style is rounder than the one before
+pass  R2  6/6 pass     Shapes keep their corners: a mark's radius ≤ 25% of a 16px checkbox (never mistaken for a radio), a control's ≤ 25% of the smallest control height
+pass  R3  54/54 pass   Text stays inside the corners: in every style and density, the corner of a label's or content's box sits inside its rounded shape, on the fill its contrast is measured against
+pass  R4  12/12 pass   Focus rings follow the shape: a ring on its own layer has the shape's radius plus the ring offset, in every style
+pass  F2  2/2 pass     Focus ring ≥ 2px thick with an offset (colour checked in C3)
+pass  E1  3/3 pass     Overlays have an outline (and dialogs a scrim), not shadow alone
+pass  M1  8/8 pass     Reduced motion: no movement, durations ≤ 100ms
+pass  M2  1/1 pass     Value-update highlight lasts ≥ 334ms (≤ 3 flashes a second)
+pass  X1  12/12 pass   Every alias resolves; foundations are linked, not copied
+
+soft-cards: 414 tokens → out/test/  ·  PASS

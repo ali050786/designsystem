@@ -1,0 +1,3 @@
+{ "motion": { "jobs": [
+  { "name": "motion.bounce-in", "kind": "in-out", "distance": "space.4", "description": "Onboarding cards bouncing in one by one" }
+] } }

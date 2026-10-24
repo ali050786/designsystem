@@ -1,0 +1,3 @@
+{ "typography": { "styles": [
+  { "name": "type.axis.sm", "step": -3, "kind": "label", "weight": "regular", "description": "Chart axis labels" }
+] } }

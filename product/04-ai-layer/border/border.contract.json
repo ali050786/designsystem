@@ -1,0 +1,815 @@
+{
+  "$schema": "ds-border-contract/1",
+  "system": "ds",
+  "prefix": "ds",
+  "standard": "WCAG 2.2 AA",
+  "control": 1,
+  "scale": [
+    {
+      "token": "border.width.1",
+      "px": 1
+    },
+    {
+      "token": "border.width.2",
+      "px": 2
+    },
+    {
+      "token": "border.width.3",
+      "px": 3
+    }
+  ],
+  "jobs": [
+    {
+      "name": "border.width.line",
+      "job": "line",
+      "px": 1,
+      "use": "Lines that show structure: dividers between items, rows and sections; the outline of cards, panels and table frames; the edge of whatever floats (menus, dialogs: color.border.floating)",
+      "cssVar": "--ds-border-width-line",
+      "tailwind": "border-line",
+      "style": "solid",
+      "sides": "any",
+      "identifies": false,
+      "product": false,
+      "colors": [
+        {
+          "name": "color.border.subtle",
+          "light": "#CBCED2",
+          "dark": "#414449",
+          "onSurface": {
+            "Light": 1.58,
+            "Dark": 1.59
+          },
+          "lowest": {
+            "Light": null,
+            "Dark": null
+          },
+          "min": null
+        },
+        {
+          "name": "color.border.default",
+          "light": "#BDBFC5",
+          "dark": "#4B4D53",
+          "onSurface": {
+            "Light": 1.84,
+            "Dark": 1.84
+          },
+          "lowest": {
+            "Light": null,
+            "Dark": null
+          },
+          "min": null
+        },
+        {
+          "name": "color.border.floating",
+          "light": "#AEB1B8",
+          "dark": "#54575E",
+          "onSurface": {
+            "Light": 2.15,
+            "Dark": 2.14
+          },
+          "lowest": {
+            "Light": null,
+            "Dark": null
+          },
+          "min": null
+        }
+      ]
+    },
+    {
+      "name": "border.width.control",
+      "job": "control",
+      "px": 1,
+      "use": "The boundary that shows where a control is: text fields, selects, checkboxes, radios, secondary buttons, toggles, segmented controls",
+      "cssVar": "--ds-border-width-control",
+      "tailwind": "border-control",
+      "style": "solid",
+      "sides": "all",
+      "identifies": true,
+      "product": false,
+      "colors": [
+        {
+          "name": "color.border.input",
+          "light": "#686B72",
+          "dark": "#888C93",
+          "onSurface": {
+            "Light": 5.34,
+            "Dark": 4.6
+          },
+          "lowest": {
+            "Light": {
+              "ratio": 3.38,
+              "on": "color.bg.surface-pressed"
+            },
+            "Dark": {
+              "ratio": 3.39,
+              "on": "color.bg.selected"
+            }
+          },
+          "min": 3
+        },
+        {
+          "name": "color.border.strong",
+          "light": "#686B72",
+          "dark": "#888C93",
+          "onSurface": {
+            "Light": 5.34,
+            "Dark": 4.6
+          },
+          "lowest": {
+            "Light": {
+              "ratio": 3.38,
+              "on": "color.bg.surface-pressed"
+            },
+            "Dark": {
+              "ratio": 3.39,
+              "on": "color.bg.selected"
+            }
+          },
+          "min": 3
+        },
+        {
+          "name": "color.action.secondary.border",
+          "light": "#686B72",
+          "dark": "#888C93",
+          "onSurface": {
+            "Light": 5.34,
+            "Dark": 4.6
+          },
+          "lowest": {
+            "Light": {
+              "ratio": 3.93,
+              "on": "color.bg.surface-sunken"
+            },
+            "Dark": {
+              "ratio": 3.39,
+              "on": "color.bg.surface-overlay"
+            }
+          },
+          "min": 3
+        }
+      ]
+    },
+    {
+      "name": "border.width.state",
+      "job": "state",
+      "px": 2,
+      "use": "A border that shows a state on its own element: a selected option or card, a field in error, warning or passed — always with a second cue (a check mark, an icon, a message)",
+      "cssVar": "--ds-border-width-state",
+      "tailwind": "border-state",
+      "style": "solid",
+      "sides": "all",
+      "identifies": true,
+      "product": false,
+      "colors": [
+        {
+          "name": "color.border.selected",
+          "light": "#244DC0",
+          "dark": "#79A2FF",
+          "onSurface": {
+            "Light": 7.25,
+            "Dark": 6.23
+          },
+          "lowest": {
+            "Light": {
+              "ratio": 4.59,
+              "on": "color.bg.surface-pressed"
+            },
+            "Dark": {
+              "ratio": 4.59,
+              "on": "color.bg.selected"
+            }
+          },
+          "min": 3
+        },
+        {
+          "name": "color.border.danger",
+          "light": "#BB413A",
+          "dark": "#E0665B",
+          "onSurface": {
+            "Light": 5.34,
+            "Dark": 4.6
+          },
+          "lowest": {
+            "Light": {
+              "ratio": 3.38,
+              "on": "color.bg.surface-pressed"
+            },
+            "Dark": {
+              "ratio": 3.39,
+              "on": "color.bg.selected"
+            }
+          },
+          "min": 3
+        },
+        {
+          "name": "color.border.warning",
+          "light": "#926100",
+          "dark": "#BD7F00",
+          "onSurface": {
+            "Light": 5.34,
+            "Dark": 4.58
+          },
+          "lowest": {
+            "Light": {
+              "ratio": 3.38,
+              "on": "color.bg.surface-pressed"
+            },
+            "Dark": {
+              "ratio": 3.37,
+              "on": "color.bg.surface-pressed"
+            }
+          },
+          "min": 3
+        },
+        {
+          "name": "color.border.success",
+          "light": "#007C37",
+          "dark": "#29A051",
+          "onSurface": {
+            "Light": 5.33,
+            "Dark": 4.61
+          },
+          "lowest": {
+            "Light": {
+              "ratio": 3.38,
+              "on": "color.bg.surface-pressed"
+            },
+            "Dark": {
+              "ratio": 3.4,
+              "on": "color.bg.selected"
+            }
+          },
+          "min": 3
+        }
+      ]
+    },
+    {
+      "name": "border.width.indicator",
+      "job": "indicator",
+      "px": 3,
+      "use": "The bar that marks the current item: the current tab, the current navigation link, the leading edge of a selected row",
+      "cssVar": "--ds-border-width-indicator",
+      "tailwind": "border-indicator",
+      "style": "solid",
+      "sides": "one",
+      "identifies": true,
+      "product": false,
+      "colors": [
+        {
+          "name": "color.border.selected",
+          "light": "#244DC0",
+          "dark": "#79A2FF",
+          "onSurface": {
+            "Light": 7.25,
+            "Dark": 6.23
+          },
+          "lowest": {
+            "Light": {
+              "ratio": 4.59,
+              "on": "color.bg.surface-pressed"
+            },
+            "Dark": {
+              "ratio": 4.59,
+              "on": "color.bg.selected"
+            }
+          },
+          "min": 3
+        }
+      ]
+    }
+  ],
+  "focus": {
+    "width": 2,
+    "offset": 2,
+    "color": "color.border.focus",
+    "reach": 4,
+    "drawnWith": "outline on :focus-visible (tokens.css): 2px, 2px away; in forced colours outline-color Highlight",
+    "onSurface": {
+      "Light": 6.21,
+      "Dark": 5.35
+    }
+  },
+  "compensation": {
+    "rule": "A state that widens a border takes the extra width off the padding on the same side, so the content stays where it was",
+    "table": [
+      {
+        "case": "A control that turns selected or invalid",
+        "pad": "space.inset.md",
+        "property": "padding-inline",
+        "extra": 1,
+        "css": "padding-inline: calc(var(--ds-space-inset-md) - (var(--ds-border-width-state) - var(--ds-border-width-control)))",
+        "left": {
+          "comfortable": 15,
+          "default": 11,
+          "compact": 7
+        }
+      },
+      {
+        "case": "A card that turns selected (its outline goes from line to state)",
+        "pad": "space.inset.lg",
+        "property": "padding",
+        "extra": 1,
+        "css": "padding: calc(var(--ds-space-inset-lg) - (var(--ds-border-width-state) - var(--ds-border-width-line)))",
+        "left": {
+          "comfortable": 19,
+          "default": 15,
+          "compact": 11
+        }
+      },
+      {
+        "case": "The current navigation item (a bar on its start edge)",
+        "pad": "space.inset.md",
+        "property": "padding-inline-start",
+        "extra": 3,
+        "css": "padding-inline-start: calc(var(--ds-space-inset-md) - var(--ds-border-width-indicator))",
+        "left": {
+          "comfortable": 13,
+          "default": 9,
+          "compact": 5
+        }
+      }
+    ],
+    "min": 2
+  },
+  "join": {
+    "class": "ds-join",
+    "overlap": "calc(-1 * var(--ds-border-width-control))",
+    "markup": "<div class=\"ds-join\" role=\"group\" aria-label=\"…\"> <button>…</button> <button>…</button> </div> (data-join=\"block\" for stacked parts)",
+    "lifted": ":hover, [aria-pressed=\"true\"], [aria-selected=\"true\"], [aria-current], :checked, [aria-invalid=\"true\"] (z-index 1); :focus-visible, :focus-within (z-index 2)"
+  },
+  "forcedColors": {
+    "what": "Windows contrast themes (and other forced-colour modes) replace every colour with a few system colours, remove box-shadows and background images, and keep borders and outlines (drawn in the system text colour — transparent ones too).",
+    "tokensCss": [
+      "the focus ring takes Highlight",
+      "ARIA states (aria-selected, aria-current, aria-pressed, aria-checked) and labels around a checked radio (segmented controls, choice cards) get an inside outline in SelectedItem, as wide as a state border",
+      "disabled controls and their borders turn GrayText"
+    ],
+    "you": [
+      "give every control a border, transparent if the design shows none (BR-06)",
+      "never draw a ring or a boundary with box-shadow alone (BR-05, BR-06)",
+      "show selection with an attribute tokens.css knows (aria-selected, aria-current, aria-pressed, aria-checked), a label around a checked radio, or a real border — not a fill alone",
+      "don't set forced-color-adjust: none except on colour swatches and charts, where the colours are the content"
+    ]
+  },
+  "classes": [
+    {
+      "class": "ds-join",
+      "use": "Parts that touch (a button group, a segmented control, an input with its button): borders overlap by one control width so each seam is one line; outer corners keep their radius; the hovered, selected and focused part is lifted",
+      "tailwind": "— (use the class)"
+    },
+    {
+      "class": "ds-join[data-join=\"block\"]",
+      "use": "The same, stacked: list items or accordion panels that touch",
+      "tailwind": "—"
+    }
+  ],
+  "limits": {
+    "min": 1,
+    "max": 3,
+    "styles": [
+      "solid",
+      "dashed",
+      "dotted"
+    ],
+    "nonText": 3,
+    "paddingLeft": 2
+  },
+  "build": {
+    "ok": true,
+    "tokens": 10,
+    "checks": [
+      {
+        "id": "F2",
+        "title": "Focus ring ≥ 2px thick with an offset (colour checked in C3)",
+        "status": "pass",
+        "summary": "2/2 pass"
+      },
+      {
+        "id": "B1",
+        "title": "Widths are whole pixels from 1 to 3px on the scale — no hairlines below a pixel — and px in code, so a line stays a line at 200% text",
+        "status": "pass",
+        "summary": "13/13 pass"
+      },
+      {
+        "id": "B2",
+        "title": "Jobs stay apart: a state is wider than the control it marks, jobs that share a width use different colours, and the focus ring stands off the element",
+        "status": "pass",
+        "summary": "5/5 pass"
+      },
+      {
+        "id": "B3",
+        "title": "Lines people need — control boundaries, states, the current-item bar — reach 3:1 against every background, in Light and Dark",
+        "status": "pass",
+        "summary": "11/11 pass"
+      },
+      {
+        "id": "B4",
+        "title": "States don't move content: a wider border takes its extra width off the padding, and at least 2px of padding is left in every density",
+        "status": "pass",
+        "summary": "9/9 pass"
+      },
+      {
+        "id": "B5",
+        "title": "Joined parts share one line: parts overlap by the control width and the part that changes is lifted above its neighbours",
+        "status": "pass",
+        "summary": "2/2 pass"
+      },
+      {
+        "id": "B6",
+        "title": "Forced colours (Windows contrast themes) keep every cue: the focus ring is an outline, states get a system-colour outline, disabled controls turn GrayText, overlays keep a border",
+        "status": "pass",
+        "summary": "5/5 pass"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "id": "BR-01",
+      "rule": "Border widths come from a job: border-width is var(--ds-border-width-line), -control, -state or -indicator (Tailwind border-line, border-control, border-state, border-indicator and their side forms: border-b-line, border-s-indicator, divide-y-line). No px, rem or em numbers; 0 only to remove a side.",
+      "why": "A hard-coded width doesn't follow the product's control width, and a 2px border in the wrong place reads as a selected state.",
+      "wcag": "—"
+    },
+    {
+      "id": "BR-02",
+      "rule": "Never use border width primitives (--ds-border-width-1, -2, -3) in components. Pick the job.",
+      "why": "Primitives don't say what a line is for, and don't move when the product changes its control width.",
+      "wcag": "—"
+    },
+    {
+      "id": "BR-03",
+      "rule": "No hairlines and no text-relative widths: nothing below 1px (0.5px, thin, a 1px line scaled down with transform), and never rem or em widths.",
+      "why": "Below a pixel a line looks different in every browser (Chrome and Edge round it up to 1px; Safari and Firefox can draw a single device pixel on high-density screens); rem widths double at 200% text, so every 1px line becomes 2px — the width of a state.",
+      "wcag": "1.4.11"
+    },
+    {
+      "id": "BR-04",
+      "rule": "In Tailwind use the ds widths (border-line … border-indicator), not border, border-2, border-[3px] or ring-* for boundaries.",
+      "why": "Tailwind's numbers are a second set of widths no check covers, and ring-* draws with box-shadow, which forced colours remove.",
+      "wcag": "—"
+    },
+    {
+      "id": "BR-05",
+      "rule": "Never remove the focus ring: no outline: none or outline: 0 (Tailwind outline-none) on :focus or :focus-visible unless an outline replaces it. A box-shadow ring keeps a transparent outline beside it.",
+      "why": "Keyboard users lose their place; a box-shadow ring is removed in forced colours, so the element has no ring there at all.",
+      "wcag": "2.4.7, 2.4.13"
+    },
+    {
+      "id": "BR-06",
+      "rule": "Boundaries that carry meaning are borders or outlines, never box-shadow or a background alone: a control without a visible border gets border: var(--ds-border-width-control) solid transparent.",
+      "why": "Forced colours (Windows contrast themes) replace every fill with one system colour and remove shadows: a button or field shown only by its fill or a box-shadow disappears. A transparent border is drawn there in the system's text colour.",
+      "wcag": "1.4.11"
+    },
+    {
+      "id": "BR-07",
+      "rule": "The colour fits the job: control, state and indicator widths take a colour that reaches 3:1 (color.border.input, color.border.strong, color.action.secondary.border, color.border.selected, color.border.danger / warning / success). color.border.subtle and color.border.default are for lines that only separate or outline.",
+      "why": "A decorative grey on a field's edge measures under 3:1: people with low vision can't find the field.",
+      "wcag": "1.4.11"
+    },
+    {
+      "id": "BR-08",
+      "rule": "A state never shows by border colour alone: a selected, invalid or current border also widens to its job (state, indicator) and comes with a check mark, an icon or a message.",
+      "why": "A red 1px border next to a grey one differs mostly in hue; for many people with red-green colour blindness the two look alike.",
+      "wcag": "1.4.1"
+    },
+    {
+      "id": "BR-09",
+      "rule": "A state that widens a border takes the extra width off the padding, written on the tokens: calc(var(--ds-space-inset-md) - (var(--ds-border-width-state) - var(--ds-border-width-control))). The content must not move.",
+      "why": "A wider border pushes the label sideways on every selection; in a list, every row's text jumps as the selection moves.",
+      "wcag": "—"
+    },
+    {
+      "id": "BR-10",
+      "rule": "Parts that touch use .ds-join (it overlaps their borders by one control width and lifts the part that changes); never two borders side by side, and never a hand-made negative margin.",
+      "why": "Two 1px borders make a 2px seam — the width of a selected state — between parts that are meant to read as one.",
+      "wcag": "—"
+    },
+    {
+      "id": "BR-11",
+      "rule": "Never redefine border or focus variables in app code (--ds-border-width-*, --ds-focus-ring-*). Change border.control or border.roles in the engine config and build.",
+      "why": "An overridden width skips the checks that keep jobs apart, colours at 3:1 and states from moving content.",
+      "wcag": "—"
+    }
+  ],
+  "decisions": [
+    {
+      "what": "Does it need a line at all",
+      "question": "What should the boundary do?",
+      "answers": [
+        [
+          "Group things that belong together, with room to spare",
+          "space (Spacing: a bigger stack or inline gap) — no line"
+        ],
+        [
+          "Set a region apart from the page (a sidebar, a header band, a well)",
+          "a surface change (color.bg.surface-sunken, an elevation level) — no line; in forced colours both surfaces become the page colour, so a region that holds controls or must be found keeps a border.width.line edge"
+        ],
+        [
+          "Separate items that sit close together (list rows, table rows, menu groups)",
+          "border.width.line with color.border.subtle"
+        ],
+        [
+          "Outline a card, a panel, a table frame or a menu",
+          "border.width.line with color.border.default (things that float: their level's edge, elevation.floating.border)"
+        ],
+        [
+          "Show where a control is (a field, a checkbox, a secondary button)",
+          "border.width.control with color.border.input (fields, checkboxes, radios) or color.action.secondary.border (buttons)"
+        ]
+      ]
+    },
+    {
+      "what": "Showing a state",
+      "question": "What changed?",
+      "answers": [
+        [
+          "It is selected (an option, a card, a segment)",
+          "border.width.state with color.border.selected, plus a check mark or bold label"
+        ],
+        [
+          "It is in error, needs attention or passed",
+          "border.width.state with color.border.danger / warning / success, plus an icon and a message"
+        ],
+        [
+          "It is the current one (the tab, the page in the navigation, a row being edited)",
+          "border.width.indicator on one side (block-end for tabs, inline-start for navigation) with color.border.selected, and aria-current or aria-selected"
+        ],
+        [
+          "It has keyboard focus",
+          "nothing to set: tokens.css draws the focus ring on :focus-visible"
+        ],
+        [
+          "It is hovered or pressed",
+          "a fill (color.bg.state-hover, color.bg.item-hover) — not a border; the width stays the same"
+        ],
+        [
+          "It is disabled",
+          "color.action.disabled.border at the same width; tokens.css turns it GrayText in forced colours"
+        ]
+      ]
+    },
+    {
+      "what": "A state that widens the border",
+      "question": "How do you keep the content still?",
+      "answers": [
+        [
+          "A control that turns selected or invalid",
+          "padding-inline: calc(var(--ds-space-inset-md) - (var(--ds-border-width-state) - var(--ds-border-width-control)))"
+        ],
+        [
+          "A card that turns selected",
+          "padding: calc(var(--ds-space-inset-lg) - (var(--ds-border-width-state) - var(--ds-border-width-line)))"
+        ],
+        [
+          "The current navigation item",
+          "padding-inline-start: calc(var(--ds-space-inset-md) - var(--ds-border-width-indicator))"
+        ],
+        [
+          "A tab",
+          "nothing: its bar is a ::after on the selected tab only (position: absolute along the block-end edge), so nothing moves"
+        ]
+      ]
+    },
+    {
+      "what": "Parts that touch",
+      "question": "Do they read as one thing?",
+      "answers": [
+        [
+          "Yes: a button group, a segmented control, an input with its button, stacked list items",
+          ".ds-join (or data-join=\"block\"): parts overlap by one control border, so each seam is one line"
+        ],
+        [
+          "No: separate things side by side",
+          "a gap (Spacing), each with its own border"
+        ],
+        [
+          "Table cells",
+          "border-collapse: collapse, or lines on one side only (border-block-end on rows)"
+        ]
+      ]
+    },
+    {
+      "what": "Focus",
+      "question": "How is the ring drawn?",
+      "answers": [
+        [
+          "On anything focusable",
+          "tokens.css draws it: an outline, focus.ring.width wide, focus.ring.offset away, focus.ring.color"
+        ],
+        [
+          "You need a different look (an inset ring on a full-width row)",
+          "keep the outline and change outline-offset (a negative offset draws it inside) — never box-shadow alone"
+        ],
+        [
+          "Removing the default ring",
+          "never without a replacement outline; box-shadow rings vanish in forced colours"
+        ]
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "name": "border.width.1",
+      "figma": "border/width/1",
+      "cssVar": "--ds-border-width-1",
+      "tailwind": [],
+      "use": "Primitive: feeds the jobs; never used directly",
+      "collection": "Primitives",
+      "chapter": "How tokens are built",
+      "px": 1,
+      "product": false
+    },
+    {
+      "name": "border.width.2",
+      "figma": "border/width/2",
+      "cssVar": "--ds-border-width-2",
+      "tailwind": [],
+      "use": "Primitive: feeds the jobs; never used directly",
+      "collection": "Primitives",
+      "chapter": "How tokens are built",
+      "px": 2,
+      "product": false
+    },
+    {
+      "name": "border.width.3",
+      "figma": "border/width/3",
+      "cssVar": "--ds-border-width-3",
+      "tailwind": [],
+      "use": "Primitive: feeds the jobs; never used directly",
+      "collection": "Primitives",
+      "chapter": "How tokens are built",
+      "px": 3,
+      "product": false
+    },
+    {
+      "name": "border.width.line",
+      "figma": "border/width/line",
+      "cssVar": "--ds-border-width-line",
+      "tailwind": [
+        "border-line"
+      ],
+      "use": "Lines that show structure: dividers between items, rows and sections; the outline of cards, panels and table frames; the edge of whatever floats (menus, dialogs: color.border.floating)",
+      "collection": "Border",
+      "chapter": "Widths by job",
+      "px": 1,
+      "primitive": "border.width.1",
+      "colors": [
+        "color.border.subtle",
+        "color.border.default",
+        "color.border.floating"
+      ],
+      "identifies": false,
+      "style": "solid",
+      "sides": "any",
+      "product": false
+    },
+    {
+      "name": "border.width.control",
+      "figma": "border/width/control",
+      "cssVar": "--ds-border-width-control",
+      "tailwind": [
+        "border-control"
+      ],
+      "use": "The boundary that shows where a control is: text fields, selects, checkboxes, radios, secondary buttons, toggles, segmented controls",
+      "collection": "Border",
+      "chapter": "Widths by job",
+      "px": 1,
+      "primitive": "border.width.1",
+      "colors": [
+        "color.border.input",
+        "color.border.strong",
+        "color.action.secondary.border"
+      ],
+      "identifies": true,
+      "style": "solid",
+      "sides": "all",
+      "product": false
+    },
+    {
+      "name": "border.width.state",
+      "figma": "border/width/state",
+      "cssVar": "--ds-border-width-state",
+      "tailwind": [
+        "border-state"
+      ],
+      "use": "A border that shows a state on its own element: a selected option or card, a field in error, warning or passed — always with a second cue (a check mark, an icon, a message)",
+      "collection": "Border",
+      "chapter": "Widths by job",
+      "px": 2,
+      "primitive": "border.width.2",
+      "colors": [
+        "color.border.selected",
+        "color.border.danger",
+        "color.border.warning",
+        "color.border.success"
+      ],
+      "identifies": true,
+      "style": "solid",
+      "sides": "all",
+      "product": false
+    },
+    {
+      "name": "border.width.indicator",
+      "figma": "border/width/indicator",
+      "cssVar": "--ds-border-width-indicator",
+      "tailwind": [
+        "border-indicator"
+      ],
+      "use": "The bar that marks the current item: the current tab, the current navigation link, the leading edge of a selected row",
+      "collection": "Border",
+      "chapter": "Widths by job",
+      "px": 3,
+      "primitive": "border.width.3",
+      "colors": [
+        "color.border.selected"
+      ],
+      "identifies": true,
+      "style": "solid",
+      "sides": "one",
+      "product": false
+    },
+    {
+      "name": "focus.ring.width",
+      "figma": "focus/ring/width",
+      "cssVar": "--ds-focus-ring-width",
+      "tailwind": [],
+      "use": "Focus ring thickness: an outline on :focus-visible (WCAG 2.4.7; 2.4.13 asks ≥ 2px)",
+      "collection": "Border",
+      "chapter": "Focus rings",
+      "px": 2,
+      "product": false
+    },
+    {
+      "name": "focus.ring.offset",
+      "figma": "focus/ring/offset",
+      "cssVar": "--ds-focus-ring-offset",
+      "tailwind": [],
+      "use": "Gap between the element and its focus ring: the ring is measured against the page, not the element's fill",
+      "collection": "Border",
+      "chapter": "Focus rings",
+      "px": 2,
+      "product": false
+    },
+    {
+      "name": "focus.ring.color",
+      "figma": "focus/ring/color",
+      "cssVar": "--ds-focus-ring-color",
+      "tailwind": [],
+      "use": "Focus ring colour (linked to Colour)",
+      "collection": "Border",
+      "chapter": "Focus rings",
+      "light": "#2A57D1",
+      "dark": "#6594FF",
+      "product": false
+    }
+  ],
+  "mistakes": [
+    {
+      "mistake": "A 0.5px \"hairline\" divider",
+      "measured": "Chromium (Chrome, Edge) rounds it up and draws a full 1px on every screen (measured: computed 1px at 1× and 2×); Safari and Firefox can draw a single device pixel on high-density screens — one token, two looks, and never thinner than 1px on a 1× screen",
+      "fix": "border.width.line + color.border.subtle",
+      "fixValue": "1px everywhere; quieter by colour (1.58:1 on bg/surface), not by width"
+    },
+    {
+      "mistake": "A card-outline grey on a text field (color.border.default)",
+      "measured": "1.84:1 against bg/surface — under the 3:1 a field's edge needs",
+      "fix": "border.width.control + color.border.input",
+      "fixValue": "5.34:1 in Light, 4.60:1 in Dark"
+    },
+    {
+      "mistake": "An error shown only by turning the field's border red",
+      "measured": "the red and the normal grey have the same lightness (1.00:1 between them); with protanopia their difference drops from 0.166 to 0.088 (OKLab) — the two borders look nearly the same",
+      "fix": "border.width.state + color.border.danger",
+      "fixValue": "2px against 1px, so the change shows without colour; with an icon and a message"
+    },
+    {
+      "mistake": "Widening a selected control's border from 1px to 2px without touching its padding",
+      "measured": "the label moves 1px sideways each time it is selected",
+      "fix": "calc(var(--ds-space-inset-md) - (var(--ds-border-width-state) - var(--ds-border-width-control)))",
+      "fixValue": "11px of padding instead of 12px: the border grows inward, the label stays still"
+    },
+    {
+      "mistake": "Two bordered buttons placed side by side",
+      "measured": "their two 1px borders make a 2px seam — the width of a selected state",
+      "fix": ".ds-join",
+      "fixValue": "parts overlap by 1px: every seam is one 1px line"
+    },
+    {
+      "mistake": "A focus ring drawn with box-shadow and outline: none",
+      "measured": "forced colours remove every box-shadow: the element has no ring at all there",
+      "fix": "the outline tokens.css draws",
+      "fixValue": "2px outline, 2px away; in forced colours it takes the system's Highlight"
+    },
+    {
+      "mistake": "A primary button with border: none (its fill is its only edge)",
+      "measured": "forced colours replace its fill with the page colour: only the label is left, with nothing to show it is a button",
+      "fix": "border: var(--ds-border-width-control) solid transparent",
+      "fixValue": "invisible in normal colours; drawn in the system text colour in forced colours"
+    },
+    {
+      "mistake": "border-width: 0.0625rem (1px written in rem)",
+      "measured": "at 200% text it becomes 2px — the width of a selected state — on every line in the product",
+      "fix": "border.width.line",
+      "fixValue": "1px at any text size"
+    }
+  ]
+}

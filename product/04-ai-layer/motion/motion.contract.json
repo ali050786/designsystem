@@ -1,0 +1,1398 @@
+{
+  "$schema": "ds-motion-contract/1",
+  "system": "ds",
+  "prefix": "ds",
+  "standard": "WCAG 2.2 AA (and 2.3.3, held as a rule)",
+  "jobs": [
+    {
+      "job": "feedback",
+      "kind": "in-place",
+      "use": "The thing you touched answers: hover, press, a toggle or checkbox, a selected row — colour, fill and border, never movement",
+      "level": null,
+      "product": false,
+      "duration": {
+        "full": 100,
+        "reduced": 100,
+        "css": "var(--ds-motion-feedback-duration)",
+        "tailwind": "duration-(--ds-motion-feedback-duration)"
+      },
+      "easing": {
+        "full": "standard",
+        "reduced": "linear",
+        "css": "var(--ds-motion-feedback-easing)",
+        "tailwind": "ease-feedback"
+      },
+      "distance": null,
+      "exit": null,
+      "frames": null,
+      "exitFrames": null
+    },
+    {
+      "job": "change",
+      "kind": "in-place",
+      "use": "Content changing where it is: a panel expanding or collapsing, a tab panel, an item added to or removed from a list, a value replaced",
+      "level": null,
+      "product": false,
+      "duration": {
+        "full": 200,
+        "reduced": 100,
+        "css": "var(--ds-motion-change-duration)",
+        "tailwind": "duration-(--ds-motion-change-duration)"
+      },
+      "easing": {
+        "full": "standard",
+        "reduced": "linear",
+        "css": "var(--ds-motion-change-easing)",
+        "tailwind": "ease-change"
+      },
+      "distance": {
+        "full": 8,
+        "reduced": 0,
+        "space": "space.2",
+        "css": "var(--ds-motion-change-distance)"
+      },
+      "exit": null,
+      "frames": {
+        "ms": 200,
+        "px": 8,
+        "frames": 12,
+        "largest": 1.43,
+        "largestShare": 0.179,
+        "first": 0.23,
+        "progress": [
+          0.029,
+          0.1264,
+          0.2868,
+          0.4661,
+          0.6229,
+          0.7455,
+          0.837,
+          0.9033,
+          0.9492,
+          0.9788,
+          0.995,
+          1
+        ]
+      },
+      "exitFrames": null
+    },
+    {
+      "job": "floating",
+      "kind": "in-out",
+      "use": "What opens over the page without blocking it: menus, popovers, tooltips, date pickers, toasts, the navigation drawer (elevation.floating)",
+      "level": "elevation.floating",
+      "product": false,
+      "duration": {
+        "full": 150,
+        "reduced": 100,
+        "css": "var(--ds-motion-floating-duration)",
+        "tailwind": "duration-(--ds-motion-floating-duration)"
+      },
+      "easing": {
+        "full": "enter",
+        "reduced": "linear",
+        "css": "var(--ds-motion-floating-easing)",
+        "tailwind": "ease-floating"
+      },
+      "distance": {
+        "full": 4,
+        "reduced": 0,
+        "space": "space.1",
+        "css": "var(--ds-motion-floating-distance)"
+      },
+      "exit": {
+        "duration": {
+          "full": 100,
+          "reduced": 100,
+          "css": "var(--ds-motion-floating-exit-duration)"
+        },
+        "easing": {
+          "full": "exit",
+          "reduced": "linear",
+          "css": "var(--ds-motion-floating-exit-easing)",
+          "tailwind": "ease-floating-exit"
+        }
+      },
+      "frames": {
+        "ms": 150,
+        "px": 4,
+        "frames": 9,
+        "largest": 1.08,
+        "largestShare": 0.269,
+        "first": 1.08,
+        "progress": [
+          0.2689,
+          0.4948,
+          0.6661,
+          0.7902,
+          0.8774,
+          0.9366,
+          0.9739,
+          0.9939,
+          1
+        ]
+      },
+      "exitFrames": {
+        "ms": 100,
+        "px": 4,
+        "frames": 6,
+        "largest": 1.55,
+        "largestShare": 0.389,
+        "first": 0.06,
+        "progress": [
+          0.0142,
+          0.0634,
+          0.1622,
+          0.3339,
+          0.6114,
+          1
+        ]
+      }
+    },
+    {
+      "job": "modal",
+      "kind": "in-out",
+      "use": "What blocks the page until it is answered: dialogs and sheets, with the scrim fading in behind (elevation.modal)",
+      "level": "elevation.modal",
+      "product": false,
+      "duration": {
+        "full": 250,
+        "reduced": 100,
+        "css": "var(--ds-motion-modal-duration)",
+        "tailwind": "duration-(--ds-motion-modal-duration)"
+      },
+      "easing": {
+        "full": "enter",
+        "reduced": "linear",
+        "css": "var(--ds-motion-modal-easing)",
+        "tailwind": "ease-modal"
+      },
+      "distance": {
+        "full": 16,
+        "reduced": 0,
+        "space": "space.4",
+        "css": "var(--ds-motion-modal-distance)"
+      },
+      "exit": {
+        "duration": {
+          "full": 150,
+          "reduced": 100,
+          "css": "var(--ds-motion-modal-exit-duration)"
+        },
+        "easing": {
+          "full": "exit",
+          "reduced": "linear",
+          "css": "var(--ds-motion-modal-exit-easing)",
+          "tailwind": "ease-modal-exit"
+        }
+      },
+      "frames": {
+        "ms": 250,
+        "px": 16,
+        "frames": 15,
+        "largest": 2.63,
+        "largestShare": 0.165,
+        "first": 2.63,
+        "progress": [
+          0.1647,
+          0.3183,
+          0.454,
+          0.5697,
+          0.6661,
+          0.7455,
+          0.8103,
+          0.8625,
+          0.9041,
+          0.9366,
+          0.9612,
+          0.9791,
+          0.9911,
+          0.9979,
+          1
+        ]
+      },
+      "exitFrames": {
+        "ms": 150,
+        "px": 16,
+        "frames": 9,
+        "largest": 4.3,
+        "largestShare": 0.269,
+        "first": 0.1,
+        "progress": [
+          0.0061,
+          0.0261,
+          0.0634,
+          0.1226,
+          0.2098,
+          0.3339,
+          0.5052,
+          0.7311,
+          1
+        ]
+      }
+    },
+    {
+      "job": "highlight",
+      "kind": "once",
+      "use": "Drawing the eye to something that changed on its own: a live value that updated, a row that just arrived, a saved field — a tint that fades, once",
+      "level": null,
+      "product": false,
+      "duration": {
+        "full": 1000,
+        "reduced": 1000,
+        "css": "var(--ds-motion-highlight-duration)",
+        "tailwind": "duration-(--ds-motion-highlight-duration)"
+      },
+      "easing": {
+        "full": "exit",
+        "reduced": "exit",
+        "css": "var(--ds-motion-highlight-easing)",
+        "tailwind": "ease-highlight"
+      },
+      "distance": null,
+      "exit": null,
+      "frames": null,
+      "exitFrames": null
+    },
+    {
+      "job": "loading",
+      "kind": "loop",
+      "use": "Work in progress: the loading indicator turns while it runs (in reduced motion it pulses slowly instead) and stops when the work is done",
+      "level": null,
+      "product": false,
+      "duration": {
+        "full": 1000,
+        "reduced": 2000,
+        "css": "var(--ds-motion-loading-duration)",
+        "tailwind": "duration-(--ds-motion-loading-duration)"
+      },
+      "easing": {
+        "full": "linear",
+        "reduced": "standard",
+        "css": "var(--ds-motion-loading-easing)",
+        "tailwind": "ease-loading"
+      },
+      "distance": null,
+      "exit": null,
+      "frames": null,
+      "exitFrames": null
+    }
+  ],
+  "curves": [
+    {
+      "name": "enter",
+      "token": "motion.easing.enter",
+      "value": [
+        0.2,
+        0.5,
+        0.4,
+        1
+      ],
+      "css": "cubic-bezier(0.2, 0.5, 0.4, 1)",
+      "start": 2.5,
+      "end": 0,
+      "peak": 2.5,
+      "use": "Something arriving: a menu, a dialog, a toast, the drawer"
+    },
+    {
+      "name": "exit",
+      "token": "motion.easing.exit",
+      "value": [
+        0.6,
+        0,
+        0.8,
+        0.5
+      ],
+      "css": "cubic-bezier(0.6, 0, 0.8, 0.5)",
+      "start": 0,
+      "end": 2.5,
+      "peak": 2.5,
+      "use": "Something leaving: the entry played backwards"
+    },
+    {
+      "name": "standard",
+      "token": "motion.easing.standard",
+      "value": [
+        0.3,
+        0,
+        0.3,
+        1
+      ],
+      "css": "cubic-bezier(0.3, 0, 0.3, 1)",
+      "start": 0,
+      "end": 0,
+      "peak": 2.18,
+      "use": "Something changing where it is: a hover, a panel opening, a tab, a highlight fading"
+    },
+    {
+      "name": "linear",
+      "token": "motion.easing.linear",
+      "value": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "css": "cubic-bezier(0, 0, 1, 1)",
+      "start": 1,
+      "end": 1,
+      "peak": 1,
+      "use": "Loops only: the loading turn"
+    }
+  ],
+  "durations": [
+    {
+      "token": "motion.duration.100",
+      "ms": 100,
+      "usedBy": [
+        "motion.feedback.duration (full, reduced)",
+        "motion.change.duration (reduced)",
+        "motion.floating.duration (reduced)",
+        "motion.floating.exit-duration (full, reduced)",
+        "motion.modal.duration (reduced)",
+        "motion.modal.exit-duration (reduced)"
+      ]
+    },
+    {
+      "token": "motion.duration.150",
+      "ms": 150,
+      "usedBy": [
+        "motion.floating.duration (full)",
+        "motion.modal.exit-duration (full)"
+      ]
+    },
+    {
+      "token": "motion.duration.200",
+      "ms": 200,
+      "usedBy": [
+        "motion.change.duration (full)"
+      ]
+    },
+    {
+      "token": "motion.duration.250",
+      "ms": 250,
+      "usedBy": [
+        "motion.modal.duration (full)"
+      ]
+    },
+    {
+      "token": "motion.duration.1000",
+      "ms": 1000,
+      "usedBy": [
+        "motion.highlight.duration (full, reduced)",
+        "motion.loading.duration (full)"
+      ]
+    },
+    {
+      "token": "motion.duration.2000",
+      "ms": 2000,
+      "usedBy": [
+        "motion.loading.duration (reduced)"
+      ]
+    }
+  ],
+  "rule": {
+    "formula": "duration = 100ms + 37.5ms × √(distance in px), rounded down to 50ms; leaving takes two thirds of arriving (rounded down to 50ms, never under 100ms)",
+    "responseMs": 100,
+    "msPerRootPx": 37.5,
+    "stepMs": 50,
+    "exitShare": 0.6667,
+    "table": [
+      {
+        "px": 0,
+        "ms": 100
+      },
+      {
+        "px": 4,
+        "ms": 150
+      },
+      {
+        "px": 8,
+        "ms": 200
+      },
+      {
+        "px": 16,
+        "ms": 250
+      },
+      {
+        "px": 24,
+        "ms": 250
+      },
+      {
+        "px": 32,
+        "ms": 300
+      }
+    ]
+  },
+  "reduced": {
+    "what": "Fade only: no job moves (every distance is 0), transitions fade in 100ms or less, the loading indicator stops turning and pulses every 2000ms, highlights fade as before (a fade is not movement).",
+    "how": [
+      "tokens.css switches to the reduced values when the reader's system asks for less motion (prefers-reduced-motion: reduce)",
+      "data-motion=\"reduced\" (or \"full\") on <html> is the reader's own setting in the product; on any container it previews a mode",
+      "Figma: a frame set to the Motion collection's reduced mode"
+    ],
+    "perJob": [
+      {
+        "job": "feedback",
+        "full": "100ms",
+        "reduced": "100ms"
+      },
+      {
+        "job": "change",
+        "full": "200ms, 8px",
+        "reduced": "100ms, 0px"
+      },
+      {
+        "job": "floating",
+        "full": "150ms, 4px",
+        "reduced": "100ms, 0px"
+      },
+      {
+        "job": "modal",
+        "full": "250ms, 16px",
+        "reduced": "100ms, 0px"
+      },
+      {
+        "job": "highlight",
+        "full": "1000ms",
+        "reduced": "1000ms"
+      },
+      {
+        "job": "loading",
+        "full": "1000ms",
+        "reduced": "2000ms"
+      }
+    ]
+  },
+  "ready": [
+    {
+      "what": "Menus, popovers, tooltips, date pickers",
+      "html": "<div class=\"ds-floating\" popover id=\"menu\">…</div> + <button popovertarget=\"menu\">",
+      "job": "motion.floating",
+      "from": "above, toward where it opens"
+    },
+    {
+      "what": "Toasts",
+      "html": "<div class=\"ds-floating\" data-layer=\"toast\" popover=\"manual\" role=\"status\">…</div>",
+      "job": "motion.floating",
+      "from": "the bottom edge"
+    },
+    {
+      "what": "Dialogs and sheets",
+      "html": "<dialog class=\"ds-modal\" aria-labelledby=\"…\">…</dialog> opened with showModal()",
+      "job": "motion.modal",
+      "from": "below: it rises into place while the scrim fades in"
+    },
+    {
+      "what": "The navigation drawer",
+      "html": "<nav data-shell=\"nav\" data-open> in .ds-shell (below the breakpoint where it goes inline)",
+      "job": "motion.floating",
+      "from": "its own side (the start side; flipped right to left)"
+    }
+  ],
+  "loading": {
+    "class": "ds-loading",
+    "turnMs": 1000,
+    "pulseMs": 2000,
+    "dim": 0.65,
+    "indicatorMin": 3,
+    "rule": "Shows only while work runs and stops when it ends; after 5 seconds, show progress in words or a bar. In reduced motion it pulses to 0.65 opacity — the lowest that keeps color.fg.icon ≥ 3:1 on every surface"
+  },
+  "highlight": {
+    "class": "ds-highlight",
+    "ms": 1000,
+    "tint": "color.bg.brand-subtle",
+    "rule": "Once per change, at most once per 1000ms; text on the tint stays ≥ 4.5:1 (M5)"
+  },
+  "feedback": {
+    "css": "transition: background-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing), border-color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing), color var(--ds-motion-feedback-duration) var(--ds-motion-feedback-easing);",
+    "tailwind": "transition-colors (Tailwind's default duration and curve are motion.feedback in tailwind.theme.css)",
+    "ms": 100
+  },
+  "classes": [
+    {
+      "class": "ds-floating[popover]",
+      "use": "Menus, popovers, tooltips: drop in from above with motion.floating, leave with its exit (data-layer=\"toast\": up from the bottom)",
+      "tailwind": "popover (top layer); nothing to add — tokens.css animates [popover].ds-floating"
+    },
+    {
+      "class": "ds-modal",
+      "use": "A <dialog> opened with showModal(): rises in with motion.modal while the scrim fades, leaves with its exit",
+      "tailwind": "<dialog> + showModal(); nothing to add"
+    },
+    {
+      "class": "ds-loading",
+      "use": "The loading indicator: one turn per motion.loading cycle while work runs; in reduced motion a slow pulse",
+      "tailwind": "ds-loading (Tailwind's animate-spin is removed)"
+    },
+    {
+      "class": "ds-highlight",
+      "use": "A tint (color.bg.brand-subtle) that fades over motion.highlight, once, when something changed on its own",
+      "tailwind": "ds-highlight"
+    }
+  ],
+  "limits": {
+    "reducedMaxMs": 100,
+    "maxDistance": 32,
+    "maxDuration": 300,
+    "peakSpeed": 2.5,
+    "flashMinMs": 334,
+    "highlightMs": 1000,
+    "loadingTurnMs": 1000,
+    "pulseMs": 2000,
+    "pauseAfterMs": 5000,
+    "indicatorMin": 3
+  },
+  "build": {
+    "ok": true,
+    "tokens": 29,
+    "productJobs": 0,
+    "checks": [
+      {
+        "id": "M1",
+        "title": "Reduced motion is fade only: nothing moves, transitions fade in 100ms or less, the loading indicator pulses instead of turning",
+        "status": "pass",
+        "summary": "12/12 pass"
+      },
+      {
+        "id": "M2",
+        "title": "Nothing flashes: a highlight takes ≥ 334ms and no loop changes brightness more than 3 times a second",
+        "status": "pass",
+        "summary": "4/4 pass"
+      },
+      {
+        "id": "M3",
+        "title": "Duration follows distance: 100ms + 37.5ms × √px rounded down to 50ms, nothing over 32px or 300ms; leaving takes two thirds of arriving; a loop turns at most once a second",
+        "status": "pass",
+        "summary": "7/7 pass"
+      },
+      {
+        "id": "M4",
+        "title": "No jumps: every curve stays under 2.5× its average speed; arriving lands at rest, leaving starts from rest, changing in place does both",
+        "status": "pass",
+        "summary": "10/10 pass"
+      },
+      {
+        "id": "M5",
+        "title": "Loops and highlights stay readable: the loading indicator never pulses below 3:1; text stays ≥ 4.5:1 on the highlight tint",
+        "status": "pass",
+        "summary": "5/5 pass"
+      },
+      {
+        "id": "M6",
+        "title": "Ready transitions: menus, popovers, toasts, the drawer and dialogs open and close with their motion jobs in tokens.css — tokens only, focus rings never animated",
+        "status": "pass",
+        "summary": "7/7 pass"
+      }
+    ]
+  },
+  "rules": [
+    {
+      "id": "MR-01",
+      "rule": "Durations and curves come from a job: transition-duration and animation-duration are var(--ds-motion-<job>-duration) (or -exit-duration), timing functions var(--ds-motion-<job>-easing) (or -exit-easing). No ms or s numbers, no ease, ease-in-out or cubic-bezier() written by hand, no Tailwind duration-300 or ease-in-out (Tailwind: ease-<job> and duration-(--ds-motion-<job>-duration)).",
+      "why": "A number belongs to no job: reduced motion can't shorten it, and nobody can tell what it is for.",
+      "wcag": "2.3.3"
+    },
+    {
+      "id": "MR-02",
+      "rule": "Name what transitions: never transition: all (Tailwind transition-all) — list the properties. Never transition outline or outline-offset, and never animate a focus indicator: focus rings appear at once.",
+      "why": "all animates whatever happens to change — layout, the focus ring, colours in forced colours — and a ring that fades in is missing for its first frames.",
+      "wcag": "2.4.7"
+    },
+    {
+      "id": "MR-03",
+      "rule": "Move only by a job's distance, on one axis: translate by var(--ds-motion-<job>-distance) (or calc(-1 * …)). No px, %, vw or vh distances, no scale, rotate or skew, no animated top, left, margin, width or height.",
+      "why": "Reduced motion sets every distance to 0: movement written any other way keeps moving for people who asked it to stop. Nothing travels more than 32px.",
+      "wcag": "2.3.3"
+    },
+    {
+      "id": "MR-04",
+      "rule": "Every animation has a reduced path: keyframes that move (transform, translate, rotate, scale, position) run only inside @media (prefers-reduced-motion: no-preference) or move by the job distances; a reduced block never keeps movement. Tailwind: motion-safe: in front of anything that moves.",
+      "why": "The reduced mode can only switch off what goes through its tokens.",
+      "wcag": "2.3.3"
+    },
+    {
+      "id": "MR-05",
+      "rule": "Opening and closing use the ready transitions: menus, popovers and tooltips are .ds-floating popovers, toasts .ds-floating data-layer=\"toast\", dialogs <dialog class=\"ds-modal\"> opened with showModal(). Don't add transitions or animations of your own to them, and don't animate them with JavaScript.",
+      "why": "tokens.css already opens and closes them with the right job, keeps them shown and in the top layer while they leave, and only fades them in reduced motion.",
+      "wcag": "2.3.3"
+    },
+    {
+      "id": "MR-06",
+      "rule": "One loop: the loading indicator (.ds-loading), shown only while work runs. Any other infinite animation (animation-iteration-count: infinite, Tailwind animate-*) needs a visible pause or stop control, or must end within 5 seconds. Work that can take longer than 5 seconds shows progress in words or a bar, not only a spinner.",
+      "why": "Motion that runs on beside content pulls the eye away from it, and for some people makes reading impossible.",
+      "wcag": "2.2.2"
+    },
+    {
+      "id": "MR-07",
+      "rule": "Nothing flashes: no animation that switches visibility or swings brightness (opacity, colour, background, filter) in a cycle shorter than 334ms, no blinking text, no <marquee> or <blink>.",
+      "why": "More than three flashes in a second can trigger seizures.",
+      "wcag": "2.3.1"
+    },
+    {
+      "id": "MR-08",
+      "rule": "Highlights fade once: a value or row that changed on its own takes .ds-highlight (a tint fading over motion.highlight), at most once per highlight. Never shake, bounce or pulse something to get attention, and never roll digits.",
+      "why": "A repeated highlight becomes a flash; a shaking field moves for people who asked it not to and tells a screen reader nothing.",
+      "wcag": "2.3.1"
+    },
+    {
+      "id": "MR-09",
+      "rule": "Nothing moves with scrolling or on its own: no parallax, no scroll-linked movement (animation-timeline: scroll() or view() that moves things, scroll handlers that translate), scroll-behavior: smooth only inside @media (prefers-reduced-motion: no-preference), no autoplaying video or carousel without pause controls.",
+      "why": "Movement tied to scrolling is the strongest trigger of motion sickness on the web; autoplay moves beside the content people are reading.",
+      "wcag": "2.3.3, 2.2.2"
+    },
+    {
+      "id": "MR-10",
+      "rule": "Never redefine motion variables in app code (--ds-motion-*). Set data-motion only from the reader's own setting — never data-motion=\"full\" by default. Add a product job in the engine config (motion.jobs) and build.",
+      "why": "An overridden job skips the checks for reduced motion, flashes and jumps; a page that forces full motion overrides what the reader asked their system for.",
+      "wcag": "—"
+    }
+  ],
+  "decisions": [
+    {
+      "what": "Does it need motion at all",
+      "question": "What would people miss without it?",
+      "answers": [
+        [
+          "Nothing — it would only look livelier",
+          "no motion: it changes at once"
+        ],
+        [
+          "That the thing they touched heard them",
+          "motion.feedback — colour, fill or border, in 100ms; never movement"
+        ],
+        [
+          "Where content went or came from (a panel opening, an item removed)",
+          "motion.change"
+        ],
+        [
+          "That something opened over the page, and from where",
+          "motion.floating or motion.modal — ready in tokens.css"
+        ],
+        [
+          "That something changed on its own while they looked elsewhere",
+          "motion.highlight — once"
+        ],
+        [
+          "That work is still going",
+          "motion.loading (.ds-loading) — and progress in words or a bar once it runs past 5 seconds"
+        ]
+      ]
+    },
+    {
+      "what": "Which job",
+      "question": "What is changing?",
+      "answers": [
+        [
+          "A hover, a press, a toggle, a checkbox, a selected row",
+          "motion.feedback"
+        ],
+        [
+          "A panel expanding or collapsing, a tab panel, an item added to or removed from a list, a value replaced",
+          "motion.change"
+        ],
+        [
+          "A menu, popover, tooltip, date picker, toast or the navigation drawer",
+          "motion.floating — .ds-floating as a popover (data-layer=\"toast\" for a toast); the drawer is the shell's"
+        ],
+        [
+          "A dialog or a sheet",
+          "motion.modal — dialog.ds-modal opened with showModal()"
+        ],
+        [
+          "A live value that updated, a row that just arrived, a field that saved",
+          "motion.highlight — .ds-highlight"
+        ],
+        [
+          "Waiting for work to finish",
+          "motion.loading — .ds-loading on the indicator"
+        ],
+        [
+          "A new page or view",
+          "no movement: a crossfade at motion.change timing, or nothing"
+        ],
+        [
+          "Something the system has no job for (a carousel slide, a bottom sheet handle)",
+          "a product job in the config (motion.jobs: a kind and a distance) — the duration is computed"
+        ]
+      ]
+    },
+    {
+      "what": "Which way",
+      "question": "Where does it come from?",
+      "answers": [
+        [
+          "A menu or popover from its button",
+          ".ds-floating does it: it drops in from above, toward where it opens"
+        ],
+        [
+          "A toast from the edge it sits on",
+          "data-layer=\"toast\": it comes up from the bottom"
+        ],
+        [
+          "The navigation drawer",
+          "the shell does it: in from the start side, flipped right to left"
+        ],
+        [
+          "A dialog",
+          "dialog.ds-modal does it: it rises into place while the scrim fades in"
+        ],
+        [
+          "Content changing in place",
+          "the way it grows (down as a panel opens) by motion.change.distance — or not at all"
+        ],
+        [
+          "Anything",
+          "one axis, the job's distance; never from off the screen, never scale, rotate or skew"
+        ]
+      ]
+    },
+    {
+      "what": "What never moves",
+      "question": "Is it something people are reading or steering by?",
+      "answers": [
+        [
+          "The focus ring",
+          "it appears at once (tokens.css draws it; never in a transition list)"
+        ],
+        [
+          "Text being read",
+          "never moves on its own: no auto-advancing carousels, no rolling digits, no marquees"
+        ],
+        [
+          "The page while it scrolls",
+          "nothing moves with the scroll: no parallax, no scroll-linked movement"
+        ],
+        [
+          "A field with an error",
+          "a message and the state border (Border foundation) — never a shake"
+        ],
+        [
+          "Something that must get attention",
+          "its position and a highlight once — never a pulse or bounce that repeats"
+        ]
+      ]
+    }
+  ],
+  "tokens": [
+    {
+      "name": "motion.duration.100",
+      "figma": "motion/duration/100",
+      "cssVar": "--ds-motion-duration-100",
+      "tailwind": [],
+      "use": "100ms",
+      "collection": "Primitives",
+      "chapter": "Duration follows distance",
+      "type": "duration",
+      "value": 100,
+      "product": false
+    },
+    {
+      "name": "motion.duration.150",
+      "figma": "motion/duration/150",
+      "cssVar": "--ds-motion-duration-150",
+      "tailwind": [],
+      "use": "150ms",
+      "collection": "Primitives",
+      "chapter": "Duration follows distance",
+      "type": "duration",
+      "value": 150,
+      "product": false
+    },
+    {
+      "name": "motion.duration.200",
+      "figma": "motion/duration/200",
+      "cssVar": "--ds-motion-duration-200",
+      "tailwind": [],
+      "use": "200ms",
+      "collection": "Primitives",
+      "chapter": "Duration follows distance",
+      "type": "duration",
+      "value": 200,
+      "product": false
+    },
+    {
+      "name": "motion.duration.250",
+      "figma": "motion/duration/250",
+      "cssVar": "--ds-motion-duration-250",
+      "tailwind": [],
+      "use": "250ms",
+      "collection": "Primitives",
+      "chapter": "Duration follows distance",
+      "type": "duration",
+      "value": 250,
+      "product": false
+    },
+    {
+      "name": "motion.duration.1000",
+      "figma": "motion/duration/1000",
+      "cssVar": "--ds-motion-duration-1000",
+      "tailwind": [],
+      "use": "1000ms",
+      "collection": "Primitives",
+      "chapter": "Duration follows distance",
+      "type": "duration",
+      "value": 1000,
+      "product": false
+    },
+    {
+      "name": "motion.duration.2000",
+      "figma": "motion/duration/2000",
+      "cssVar": "--ds-motion-duration-2000",
+      "tailwind": [],
+      "use": "2000ms",
+      "collection": "Primitives",
+      "chapter": "Duration follows distance",
+      "type": "duration",
+      "value": 2000,
+      "product": false
+    },
+    {
+      "name": "motion.easing.enter",
+      "figma": "motion/easing/enter",
+      "cssVar": "--ds-motion-easing-enter",
+      "tailwind": [],
+      "use": "Something arriving: a menu, a dialog, a toast, the drawer",
+      "collection": "Primitives",
+      "chapter": "Curves",
+      "type": "cubicBezier",
+      "value": [
+        0.2,
+        0.5,
+        0.4,
+        1
+      ],
+      "product": false
+    },
+    {
+      "name": "motion.easing.exit",
+      "figma": "motion/easing/exit",
+      "cssVar": "--ds-motion-easing-exit",
+      "tailwind": [],
+      "use": "Something leaving: the entry played backwards",
+      "collection": "Primitives",
+      "chapter": "Curves",
+      "type": "cubicBezier",
+      "value": [
+        0.6,
+        0,
+        0.8,
+        0.5
+      ],
+      "product": false
+    },
+    {
+      "name": "motion.easing.standard",
+      "figma": "motion/easing/standard",
+      "cssVar": "--ds-motion-easing-standard",
+      "tailwind": [],
+      "use": "Something changing where it is: a hover, a panel opening, a tab, a highlight fading",
+      "collection": "Primitives",
+      "chapter": "Curves",
+      "type": "cubicBezier",
+      "value": [
+        0.3,
+        0,
+        0.3,
+        1
+      ],
+      "product": false
+    },
+    {
+      "name": "motion.easing.linear",
+      "figma": "motion/easing/linear",
+      "cssVar": "--ds-motion-easing-linear",
+      "tailwind": [],
+      "use": "Loops only: the loading turn",
+      "collection": "Primitives",
+      "chapter": "Curves",
+      "type": "cubicBezier",
+      "value": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "product": false
+    },
+    {
+      "name": "motion.feedback.duration",
+      "figma": "motion/feedback/duration",
+      "cssVar": "--ds-motion-feedback-duration",
+      "tailwind": [
+        "duration-(--ds-motion-feedback-duration)"
+      ],
+      "use": "The thing you touched answers: hover, press, a toggle or checkbox, a selected row — colour, fill and border, never movement — how long it takes",
+      "collection": "Motion",
+      "chapter": "Motion by job",
+      "type": "duration",
+      "full": 100,
+      "reduced": 100,
+      "alias": {
+        "full": "motion.duration.100",
+        "reduced": "motion.duration.100"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.feedback.easing",
+      "figma": "motion/feedback/easing",
+      "cssVar": "--ds-motion-feedback-easing",
+      "tailwind": [
+        "ease-feedback"
+      ],
+      "use": "The thing you touched answers: hover, press, a toggle or checkbox, a selected row — colour, fill and border, never movement — curve",
+      "collection": "Motion",
+      "chapter": "Motion by job",
+      "type": "cubicBezier",
+      "full": [
+        0.3,
+        0,
+        0.3,
+        1
+      ],
+      "reduced": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "alias": {
+        "full": "motion.easing.standard",
+        "reduced": "motion.easing.linear"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.change.duration",
+      "figma": "motion/change/duration",
+      "cssVar": "--ds-motion-change-duration",
+      "tailwind": [
+        "duration-(--ds-motion-change-duration)"
+      ],
+      "use": "Content changing where it is: a panel expanding or collapsing, a tab panel, an item added to or removed from a list, a value replaced — how long it takes",
+      "collection": "Motion",
+      "chapter": "Motion by job",
+      "type": "duration",
+      "full": 200,
+      "reduced": 100,
+      "alias": {
+        "full": "motion.duration.200",
+        "reduced": "motion.duration.100"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.change.easing",
+      "figma": "motion/change/easing",
+      "cssVar": "--ds-motion-change-easing",
+      "tailwind": [
+        "ease-change"
+      ],
+      "use": "Content changing where it is: a panel expanding or collapsing, a tab panel, an item added to or removed from a list, a value replaced — curve",
+      "collection": "Motion",
+      "chapter": "Motion by job",
+      "type": "cubicBezier",
+      "full": [
+        0.3,
+        0,
+        0.3,
+        1
+      ],
+      "reduced": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "alias": {
+        "full": "motion.easing.standard",
+        "reduced": "motion.easing.linear"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.change.distance",
+      "figma": "motion/change/distance",
+      "cssVar": "--ds-motion-change-distance",
+      "tailwind": [],
+      "use": "Content changing where it is: a panel expanding or collapsing, a tab panel, an item added to or removed from a list, a value replaced — how far it travels (reduced: 0, it only fades)",
+      "collection": "Motion",
+      "chapter": "Motion by job",
+      "type": "dimension",
+      "full": 8,
+      "reduced": 0,
+      "alias": {
+        "full": "space.2",
+        "reduced": "space.0"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.floating.duration",
+      "figma": "motion/floating/duration",
+      "cssVar": "--ds-motion-floating-duration",
+      "tailwind": [
+        "duration-(--ds-motion-floating-duration)"
+      ],
+      "use": "What opens over the page without blocking it: menus, popovers, tooltips, date pickers, toasts, the navigation drawer (elevation.floating) — arriving",
+      "collection": "Motion",
+      "chapter": "Opening and closing",
+      "type": "duration",
+      "full": 150,
+      "reduced": 100,
+      "alias": {
+        "full": "motion.duration.150",
+        "reduced": "motion.duration.100"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.floating.easing",
+      "figma": "motion/floating/easing",
+      "cssVar": "--ds-motion-floating-easing",
+      "tailwind": [
+        "ease-floating"
+      ],
+      "use": "What opens over the page without blocking it: menus, popovers, tooltips, date pickers, toasts, the navigation drawer (elevation.floating) — curve arriving",
+      "collection": "Motion",
+      "chapter": "Opening and closing",
+      "type": "cubicBezier",
+      "full": [
+        0.2,
+        0.5,
+        0.4,
+        1
+      ],
+      "reduced": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "alias": {
+        "full": "motion.easing.enter",
+        "reduced": "motion.easing.linear"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.floating.distance",
+      "figma": "motion/floating/distance",
+      "cssVar": "--ds-motion-floating-distance",
+      "tailwind": [],
+      "use": "What opens over the page without blocking it: menus, popovers, tooltips, date pickers, toasts, the navigation drawer (elevation.floating) — how far it travels (reduced: 0, it only fades)",
+      "collection": "Motion",
+      "chapter": "Opening and closing",
+      "type": "dimension",
+      "full": 4,
+      "reduced": 0,
+      "alias": {
+        "full": "space.1",
+        "reduced": "space.0"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.floating.exit-duration",
+      "figma": "motion/floating/exit-duration",
+      "cssVar": "--ds-motion-floating-exit-duration",
+      "tailwind": [
+        "duration-(--ds-motion-floating-exit-duration)"
+      ],
+      "use": "What opens over the page without blocking it: menus, popovers, tooltips, date pickers, toasts, the navigation drawer (elevation.floating) — leaving",
+      "collection": "Motion",
+      "chapter": "Opening and closing",
+      "type": "duration",
+      "full": 100,
+      "reduced": 100,
+      "alias": {
+        "full": "motion.duration.100",
+        "reduced": "motion.duration.100"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.floating.exit-easing",
+      "figma": "motion/floating/exit-easing",
+      "cssVar": "--ds-motion-floating-exit-easing",
+      "tailwind": [
+        "ease-floating-exit"
+      ],
+      "use": "What opens over the page without blocking it: menus, popovers, tooltips, date pickers, toasts, the navigation drawer (elevation.floating) — curve leaving",
+      "collection": "Motion",
+      "chapter": "Opening and closing",
+      "type": "cubicBezier",
+      "full": [
+        0.6,
+        0,
+        0.8,
+        0.5
+      ],
+      "reduced": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "alias": {
+        "full": "motion.easing.exit",
+        "reduced": "motion.easing.linear"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.modal.duration",
+      "figma": "motion/modal/duration",
+      "cssVar": "--ds-motion-modal-duration",
+      "tailwind": [
+        "duration-(--ds-motion-modal-duration)"
+      ],
+      "use": "What blocks the page until it is answered: dialogs and sheets, with the scrim fading in behind (elevation.modal) — arriving",
+      "collection": "Motion",
+      "chapter": "Opening and closing",
+      "type": "duration",
+      "full": 250,
+      "reduced": 100,
+      "alias": {
+        "full": "motion.duration.250",
+        "reduced": "motion.duration.100"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.modal.easing",
+      "figma": "motion/modal/easing",
+      "cssVar": "--ds-motion-modal-easing",
+      "tailwind": [
+        "ease-modal"
+      ],
+      "use": "What blocks the page until it is answered: dialogs and sheets, with the scrim fading in behind (elevation.modal) — curve arriving",
+      "collection": "Motion",
+      "chapter": "Opening and closing",
+      "type": "cubicBezier",
+      "full": [
+        0.2,
+        0.5,
+        0.4,
+        1
+      ],
+      "reduced": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "alias": {
+        "full": "motion.easing.enter",
+        "reduced": "motion.easing.linear"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.modal.distance",
+      "figma": "motion/modal/distance",
+      "cssVar": "--ds-motion-modal-distance",
+      "tailwind": [],
+      "use": "What blocks the page until it is answered: dialogs and sheets, with the scrim fading in behind (elevation.modal) — how far it travels (reduced: 0, it only fades)",
+      "collection": "Motion",
+      "chapter": "Opening and closing",
+      "type": "dimension",
+      "full": 16,
+      "reduced": 0,
+      "alias": {
+        "full": "space.4",
+        "reduced": "space.0"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.modal.exit-duration",
+      "figma": "motion/modal/exit-duration",
+      "cssVar": "--ds-motion-modal-exit-duration",
+      "tailwind": [
+        "duration-(--ds-motion-modal-exit-duration)"
+      ],
+      "use": "What blocks the page until it is answered: dialogs and sheets, with the scrim fading in behind (elevation.modal) — leaving",
+      "collection": "Motion",
+      "chapter": "Opening and closing",
+      "type": "duration",
+      "full": 150,
+      "reduced": 100,
+      "alias": {
+        "full": "motion.duration.150",
+        "reduced": "motion.duration.100"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.modal.exit-easing",
+      "figma": "motion/modal/exit-easing",
+      "cssVar": "--ds-motion-modal-exit-easing",
+      "tailwind": [
+        "ease-modal-exit"
+      ],
+      "use": "What blocks the page until it is answered: dialogs and sheets, with the scrim fading in behind (elevation.modal) — curve leaving",
+      "collection": "Motion",
+      "chapter": "Opening and closing",
+      "type": "cubicBezier",
+      "full": [
+        0.6,
+        0,
+        0.8,
+        0.5
+      ],
+      "reduced": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "alias": {
+        "full": "motion.easing.exit",
+        "reduced": "motion.easing.linear"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.highlight.duration",
+      "figma": "motion/highlight/duration",
+      "cssVar": "--ds-motion-highlight-duration",
+      "tailwind": [
+        "duration-(--ds-motion-highlight-duration)"
+      ],
+      "use": "Drawing the eye to something that changed on its own: a live value that updated, a row that just arrived, a saved field — a tint that fades, once — how long it takes",
+      "collection": "Motion",
+      "chapter": "Loading and highlights",
+      "type": "duration",
+      "full": 1000,
+      "reduced": 1000,
+      "alias": {
+        "full": "motion.duration.1000",
+        "reduced": "motion.duration.1000"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.highlight.easing",
+      "figma": "motion/highlight/easing",
+      "cssVar": "--ds-motion-highlight-easing",
+      "tailwind": [
+        "ease-highlight"
+      ],
+      "use": "Drawing the eye to something that changed on its own: a live value that updated, a row that just arrived, a saved field — a tint that fades, once — curve",
+      "collection": "Motion",
+      "chapter": "Loading and highlights",
+      "type": "cubicBezier",
+      "full": [
+        0.6,
+        0,
+        0.8,
+        0.5
+      ],
+      "reduced": [
+        0.6,
+        0,
+        0.8,
+        0.5
+      ],
+      "alias": {
+        "full": "motion.easing.exit",
+        "reduced": "motion.easing.exit"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.loading.duration",
+      "figma": "motion/loading/duration",
+      "cssVar": "--ds-motion-loading-duration",
+      "tailwind": [
+        "duration-(--ds-motion-loading-duration)"
+      ],
+      "use": "Work in progress: the loading indicator turns while it runs (in reduced motion it pulses slowly instead) and stops when the work is done — one cycle",
+      "collection": "Motion",
+      "chapter": "Loading and highlights",
+      "type": "duration",
+      "full": 1000,
+      "reduced": 2000,
+      "alias": {
+        "full": "motion.duration.1000",
+        "reduced": "motion.duration.2000"
+      },
+      "product": false
+    },
+    {
+      "name": "motion.loading.easing",
+      "figma": "motion/loading/easing",
+      "cssVar": "--ds-motion-loading-easing",
+      "tailwind": [
+        "ease-loading"
+      ],
+      "use": "Work in progress: the loading indicator turns while it runs (in reduced motion it pulses slowly instead) and stops when the work is done — curve",
+      "collection": "Motion",
+      "chapter": "Loading and highlights",
+      "type": "cubicBezier",
+      "full": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "reduced": [
+        0.3,
+        0,
+        0.3,
+        1
+      ],
+      "alias": {
+        "full": "motion.easing.linear",
+        "reduced": "motion.easing.standard"
+      },
+      "product": false
+    }
+  ],
+  "mistakes": [
+    {
+      "mistake": "transition: all 0.3s ease on a button",
+      "measured": "it animates every property that changes — the focus ring and the layout too — for 300ms, 3× the feedback job, and still 300ms in reduced motion",
+      "fix": "motion.feedback",
+      "fixValue": "transition: background-color, border-color and color at var(--ds-motion-feedback-duration) (100ms), var(--ds-motion-feedback-easing)"
+    },
+    {
+      "mistake": "A curve that starts at full speed (cubic-bezier(0, 0, 0, 1))",
+      "measured": "its first frame covers 47% of a 4px menu move and 36% of a 16px dialog move (5.8px), then it crawls: a jump, not an arrival — its starting speed has no limit",
+      "fix": "motion.easing.enter",
+      "fixValue": "cubic-bezier(0.2, 0.5, 0.4, 1): never above 2.5× the average speed; the dialog's first frame is 2.6px of 16px"
+    },
+    {
+      "mistake": "A dialog sliding in from off the screen (translate: 0 100vh)",
+      "measured": "on an 800px-tall window it travels 800px in 300ms (2667px a second), 25× the 32px limit — and reduced motion can't stop it unless it is written twice",
+      "fix": "dialog.ds-modal",
+      "fixValue": "rises 16px in 250ms; in reduced motion it only fades (100ms)"
+    },
+    {
+      "mistake": "A spinner at animation: spin 0.6s linear infinite",
+      "measured": "1.7 turns a second, and it keeps turning in reduced motion",
+      "fix": ".ds-loading",
+      "fixValue": "one turn in 1000ms; in reduced motion a pulse every 2000ms that never drops below 3:1"
+    },
+    {
+      "mistake": "A skeleton that pulses every 300ms",
+      "measured": "3.3 cycles a second — over the three flashes a second of WCAG 2.3.1 for any area large and contrasty enough to count",
+      "fix": ".ds-loading",
+      "fixValue": "the indicator turns once a second; a skeleton stays still, or pulses at most at the reduced pace (2000ms)"
+    },
+    {
+      "mistake": "Shaking a field to show an error",
+      "measured": "it moves back and forth in reduced motion, tells a screen reader nothing, and is gone before some people look",
+      "fix": "an error message and the state border",
+      "fixValue": "the message names the problem (aria-describedby), the border widens to its state (Border foundation); .ds-highlight once if the field is out of view"
+    },
+    {
+      "mistake": "scroll-behavior: smooth on <html>",
+      "measured": "every in-page link and every focus jump glides the whole page — for people with reduced motion too",
+      "fix": "@media (prefers-reduced-motion: no-preference)",
+      "fixValue": "put the smooth scrolling inside it, or leave it out"
+    }
+  ]
+}

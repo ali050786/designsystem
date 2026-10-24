@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Team settings</title>
+<link rel="stylesheet" href="tokens.css">
+<style>
+  body { margin: 0; }
+  main { max-width: 960px; margin: 0 auto; padding: var(--ds-space-8) var(--ds-space-6); }
+  .page-title { font-size: 26px; margin: 0 0 var(--ds-space-2); }
+  .desc { font-size: 13px; line-height: 1.25; color: var(--ds-color-fg-muted); }
+  .meta { font-size: 11px; color: var(--ds-color-fg-subtle); }
+  .card { background: var(--ds-color-bg-surface); border: 1px solid var(--ds-color-border-subtle); border-radius: var(--ds-shape-container); padding: var(--ds-space-inset-lg); margin-top: var(--ds-space-6); }
+  .card-title { height: 22px; overflow: hidden; white-space: nowrap; }
+  .notice { text-transform: uppercase; color: var(--ds-color-fg-warning); }
+  .quote { text-align: justify; font-family: Georgia, serif; }
+  .highlight { color: var(--ds-color-fg-brand); }
+  .member-name { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 160px; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: var(--ds-space-2) var(--ds-space-3); border-bottom: 1px solid var(--ds-color-border-subtle); }
+  ul.totals { list-style: none; padding: 0; display: flex; gap: var(--ds-space-8); }
+</style>
+</head>
+<body>
+<main>
+  <p class="ds-type-display-lg">Welcome back, Priya</p>
+  <h1 class="page-title">Team settings</h1>
+  <p class="desc">Manage who can open your projects, what they can change, and how much of your plan each team uses. Changes apply straight away to everyone in the workspace, including people who are signed in right now on another device.</p>
+  <p class="meta">Last changed 3 days ago by Marco</p>
+
+  <div class="card">
+    <div class="ds-type-heading-md">Team members</div>
+    <p class="notice">Your trial ends in 5 days and some features will stop working until you choose a plan.</p>
+    <table>
+      <thead><tr><th class="ds-type-label-sm">Name</th><th class="ds-type-label-sm">Role</th><th class="ds-type-label-sm">Seats</th><th class="ds-type-label-sm">Balance (€)</th></tr></thead>
+      <tbody class="ds-type-body-sm">
+        <tr><td><span class="member-name">Priya Raman-Venkataraghavan</span></td><td>Owner</td><td>12</td><td>1,240.00</td></tr>
+        <tr><td><span class="member-name">Marco Rossi</span></td><td>Admin</td><td>4</td><td>-40.00</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h4 class="card-title ds-type-title-md">Usage by team across all projects this quarter</h4>
+    <ul class="totals">
+      <li><span class="ds-type-label-md">Design</span> <span class="total ds-type-title-lg">1,248</span></li>
+      <li><span class="ds-type-label-md">Engineering</span> <span class="total ds-type-title-lg">8,111</span></li>
+    </ul>
+    <p class="ds-type-caption-md">To move hours between teams, open Usage, choose the source team, pick the projects to move, then select the target team and press Move. Moves of more than 500 hours need an owner to approve them, and approvals expire after 7 days.</p>
+  </div>
+
+  <div class="card">
+    <p class="ds-type-display-sm">Invite your team</p>
+    <p class="quote">“Setting up teams took ten minutes and now everyone sees only what they need.” — a customer</p>
+    <p class="ds-type-body-md">Invitations are sent by email. <span class="highlight">Guests can't see billing.</span> You can change roles later.</p>
+  </div>
+</main>
+</body>
+</html>
