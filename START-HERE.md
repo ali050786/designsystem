@@ -232,6 +232,7 @@ All eight foundations are built. Spacing, layout, border and motion are checked 
 
 ## NEXT SESSION: Phase 2 — docs site, generator page, self-check
 **Agreed 24 Oct (Ali):** Phase 2 is a real Next.js app, not a static docs site. v1 = foundation pages + live generator + self-check; components next in the same app. Name stays `ds`; Vercel free tier; self-check emails to a Google Sheet. Plan and site map: `product/00-strategy/app-plan.md`. Ali's machine has Node 22, npm 10 and git.
+**Git (24 Oct):** repo at the folder root, branch `main`, remote `origin` = https://github.com/ali050786/designsystem.git. Claude commits as Sikandar Ali (ali050786@gmail.com), no AI attribution; **Ali pushes**. `.gitignore` keeps out `surf/` (licence), FigCraft binaries, `engine/out/`, `_inbox/`, node_modules. Delete permission is needed each session for git's lock files.
 The foundations are done (see `product/00-strategy/library-roadmap.md`, Phase 2). **Validate before building**: bring
 Ali short questions first and wait for the answers — where the site lives (domain, hosting, GitHub), the working name
 (`ds` is a placeholder), the licence, Blinkwiser or standalone, and how the self-check captures emails. Then propose the
